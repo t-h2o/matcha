@@ -1,1 +1,25 @@
 = Matcha
+
+== Glossary
+
+WSGI:: https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface[Web Server Gateway Interface]
+
+== Backend
+
+=== https://flask.palletsprojects.com/en/3.0.x/quickstart/[Flask]
+
+Web Server Gateway Interface.
+
+. Run the backend
++
+----
+flask run
+----
+
+=== https://black.readthedocs.io/en/stable/index.html#[black]
+
+Linter.
+
+== Database
+
+PostgreSQL
