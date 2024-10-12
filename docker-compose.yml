@@ -1,0 +1,13 @@
+services:
+  angular-app1:
+    build:
+      context: .
+      dockerfile: AngularApp1DockerFile
+    volumes:
+      - ./AngularApp1:/app
+    ports:
+      - '4200:4200'
+    stdin_open: true
+    tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
