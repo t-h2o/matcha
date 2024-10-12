@@ -1,5 +1,6 @@
 services:
   angular:
+    container_name: angular
     build:
       context: ./frontend/
     volumes:
@@ -12,6 +13,7 @@ services:
       - CHOKIDAR_USEPOLLING=true
   
   flask:
+    container_name: flask
     build:
       context: ./backend/
     volumes:
@@ -22,4 +24,27 @@ services:
       - FLASK_APP=app.py
       - FLASK_ENV=development
     command: flask run --host=0.0.0.0
+    networks:
+            - appnet
+
+  postgres:
+        container_name: postgres
+        image: postgres:latest
+        ports:
+            - '6060:5432'
+        volumes:
+            - data:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            - POSTGRES_DB=${POSTGRES_DB}
+        networks:
+            - appnet
+
+volumes:
+    data:
+      name: postgres-volume
+
+networks:
+    appnet:
 
