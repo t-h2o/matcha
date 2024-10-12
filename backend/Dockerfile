@@ -1,13 +1,16 @@
-FROM python:3.10-slim
+FROM python:3.9-alpine
 
 WORKDIR /app
 
-COPY ./requirements.txt /app
-
-RUN pip install --no-cache-dir -r requirements.txt
+RUN apk add --no-cache postgresql-dev gcc python3-dev musl-dev
 
 COPY . /app
 
+RUN pip install --no-cache-dir -r requirements.txt
+
 EXPOSE 5000
 
-CMD ["flask", "run", "--host=0.0.0.0"]
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+
+CMD ["flask", "run"]

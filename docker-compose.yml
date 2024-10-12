@@ -23,7 +23,12 @@ services:
     environment:
       - FLASK_APP=app.py
       - FLASK_ENV=development
-    command: flask run --host=0.0.0.0
+      - CHOKIDAR_USEPOLLING=true
+    env_file:
+      - .env
+    command: flask run --host=0.0.0.0 --reload
+    depends_on:
+      - postgres
     networks:
             - appnet
 
@@ -31,13 +36,14 @@ services:
         container_name: postgres
         image: postgres:latest
         ports:
-            - '6060:5432'
+            - '5432:5432'
         volumes:
             - data:/var/lib/postgresql/data
+            - ./postgres-init:/docker-entrypoint-initdb.d
         environment:
             - POSTGRES_USER=${POSTGRES_USER}
             - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-            - POSTGRES_DB=${POSTGRES_DB}
+            - POSTGRES_DB=${POSTGRES_NAME}
         networks:
             - appnet
 

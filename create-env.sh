@@ -30,10 +30,13 @@ create_the_environment_file () {
 
 	# File created the $(date +"%Y.%m.%d") by $(whoami)
 
-	# PostgreSQL
+	# PostgreSQLexit
 	POSTGRES_USER=${POSTGRES_USER}
 	POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-	POSTGRES_DB=${POSTGRES_NAME}
+	POSTGRES_NAME=${POSTGRES_NAME}
+
+	DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_NAME}
+
 	environment_file
 }
 
