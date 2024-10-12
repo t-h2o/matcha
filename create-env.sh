@@ -1,5 +1,7 @@
 #!/bin/sh
 
+ENVIRONMENT_FILE=".env"
+
 alias pwgen="docker run \
 	--rm \
 	--interactive \
@@ -9,9 +11,9 @@ alias pwgen="docker run \
 	--secure 20 1"
 
 is_environement_file_already_exist () {
-	if [ -e ".env" ]
+	if [ -e "${ENVIRONMENT_FILE}" ]
 	then
-		echo the ".env" file already exist
+		echo the "${ENVIRONMENT_FILE}" file already exist
 		echo you need to delete it to recreate a new one
 		exit 0
 	fi
@@ -25,7 +27,7 @@ generate_all_variables () {
 
 
 create_the_environment_file () {
-	cat > .env <<- environment_file
+	cat > ${ENVIRONMENT_FILE} <<- environment_file
 	# Matcha environment file
 
 	# File created the $(date +"%Y.%m.%d") by $(whoami)
