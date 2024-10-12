@@ -20,6 +20,22 @@ flask run
 
 The `psycopg` is the most popular PostgreSQL database adapter for the Python language.
 
+==== psycopg VS psycopg3
+
+* https://www.psycopg.org/[psycopg]
++
+____
+Psycopg is the most popular PostgreSQL adapter for the Python programming language. Its core is a complete implementation of the Python DB API 2.0 specifications. Several extensions allow access to many of the features offered by PostgreSQL.
+____
+
+* https://www.psycopg.org/psycopg3/[psycopg3]
++
+____
+Psycopg 3 is the new implementation of the most used, reliable and feature-rich PostgreSQL adapter for Python.
+____
+
+Probably `Psycopg3` is better. I don't really understand the difference yet.
+
 === https://black.readthedocs.io/en/stable/index.html#[black]
 
 Linter.
