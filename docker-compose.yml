@@ -1,10 +1,9 @@
 services:
-  angular-app1:
+  angular-app:
     build:
-      context: .
-      dockerfile: AngularApp1DockerFile
+      context: ./frontend/
     volumes:
-      - ./AngularApp1:/app
+      - ./frontend/AngularApp:/app
     ports:
       - '4200:4200'
     stdin_open: true
