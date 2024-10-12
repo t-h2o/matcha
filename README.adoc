@@ -16,10 +16,22 @@ Web Server Gateway Interface.
 flask run
 ----
 
+=== https://initd.org/psycopg/[psycopg]
+
+The `psycopg` is the most popular PostgreSQL database adapter for the Python language.
+
 === https://black.readthedocs.io/en/stable/index.html#[black]
 
 Linter.
 
 == Database
 
-PostgreSQL
+=== https://www.postgresql.org/[PostgreSQL]
+
+. init the db
++
+----
+sudo -u postgres initdb --locale=C.UTF-8 --encoding=UTF8 -D '/var/lib/postgres/data'
+----
+
+. start the service
