@@ -11,6 +11,11 @@ def get_db_connection():
     return conn
 
 
+@app.route("/")
+def hello_world():
+    return "<h1>Hello, World!</h1>"
+
+
 @app.route("/test")
 def test():
     conn = get_db_connection()
