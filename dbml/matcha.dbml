@@ -1,8 +1,3 @@
-Project matcha {
-  database_type: 'PostgreSQL'
-  Note: 'matcha'
-}
-
 Table users {
   id integer [primary key, unique]
   username varchar [unique, not null]
