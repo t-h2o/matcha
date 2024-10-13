@@ -6,8 +6,20 @@ Project matcha {
 Table users {
   id integer [primary key, unique]
   username varchar [unique, not null]
+}
+
+Table user_biography {
+  id_user integer [fk]
   biography varchar
+}
+
+Table user_gender {
+  id_user integer [fk]
   gender varchar(1) [not null]
+}
+
+Table user_createdat {
+  id_user integer [fk]
   created_at timestamp
 }
 
@@ -23,8 +35,12 @@ Table interest {
 
 Table picture {
   id integer [primary key, unique]
-  is_profile_picture boolean [default false]
   picture_path varchar
+}
+
+Table picture_profile {
+  id_picture integer [fk]
+  is_profile_picture boolean [default false]
 }
 
 Table user_interest {
