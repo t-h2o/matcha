@@ -1,0 +1,34 @@
+Project matcha {
+  database_type: 'PostgreSQL'
+  Note: 'matcha'
+}
+
+Table users {
+  id integer [primary key, unique]
+  username varchar [unique, not null]
+  biography varchar
+  gender varchar(1) [not null]
+  interests array
+  pictures array
+  sexual_preferences
+  created_at timestamp
+}
+
+Table sexual_preference {
+  id integer [primary key, unique]
+  sexual_preference varchar
+  user integer [fk]
+}
+
+Table interest {
+  id integer [primary key, unique]
+  interest varchar
+  user integer [fk]
+}
+
+Table picture {
+  id integer [primary key, unique]
+  is_profile_picture boolean [default false]
+  picture_path varchar
+  user integer [fk]
+}
