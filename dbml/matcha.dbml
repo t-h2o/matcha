@@ -8,27 +8,36 @@ Table users {
   username varchar [unique, not null]
   biography varchar
   gender varchar(1) [not null]
-  interests array
-  pictures array
-  sexual_preferences
   created_at timestamp
 }
 
 Table sexual_preference {
   id integer [primary key, unique]
   sexual_preference varchar
-  user integer [fk]
 }
 
 Table interest {
   id integer [primary key, unique]
   interest varchar
-  user integer [fk]
 }
 
 Table picture {
   id integer [primary key, unique]
   is_profile_picture boolean [default false]
   picture_path varchar
-  user integer [fk]
+}
+
+Table user_interest {
+  id_user integer [fk]
+  id_interest integer [fk]
+}
+
+Table user_picture {
+  id_user integer [fk]
+  id_picture integer [fk]
+}
+
+Table user_sexual_preference {
+  id_user integer [fk]
+  id_sexual_preference integer [fk]
 }
