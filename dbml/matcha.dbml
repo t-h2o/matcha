@@ -57,3 +57,17 @@ Table user_sexualpreference {
   id_user integer [fk]
   id_sexualpreference integer [fk]
 }
+
+Ref user_created_at : users.id - user_createdat.id_user
+Ref user_gender : users.id - user_gender.id_user
+Ref user_biography : users.id - user_biography.id_user
+
+Ref user_sexualpreference : users.id < user_sexualpreference.id_user
+Ref sexualpreference : sexualpreference.id - user_sexualpreference.id_sexualpreference
+
+Ref user_interest : users.id < user_interest.id_user
+Ref interest : interest.id - user_interest.id_interest
+
+Ref user_picture : users.id < user_picture.id_user
+Ref picture : picture.id - user_picture.id_picture
+Ref picture : picture.id - picture_profile.id_picture
