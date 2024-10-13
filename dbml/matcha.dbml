@@ -11,9 +11,9 @@ Table users {
   created_at timestamp
 }
 
-Table sexual_preference {
+Table sexualpreference {
   id integer [primary key, unique]
-  sexual_preference varchar
+  sexualpreference varchar
 }
 
 Table interest {
@@ -37,7 +37,7 @@ Table user_picture {
   id_picture integer [fk]
 }
 
-Table user_sexual_preference {
+Table user_sexualpreference {
   id_user integer [fk]
-  id_sexual_preference integer [fk]
+  id_sexualpreference integer [fk]
 }
