@@ -1,5 +1,5 @@
-destination.svg: matcha.dbml
+matcha.svg: matcha.dbml
 	docker run \
 	--volume $(shell pwd):/app \
 	tgrivel/dbml-renderer \
-	dbml-renderer -i matcha.dbml -o destination.svg
+	dbml-renderer -i matcha.dbml -o matcha.svg
