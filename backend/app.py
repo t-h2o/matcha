@@ -90,16 +90,11 @@ def register():
                 )
                 conn.commit()
             except conn.IntegrityError:
-                # The username was already taken, which caused the
-                # commit to fail. Show a validation error.
                 error = f"User {username} is already registered."
             else:
-                # Success, go to the login page.
                 return f"User {username} was succefull added"
             finally:
                 conn.close()
-
-        # flash(error)
 
     return f"error: {error}"
 
@@ -126,16 +121,11 @@ def drop_users():
                 cur.execute(sql)
                 conn.commit()
             except conn.IntegrityError:
-                # The username was already taken, which caused the
-                # commit to fail. Show a validation error.
                 error = f"Table doesn't exist."
             else:
-                # Success, go to the login page.
                 return f'Table "{table}" was succefull dropped'
             finally:
                 conn.close()
-
-        # flash(error)
 
     return f"error: {error}"
 
