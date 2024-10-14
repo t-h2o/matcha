@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import request
-import os
-import psycopg2
+from os import environ
+from psycopg2 import connect
 from psycopg2.extras import RealDictCursor
 from werkzeug.security import generate_password_hash
 
@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 
 def get_db_connection():
-    conn = psycopg2.connect(os.environ["DATABASE_URL"])
+    conn = connect(environ["DATABASE_URL"])
     return conn
 
 
