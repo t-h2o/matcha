@@ -44,6 +44,14 @@ basic() {
 	compare \
 		"/create" \
 		"created"
+
+	compare \
+		"/register" \
+		"register with POST method"
+
+	compare \
+		"/drop" \
+		"drop with POST method"
 }
 
 register() {
