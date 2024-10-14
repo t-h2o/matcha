@@ -104,5 +104,41 @@ def register():
     return f"error: {error}"
 
 
+@app.route("/drop", methods=("GET", "POST"))
+def drop_users():
+    if request.method == "GET":
+        return "drop with POST method"
+    elif request.method == "POST":
+        table = request.form["table"]
+
+        error = None
+
+        if not table:
+            error = "table is required."
+
+        conn = get_db_connection()
+
+        print(table)
+        if error is None:
+            try:
+                cur = conn.cursor()
+                sql = f"DROP table IF EXISTS {table}"
+                cur.execute(sql)
+                conn.commit()
+            except conn.IntegrityError:
+                # The username was already taken, which caused the
+                # commit to fail. Show a validation error.
+                error = f"Table doesn't exist."
+            else:
+                # Success, go to the login page.
+                return f'Table "{table}" was succefull dropped'
+            finally:
+                conn.close()
+
+        # flash(error)
+
+    return f"error: {error}"
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
