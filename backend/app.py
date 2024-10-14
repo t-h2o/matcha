@@ -19,7 +19,7 @@ def hello_world():
 
 
 @app.route("/create")
-def add_user_table():
+def create_table_users():
     conn = get_db_connection()
     try:
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
@@ -44,11 +44,11 @@ def add_user_table():
 
 
 @app.route("/register", methods=("GET", "POST"))
-def register():
+def register_user():
     """Register a new user.
 
-    Validates that the username is not already taken. Hashes the
-    password for security.
+    Validates that the username is not already taken.
+    Hashes the password for security.
     """
 
     if request.method == "GET":
@@ -100,7 +100,7 @@ def register():
 
 
 @app.route("/drop", methods=("GET", "POST"))
-def drop_users():
+def drop_table():
     if request.method == "GET":
         return "drop with POST method"
     elif request.method == "POST":
