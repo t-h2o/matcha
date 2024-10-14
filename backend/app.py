@@ -73,28 +73,25 @@ def register_user():
         elif not email:
             error = "Email is required."
 
-        conn = get_db_connection()
-
-        if error is None:
-            try:
-                cur = conn.cursor()
-                cur.execute(
-                    "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);",
-                    (
-                        username,
-                        generate_password_hash(password),
-                        firstname,
-                        lastname,
-                        email,
-                    ),
-                )
-                conn.commit()
-            except conn.IntegrityError:
-                error = f"User {username} is already registered."
-            else:
-                return f"User {username} was succefull added"
-            finally:
-                conn.close()
+        with get_db_connection() as conn:
+            if error is None:
+                try:
+                    with conn.cursor() as cur:
+                        cur.execute(
+                            "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);",
+                            (
+                                username,
+                                generate_password_hash(password),
+                                firstname,
+                                lastname,
+                                email,
+                            ),
+                        )
+                        conn.commit()
+                except conn.IntegrityError:
+                    error = f"User {username} is already registered."
+                else:
+                    return f"User {username} was succefull added"
 
     return f"error: {error}"
 
@@ -117,7 +114,9 @@ def drop_table():
             try:
                 cur = conn.cursor()
                 cur.execute(f"DROP table IF EXISTS {table}")
+                cur.close()
                 conn.commit()
+                conn.close()
             except conn.IntegrityError:
                 error = f"Table doesn't exist."
             else:
