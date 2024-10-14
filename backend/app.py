@@ -27,7 +27,7 @@ def add_user_table():
                 """
                 CREATE TABLE IF NOT EXISTS users (
                 id SERIAL PRIMARY KEY,
-                username TEXT NOT NULL,
+                username TEXT UNIQUE NOT NULL,
                 password TEXT NOT NULL
                 );
                 """
