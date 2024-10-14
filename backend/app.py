@@ -147,5 +147,23 @@ def drop_table():
     return jsonify({"error": error})
 
 
+@app.route("/getall")
+def getall_user():
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute("SELECT * FROM users")
+            test_data = cur.fetchall()
+            if test_data:
+                response_all_user = "<h1>Get all</h1>"
+                for user in test_data:
+                    try:
+                        response_all_user += f"<ul>{user[1]}</ul>"
+                    except TypeError:
+                        print("error: getall: TypeError")
+                return response_all_user
+            else:
+                return "<h1>error: No user found</h1>"
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

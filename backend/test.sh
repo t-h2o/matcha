@@ -132,6 +132,8 @@ main() {
 	basic
 	check_http_error
 	register
+	compare "/getall" \
+		"<h1>Get all</h1><ul>user</ul>"
 }
 
 main
