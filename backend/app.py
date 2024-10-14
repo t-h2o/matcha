@@ -79,7 +79,7 @@ def register():
             try:
                 cur = conn.cursor()
                 cur.execute(
-                    "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s);",
+                    "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);",
                     (
                         username,
                         generate_password_hash(password),
