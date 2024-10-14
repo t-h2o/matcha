@@ -113,7 +113,6 @@ def drop_users():
 
         conn = get_db_connection()
 
-        print(table)
         if error is None:
             try:
                 cur = conn.cursor()
