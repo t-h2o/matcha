@@ -11,8 +11,17 @@ from psycopg2.errors import UndefinedTable
 from werkzeug.security import generate_password_hash
 from flask_cors import CORS
 
+from smtplib import SMTP_SSL
+
+from time import time
+
 app = Flask(__name__)
 CORS(app, origins="http://localhost:4200")
+
+mail_user = environ["MAIL_USER"]
+mail_smtp = environ["MAIL_SMTP"]
+mail_pass = environ["MAIL_PASSWORD"]
+mail_test = environ["MAIL_TEST"]
 
 
 @contextmanager
@@ -24,6 +33,35 @@ def get_db_connection():
         yield conn
     finally:
         conn.close()
+
+
+@app.route("/mail")
+def mail():
+    start = time()
+    smtp_ssl = SMTP_SSL(host=mail_smtp, port=465)
+
+    print("Connection Object : {}".format(smtp_ssl))
+    print("Total Time Taken  : {:,.2f} Seconds".format(time() - start))
+
+    print("\nLogging In.....")
+    resp_code, response = smtp_ssl.login(user=mail_user, password=mail_pass)
+
+    print("Response Code : {}".format(resp_code))
+    print("Response      : {}".format(response.decode()))
+
+    to_list = [mail_test]
+    message = "Subject: {}\n\n{}".format("Test Email", "body,\n\nbest,\n\nmatcha")
+
+    response = smtp_ssl.sendmail(from_addr=mail_user, to_addrs=to_list, msg=message)
+
+    print("List of Failed Recipients : {}".format(response))
+
+    print("\nLogging Out....")
+    resp_code, response = smtp_ssl.quit()
+
+    print("Response Code : {}".format(resp_code))
+    print("Response      : {}".format(response.decode()))
+    return "mail sent"
 
 
 @app.route("/")
