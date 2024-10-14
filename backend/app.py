@@ -116,8 +116,7 @@ def drop_table():
         if error is None:
             try:
                 cur = conn.cursor()
-                sql = f"DROP table IF EXISTS {table}"
-                cur.execute(sql)
+                cur.execute(f"DROP table IF EXISTS {table}")
                 conn.commit()
             except conn.IntegrityError:
                 error = f"Table doesn't exist."
