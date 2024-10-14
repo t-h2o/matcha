@@ -1,68 +1,97 @@
+#!/bin/bash
+
 URL="localhost:5001"
+
+RED="\e[31m"
+GREEN="\e[32m"
+DEFAULT="\e[0m"
+
+success() {
+	echo -en "${GREEN}"
+	echo -n "Success: "
+	echo -en "${DEFAULT}"
+	echo "\"${1}\""
+}
+
+error() {
+	echo
+	echo -en "${RED}"
+	echo -n "Error: "
+	echo -en "${DEFAULT}"
+	echo "\"${1}\""
+}
 
 compare() {
 		CMD="curl --silent http://${URL}${1}"
 		ANSWER="$(${CMD})"
-        if [ "${ANSWER}" != "${2}" ] ; then
-                echo "error with \"$1\""
-				echo "executed: ${CMD}"
-				echo "received: ${ANSWER}"
-                exit 1
-        fi
-        echo "success: \"${1}\""
+		if [ "${ANSWER}" != "${2}" ] ; then
+			error "${1}"
+			echo "executed: ${CMD}"
+			echo "received: ${ANSWER}"
+			exit 1
+		fi
+		success "${1}"
 }
 
-compare "" "<h1>Hello, World!</h1>"
+basic() {
+	compare "" \
+		"<h1>Hello, World!</h1>"
 
-compare "/create" "created"
+	compare \
+		"/drop --data table=users" \
+		"Table \"users\" was succefull dropped"
 
-curl localhost:5001/register \
-  --data "username=user?firtname=firtname?lastname=lastname?email=email@email.com?password=1234"
+	compare \
+		"/create" \
+		"created"
+}
+
+register() {
+	compare \
+		"/register --data username=user --data firstname=firstname --data lastname=lastname --data email=email@email.com --data password=1234" \
+		"User user was succefull added"
+
+	compare \
+		"/register --data username=user --data firstname=firstname --data lastname=lastname --data email=email@email.com --data password=1234" \
+		"error: User user is already registered."
+
+	compare \
+		"/register --data username= --data firstname=firstname --data lastname=lastname --data email=email@email.com --data password=1234" \
+		"error: Username is required."
+
+	compare \
+		"/register --data username=user --data firstname= --data lastname=lastname --data email=email@email.com --data password=1234" \
+		"error: Firstname is required."
+
+	compare \
+		"/register --data username=user --data firstname=firstname --data lastname= --data email=email@email.com --data password=1234" \
+		"error: Lastname is required."
+
+	compare \
+		"/register --data username=user --data firstname=firstname --data lastname=lastname --data email= --data password=1234" \
+		"error: Email is required."
+
+	compare \
+		"/register --data username=user --data firstname=firstname --data lastname=lastname --data email=email@email.com --data password=" \
+		"error: Password is required."
+
+	compare \
+		"/register --data username=user --data firstname=firstname --data lastname=lastname --data email=email@email.com --data password=1234" \
+		"error: User user is already registered."
+
+#	curl localhost:5001/register \
+#		--data "username=user" \
+#		--data "firstname=firstname" \
+#		--data "lastname=lastname" \
+#		--data "email=email@email.com" \
+#		--data "password=1234"
+}
+
+main() {
+	basic
+	register
+}
+
+main
 
 exit 0
-
-curl localhost:5001/register \
-  --data "username=user" \
-  --data "firtname=firtname" \
-  --data "lastname=lastname" \
-  --data "email=email@email.com" \
-  --data "password=1234"
-
-#compare \
-#	"/register --data \"username=user\" --data \"password=1234\"" \
-#   	"User user was succefull added"
-
-exit 0
-compare \
-	"/register --data \"username=user\" --data \"password=1234\"" \
-    "error: User user is already registered."
-
-exit 0
-#created
-#error: Username is required.
-#error: Password is required.<!doctype html>
-
-
-curl localhost:5001/register \
-  --data "username=user" \
-  --data "password=1234"
-
-curl localhost:5001/register \
-  --data "username=user2" \
-  --data "password=1234"
-
-curl localhost:5001/register \
-  --data "username=user" \
-  --data "password=1234"
-
-curl localhost:5001/register \
-  --data "username=" \
-  --data "password=1234"
-
-curl localhost:5001/register \
-  --data "username=user" \
-  --data "password="
-
-curl localhost:5001/register \
-  --data "username=user" \
-  --data "other=1234"
