@@ -25,6 +25,12 @@ generate_all_variables () {
 	POSTGRES_NAME="matcha-db"
 }
 
+mail_credentials() {
+	echo -n "mail user: " ; read MAIL_USER
+	echo -n "mail smtp: " ; read MAIL_SMTP
+	echo -n "mail test (to test the send mail feature): " ; read MAIL_TEST
+	echo -n "mail password: " ; read -s MAIL_PASSWORD
+}
 
 create_the_environment_file () {
 	cat > ${ENVIRONMENT_FILE} <<- environment_file
@@ -42,12 +48,18 @@ create_the_environment_file () {
 	FLASK_UPLOAD_FOLDER="uploads"
 	FLASK_URL="http://localhost:5001"
 
+	# Mail
+	MAIL_USER=${MAIL_USER}
+	MAIL_SMTP=${MAIL_SMTP}
+	MAIL_TEST=${MAIL_TEST}
+	MAIL_PASSWORD=${MAIL_PASSWORD}
 	environment_file
 }
 
 main () {
 	is_environement_file_already_exist
 	generate_all_variables
+	mail_credentials
 	create_the_environment_file
 }
 
