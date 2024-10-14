@@ -36,6 +36,9 @@ from db import (
     db_count_number_image,
 )
 
+from smtplib import SMTP_SSL
+from time import time
+
 app = Flask(__name__)
 app.config["JWT_SECRET_KEY"] = environ["FLASK_JWT_SECRET_KEY"]
 app.config["UPLOAD_FOLDER"] = environ["FLASK_UPLOAD_FOLDER"]
@@ -43,12 +46,46 @@ app.config["URL"] = environ["FLASK_URL"]
 
 CORS(app, origins="http://localhost:4200")
 
+mail_user = environ["MAIL_USER"]
+mail_smtp = environ["MAIL_SMTP"]
+mail_pass = environ["MAIL_PASSWORD"]
+mail_test = environ["MAIL_TEST"]
+
 jwt = JWTManager(app)
 
 
 @app.route("/api/images/<filename>")
 def serve_image(filename):
     return send_from_directory("uploads", filename)
+
+
+@app.route("/mail")
+def mail():
+    start = time()
+    smtp_ssl = SMTP_SSL(host=mail_smtp, port=465)
+
+    print("Connection Object : {}".format(smtp_ssl))
+    print("Total Time Taken  : {:,.2f} Seconds".format(time() - start))
+
+    print("\nLogging In.....")
+    resp_code, response = smtp_ssl.login(user=mail_user, password=mail_pass)
+
+    print("Response Code : {}".format(resp_code))
+    print("Response      : {}".format(response.decode()))
+
+    to_list = [mail_test]
+    message = "Subject: {}\n\n{}".format("Test Email", "body,\n\nbest,\n\nmatcha")
+
+    response = smtp_ssl.sendmail(from_addr=mail_user, to_addrs=to_list, msg=message)
+
+    print("List of Failed Recipients : {}".format(response))
+
+    print("\nLogging Out....")
+    resp_code, response = smtp_ssl.quit()
+
+    print("Response Code : {}".format(resp_code))
+    print("Response      : {}".format(response.decode()))
+    return "mail sent"
 
 
 def interests_put(id_user, request):
