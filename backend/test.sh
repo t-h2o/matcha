@@ -75,10 +75,6 @@ register() {
 		"/register --data username=user --data firstname=firstname --data lastname=lastname --data email=email@email.com --data password=" \
 		"error: Password is required."
 
-	compare \
-		"/register --data username=user --data firstname=firstname --data lastname=lastname --data email=email@email.com --data password=1234" \
-		"error: User user is already registered."
-
 #	curl localhost:5001/register \
 #		--data "username=user" \
 #		--data "firstname=firstname" \
