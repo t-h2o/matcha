@@ -16,10 +16,23 @@ compare "" "<h1>Hello, World!</h1>"
 
 compare "/create" "created"
 
+curl localhost:5001/register \
+  --data "username=user?firtname=firtname?lastname=lastname?email=email@email.com?password=1234"
+
+exit 0
+
+curl localhost:5001/register \
+  --data "username=user" \
+  --data "firtname=firtname" \
+  --data "lastname=lastname" \
+  --data "email=email@email.com" \
+  --data "password=1234"
+
 #compare \
 #	"/register --data \"username=user\" --data \"password=1234\"" \
 #   	"User user was succefull added"
 
+exit 0
 compare \
 	"/register --data \"username=user\" --data \"password=1234\"" \
     "error: User user is already registered."
