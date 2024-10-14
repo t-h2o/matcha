@@ -1,10 +1,19 @@
-@import "../../styles.scss";
+@import "../../../styles.scss";
 
 .form {
     width: 100%;
     max-width: 330px;
     padding: 15px;
     margin: auto;
+
+    p {
+        margin-top: 0.5rem;
+        
+        a {
+            color: $pink;
+            cursor: pointer;
+        }
+    }
 }
 
 .form-title {
@@ -40,4 +49,9 @@
             border: 2px solid $pink;
         }
     }
+
+}
+
+.btn {
+    margin-top: 1rem;
 }

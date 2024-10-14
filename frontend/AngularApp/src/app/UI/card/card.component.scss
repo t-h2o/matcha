@@ -1,17 +1,11 @@
 @import "../../../styles.scss";
 
 .card {
-    background-color: $green;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px $green;
-    padding: 16px;
-    margin: 16px 0;
-    border-width: 2px;
-    border-color: $pink;
-    border-style: solid;
-    transition: box-shadow 0.3s ease;
-    
-    &:hover {
-      box-shadow: 0 6px 12px $green;
-    }
-  }
+  display: inline-block;
+  background-color: $green;
+  border-radius: 8px;
+  padding: 3rem;
+  border-width: 2px;
+  border-color: $pink;
+  border-style: solid;
+}
