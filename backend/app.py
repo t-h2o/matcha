@@ -27,8 +27,12 @@ def add_user_table():
                 """
                 CREATE TABLE IF NOT EXISTS users (
                 id SERIAL PRIMARY KEY,
-                username TEXT UNIQUE NOT NULL,
-                password TEXT NOT NULL
+                username VARCHAR UNIQUE NOT NULL,
+                firstname VARCHAR NOT NULL,
+                lastname VARCHAR NOT NULL,
+                email VARCHAR NOT NULL,
+                created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+                password VARCHAR NOT NULL
                 );
                 """
             )
@@ -52,6 +56,9 @@ def register():
     elif request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
+        firstname = request.form["firstname"]
+        lastname = request.form["lastname"]
+        email = request.form["email"]
 
         error = None
 
@@ -59,6 +66,12 @@ def register():
             error = "Username is required."
         elif not password:
             error = "Password is required."
+        elif not firstname:
+            error = "Firstname is required."
+        elif not lastname:
+            error = "Lastname is required."
+        elif not email:
+            error = "Email is required."
 
         conn = get_db_connection()
 
@@ -66,8 +79,14 @@ def register():
             try:
                 cur = conn.cursor()
                 cur.execute(
-                    "INSERT INTO users (username, password) VALUES (%s,%s);",
-                    (username, generate_password_hash(password)),
+                    "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s);",
+                    (
+                        username,
+                        generate_password_hash(password),
+                        firstname,
+                        lastname,
+                        email,
+                    ),
                 )
                 conn.commit()
             except conn.IntegrityError:
