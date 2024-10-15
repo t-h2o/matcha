@@ -139,7 +139,7 @@ def drop_table():
             conn.commit()
             return f'Table "{table}" was succefull dropped'
         except:
-            error = f"drop database exception"
+            error = "drop database exception"
 
     return f"error: {error}"
 
