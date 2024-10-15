@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { PasswordConfirmValidatorDirective } from '../../shared/directives/password-confirm-validator.directive';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-register-form',
@@ -10,6 +11,7 @@ import { PasswordConfirmValidatorDirective } from '../../shared/directives/passw
     CustomButtonComponent,
     FormsModule,
     PasswordConfirmValidatorDirective,
+    RouterModule
   ],
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.scss',

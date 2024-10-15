@@ -17,6 +17,7 @@
   a {
     color: $pink;
     cursor: pointer;
+    text-decoration: none;
 
     &:hover {
       color: lighten($color: $pink, $amount: 15);
