@@ -5,7 +5,7 @@ import { RegisterFormComponent } from './register-form/register-form.component';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RegisterFormComponent, CardComponent],
+  imports: [RegisterFormComponent, CardComponent, RegisterFormComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
