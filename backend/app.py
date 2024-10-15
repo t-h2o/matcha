@@ -4,13 +4,18 @@ from os import environ
 from psycopg2 import connect
 from psycopg2.extras import RealDictCursor
 from werkzeug.security import generate_password_hash
+from contextlib import contextmanager
 
 app = Flask(__name__)
 
 
+@contextmanager
 def get_db_connection():
     conn = connect(environ["DATABASE_URL"])
-    return conn
+    try:
+        yield conn
+    finally:
+        conn.close()
 
 
 @app.route("/")
@@ -20,8 +25,7 @@ def hello_world():
 
 @app.route("/create")
 def create_table_users():
-    conn = get_db_connection()
-    try:
+    with get_db_connection() as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
             cur.execute(
                 """
@@ -37,8 +41,6 @@ def create_table_users():
                 """
             )
             conn.commit()
-    finally:
-        conn.close()
 
     return "created"
 
@@ -110,19 +112,15 @@ def drop_table():
 
         conn = get_db_connection()
 
-        if error is None:
-            try:
-                cur = conn.cursor()
-                cur.execute(f"DROP table IF EXISTS {table}")
-                cur.close()
-                conn.commit()
-                conn.close()
-            except conn.IntegrityError:
-                error = f"Table doesn't exist."
-            else:
-                return f'Table "{table}" was succefull dropped'
-            finally:
-                conn.close()
+        with get_db_connection() as conn:
+            if error is None:
+                try:
+                    cur = conn.cursor()
+                    cur.execute(f"DROP table IF EXISTS {table}")
+                    conn.commit()
+                    return f'Table "{table}" was succefull dropped'
+                except:
+                    error = f"drop database exception"
 
     return f"error: {error}"
 
