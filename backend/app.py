@@ -52,12 +52,20 @@ def register_user():
     Validates that the username is not already taken.
     Hashes the password for security.
     """
+    content_type = request.headers.get("Content-Type")
+    if content_type != "application/json":
+        return "Content-Type not supported!"
 
-    username = request.form["username"]
-    password = request.form["password"]
-    firstname = request.form["firstname"]
-    lastname = request.form["lastname"]
-    email = request.form["email"]
+    json = request.json
+
+    try:
+        username = json["username"]
+        password = json["password"]
+        firstname = json["firstname"]
+        lastname = json["lastname"]
+        email = json["email"]
+    except KeyError as e:
+        return f"{e} is required."
 
     error = None
 

@@ -42,7 +42,7 @@ compare_json() {
 		echo "received: ${ANSWER}"
 		exit 1
 	fi
-	success "${1} - ${2}"
+	success "${1} - ${3}"
 }
 
 basic() {
@@ -62,40 +62,40 @@ post_json() {
 }
 
 register() {
-	compare \
-		"/register --data username=user --data firstname=firstname --data lastname=lastname --data email=email@email.com --data password=1234" \
+	compare_json \
+		"/register" \
+		'{"username" : "user", "firstname" : "firstname", "lastname" : "lastname", "email" : "email@email.com", "password" : "1234"}' \
 		"User user was succefull added"
 
-	compare \
-		"/register --data username=user --data firstname=firstname --data lastname=lastname --data email=email@email.com --data password=1234" \
+	compare_json \
+		"/register" \
+		'{"username" : "user", "firstname" : "firstname", "lastname" : "lastname", "email" : "email@email.com", "password" : "1234"}' \
 		"error: User user is already registered."
 
-	compare \
-		"/register --data username= --data firstname=firstname --data lastname=lastname --data email=email@email.com --data password=1234" \
+	compare_json \
+		"/register" \
+		'{"username" : "", "firstname" : "firstname", "lastname" : "lastname", "email" : "email@email.com", "password" : "1234"}' \
 		"error: Username is required."
 
-	compare \
-		"/register --data username=user --data firstname= --data lastname=lastname --data email=email@email.com --data password=1234" \
+	compare_json \
+		"/register" \
+		'{"username" : "user", "firstname" : "", "lastname" : "lastname", "email" : "email@email.com", "password" : "1234"}' \
 		"error: Firstname is required."
 
-	compare \
-		"/register --data username=user --data firstname=firstname --data lastname= --data email=email@email.com --data password=1234" \
+	compare_json \
+		"/register" \
+		'{"username" : "user", "firstname" : "firstname", "lastname" : "", "email" : "email@email.com", "password" : "1234"}' \
 		"error: Lastname is required."
 
-	compare \
-		"/register --data username=user --data firstname=firstname --data lastname=lastname --data email= --data password=1234" \
-		"error: Email is required."
-
-	compare \
-		"/register --data username=user --data firstname=firstname --data lastname=lastname --data email=email@email.com --data password=" \
+	compare_json \
+		"/register" \
+		'{"username" : "user", "firstname" : "firstname", "lastname" : "lastname", "email" : "email@email.com", "password" : ""}' \
 		"error: Password is required."
 
-#	curl localhost:5001/register \
-#		--data "username=user" \
-#		--data "firstname=firstname" \
-#		--data "lastname=lastname" \
-#		--data "email=email@email.com" \
-#		--data "password=1234"
+	compare_json \
+		"/register" \
+		'{"username" : "user", "firstname" : "firstname", "lastname" : "lastname", "email" : "", "password" : "1234"}' \
+		"error: Email is required."
 }
 
 http_error() {
