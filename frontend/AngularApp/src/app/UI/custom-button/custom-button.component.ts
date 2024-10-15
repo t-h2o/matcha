@@ -5,8 +5,8 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './custom-button.component.html',
-  styleUrl: './custom-button.component.scss'
+  styleUrl: './custom-button.component.scss',
 })
 export class CustomButtonComponent {
-  @Input() color: "primary" | "negative" = "primary";
+  @Input() color: 'primary' | 'negative' = 'primary';
 }

@@ -7,6 +7,6 @@ import { LoginFormComponent } from './login-form/login-form.component';
   standalone: true,
   imports: [LoginFormComponent, CardComponent],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {}
