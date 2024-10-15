@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 
 @Component({
@@ -10,5 +10,7 @@ import { CustomButtonComponent } from '../../UI/custom-button/custom-button.comp
   styleUrl: './register-form.component.scss'
 })
 export class RegisterFormComponent {
-
+  onSubmit(form: NgForm) {
+    console.log('Form submitted');
+  }
 }
