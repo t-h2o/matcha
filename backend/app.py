@@ -1,3 +1,5 @@
+"""Flask, psycopg2, os.environ, contextmanager"""
+
 from flask import Flask
 from flask import request
 from os import environ
