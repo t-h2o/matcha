@@ -1,14 +1,30 @@
 <form class="form">
     <h1 class="form-title">Register</h1>
     <div class="form-group">
+      <label for="firstname">Firstname</label>
+      <input type="text" id="firstname" name="firstname" required ngModule />
+    </div>
+    <div class="form-group">
+      <label for="lastname">Lastname</label>
+      <input type="text" id="lastname" name="lastname" required ngModule />
+    </div>
+    <div class="form-group">
       <label for="username">Username</label>
-      <input type="username" id="username" name="username" required ngModule />
+      <input type="text" id="username" name="username" required ngModule />
+    </div>
+    <div class="form-group">
+      <label for="username">email</label>
+      <input type="email" id="email" name="email" required ngModule />
     </div>
     <div class="form-group">
       <label for="password">Password</label>
       <input type="password" id="password" name="password" required ngModule />
     </div>
-    <button custom-button class="btn">Login</button>
+    <div class="form-group">
+      <label for="password-repetition">Repeate your Password</label>
+      <input type="password" id="password-repetition" name="password-repetition" required ngModule />
+    </div>
+    <button custom-button class="btn">Register</button>
     <p>Don't have an account yet?</p>
     <a routerLink="/register">Register</a>
   </form>
