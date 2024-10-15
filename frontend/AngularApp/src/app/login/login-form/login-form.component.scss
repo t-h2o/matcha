@@ -3,7 +3,7 @@
 .form {
     width: 100%;
     max-width: 330px;
-    padding: 15px;
+    padding: 0.5rem;
     margin: auto;
 
     p {
@@ -18,9 +18,10 @@
 
 .form-title {
     margin-bottom: 10px;
-    font-size: 20px;
+    font-size: 2rem;
     font-weight: 700;
     color: $pink;
+    text-align: center;
 }
 
 .form-group {
@@ -53,5 +54,5 @@
 }
 
 .btn {
-    margin-top: 1rem;
+    margin: 2rem 0;
 }
