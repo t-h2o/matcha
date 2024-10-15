@@ -1,12 +1,12 @@
 """Flask, psycopg2, os.environ, contextmanager"""
 
+from os import environ
+from contextlib import contextmanager
 from flask import Flask
 from flask import request
-from os import environ
 from psycopg2 import connect
 from psycopg2.extras import RealDictCursor
 from werkzeug.security import generate_password_hash
-from contextlib import contextmanager
 
 app = Flask(__name__)
 
