@@ -98,29 +98,26 @@ def register_user():
     return f"error: {error}"
 
 
-@app.route("/drop", methods=("GET", "POST"))
+@app.route("/drop", methods=["POST"])
 def drop_table():
-    if request.method == "GET":
-        return "drop with POST method"
-    elif request.method == "POST":
-        table = request.form["table"]
+    table = request.form["table"]
 
-        error = None
+    error = None
 
-        if not table:
-            error = "table is required."
+    if not table:
+        error = "table is required."
 
-        conn = get_db_connection()
+    conn = get_db_connection()
 
-        with get_db_connection() as conn:
-            if error is None:
-                try:
-                    cur = conn.cursor()
-                    cur.execute(f"DROP table IF EXISTS {table}")
-                    conn.commit()
-                    return f'Table "{table}" was succefull dropped'
-                except:
-                    error = f"drop database exception"
+    with get_db_connection() as conn:
+        if error is None:
+            try:
+                cur = conn.cursor()
+                cur.execute(f"DROP table IF EXISTS {table}")
+                conn.commit()
+                return f'Table "{table}" was succefull dropped'
+            except:
+                error = f"drop database exception"
 
     return f"error: {error}"
 

@@ -48,10 +48,6 @@ basic() {
 	compare \
 		"/register" \
 		"register with POST method"
-
-	compare \
-		"/drop" \
-		"drop with POST method"
 }
 
 register() {
@@ -91,8 +87,22 @@ register() {
 #		--data "password=1234"
 }
 
+http_error() {
+	HTTP_ERROR="$(curl -o /dev/null -s -w "%{http_code}\n" "${URL}${1}")"
+	if [ "${HTTP_ERROR}" -eq "${2}" ] ; then
+		success "${1} return error ${2}"
+	else
+		error "${1}"
+	fi
+}
+
+check_http_error() {
+	http_error "/drop" "405"
+}
+
 main() {
 	basic
+	check_http_error
 	register
 }
 
