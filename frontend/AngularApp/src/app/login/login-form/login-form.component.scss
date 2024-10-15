@@ -50,9 +50,11 @@
     background-clip: padding-box;
     border: 1px solid $pink;
     border-radius: 0.25rem;
+    outline: none;
 
     &:focus {
-      border: 2px solid $pink;
+      border: none;
+      background-color: lighten($color: $pink, $amount: 45);
     }
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -10,4 +10,12 @@ import { RouterModule } from '@angular/router';
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.scss',
 })
-export class LoginFormComponent {}
+export class LoginFormComponent {
+  onSubmit(formData: NgForm) {
+    if (formData.invalid) {
+      return;
+    }
+    console.log(formData.value);
+    // formData.form.reset();
+  }
+}

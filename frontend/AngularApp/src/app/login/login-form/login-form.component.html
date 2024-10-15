@@ -1,12 +1,12 @@
-<form class="form">
+<form class="form" #form="ngForm" (ngSubmit)="onSubmit(form)">
   <h1 class="form-title">Login</h1>
   <div class="form-group">
     <label for="username">Username</label>
-    <input type="text" id="username" name="username" required ngModule />
+    <input type="text" id="username" name="username" required ngModel />
   </div>
   <div class="form-group">
     <label for="password">Password</label>
-    <input type="password" id="password" name="password" required ngModule />
+    <input type="password" id="password" name="password" required ngModel />
   </div>
   <button custom-button class="btn">Login</button>
   <p>Don't have an account yet?</p>

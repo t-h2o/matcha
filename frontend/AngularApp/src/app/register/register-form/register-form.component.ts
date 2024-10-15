@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
     CustomButtonComponent,
     FormsModule,
     PasswordConfirmValidatorDirective,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.scss',
