@@ -33,17 +33,32 @@ compare() {
 		success "${1}"
 }
 
+compare_json() {
+	CMD="curl --silent --header 'Content-type: application/json' --data "${2}" http://${URL}${1}"
+	ANSWER=$(curl --silent --header 'Content-type: application/json' --data "${2}" http://${URL}${1})
+	if [ "${ANSWER}" != "${3}" ] ; then
+		error "${1}"
+		echo "executed: ${CMD}"
+		echo "received: ${ANSWER}"
+		exit 1
+	fi
+	success "${1} - ${2}"
+}
+
 basic() {
 	compare "" \
 		"<h1>Hello, World!</h1>"
 
 	compare \
-		"/drop --data table=users" \
-		"Table \"users\" was succefull dropped"
-
-	compare \
 		"/create" \
 		"created"
+}
+
+post_json() {
+	compare_json \
+		"/drop" \
+		'{"table" : "users"}' \
+		'Table "users" was succefull dropped'
 }
 
 register() {
@@ -98,6 +113,7 @@ check_http_error() {
 }
 
 main() {
+	post_json
 	basic
 	check_http_error
 	register

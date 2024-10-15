@@ -97,7 +97,12 @@ def register_user():
 
 @app.route("/drop", methods=["POST"])
 def drop_table():
-    table = request.form["table"]
+    content_type = request.headers.get("Content-Type")
+    if content_type != "application/json":
+        return "Content-Type not supported!"
+    json = request.json
+    print(json["table"])
+    table = json["table"]
 
     error = None
 
