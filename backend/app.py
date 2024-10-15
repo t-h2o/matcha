@@ -11,6 +11,8 @@ app = Flask(__name__)
 
 @contextmanager
 def get_db_connection():
+    """Generator of database connection"""
+
     conn = connect(environ["DATABASE_URL"])
     try:
         yield conn
@@ -20,11 +22,14 @@ def get_db_connection():
 
 @app.route("/")
 def hello_world():
+    """Simple title"""
     return "<h1>Hello, World!</h1>"
 
 
 @app.route("/create")
 def create_table_users():
+    """Create the Users's table."""
+
     with get_db_connection() as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
             cur.execute(
@@ -108,6 +113,8 @@ def register_user():
 
 @app.route("/drop", methods=["POST"])
 def drop_table():
+    """Drop table name in JSON"""
+
     content_type = request.headers.get("Content-Type")
     if content_type != "application/json":
         return "Content-Type not supported!"
