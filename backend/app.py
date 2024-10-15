@@ -80,27 +80,30 @@ def register_user():
     elif not email:
         error = "Email is required."
 
-    with get_db_connection() as conn:
-        if error is None:
-            try:
-                with conn.cursor() as cur:
-                    cur.execute(
-                        "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);",
-                        (
-                            username,
-                            generate_password_hash(password),
-                            firstname,
-                            lastname,
-                            email,
-                        ),
-                    )
-                    conn.commit()
-            except conn.IntegrityError:
-                error = f"User {username} is already registered."
-            else:
-                return f"User {username} was succefull added"
+    if error is not None:
+        return f"error: {error}"
 
-    return f"error: {error}"
+    with get_db_connection() as conn:
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);",
+                    (
+                        username,
+                        generate_password_hash(password),
+                        firstname,
+                        lastname,
+                        email,
+                    ),
+                )
+                conn.commit()
+        except conn.IntegrityError:
+            error = f"User {username} is already registered."
+
+    if error is not None:
+        return f"error: {error}"
+
+    return f"User {username} was succefull added"
 
 
 @app.route("/drop", methods=["POST"])
@@ -117,17 +120,17 @@ def drop_table():
     if not table:
         error = "table is required."
 
-    conn = get_db_connection()
+    if error is not None:
+        return f"error: {error}"
 
     with get_db_connection() as conn:
-        if error is None:
-            try:
-                cur = conn.cursor()
-                cur.execute(f"DROP table IF EXISTS {table}")
-                conn.commit()
-                return f'Table "{table}" was succefull dropped'
-            except:
-                error = f"drop database exception"
+        try:
+            cur = conn.cursor()
+            cur.execute(f"DROP table IF EXISTS {table}")
+            conn.commit()
+            return f'Table "{table}" was succefull dropped'
+        except:
+            error = f"drop database exception"
 
     return f"error: {error}"
 
