@@ -6,14 +6,21 @@ import { PasswordConfirmValidatorDirective } from '../../shared/directives/passw
 @Component({
   selector: 'app-register-form',
   standalone: true,
-  imports: [CustomButtonComponent, FormsModule, PasswordConfirmValidatorDirective],
+  imports: [
+    CustomButtonComponent,
+    FormsModule,
+    PasswordConfirmValidatorDirective,
+  ],
   templateUrl: './register-form.component.html',
-  styleUrl: './register-form.component.scss'
+  styleUrl: './register-form.component.scss',
 })
 export class RegisterFormComponent {
   onSubmit(formData: NgForm) {
-    console.log('Form submitted');
+    if (formData.invalid) {
+      return;
+    }
+    console.log(formData.value);
 
-    formData.form.reset();
+    // formData.form.reset();
   }
 }

@@ -1,10 +1,21 @@
 import { Directive, Input } from '@angular/core';
-import { NG_VALIDATORS, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
+import {
+  NG_VALIDATORS,
+  Validator,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 
 @Directive({
   selector: '[appPasswordConfirm]',
-  providers: [{ provide: NG_VALIDATORS, useExisting: PasswordConfirmValidatorDirective, multi: true }],
-  standalone: true
+  providers: [
+    {
+      provide: NG_VALIDATORS,
+      useExisting: PasswordConfirmValidatorDirective,
+      multi: true,
+    },
+  ],
+  standalone: true,
 })
 export class PasswordConfirmValidatorDirective implements Validator {
   @Input('appPasswordConfirm') passwordField!: string;
@@ -17,7 +28,11 @@ export class PasswordConfirmValidatorDirective implements Validator {
     const password = control.root.get(this.passwordField);
     const confirmPassword = control;
 
-    if (password && confirmPassword && password.value !== confirmPassword.value) {
+    if (
+      password &&
+      confirmPassword &&
+      password.value !== confirmPassword.value
+    ) {
       return { passwordMismatch: true };
     }
 
