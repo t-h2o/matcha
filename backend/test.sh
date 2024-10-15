@@ -44,10 +44,6 @@ basic() {
 	compare \
 		"/create" \
 		"created"
-
-	compare \
-		"/register" \
-		"register with POST method"
 }
 
 register() {
@@ -98,6 +94,7 @@ http_error() {
 
 check_http_error() {
 	http_error "/drop" "405"
+	http_error "/register" "405"
 }
 
 main() {

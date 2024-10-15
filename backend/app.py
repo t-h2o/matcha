@@ -45,7 +45,7 @@ def create_table_users():
     return "created"
 
 
-@app.route("/register", methods=("GET", "POST"))
+@app.route("/register", methods=["POST"])
 def register_user():
     """Register a new user.
 
@@ -53,47 +53,44 @@ def register_user():
     Hashes the password for security.
     """
 
-    if request.method == "GET":
-        return "register with POST method"
-    elif request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
-        firstname = request.form["firstname"]
-        lastname = request.form["lastname"]
-        email = request.form["email"]
+    username = request.form["username"]
+    password = request.form["password"]
+    firstname = request.form["firstname"]
+    lastname = request.form["lastname"]
+    email = request.form["email"]
 
-        error = None
+    error = None
 
-        if not username:
-            error = "Username is required."
-        elif not password:
-            error = "Password is required."
-        elif not firstname:
-            error = "Firstname is required."
-        elif not lastname:
-            error = "Lastname is required."
-        elif not email:
-            error = "Email is required."
+    if not username:
+        error = "Username is required."
+    elif not password:
+        error = "Password is required."
+    elif not firstname:
+        error = "Firstname is required."
+    elif not lastname:
+        error = "Lastname is required."
+    elif not email:
+        error = "Email is required."
 
-        with get_db_connection() as conn:
-            if error is None:
-                try:
-                    with conn.cursor() as cur:
-                        cur.execute(
-                            "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);",
-                            (
-                                username,
-                                generate_password_hash(password),
-                                firstname,
-                                lastname,
-                                email,
-                            ),
-                        )
-                        conn.commit()
-                except conn.IntegrityError:
-                    error = f"User {username} is already registered."
-                else:
-                    return f"User {username} was succefull added"
+    with get_db_connection() as conn:
+        if error is None:
+            try:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);",
+                        (
+                            username,
+                            generate_password_hash(password),
+                            firstname,
+                            lastname,
+                            email,
+                        ),
+                    )
+                    conn.commit()
+            except conn.IntegrityError:
+                error = f"User {username} is already registered."
+            else:
+                return f"User {username} was succefull added"
 
     return f"error: {error}"
 
