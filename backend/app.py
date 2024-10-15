@@ -6,6 +6,7 @@ from flask import Flask
 from flask import request
 from psycopg2 import connect
 from psycopg2.extras import RealDictCursor
+from psycopg2.errors import UndefinedTable
 from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
@@ -138,8 +139,12 @@ def drop_table():
             cur.execute(f"DROP table IF EXISTS {table}")
             conn.commit()
             return f'Table "{table}" was succefull dropped'
-        except:
-            error = "drop database exception"
+        except UndefinedTable:
+            print("undefined table")
+            error = "undefined table"
+
+        except Exception as e:
+            error = e.__class__
 
     return f"error: {error}"
 
