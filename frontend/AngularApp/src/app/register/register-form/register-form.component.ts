@@ -19,6 +19,12 @@ import { RouterModule } from '@angular/router';
 export class RegisterFormComponent {
   onSubmit(formData: NgForm) {
     if (formData.invalid) {
+      Object.keys(formData.controls).forEach(field => {
+        const control = formData.controls[field];
+        if (control.invalid) {
+          console.log(`${field} is invalid`);
+        }
+      });
       return;
     }
     console.log(formData.value);

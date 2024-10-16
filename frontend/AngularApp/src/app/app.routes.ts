@@ -3,6 +3,7 @@ import { LoginComponent } from './login/login.component';
 import { BrowsingComponent } from './browsing/browsing.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
+import { RegisterProfileComponent } from './register-profile/register-profile.component';
 
 export const routes: Routes = [
   {
@@ -20,5 +21,9 @@ export const routes: Routes = [
   {
     path: 'browsing',
     component: BrowsingComponent,
+  },
+  {
+    path: 'register-profile',
+    component: RegisterProfileComponent,
   },
 ];
