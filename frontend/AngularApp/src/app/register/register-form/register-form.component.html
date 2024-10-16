@@ -1,11 +1,12 @@
 <form class="form" #form="ngForm" (ngSubmit)="onSubmit(form)">
-  <h1 class="form-title">Register</h1>
+  <h1 class="title">Register</h1>
   <div class="form-group">
     <label for="firstname">Firstname</label>
     <input
       type="text"
       id="firstname"
       name="firstname"
+      class="register"
       required
       ngModel
       minlength="2"
@@ -19,6 +20,7 @@
       type="text"
       id="lastname"
       name="lastname"
+      class="register"
       required
       ngModel
       minlength="2"
@@ -32,6 +34,7 @@
       type="text"
       id="username"
       name="username"
+      class="register"
       required
       ngModel
       minlength="6"
@@ -45,6 +48,7 @@
       type="email"
       id="email"
       name="email"
+      class="register"
       ngModel
       required
       email
@@ -70,9 +74,10 @@
       type="password"
       id="password"
       name="password"
+      class="register"
       ngModel
       required
-      pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,15}$"
+      pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s])([^\s]){8,15}$"
       #password="ngModel"
     />
   </div>
@@ -82,6 +87,7 @@
       type="password"
       id="password-repetition"
       name="password-repetition"
+      class="register"
       required
       ngModel
       appPasswordConfirm="password"
