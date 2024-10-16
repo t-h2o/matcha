@@ -1,5 +1,7 @@
+all: black pylint
+
 pylint:
 	docker exec flask pylint .
 
 black:
-	black .
+	docker exec flask black .
