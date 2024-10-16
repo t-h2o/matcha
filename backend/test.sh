@@ -90,27 +90,27 @@ register() {
 	compare_json \
 		"/register" \
 		'{"username" : "", "firstname" : "firstname", "lastname" : "lastname", "email" : "email@email.com", "password" : "1234"}' \
-		"error: Username is required."
+		'[{"error": "Username is required."}]'
 
 	compare_json \
 		"/register" \
 		'{"username" : "user", "firstname" : "", "lastname" : "lastname", "email" : "email@email.com", "password" : "1234"}' \
-		"error: Firstname is required."
+		'[{"error": "Firstname is required."}]'
 
 	compare_json \
 		"/register" \
 		'{"username" : "user", "firstname" : "firstname", "lastname" : "", "email" : "email@email.com", "password" : "1234"}' \
-		"error: Lastname is required."
+		'[{"error": "Lastname is required."}]'
 
 	compare_json \
 		"/register" \
 		'{"username" : "user", "firstname" : "firstname", "lastname" : "lastname", "email" : "email@email.com", "password" : ""}' \
-		"error: Password is required."
+		'[{"error": "Password is required."}]'
 
 	compare_json \
 		"/register" \
 		'{"username" : "user", "firstname" : "firstname", "lastname" : "lastname", "email" : "", "password" : "1234"}' \
-		"error: Email is required."
+		'[{"error": "Email is required."}]'
 }
 
 http_error() {

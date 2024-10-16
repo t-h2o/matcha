@@ -94,7 +94,8 @@ def register_user():
         error = "Email is required."
 
     if error is not None:
-        return f"error: {error}"
+        js = [{"error": error}]
+        return Response(dumps(js), mimetype="application/json")
 
     with get_db_connection() as conn:
         try:
