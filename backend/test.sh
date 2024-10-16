@@ -70,7 +70,7 @@ register() {
 	compare_json \
 		"/register" \
 		'{"username" : "user", "firstname" : "firstname", "lastname" : "lastname", "email" : "email@email.com", "password" : "1234"}' \
-		"User user was succefull added"
+		'{"succefull": "User user was succefull added"}'
 
 	compare_json \
 		"/register" \

@@ -114,7 +114,8 @@ def register_user():
         except conn.IntegrityError:
             return f"error: User {username} is already registered."
 
-    return f"User {username} was succefull added"
+    js = {"succefull": f"User {username} was succefull added"}
+    return Response(dumps(js), mimetype="application/json")
 
 
 @app.route("/drop", methods=["POST"])
