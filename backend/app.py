@@ -1,34 +1,159 @@
-from flask import Flask, jsonify
-import os
-import psycopg2
+"""Flask, psycopg2, os.environ, contextmanager"""
+
+from os import environ
+from contextlib import contextmanager
+from json import dumps
+from flask import Flask
+from flask import request
+from flask import Response
+from psycopg2 import connect
 from psycopg2.extras import RealDictCursor
+from psycopg2.errors import UndefinedTable
+from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
 
 
+@contextmanager
 def get_db_connection():
-    conn = psycopg2.connect(os.environ["DATABASE_URL"])
-    return conn
+    """Generator of database connection"""
+
+    conn = connect(environ["DATABASE_URL"])
+    try:
+        yield conn
+    finally:
+        conn.close()
 
 
 @app.route("/")
 def hello_world():
+    """Simple title"""
     return "<h1>Hello, World!</h1>"
 
 
-@app.route("/test")
-def test():
-    conn = get_db_connection()
-    try:
+@app.route("/create")
+def create_table_users():
+    """Create the Users's table."""
+
+    with get_db_connection() as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
-            cur.execute("SELECT * FROM test LIMIT 1")
-            test_data = cur.fetchone()
-            if test_data:
-                return f"<h1>{test_data['content']}</h1>"
-            else:
-                return "<h1>error: No test data found</h1>"
-    finally:
-        conn.close()
+            cur.execute(
+                """
+                CREATE TABLE IF NOT EXISTS users (
+                id SERIAL PRIMARY KEY,
+                username VARCHAR(12) UNIQUE NOT NULL,
+                firstname VARCHAR NOT NULL,
+                lastname VARCHAR NOT NULL,
+                email VARCHAR NOT NULL,
+                created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+                password VARCHAR NOT NULL
+                );
+                """
+            )
+            conn.commit()
+
+    js = {"succefull": "table users created"}
+    return Response(dumps(js), mimetype="application/json")
+
+
+@app.route("/register", methods=["POST"])
+def register_user():
+    """Register a new user.
+
+    Validates that the username is not already taken.
+    Hashes the password for security.
+    """
+    content_type = request.headers.get("Content-Type")
+    if content_type != "application/json":
+        js = {"error": "Content-Type not supported!"}
+        return Response(dumps(js), mimetype="application/json")
+
+    json = request.json
+
+    try:
+        username = json["username"]
+        password = json["password"]
+        firstname = json["firstname"]
+        lastname = json["lastname"]
+        email = json["email"]
+    except KeyError as e:
+        js = {"error": f"{e} is required."}
+        return Response(dumps(js), mimetype="application/json")
+
+    error = None
+
+    if not username:
+        error = "Username is required."
+    elif not password:
+        error = "Password is required."
+    elif not firstname:
+        error = "Firstname is required."
+    elif not lastname:
+        error = "Lastname is required."
+    elif not email:
+        error = "Email is required."
+
+    if error is not None:
+        js = {"error": error}
+        return Response(dumps(js), mimetype="application/json")
+
+    with get_db_connection() as conn:
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);",
+                    (
+                        username,
+                        generate_password_hash(password),
+                        firstname,
+                        lastname,
+                        email,
+                    ),
+                )
+                conn.commit()
+        except conn.IntegrityError:
+            js = {"error": f"User {username} is already registered."}
+            return Response(dumps(js), mimetype="application/json")
+
+    js = {"succefull": f"User {username} was succefull added"}
+    return Response(dumps(js), mimetype="application/json")
+
+
+@app.route("/drop", methods=["POST"])
+def drop_table():
+    """Drop table name in JSON"""
+
+    content_type = request.headers.get("Content-Type")
+    if content_type != "application/json":
+        js = {"error": "Content-Type not supported!"}
+        return Response(dumps(js), mimetype="application/json")
+    json = request.json
+    table = json["table"]
+
+    error = None
+
+    if not table:
+        error = "table is required."
+
+    if error is not None:
+        js = {"error": error}
+        return Response(dumps(js), mimetype="application/json")
+
+    with get_db_connection() as conn:
+        try:
+            cur = conn.cursor()
+            cur.execute(f"DROP table IF EXISTS {table}")
+            conn.commit()
+            js = {"success": f'Table "{table}" was succefull dropped'}
+            return Response(dumps(js), mimetype="application/json")
+        except UndefinedTable:
+            error = "undefined table"
+
+        except Exception as e:
+            error = e.__class__
+
+    js = {"error": error}
+    return Response(dumps(js), mimetype="application/json")
 
 
 if __name__ == "__main__":
