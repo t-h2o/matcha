@@ -10,8 +10,10 @@ from psycopg2 import connect
 from psycopg2.extras import RealDictCursor
 from psycopg2.errors import UndefinedTable
 from werkzeug.security import generate_password_hash
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, origins="http://localhost:4200")
 
 
 @contextmanager
