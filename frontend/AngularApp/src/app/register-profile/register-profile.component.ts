@@ -10,9 +10,6 @@ import { CardComponent } from '../UI/card/card.component';
   templateUrl: './register-profile.component.html',
   styleUrl: './register-profile.component.scss',
 })
-<<<<<<< HEAD
-export class RegisterProfileComponent {}
-=======
 export class RegisterProfileComponent {
   onSubmit(formData: NgForm) {
     // Handle submit
@@ -22,4 +19,3 @@ export class RegisterProfileComponent {
     // Handle submit
   }
 }
->>>>>>> 292b043 (add register-profile-form base)
