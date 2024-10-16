@@ -22,7 +22,7 @@ export class RegisterFormComponent {
   private httpClient = inject(HttpClient);
   onSubmit(formData: NgForm) {
     if (formData.invalid) {
-      Object.keys(formData.controls).forEach(field => {
+      Object.keys(formData.controls).forEach((field) => {
         const control = formData.controls[field];
         if (control.invalid) {
           console.log(`${field} is invalid`);
@@ -37,22 +37,24 @@ export class RegisterFormComponent {
       email: formData.value.email,
       password: formData.value.password,
     };
-    console.log(userData)
+    console.log(userData);
     this.sendUserDataToAPI(userData);
     formData.form.reset();
   }
 
   sendUserDataToAPI(userData: UserRegister) {
-    const subscription = this.httpClient.post('http://localhost:5001/register', userData).subscribe({
-      next: (data) => {
-        console.log("data: " + JSON.stringify(data));
-      },
-      error: (error) => {
-        console.error("error: " + JSON.stringify(error));
-      },
-      complete: () => {
-        subscription.unsubscribe();
-      },
-    });
+    const subscription = this.httpClient
+      .post('http://localhost:5001/register', userData)
+      .subscribe({
+        next: (data) => {
+          console.log('data: ' + JSON.stringify(data));
+        },
+        error: (error) => {
+          console.error('error: ' + JSON.stringify(error));
+        },
+        complete: () => {
+          subscription.unsubscribe();
+        },
+      });
   }
 }
