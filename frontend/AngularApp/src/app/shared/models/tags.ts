@@ -4,7 +4,6 @@ export const tags = [
   '#music',
   '#photography',
   '#gaming',
-  '#art',
   '#yoga',
   '#reading',
   '#movies',
@@ -18,5 +17,4 @@ export const tags = [
   '#cats',
   '#dogs',
   '#dance',
-  '#coffee',
 ];

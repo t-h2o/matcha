@@ -3,11 +3,12 @@ import { CardComponent } from '../UI/card/card.component';
 import { tags } from '../shared/models/tags';
 import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-register-profile',
   standalone: true,
-  imports: [CardComponent, NgFor, FormsModule],
+  imports: [CardComponent, NgFor, FormsModule, CustomButtonComponent],
   templateUrl: './register-profile.component.html',
   styleUrl: './register-profile.component.scss',
 })
