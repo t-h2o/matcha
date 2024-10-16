@@ -77,7 +77,8 @@ def register_user():
         lastname = json["lastname"]
         email = json["email"]
     except KeyError as e:
-        return f"{e} is required."
+        js = [{"error": f"{e} is required."}]
+        return Response(dumps(js), mimetype="application/json")
 
     error = None
 
