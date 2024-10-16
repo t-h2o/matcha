@@ -52,7 +52,7 @@ def create_table_users():
             )
             conn.commit()
 
-    js = [{"succefull": "table users created"}]
+    js = {"succefull": "table users created"}
     return Response(dumps(js), mimetype="application/json")
 
 
@@ -65,7 +65,7 @@ def register_user():
     """
     content_type = request.headers.get("Content-Type")
     if content_type != "application/json":
-        js = [{"error": "Content-Type not supported!"}]
+        js = {"error": "Content-Type not supported!"}
         return Response(dumps(js), mimetype="application/json")
 
     json = request.json
@@ -77,7 +77,7 @@ def register_user():
         lastname = json["lastname"]
         email = json["email"]
     except KeyError as e:
-        js = [{"error": f"{e} is required."}]
+        js = {"error": f"{e} is required."}
         return Response(dumps(js), mimetype="application/json")
 
     error = None
@@ -94,7 +94,7 @@ def register_user():
         error = "Email is required."
 
     if error is not None:
-        js = [{"error": error}]
+        js = {"error": error}
         return Response(dumps(js), mimetype="application/json")
 
     with get_db_connection() as conn:
@@ -125,7 +125,7 @@ def drop_table():
 
     content_type = request.headers.get("Content-Type")
     if content_type != "application/json":
-        js = [{"error": "Content-Type not supported!"}]
+        js = {"error": "Content-Type not supported!"}
         return Response(dumps(js), mimetype="application/json")
     json = request.json
     print(json["table"])
@@ -137,7 +137,7 @@ def drop_table():
         error = "table is required."
 
     if error is not None:
-        js = [{"error": error}]
+        js = {"error": error}
         return Response(dumps(js), mimetype="application/json")
 
     with get_db_connection() as conn:
@@ -145,7 +145,7 @@ def drop_table():
             cur = conn.cursor()
             cur.execute(f"DROP table IF EXISTS {table}")
             conn.commit()
-            js = [{"success": f'Table "{table}" was succefull dropped'}]
+            js = {"success": f'Table "{table}" was succefull dropped'}
             return Response(dumps(js), mimetype="application/json")
         except UndefinedTable:
             print("undefined table")
