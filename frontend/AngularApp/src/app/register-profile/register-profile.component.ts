@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './register-profile.component.scss',
 })
 export class RegisterProfileComponent {
-  tagsList = tags
+  tagsList = tags;
   maxFiles = 5;
   maxSizePerFile = 5 * 1024 * 1024; // 5MB
   selectedTags: string[] = [];
@@ -33,7 +33,7 @@ export class RegisterProfileComponent {
   onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
     const files = input.files;
-    
+
     if (files) {
       if (files.length <= 5) {
         if (files) {
@@ -54,8 +54,9 @@ export class RegisterProfileComponent {
   }
 
   handleFiles(files: FileList) {
-    const validFiles = Array.from(files).filter(file => 
-      file.type.startsWith('image/') && file.size <= this.maxSizePerFile
+    const validFiles = Array.from(files).filter(
+      (file) =>
+        file.type.startsWith('image/') && file.size <= this.maxSizePerFile,
     );
 
     if (validFiles.length > this.maxFiles) {
@@ -64,7 +65,9 @@ export class RegisterProfileComponent {
     }
 
     if (validFiles.length < files.length) {
-      alert('Some files were skipped. Please ensure all files are images and less than 5MB each.');
+      alert(
+        'Some files were skipped. Please ensure all files are images and less than 5MB each.',
+      );
     }
 
     this.uploadedPictures = validFiles;
