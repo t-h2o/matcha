@@ -4,6 +4,8 @@ from os import environ
 from contextlib import contextmanager
 from flask import Flask
 from flask import request
+from flask import Response
+from json import dumps
 from psycopg2 import connect
 from psycopg2.extras import RealDictCursor
 from psycopg2.errors import UndefinedTable
@@ -135,7 +137,8 @@ def drop_table():
             cur = conn.cursor()
             cur.execute(f"DROP table IF EXISTS {table}")
             conn.commit()
-            return f'Table "{table}" was succefull dropped'
+            js = [{"success": f'Table "{table}" was succefull dropped'}]
+            return Response(dumps(js), mimetype="application/json")
         except UndefinedTable:
             print("undefined table")
             error = "undefined table"

@@ -58,7 +58,7 @@ post_json() {
 	compare_json \
 		"/drop" \
 		'{"table" : "users"}' \
-		'Table "users" was succefull dropped'
+		'[{"success": "Table \"users\" was succefull dropped"}]'
 }
 
 register() {
