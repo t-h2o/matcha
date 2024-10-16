@@ -51,7 +51,7 @@ basic() {
 
 	compare \
 		"/create" \
-		"created"
+		'[{"succefull": "table users created"}]'
 }
 
 post_json() {

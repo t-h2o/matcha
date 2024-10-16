@@ -52,7 +52,8 @@ def create_table_users():
             )
             conn.commit()
 
-    return "created"
+    js = [{"succefull": "table users created"}]
+    return Response(dumps(js), mimetype="application/json")
 
 
 @app.route("/register", methods=["POST"])
@@ -64,7 +65,8 @@ def register_user():
     """
     content_type = request.headers.get("Content-Type")
     if content_type != "application/json":
-        return "Content-Type not supported!"
+        js = [{"error": "Content-Type not supported!"}]
+        return Response(dumps(js), mimetype="application/json")
 
     json = request.json
 
@@ -119,7 +121,8 @@ def drop_table():
 
     content_type = request.headers.get("Content-Type")
     if content_type != "application/json":
-        return "Content-Type not supported!"
+        js = [{"error": "Content-Type not supported!"}]
+        return Response(dumps(js), mimetype="application/json")
     json = request.json
     print(json["table"])
     table = json["table"]
