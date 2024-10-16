@@ -108,6 +108,9 @@ def register_user():
         except conn.IntegrityError:
             error = f"User {username} is already registered."
 
+    if error is not None:
+        return f"error: {error}"
+
     return f"User {username} was succefull added"
 
 
