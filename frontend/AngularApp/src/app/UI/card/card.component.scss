@@ -1,0 +1,11 @@
+@import "../../../styles.scss";
+
+.card {
+  display: inline-block;
+  background-color: $green;
+  border-radius: 8px;
+  padding: 2rem;
+  border-width: 2px;
+  border-color: $pink;
+  border-style: solid;
+}

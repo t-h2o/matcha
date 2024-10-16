@@ -1,1 +1,43 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Skranji:wght@700&display=swap");
+
+$white: #f9f9f4;
+$black: #010922;
+$violet: #8080d7;
+$green: #aad9d9;
+$pink: #db2982;
+$valid-green: #b5e48c;
+$invalid-red: #c71f37;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: $black;
+}
+
+.logo {
+  font-family: "Skranji", cursive;
+  color: $pink;
+  font-size: 2.5rem;
+  line-height: 1;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.app-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+}

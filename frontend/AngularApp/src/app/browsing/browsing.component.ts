@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './browsing.component.html',
-  styleUrl: './browsing.component.scss'
+  styleUrl: './browsing.component.scss',
 })
-export class BrowsingComponent {
-
-}
+export class BrowsingComponent {}

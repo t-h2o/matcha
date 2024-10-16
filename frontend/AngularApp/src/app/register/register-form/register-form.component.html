@@ -1,0 +1,94 @@
+<form class="form" #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <h1 class="form-title">Register</h1>
+  <div class="form-group">
+    <label for="firstname">Firstname</label>
+    <input
+      type="text"
+      id="firstname"
+      name="firstname"
+      required
+      ngModel
+      minlength="2"
+      maxlength="15"
+      #firstname="ngModel"
+    />
+  </div>
+  <div class="form-group">
+    <label for="lastname">Lastname</label>
+    <input
+      type="text"
+      id="lastname"
+      name="lastname"
+      required
+      ngModel
+      minlength="2"
+      maxlength="15"
+      #lastname="ngModel"
+    />
+  </div>
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      required
+      ngModel
+      minlength="6"
+      maxlength="15"
+      #username="ngModel"
+    />
+  </div>
+  <div class="form-group">
+    <label for="username">email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      ngModel
+      required
+      email
+      #email="ngModel"
+    />
+  </div>
+  <div class="form-group">
+    <label for="password">
+      Password
+      <span class="tooltip-icon">?</span>
+      <div class="tooltip-content">
+        Password must be:
+        <ul>
+          <li>At least 8 characters long</li>
+          <li>Contain at least one uppercase letter</li>
+          <li>Contain at least one lowercase letter</li>
+          <li>Contain at least one number</li>
+          <li>Contain at least one non-alpha numeric</li>
+        </ul>
+      </div>
+    </label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      ngModel
+      required
+      pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,15}$"
+      #password="ngModel"
+    />
+  </div>
+  <div class="form-group">
+    <label for="password-repetition">Repeate your Password</label>
+    <input
+      type="password"
+      id="password-repetition"
+      name="password-repetition"
+      required
+      ngModel
+      appPasswordConfirm="password"
+      #password2="ngModel"
+    />
+  </div>
+  <button custom-button class="btn">Register</button>
+  <p>Do you already have an account?</p>
+  <a routerLink="/login">Login</a>
+</form>

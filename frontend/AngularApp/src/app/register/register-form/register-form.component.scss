@@ -1,0 +1,111 @@
+@import "../../../styles.scss";
+
+.form {
+  width: 100%;
+  max-width: 330px;
+  padding: 0.5rem;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+
+  p {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  a {
+    color: $pink;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+      color: lighten($color: $pink, $amount: 15);
+    }
+  }
+}
+
+.form-title {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: $pink;
+  text-align: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  color: $black;
+
+  label {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+
+  input {
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $black;
+    background-color: $white;
+    background-clip: padding-box;
+    border: 1px solid $pink;
+    border-radius: 0.25rem;
+    outline: none;
+
+    &:focus {
+      border: none;
+      background-color: lighten($color: $pink, $amount: 45);
+    }
+    &.ng-valid {
+      border: 2px solid $valid-green;
+    }
+  }
+}
+
+.btn {
+  margin: 2rem auto;
+}
+
+.tooltip-icon {
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 0.5rem;
+  background-color: $pink;
+  color: $white;
+  border-radius: 50%;
+  width: 1.1rem;
+  height: 1.1rem;
+  text-align: center;
+  line-height: 1.1rem;
+  font-size: 1rem;
+  position: relative;
+
+  &:hover + .tooltip-content {
+    display: block;
+  }
+}
+
+.tooltip-content {
+  display: none;
+  position: absolute;
+  background-color: $white;
+  border: 1px solid $black;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  top: 80%;
+  left: 48%;
+  z-index: 1000;
+  font-size: 1rem;
+
+  ul {
+    margin: 0;
+    padding-left: 1rem;
+    font-size: 0.8rem;
+  }
+}
