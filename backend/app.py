@@ -128,7 +128,6 @@ def drop_table():
         js = {"error": "Content-Type not supported!"}
         return Response(dumps(js), mimetype="application/json")
     json = request.json
-    print(json["table"])
     table = json["table"]
 
     error = None
@@ -148,7 +147,6 @@ def drop_table():
             js = {"success": f'Table "{table}" was succefull dropped'}
             return Response(dumps(js), mimetype="application/json")
         except UndefinedTable:
-            print("undefined table")
             error = "undefined table"
 
         except Exception as e:
