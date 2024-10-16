@@ -112,7 +112,8 @@ def register_user():
                 )
                 conn.commit()
         except conn.IntegrityError:
-            return f"error: User {username} is already registered."
+            js = {"error": f"User {username} is already registered."}
+            return Response(dumps(js), mimetype="application/json")
 
     js = {"succefull": f"User {username} was succefull added"}
     return Response(dumps(js), mimetype="application/json")

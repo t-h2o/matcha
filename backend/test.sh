@@ -85,7 +85,7 @@ register() {
 	compare_json \
 		"/register" \
 		'{"username" : "user", "firstname" : "firstname", "lastname" : "lastname", "email" : "email@email.com", "password" : "1234"}' \
-		"error: User user is already registered."
+		'{"error": "User user is already registered."}'
 
 	compare_json \
 		"/register" \
