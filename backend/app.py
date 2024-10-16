@@ -154,7 +154,8 @@ def drop_table():
         except Exception as e:
             error = e.__class__
 
-    return f"error: {error}"
+    js = {"error": error}
+    return Response(dumps(js), mimetype="application/json")
 
 
 if __name__ == "__main__":
