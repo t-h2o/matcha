@@ -2,10 +2,9 @@
 
 from os import environ
 from contextlib import contextmanager
-from json import dumps
 from flask import Flask
 from flask import request
-from flask import Response
+from flask import jsonify
 from psycopg2 import connect
 from psycopg2.extras import RealDictCursor
 from psycopg2.errors import UndefinedTable
@@ -54,8 +53,7 @@ def create_table_users():
             )
             conn.commit()
 
-    js = {"succefull": "table users created"}
-    return Response(dumps(js), mimetype="application/json")
+    return jsonify({"succefull": "table users created"})
 
 
 @app.route("/register", methods=["POST"])
@@ -67,8 +65,7 @@ def register_user():
     """
     content_type = request.headers.get("Content-Type")
     if content_type != "application/json":
-        js = {"error": "Content-Type not supported!"}
-        return Response(dumps(js), mimetype="application/json")
+        return jsonify({"error": "Content-Type not supported!"})
 
     json = request.json
 
@@ -79,8 +76,7 @@ def register_user():
         lastname = json["lastname"]
         email = json["email"]
     except KeyError as e:
-        js = {"error": f"{e} is required."}
-        return Response(dumps(js), mimetype="application/json")
+        return jsonify({"error": f"{e} is required."})
 
     error = None
 
@@ -96,8 +92,7 @@ def register_user():
         error = "Email is required."
 
     if error is not None:
-        js = {"error": error}
-        return Response(dumps(js), mimetype="application/json")
+        return jsonify({"error": error})
 
     with get_db_connection() as conn:
         try:
@@ -114,11 +109,9 @@ def register_user():
                 )
                 conn.commit()
         except conn.IntegrityError:
-            js = {"error": f"User {username} is already registered."}
-            return Response(dumps(js), mimetype="application/json")
+            return jsonify({"error": f"User {username} is already registered."})
 
-    js = {"succefull": f"User {username} was succefull added"}
-    return Response(dumps(js), mimetype="application/json")
+    return jsonify({"succefull": f"User {username} was succefull added"})
 
 
 @app.route("/drop", methods=["POST"])
@@ -127,8 +120,7 @@ def drop_table():
 
     content_type = request.headers.get("Content-Type")
     if content_type != "application/json":
-        js = {"error": "Content-Type not supported!"}
-        return Response(dumps(js), mimetype="application/json")
+        return jsonify({"error": "Content-Type not supported!"})
     json = request.json
     table = json["table"]
 
@@ -138,24 +130,21 @@ def drop_table():
         error = "table is required."
 
     if error is not None:
-        js = {"error": error}
-        return Response(dumps(js), mimetype="application/json")
+        return jsonify({"error": error})
 
     with get_db_connection() as conn:
         try:
             cur = conn.cursor()
             cur.execute(f"DROP table IF EXISTS {table}")
             conn.commit()
-            js = {"success": f'Table "{table}" was succefull dropped'}
-            return Response(dumps(js), mimetype="application/json")
+            return jsonify({"success": f'Table "{table}" was succefull dropped'})
         except UndefinedTable:
             error = "undefined table"
 
         except Exception as e:
             error = e.__class__
 
-    js = {"error": error}
-    return Response(dumps(js), mimetype="application/json")
+    return jsonify({"error": error})
 
 
 if __name__ == "__main__":

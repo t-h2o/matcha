@@ -51,66 +51,66 @@ basic() {
 
 	compare \
 		"/create" \
-		'{"succefull": "table users created"}'
+		'{"succefull":"table users created"}'
 }
 
 post_json() {
 	compare_json \
 		"/drop" \
 		'{"table" : "users"}' \
-		'{"success": "Table \"users\" was succefull dropped"}'
+		'{"success":"Table \"users\" was succefull dropped"}'
 
 	compare_json \
 		"/drop" \
 		'{"table" : ""}' \
-		'{"error": "table is required."}'
+		'{"error":"table is required."}'
 }
 
 register() {
 	compare_json \
 		"/register" \
 		'{"username" : "user", "firstname" : "firstname", "lastname" : "lastname", "email" : "email@email.com", "password" : "1234"}' \
-		'{"succefull": "User user was succefull added"}'
+		'{"succefull":"User user was succefull added"}'
 
 	compare_json \
 		"/register" \
 		'{"username" : "user", "lastname" : "lastname", "email" : "email@email.com", "password" : "1234"}' \
-		"{\"error\": \"'firstname' is required.\"}"
+		"{\"error\":\"'firstname' is required.\"}"
 
 	compare_json \
 		"/register" \
 		'{"firstname" : "firstname", "lastname" : "lastname", "email" : "email@email.com", "password" : "1234"}' \
-		"{\"error\": \"'username' is required.\"}"
+		"{\"error\":\"'username' is required.\"}"
 
 	compare_json \
 		"/register" \
 		'{"username" : "user", "firstname" : "firstname", "lastname" : "lastname", "email" : "email@email.com", "password" : "1234"}' \
-		'{"error": "User user is already registered."}'
+		'{"error":"User user is already registered."}'
 
 	compare_json \
 		"/register" \
 		'{"username" : "", "firstname" : "firstname", "lastname" : "lastname", "email" : "email@email.com", "password" : "1234"}' \
-		'{"error": "Username is required."}'
+		'{"error":"Username is required."}'
 
 	compare_json \
 		"/register" \
 		'{"username" : "user", "firstname" : "", "lastname" : "lastname", "email" : "email@email.com", "password" : "1234"}' \
-		'{"error": "Firstname is required."}'
+		'{"error":"Firstname is required."}'
 
 	compare_json \
 		"/register" \
 		'{"username" : "user", "firstname" : "firstname", "lastname" : "", "email" : "email@email.com", "password" : "1234"}' \
-		'{"error": "Lastname is required."}'
+		'{"error":"Lastname is required."}'
 
 	compare_json \
 		"/register" \
 		'{"username" : "user", "firstname" : "firstname", "lastname" : "lastname", "email" : "email@email.com", "password" : ""}' \
-		'{"error": "Password is required."}'
+		'{"error":"Password is required."}'
 
 	compare_json \
 		"/register" \
 		'{"username" : "user", "firstname" : "firstname", "lastname" : "lastname", "email" : "", "password" : "1234"}' \
-		'{"error": "Email is required."}'
+		'{"error":"Email is required."}'
 }
 
 http_error() {
