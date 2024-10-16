@@ -59,6 +59,11 @@ post_json() {
 		"/drop" \
 		'{"table" : "users"}' \
 		'[{"success": "Table \"users\" was succefull dropped"}]'
+
+	compare_json \
+		"/drop" \
+		'{"table" : ""}' \
+		'[{"error": "table is required."}]'
 }
 
 register() {
