@@ -29,7 +29,6 @@ export class RegisterProfileFormComponent {
     }
   }
 
-  // Handle file changes for pictures
   onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
     const files = input.files;
