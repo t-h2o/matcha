@@ -2,10 +2,8 @@
 
 from os import environ
 from contextlib import contextmanager
-from json import dumps
 from flask import Flask
 from flask import request
-from flask import Response
 from flask import jsonify
 from psycopg2 import connect
 from psycopg2.extras import RealDictCursor
