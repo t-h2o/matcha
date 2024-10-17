@@ -127,11 +127,34 @@ check_http_error() {
 	http_error "/register" "405"
 }
 
+login() {
+	compare_json \
+		"/login" \
+		'{"username":"user", "password": "1234"}' \
+		'{"success":"loged"}'
+
+	compare_json \
+		"/login" \
+		'{"username":"user", "password": "bad"}' \
+		'{"error":"Incorrect password"}'
+
+	compare_json \
+		"/login" \
+		'{"username":"", "password": "1234"}' \
+		'{"error":"Username is required."}'
+
+	compare_json \
+		"/login" \
+		'{"username":"no_user", "password": "1234"}' \
+		'{"error":"Incorrect username"}'
+}
+
 main() {
 	post_json
 	basic
 	check_http_error
 	register
+	login
 }
 
 main

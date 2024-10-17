@@ -9,6 +9,7 @@ from psycopg2 import connect
 from psycopg2.extras import RealDictCursor
 from psycopg2.errors import UndefinedTable
 from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -54,6 +55,41 @@ def create_table_users():
             conn.commit()
 
     return jsonify({"succefull": "table users created"})
+
+
+@app.route("/login", methods=["POST"])
+def login_user():
+    """Check the login"""
+    json = request.json
+
+    try:
+        username = json["username"]
+        password = json["password"]
+    except KeyError as e:
+        return jsonify({"error": f"{e} is required."})
+
+    error = None
+
+    if not username:
+        error = "Username is required."
+    elif not password:
+        error = "Password is required."
+
+    if error is not None:
+        return jsonify({"error": error})
+
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute("SELECT * FROM users WHERE username = %s", (username,))
+            user_db = cur.fetchone()
+
+            if user_db is None:
+                return jsonify({"error": "Incorrect username"})
+            if check_password_hash(user_db[6], password):
+                return jsonify({"success": "loged"})
+            return jsonify({"error": "Incorrect password"})
+
+    return "login"
 
 
 @app.route("/register", methods=["POST"])
