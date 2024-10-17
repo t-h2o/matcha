@@ -22,7 +22,7 @@ export class LoginComponent {
       username: formData.value.username,
       password: formData.value.password,
     };
-    console.log(loginData);
+    this.sendLoginDataToAPI(loginData);
     formData.form.reset();
   }
 
