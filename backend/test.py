@@ -9,6 +9,8 @@ URL = "http://localhost:5001"
 
 
 HTTP_405 = b"<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
+
+
 class bcolors:
     OKGREEN = "\033[92m"
     ENDC = "\033[0m"
@@ -28,13 +30,7 @@ def check_api_get(path, status, content):
         print(f"error: status code {response.status_code}")
     if response.content != content:
         print(f"error: content {response.content}")
-    print(
-        bcolors.OKGREEN
-        + "success: "
-        + bcolors.ENDC
-        + path
-        + str(content)
-    )
+    print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + str(content))
 
 
 def check_api_post(path, status, json, content):
