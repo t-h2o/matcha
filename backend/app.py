@@ -169,12 +169,10 @@ def drop_table():
             conn.commit()
             return jsonify({"success": f"Table {table} was successfully dropped"})
         except UndefinedTable:
-            error = "undefined table"
+            return jsonify({"error": "Undefined table"}), 400
 
         except Exception as e:
-            error = e.__class__
-
-    return jsonify({"error": error})
+            return jsonify({"error": str(e)}), 500
 
 
 if __name__ == "__main__":
