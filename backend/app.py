@@ -48,7 +48,7 @@ def create_table_users():
             )
             conn.commit()
 
-    return jsonify({"succefull": "table users created"})
+    return jsonify({"success": "Table 'users' created"}), 201
 
 
 @app.route("/login", methods=["POST"])
@@ -167,7 +167,7 @@ def drop_table():
             cur = conn.cursor()
             cur.execute(f"DROP table IF EXISTS {table}")
             conn.commit()
-            return jsonify({"success": f'Table "{table}" was succefull dropped'})
+            return jsonify({"success": f"Table {table} was successfully dropped"})
         except UndefinedTable:
             error = "undefined table"
 

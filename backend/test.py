@@ -51,7 +51,7 @@ def drop_table():
         "/drop",
         200,
         {"table": "users"},
-        b'{"success":"Table \\"users\\" was succefull dropped"}\n',
+        b'{"success":"Table users was successfully dropped"}\n',
     )
     check_api_post("/drop", 200, {"table": ""}, b'{"error":"table is required."}\n')
     check_api_get("/drop", 405, HTTP_405)
@@ -206,7 +206,7 @@ def login():
 
 
 def create_table():
-    check_api_get("/create", 200, b'{"succefull":"table users created"}\n')
+    check_api_get("/create", 201, b'{"success":"Table \'users\' created"}\n')
 
 
 def main():
