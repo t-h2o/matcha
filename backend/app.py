@@ -93,8 +93,7 @@ def register_user():
     Validates that the username is not already taken.
     Hashes the password for security.
     """
-    content_type = request.headers.get("Content-Type")
-    if content_type != "application/json":
+    if request.headers.get("Content-Type") != "application/json":
         return jsonify({"error": "Content-Type not supported!"})
 
     json = request.json
@@ -148,8 +147,7 @@ def register_user():
 def drop_table():
     """Drop table name in JSON"""
 
-    content_type = request.headers.get("Content-Type")
-    if content_type != "application/json":
+    if request.headers.get("Content-Type") != "application/json":
         return jsonify({"error": "Content-Type not supported!"})
     json = request.json
     table = json["table"]
