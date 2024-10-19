@@ -185,7 +185,7 @@ def login():
 
     check_api_post(
         "/login",
-        200,
+        401,
         {"username": "user", "password": "bad"},
         b'{"error":"Incorrect password"}\n',
     )
@@ -199,7 +199,7 @@ def login():
 
     check_api_post(
         "/login",
-        200,
+        401,
         {"username": "no_user", "password": "1234"},
         b'{"error":"Incorrect username"}\n',
     )
