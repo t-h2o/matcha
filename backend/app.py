@@ -27,12 +27,6 @@ def get_db_connection():
         conn.close()
 
 
-@app.route("/")
-def hello_world():
-    """Simple title"""
-    return "<h1>Hello, World!</h1>"
-
-
 @app.route("/create")
 def create_table_users():
     """Create the Users's table."""
