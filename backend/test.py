@@ -16,6 +16,19 @@ class bcolors:
     ENDC = "\033[0m"
 
 
+def check_415(path):
+    headers = {"content-type": "application/not_json"}
+
+    json = {}
+
+    response = post(URL + path, json=json, headers=headers)
+
+    if response.status_code != 415:
+        print(f"error: status code {response.status_code}")
+
+    print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " 415 error")
+
+
 def check_api_get(path, status, content):
     response = get(URL + path)
     if response.status_code != status:
@@ -39,6 +52,7 @@ def check_api_post(path, status, json, content):
 
 
 def drop_table():
+    check_415("/drop")
     check_api_post(
         "/drop",
         200,
@@ -50,6 +64,7 @@ def drop_table():
 
 
 def register():
+    check_415("/register")
     check_api_get("/register", 405, HTTP_405)
     check_api_post(
         "/register",
