@@ -78,10 +78,10 @@ def login_user():
             user_db = cur.fetchone()
 
             if user_db is None:
-                return jsonify({"error": "Incorrect username"})
+                return jsonify({"error": "Incorrect username"}), 401
             if check_password_hash(user_db[6], password):
                 return jsonify({"success": "loged"})
-            return jsonify({"error": "Incorrect password"})
+            return jsonify({"error": "Incorrect password"}), 401
 
     return "login"
 
