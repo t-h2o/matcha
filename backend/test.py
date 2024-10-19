@@ -16,14 +16,6 @@ class bcolors:
     ENDC = "\033[0m"
 
 
-def root():
-    response = get(URL)
-    print(response)
-    print(response.status_code)
-    print(response.text)
-    print(response.content)
-
-
 def check_api_get(path, status, content):
     response = get(URL + path)
     if response.status_code != status:
