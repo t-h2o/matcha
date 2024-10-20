@@ -7,8 +7,6 @@ import { CardComponent } from '../../UI/card/card.component';
   standalone: true,
   imports: [CardComponent, CustomButtonComponent],
   templateUrl: './email-passwd.component.html',
-  styleUrl: './email-passwd.component.scss'
+  styleUrl: './email-passwd.component.scss',
 })
-export class EmailPasswdComponent {
-
-}
+export class EmailPasswdComponent {}

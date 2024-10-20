@@ -1,5 +1,13 @@
 <div class="app-wrapper">
   <main class="profile-container">
-    <h1 class="title">Profile Details</h1>
+    <div class="left">
+      <app-general-profile [userProfile]="profileData"></app-general-profile>
+    </div>
+    <div class="rigth">
+      <app-pictures-profile
+        [userPictures]="profileData.pictures"
+        [profilePicture]="profileData.profilePic"
+      ></app-pictures-profile>
+    </div>
   </main>
 </div>
