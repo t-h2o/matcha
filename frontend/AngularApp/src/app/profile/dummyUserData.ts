@@ -16,11 +16,13 @@ export let dummyUserData = {
     'traveling',
   ],
   pictures: [
-    'johnnyAppleseed1',
-    'johnnyAppleseed2',
-    'johnnyAppleseed3',
-    'johnnyAppleseed4',
-    'johnnyAppleseed5',
+    'johnnyAppleseed1.jpg',
+    'johnnyAppleseed2.jpg',
+    'johnnyAppleseed3.jpg',
+    'johnnyAppleseed4.jpg',
+    // 'johnnyAppleseed5.jpg',
   ],
   profilePic: 'johnnyAppleseed1',
 };
+
+export type UserData = typeof dummyUserData;

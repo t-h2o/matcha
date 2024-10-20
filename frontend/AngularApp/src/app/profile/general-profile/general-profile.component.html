@@ -1,1 +1,30 @@
-<p>general-profile works!</p>
+<app-card>
+  <div class="container">
+    <div class="detail-group">
+      <p>
+        <span class="list-title">Firstname:</span>{{ userProfile.firstName }}
+      </p>
+    </div>
+    <div class="detail-group">
+      <p>
+        <span class="list-title">Lastname:</span
+        >{{ userProfile.lastName | uppercase }}
+      </p>
+    </div>
+    <div class="detail-group">
+      <p><span class="list-title">Gender:</span>{{ userProfile.gender }}</p>
+    </div>
+    <div class="detail-group">
+      <p>
+        <span class="list-title">Sexual Preferences:</span
+        >{{ userProfile.sexualPreference }}
+      </p>
+    </div>
+    <div class="detail-group">
+      <p><span class="list-title">Bio:</span>{{ userProfile.bio }}</p>
+    </div>
+    <div class="btn-container">
+      <button custom-button class="btn">Modify</button>
+    </div>
+  </div>
+</app-card>

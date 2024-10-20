@@ -7,8 +7,6 @@ import { CardComponent } from '../../UI/card/card.component';
   standalone: true,
   imports: [CardComponent, CustomButtonComponent],
   templateUrl: './interests.component.html',
-  styleUrl: './interests.component.scss'
+  styleUrl: './interests.component.scss',
 })
-export class InterestsComponent {
-
-}
+export class InterestsComponent {}

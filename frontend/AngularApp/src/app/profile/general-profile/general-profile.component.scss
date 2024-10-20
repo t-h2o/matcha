@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+  min-width: 100%;
+
+  .list-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 1rem;
+  }
+
+  .detail-group {
+    display: inline;
+    margin: 0.5rem;
+  }
+
+  .btn-container {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

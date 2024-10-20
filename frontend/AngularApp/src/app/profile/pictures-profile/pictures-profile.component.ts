@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 
@@ -7,8 +7,9 @@ import { CustomButtonComponent } from '../../UI/custom-button/custom-button.comp
   standalone: true,
   imports: [CardComponent, CustomButtonComponent],
   templateUrl: './pictures-profile.component.html',
-  styleUrl: './pictures-profile.component.scss'
+  styleUrl: './pictures-profile.component.scss',
 })
 export class PicturesProfileComponent {
-
+  @Input() userPictures!: string[];
+  @Input() profilePicture!: string;
 }
