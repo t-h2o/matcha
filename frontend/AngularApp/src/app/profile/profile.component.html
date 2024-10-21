@@ -2,6 +2,7 @@
   <main class="profile-container">
     <div class="left">
       <app-general-profile [userProfile]="profileData"></app-general-profile>
+      <app-interests [interestList]="profileData.interests"></app-interests>
     </div>
     <div class="rigth">
       <app-pictures-profile

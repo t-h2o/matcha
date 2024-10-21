@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { CardComponent } from '../../UI/card/card.component';
 
@@ -9,4 +9,6 @@ import { CardComponent } from '../../UI/card/card.component';
   templateUrl: './interests.component.html',
   styleUrl: './interests.component.scss',
 })
-export class InterestsComponent {}
+export class InterestsComponent {
+  @Input({required: true}) interestList!: string[];
+}
