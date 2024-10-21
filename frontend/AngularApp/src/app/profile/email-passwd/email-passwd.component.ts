@@ -10,5 +10,5 @@ import { CardComponent } from '../../UI/card/card.component';
   styleUrl: './email-passwd.component.scss',
 })
 export class EmailPasswdComponent {
-  @Input({required: true}) email!: string;
+  @Input({ required: true }) email!: string;
 }
