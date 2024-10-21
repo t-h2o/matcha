@@ -10,5 +10,5 @@ import { CardComponent } from '../../UI/card/card.component';
   styleUrl: './interests.component.scss',
 })
 export class InterestsComponent {
-  @Input({required: true}) interestList!: string[];
+  @Input({ required: true }) interestList!: string[];
 }
