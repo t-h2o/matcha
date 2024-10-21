@@ -1,20 +1,18 @@
 CONTAINER_FRONT = angular
 
-# Development commands
 start-dev: env
 	docker compose -f docker-compose.dev.yml up
 
 stop-dev:
 	docker compose -f docker-compose.dev.yml down
 
-# Production commands
-start-prod: env
+start-prod: build-prod
 	docker compose -f docker-compose.prod.yml up -d
 
 stop-prod:
 	docker compose -f docker-compose.prod.yml down
 
-build-prod:
+build-prod: env
 	docker compose -f docker-compose.prod.yml build
 
 env:
