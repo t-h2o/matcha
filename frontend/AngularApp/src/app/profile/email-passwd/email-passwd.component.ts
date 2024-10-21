@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { CardComponent } from '../../UI/card/card.component';
 
@@ -9,4 +9,6 @@ import { CardComponent } from '../../UI/card/card.component';
   templateUrl: './email-passwd.component.html',
   styleUrl: './email-passwd.component.scss',
 })
-export class EmailPasswdComponent {}
+export class EmailPasswdComponent {
+  @Input({required: true}) email!: string;
+}
