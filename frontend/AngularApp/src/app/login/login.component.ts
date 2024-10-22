@@ -35,7 +35,7 @@ export class LoginComponent {
   sendLoginDataToAPI(loginData: { username: string; password: string }) {
     this.falseCredentials.set(false);
     const subscription = this.httpClient
-      .post<token>('http://localhost:5001/login', loginData)
+      .post<token>('http://localhost:5001/api/login', loginData)
       .subscribe({
         next: (data) => {
           localStorage.setItem('access_token', data.access_token);
