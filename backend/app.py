@@ -6,6 +6,12 @@ from contextlib import contextmanager
 from flask import Flask
 from flask import request
 from flask import jsonify
+
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import current_user
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
+
 from psycopg2 import connect
 from psycopg2.extras import RealDictCursor
 from psycopg2.errors import UndefinedTable
