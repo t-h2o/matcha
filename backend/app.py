@@ -25,6 +25,7 @@ def flaskprint(message):
 
 
 app = Flask(__name__)
+app.config["JWT_SECRET_KEY"] = environ["FLASK_JWT_SECRET_KEY"]
 CORS(app, origins="http://localhost:4200")
 
 
