@@ -14,6 +14,10 @@ export let dummyUserData = {
     'reading',
     'cooking',
     'traveling',
+    'watching movies',
+    'playing video games',
+    'playing board games',
+    'playing sports',
   ],
   pictures: [
     'johnnyAppleseed1.jpg',

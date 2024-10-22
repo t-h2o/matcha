@@ -8,10 +8,10 @@
   gap: 1rem;
 
   .left {
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    gap: 1rem;
     padding: 1rem;
   }
 
@@ -22,9 +22,4 @@
     align-items: center;
     padding: 1rem;
   }
-
-  & > * {
-    width: 100%;
-  }
-  
 }

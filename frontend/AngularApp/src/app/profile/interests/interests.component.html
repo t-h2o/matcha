@@ -1,10 +1,11 @@
 <app-card>
   <div class="container">
-    <p><span class="list-title">Interests:</span></p>
-    <div class="interest-item">
-      @for (interest of interestList; track $index) {
-        <p>{{ interest }}</p>
-      }
+    <div class="title-item">
+      <p><span class="list-title">Interests:</span></p>
+      <div class="interest-items">
+        <p>{{ interestList.join(', ') }}</p>
+        
+      </div>
     </div>
     <div class="btn-container">
       <button custom-button class="btn">Modify</button>
