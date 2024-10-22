@@ -3,6 +3,7 @@ services:
     container_name: angular
     build:
       context: ./frontend/
+      dockerfile: Dockerfile.dev
     volumes:
       - ./frontend/AngularApp:/app
     ports:
@@ -16,6 +17,7 @@ services:
     container_name: flask
     build:
       context: ./backend/
+      dockerfile: Dockerfile.dev
     volumes:
       - ./backend:/app
     ports:
