@@ -8,9 +8,9 @@ from flask import request
 from flask import jsonify
 
 from flask_jwt_extended import create_access_token
-from flask_jwt_extended import current_user
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
+from flask_jwt_extended import get_jwt_identity
 
 from psycopg2 import connect
 from psycopg2.extras import RealDictCursor
@@ -27,6 +27,19 @@ def flaskprint(message):
 app = Flask(__name__)
 app.config["JWT_SECRET_KEY"] = environ["FLASK_JWT_SECRET_KEY"]
 CORS(app, origins="http://localhost:4200")
+
+jwt = JWTManager(app)
+
+
+def get_user_db_per_id(id_user):
+    user_db = None
+
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute("SELECT * FROM users WHERE id = %s", (id_user,))
+            user_db = cur.fetchone()
+
+    return user_db
 
 
 @contextmanager
@@ -95,10 +108,23 @@ def login_user():
             if user_db is None:
                 return jsonify({"error": "Incorrect username"}), 401
             if check_password_hash(user_db[6], password):
-                return jsonify({"success": "loged"})
+                access_token = create_access_token(identity=user_db[0])
+                return jsonify(access_token=access_token)
             return jsonify({"error": "Incorrect password"}), 401
 
-    return "login"
+
+@app.route("/who_am_i", methods=["GET"])
+@jwt_required()
+def protected():
+    # We can now access our sqlalchemy User object via `current_user`.
+    user_id = get_jwt_identity()
+    flaskprint(user_id)
+    user_db = get_user_db_per_id(user_id)
+    return jsonify(
+        id=user_db[0],
+        firstname=user_db[1],
+        lastname=user_db[2],
+    )
 
 
 @app.route("/register", methods=["POST"])
