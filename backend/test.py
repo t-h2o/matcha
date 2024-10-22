@@ -74,22 +74,22 @@ def check_api_post(path, status, json, content):
 
 
 def drop_table():
-    check_415("/drop")
+    check_415("/api/drop")
     check_api_post(
-        "/drop",
+        "/api/drop",
         200,
         {"table": "users"},
         b'{"success":"Table users was successfully dropped"}\n',
     )
-    check_api_post("/drop", 200, {"table": ""}, b'{"error":"table is required."}\n')
-    check_api_get("/drop", 405, HTTP_405)
+    check_api_post("/api/drop", 200, {"table": ""}, b'{"error":"table is required."}\n')
+    check_api_get("/api/drop", 405, HTTP_405)
 
 
 def register():
-    check_415("/register")
-    check_api_get("/register", 405, HTTP_405)
+    check_415("/api/register")
+    check_api_get("/api/register", 405, HTTP_405)
     check_api_post(
-        "/register",
+        "/api/register",
         200,
         {
             "username": "user",
@@ -102,7 +102,7 @@ def register():
     )
 
     check_api_post(
-        "/register",
+        "/api/register",
         400,
         {
             "username": "user",
@@ -114,7 +114,7 @@ def register():
     )
 
     check_api_post(
-        "/register",
+        "/api/register",
         400,
         {
             "firstname": "firstname",
@@ -126,7 +126,7 @@ def register():
     )
 
     check_api_post(
-        "/register",
+        "/api/register",
         200,
         {
             "username": "user",
@@ -139,7 +139,7 @@ def register():
     )
 
     check_api_post(
-        "/register",
+        "/api/register",
         400,
         {
             "username": "",
@@ -152,7 +152,7 @@ def register():
     )
 
     check_api_post(
-        "/register",
+        "/api/register",
         400,
         {
             "username": "user",
@@ -165,7 +165,7 @@ def register():
     )
 
     check_api_post(
-        "/register",
+        "/api/register",
         400,
         {
             "username": "user",
@@ -178,7 +178,7 @@ def register():
     )
 
     check_api_post(
-        "/register",
+        "/api/register",
         400,
         {
             "username": "user",
@@ -191,7 +191,7 @@ def register():
     )
 
     check_api_post(
-        "/register",
+        "/api/register",
         400,
         {
             "username": "user",
@@ -206,47 +206,47 @@ def register():
 
 def login():
     check_login_token(
-        "/login",
+        "/api/login",
         {"username": "user", "password": "1234"},
     )
 
     check_api_post(
-        "/login",
+        "/api/login",
         401,
         {"username": "user", "password": "bad"},
         b'{"error":"Incorrect password"}\n',
     )
 
     check_api_post(
-        "/login",
+        "/api/login",
         400,
         {"username": "", "password": "1234"},
         b'{"error":"The following fields are required and cannot be empty: username"}\n',
     )
 
     check_api_post(
-        "/login",
+        "/api/login",
         400,
         {"username": None, "password": "1234"},
         b'{"error":"The following fields are required and cannot be empty: username"}\n',
     )
 
     check_api_post(
-        "/login",
+        "/api/login",
         400,
         {"username": "", "password": ""},
         b'{"error":"The following fields are required and cannot be empty: username, password"}\n',
     )
 
     check_api_post(
-        "/login",
+        "/api/login",
         401,
         {"username": "no_user", "password": "1234"},
         b'{"error":"Incorrect username"}\n',
     )
 
     check_api_post(
-        "/login",
+        "/api/login",
         400,
         {"password": "1234"},
         b'{"error":"The following fields are required and cannot be empty: username"}\n',
