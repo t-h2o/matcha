@@ -1,3 +1,25 @@
-p {
-  color: white;
+@import "../../styles.scss";
+
+.profile-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  justify-content: center;
+  gap: 1rem;
+
+  .left {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
+    padding: 1rem;
+  }
 }
