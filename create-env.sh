@@ -38,6 +38,7 @@ create_the_environment_file () {
 	POSTGRES_NAME=${POSTGRES_NAME}
 
 	DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_NAME}
+	FLASK_JWT_SECRET_KEY=$(pwgen)
 
 	environment_file
 }
