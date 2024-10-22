@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   angular:
     container_name: angular-prod
@@ -12,6 +10,8 @@ services:
       - uploads:/usr/share/nginx/uploads
     depends_on:
       - flask
+    networks:
+      - appnet
 
   flask:
     container_name: flask-prod
@@ -20,7 +20,7 @@ services:
       dockerfile: Dockerfile.prod
     volumes:
       - ./backend:/app
-      - uploads:/app/uploads  # Mount the same uploads volume
+      - uploads:/app/uploads
     environment:
       - FLASK_APP=app.py
       - FLASK_ENV=production
