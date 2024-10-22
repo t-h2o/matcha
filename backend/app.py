@@ -106,30 +106,26 @@ def register_user():
 
     json = request.json
 
-    try:
-        username = json["username"]
-        password = json["password"]
-        firstname = json["firstname"]
-        lastname = json["lastname"]
-        email = json["email"]
-    except KeyError as e:
-        return jsonify({"error": f"{e} is required."})
+    required_fields = ["username", "password", "firstname", "lastname", "email"]
+    missing_fields = [
+        field for field in required_fields if field not in json or not json[field]
+    ]
 
-    error = None
+    if missing_fields:
+        return (
+            jsonify(
+                {
+                    "error": f"The following fields are required and cannot be empty: {', '.join(missing_fields)}"
+                }
+            ),
+            400,
+        )
 
-    if not username:
-        error = "Username is required."
-    elif not password:
-        error = "Password is required."
-    elif not firstname:
-        error = "Firstname is required."
-    elif not lastname:
-        error = "Lastname is required."
-    elif not email:
-        error = "Email is required."
-
-    if error is not None:
-        return jsonify({"error": error})
+    username = json["username"]
+    password = json["password"]
+    firstname = json["firstname"]
+    lastname = json["lastname"]
+    email = json["email"]
 
     with get_db_connection() as conn:
         try:

@@ -81,26 +81,26 @@ def register():
 
     check_api_post(
         "/register",
-        200,
+        400,
         {
             "username": "user",
             "lastname": "lastname",
             "email": "email@email.com",
             "password": "1234",
         },
-        b'{"error":"\'firstname\' is required."}\n',
+        b'{"error":"The following fields are required and cannot be empty: firstname"}\n',
     )
 
     check_api_post(
         "/register",
-        200,
+        400,
         {
             "firstname": "firstname",
             "lastname": "lastname",
             "email": "email@email.com",
             "password": "1234",
         },
-        b'{"error":"\'username\' is required."}\n',
+        b'{"error":"The following fields are required and cannot be empty: username"}\n',
     )
 
     check_api_post(
@@ -118,7 +118,7 @@ def register():
 
     check_api_post(
         "/register",
-        200,
+        400,
         {
             "username": "",
             "firstname": "firstname",
@@ -126,12 +126,12 @@ def register():
             "email": "email@email.com",
             "password": "1234",
         },
-        b'{"error":"Username is required."}\n',
+        b'{"error":"The following fields are required and cannot be empty: username"}\n',
     )
 
     check_api_post(
         "/register",
-        200,
+        400,
         {
             "username": "user",
             "firstname": "",
@@ -139,12 +139,12 @@ def register():
             "email": "email@email.com",
             "password": "1234",
         },
-        b'{"error":"Firstname is required."}\n',
+        b'{"error":"The following fields are required and cannot be empty: firstname"}\n',
     )
 
     check_api_post(
         "/register",
-        200,
+        400,
         {
             "username": "user",
             "firstname": "firstname",
@@ -152,12 +152,12 @@ def register():
             "email": "email@email.com",
             "password": "1234",
         },
-        b'{"error":"Lastname is required."}\n',
+        b'{"error":"The following fields are required and cannot be empty: lastname"}\n',
     )
 
     check_api_post(
         "/register",
-        200,
+        400,
         {
             "username": "user",
             "firstname": "firstname",
@@ -165,12 +165,12 @@ def register():
             "email": "email@email.com",
             "password": "",
         },
-        b'{"error":"Password is required."}\n',
+        b'{"error":"The following fields are required and cannot be empty: password"}\n',
     )
 
     check_api_post(
         "/register",
-        200,
+        400,
         {
             "username": "user",
             "firstname": "firstname",
@@ -178,7 +178,7 @@ def register():
             "email": "",
             "password": "1234",
         },
-        b'{"error":"Email is required."}\n',
+        b'{"error":"The following fields are required and cannot be empty: email"}\n',
     )
 
 
