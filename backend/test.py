@@ -4,6 +4,7 @@
 from requests import post
 from requests import get
 
+from json import loads
 
 URL = "http://localhost:5001"
 
@@ -14,6 +15,27 @@ HTTP_405 = b"<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</tit
 class bcolors:
     OKGREEN = "\033[92m"
     ENDC = "\033[0m"
+
+
+def check_login_token(path, json):
+    headers = {"content-type": "application/json"}
+
+    response = post(URL + path, json=json, headers=headers)
+
+    if response.status_code != 200:
+        print(f"error: status code {response.status_code}")
+
+    json = loads(response.content)
+
+    if "access_token" not in json:
+        print("error: access token not in response")
+
+    print(
+        bcolors.OKGREEN
+        + "success: got access token: "
+        + bcolors.ENDC
+        + json["access_token"]
+    )
 
 
 def check_415(path):
@@ -183,11 +205,9 @@ def register():
 
 
 def login():
-    check_api_post(
+    check_login_token(
         "/login",
-        200,
         {"username": "user", "password": "1234"},
-        b'{"success":"loged"}\n',
     )
 
     check_api_post(
