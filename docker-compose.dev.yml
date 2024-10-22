@@ -1,6 +1,6 @@
 services:
   angular:
-    container_name: angular
+    container_name: angular-dev
     build:
       context: ./frontend/
       dockerfile: Dockerfile.dev
@@ -14,7 +14,7 @@ services:
       - CHOKIDAR_USEPOLLING=true
   
   flask:
-    container_name: flask
+    container_name: flask-dev
     build:
       context: ./backend/
       dockerfile: Dockerfile.dev
@@ -35,7 +35,7 @@ services:
             - appnet
 
   postgres:
-        container_name: postgres
+        container_name: postgres-dev
         image: postgres:latest
         ports:
             - '5432:5432'
