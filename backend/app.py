@@ -1,6 +1,7 @@
 """Flask, psycopg2, os.environ, contextmanager"""
 
 from os import environ
+from sys import stderr
 from contextlib import contextmanager
 from flask import Flask
 from flask import request
@@ -11,6 +12,9 @@ from psycopg2.errors import UndefinedTable
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 from flask_cors import CORS
+
+def flaskprint(message):
+    print(message, file=stderr)
 
 app = Flask(__name__)
 CORS(app, origins="http://localhost:4200")
