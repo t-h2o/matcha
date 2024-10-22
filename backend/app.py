@@ -102,12 +102,13 @@ def login_user():
 
     with get_db_connection() as conn:
         with conn.cursor() as cur:
-            cur.execute("SELECT * FROM users WHERE username = %s", (username,))
+            cur.execute("SELECT username,password FROM users WHERE username = %s", (username,))
             user_db = cur.fetchone()
+            flaskprint(user_db)
 
             if user_db is None:
                 return jsonify({"error": "Incorrect username"}), 401
-            if check_password_hash(user_db[6], password):
+            if check_password_hash(user_db[1], password):
                 access_token = create_access_token(identity=user_db[0])
                 return jsonify(access_token=access_token)
             return jsonify({"error": "Incorrect password"}), 401
