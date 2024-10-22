@@ -199,9 +199,16 @@ def login():
 
     check_api_post(
         "/login",
-        200,
+        400,
         {"username": "", "password": "1234"},
-        b'{"error":"Username is required."}\n',
+        b'{"error":"The following fields are required and cannot be empty: username"}\n',
+    )
+
+    check_api_post(
+        "/login",
+        400,
+        {"username": "", "password": ""},
+        b'{"error":"The following fields are required and cannot be empty: username, password"}\n',
     )
 
     check_api_post(
@@ -209,6 +216,13 @@ def login():
         401,
         {"username": "no_user", "password": "1234"},
         b'{"error":"Incorrect username"}\n',
+    )
+
+    check_api_post(
+        "/login",
+        400,
+        {"password": "1234"},
+        b'{"error":"The following fields are required and cannot be empty: username"}\n',
     )
 
 

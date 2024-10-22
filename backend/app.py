@@ -56,6 +56,21 @@ def login_user():
     """Check the login"""
     json = request.json
 
+    required_fields = ["username", "password"]
+    missing_fields = [
+        field for field in required_fields if field not in json or not json[field]
+    ]
+
+    if missing_fields:
+        return (
+            jsonify(
+                {
+                    "error": f"The following fields are required and cannot be empty: {', '.join(missing_fields)}"
+                }
+            ),
+            400,
+        )
+
     try:
         username = json["username"]
         password = json["password"]
