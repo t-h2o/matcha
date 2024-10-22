@@ -17,6 +17,11 @@ FROM nginx:alpine
 # Remove default Nginx static assets
 RUN rm -rf /usr/share/nginx/html/*
 
+# Create uploads directory
+RUN mkdir -p /usr/share/nginx/uploads && \
+    chown -R nginx:nginx /usr/share/nginx/uploads && \
+    chmod 755 /usr/share/nginx/uploads
+
 # Copy static assets from builder stage
 COPY --from=build /app/dist/AngularApp /usr/share/nginx/html
 
