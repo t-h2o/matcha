@@ -13,8 +13,10 @@ from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 from flask_cors import CORS
 
+
 def flaskprint(message):
     print(message, file=stderr)
+
 
 app = Flask(__name__)
 CORS(app, origins="http://localhost:4200")
@@ -75,21 +77,8 @@ def login_user():
             400,
         )
 
-    try:
-        username = json["username"]
-        password = json["password"]
-    except KeyError as e:
-        return jsonify({"error": f"{e} is required."})
-
-    error = None
-
-    if not username:
-        error = "Username is required."
-    elif not password:
-        error = "Password is required."
-
-    if error is not None:
-        return jsonify({"error": error})
+    username = json["username"]
+    password = json["password"]
 
     with get_db_connection() as conn:
         with conn.cursor() as cur:
