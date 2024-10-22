@@ -51,7 +51,7 @@ services:
 
 volumes:
     data:
-      name: postgres-volume
+      name: postgres-volume-dev
 
 networks:
     appnet:
