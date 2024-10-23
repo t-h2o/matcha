@@ -32,12 +32,12 @@ export class LoginComponent {
   }
 
   sendLoginDataToAPI(loginData: { username: string; password: string }) {
+    this.falseCredentials.set(false);
     const subscription = this.httpClient
       .post<token>('http://localhost:5001/login', loginData)
       .subscribe({
         next: (data) => {
           this.authService.tokenSignal.set(data);
-          console.log(data.access_token);
         },
         error: (error) => {
           if (error.status === 401) {
