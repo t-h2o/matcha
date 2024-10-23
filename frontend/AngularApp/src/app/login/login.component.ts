@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CardComponent } from '../UI/card/card.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -17,6 +17,8 @@ import { token } from '../shared/models/token';
 export class LoginComponent {
   private httpClient = inject(HttpClient);
   private authService = inject(AuthService);
+  falseCredentials = signal<boolean>(false);
+
   onSubmit(formData: NgForm) {
     if (formData.invalid) {
       return;
@@ -38,6 +40,9 @@ export class LoginComponent {
           console.log(data.access_token);
         },
         error: (error) => {
+          if (error.status === 401) {
+            this.falseCredentials.set(true);
+          }
           console.error(error.status);
         },
         complete: () => {

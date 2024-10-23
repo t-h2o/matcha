@@ -6,3 +6,10 @@
   margin-bottom: 1rem;
   color: $pink;
 }
+
+.error-msg {
+  text-align: center;
+  color: $invalid-red;
+  font-size: 0.7rem;
+  margin: 0;
+}
