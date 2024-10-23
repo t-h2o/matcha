@@ -4,6 +4,8 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../auth/auth.service';
+import { token } from '../shared/models/token';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +16,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginComponent {
   private httpClient = inject(HttpClient);
+  private authService = inject(AuthService);
   onSubmit(formData: NgForm) {
     if (formData.invalid) {
       return;
@@ -28,13 +31,14 @@ export class LoginComponent {
 
   sendLoginDataToAPI(loginData: { username: string; password: string }) {
     const subscription = this.httpClient
-      .post('http://localhost:5001/login', loginData)
+      .post<token>('http://localhost:5001/login', loginData)
       .subscribe({
         next: (data) => {
-          console.log('data: ' + JSON.stringify(data));
+          this.authService.tokenSignal.set(data);
+          console.log(data.access_token);
         },
         error: (error) => {
-          console.error('error: ' + JSON.stringify(error));
+          console.error(error.status);
         },
         complete: () => {
           subscription.unsubscribe();
