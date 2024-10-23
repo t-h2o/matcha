@@ -7,8 +7,10 @@
         </a>
       </div>
       <div class="links-container">
-        <a routerLink="/login" routerLinkActive="active">Login</a>
+        @if (!authService.tokenSignal()) {
+          <a routerLink="/login" routerLinkActive="active">Login</a>
         <a routerLink="/register" routerLinkActive="active">Register</a>
+        }
         @if (authService.tokenSignal()) {
           <a routerLink="/register-profile" routerLinkActive="active"
             >profileFillUp</a
