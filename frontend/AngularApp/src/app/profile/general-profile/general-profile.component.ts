@@ -13,4 +13,9 @@ import { UpperCasePipe } from '@angular/common';
 })
 export class GeneralProfileComponent {
   @Input() userProfile!: UserData;
+  @Input() onModify!: () => void;
+
+  onClickModify() {
+    this.onModify();
+  }
 }

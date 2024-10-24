@@ -1,15 +1,25 @@
-<div class="app-wrapper">
-  <main class="profile-container">
-    <div class="left">
-      <app-general-profile [userProfile]="profileData"></app-general-profile>
-      <app-interests [interestList]="profileData.interests"></app-interests>
-      <app-email-passwd [email]="profileData.email"></app-email-passwd>
-    </div>
-    <div class="right">
-      <app-pictures-profile
-        [userPictures]="profileData.pictures"
-        [profilePicture]="profileData.profilePic"
-      ></app-pictures-profile>
-    </div>
-  </main>
-</div>
+@if (isModifyingGeneral) {
+  <app-modify-general
+    [isModifyingGeneral]="isModifyingGeneral"
+    [onCancel]="onCancelModifyGeneral"
+  ></app-modify-general>
+} @else {
+  <div class="app-wrapper">
+    <main class="profile-container">
+      <div class="left">
+        <app-general-profile
+          [userProfile]="profileData"
+          [onModify]="onOpenModifyGeneral"
+        ></app-general-profile>
+        <app-interests [interestList]="profileData.interests"></app-interests>
+        <app-email-passwd [email]="profileData.email"></app-email-passwd>
+      </div>
+      <div class="right">
+        <app-pictures-profile
+          [userPictures]="profileData.pictures"
+          [profilePicture]="profileData.profilePic"
+        ></app-pictures-profile>
+      </div>
+    </main>
+  </div>
+}
