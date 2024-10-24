@@ -17,7 +17,11 @@
             required
             ngModel
           />
+          @if (falseCredentials()) {
+            <p class="error-msg">Wrong Username or Password.</p>
+          }
         </div>
+
         <button custom-button class="btn">Login</button>
         <p>Don't have an account yet?</p>
         <a routerLink="/register">Register</a>

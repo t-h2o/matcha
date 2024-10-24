@@ -1,18 +1,23 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
 import { BrowsingComponent } from './browsing/browsing.component';
+import { GuestGuard } from './guest.guard';
+import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
-import { RegisterComponent } from './register/register.component';
 import { RegisterProfileComponent } from './register-profile/register-profile.component';
+import { RegisterComponent } from './register/register.component';
 
 export const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [GuestGuard],
   },
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'register',
@@ -21,6 +26,7 @@ export const routes: Routes = [
   {
     path: 'browsing',
     component: BrowsingComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'register-profile',
