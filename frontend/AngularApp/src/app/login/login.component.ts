@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { CardComponent } from '../UI/card/card.component';
 import { FormsModule, NgForm } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
@@ -17,6 +17,7 @@ import { token } from '../shared/models/token';
 export class LoginComponent {
   private httpClient = inject(HttpClient);
   private authService = inject(AuthService);
+  private router = inject(Router);
   falseCredentials = signal<boolean>(false);
 
   onSubmit(formData: NgForm) {
@@ -38,6 +39,7 @@ export class LoginComponent {
       .subscribe({
         next: (data) => {
           this.authService.tokenSignal.set(data);
+          this.router.navigate(['/profile']);
         },
         error: (error) => {
           if (error.status === 401) {
