@@ -53,7 +53,13 @@ def get_db_connection():
         conn.close()
 
 
-@app.route("/create")
+@app.route("/api/")
+def hello_world():
+    """Simple title"""
+    return "<h1>Hello, World!</h1>"
+
+
+@app.route("/api/create")
 def create_table_users():
     """Create the Users's table."""
 
@@ -77,7 +83,7 @@ def create_table_users():
     return jsonify({"success": "Table 'users' created"}), 201
 
 
-@app.route("/login", methods=["POST"])
+@app.route("/api/login", methods=["POST"])
 def login_user():
     """Check the login"""
     json = request.json
@@ -127,7 +133,7 @@ def protected():
     )
 
 
-@app.route("/register", methods=["POST"])
+@app.route("/api/register", methods=["POST"])
 def register_user():
     """Register a new user.
 
@@ -180,7 +186,7 @@ def register_user():
     return jsonify({"succefull": f"User {username} was succefull added"})
 
 
-@app.route("/drop", methods=["POST"])
+@app.route("/api/drop", methods=["POST"])
 def drop_table():
     """Drop table name in JSON"""
 

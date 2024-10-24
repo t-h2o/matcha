@@ -46,7 +46,7 @@ export class RegisterComponent {
 
   sendUserDataToAPI(userData: UserRegister) {
     const subscription = this.httpClient
-      .post('http://localhost:5001/register', userData)
+      .post('http://localhost:5001/api/register', userData)
       .subscribe({
         next: (data) => {
           console.log('data: ' + JSON.stringify(data));
