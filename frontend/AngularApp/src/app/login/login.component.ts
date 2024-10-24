@@ -38,6 +38,7 @@ export class LoginComponent {
       .post<token>('http://localhost:5001/login', loginData)
       .subscribe({
         next: (data) => {
+          localStorage.setItem('access_token', data.access_token);
           this.authService.tokenSignal.set(data);
           this.router.navigate(['/profile']);
         },
