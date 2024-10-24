@@ -1,10 +1,12 @@
-@if (isModifyingGeneral) {
-  <app-modify-general
-    [isModifyingGeneral]="isModifyingGeneral"
-    [onCancel]="onCancelModifyGeneral"
-  ></app-modify-general>
-} @else {
-  <div class="app-wrapper">
+<div class="app-wrapper">
+  @if (isModifyingGeneral) {
+    <main class="main">
+      <app-modify-general
+        [isModifyingGeneral]="isModifyingGeneral"
+        [onCancel]="onCancelModifyGeneral"
+      ></app-modify-general>
+    </main>
+  } @else {
     <main class="profile-container">
       <div class="left">
         <app-general-profile
@@ -21,5 +23,5 @@
         ></app-pictures-profile>
       </div>
     </main>
-  </div>
-}
+  }
+</div>

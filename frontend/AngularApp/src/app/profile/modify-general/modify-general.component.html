@@ -1,5 +1,4 @@
-<div class="backdrop"></div>
-<app-card>
+<div class="backdrop">
   <dialog open>
     <form class="form" id="profile" #form="ngForm" (ngSubmit)="onSubmit(form)">
       <h1 class="title">Modify Profile Details</h1>
@@ -27,25 +26,8 @@
         <textarea id="bio" name="bio" rows="4" required ngModel></textarea>
       </div>
 
-      <div class="form-group">
-        <label for="interests">Select Interests</label>
-        <div class="checkbox-group">
-          @for (tag of tagsList; track $index) {
-            <div class="checkbox-item">
-              <input
-                type="checkbox"
-                id="{{ tag }}"
-                name="interests"
-                [value]="tag"
-                (change)="onTagChange($event)"
-              />
-              <label for="{{ tag }}">{{ tag }}</label>
-            </div>
-          }
-        </div>
-      </div>
       <button custom-button class="btn">Save</button>
       <button custom-button class="btn" (click)="onCancel()">Cancel</button>
     </form>
   </dialog>
-</app-card>
+</div>
