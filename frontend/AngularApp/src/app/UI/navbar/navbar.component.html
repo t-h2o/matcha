@@ -9,7 +9,7 @@
       <div class="links-container">
         @if (!authService.tokenSignal()) {
           <a routerLink="/login" routerLinkActive="active">Login</a>
-        <a routerLink="/register" routerLinkActive="active">Register</a>
+          <a routerLink="/register" routerLinkActive="active">Register</a>
         }
         @if (authService.tokenSignal()) {
           <a routerLink="/register-profile" routerLinkActive="active"
@@ -22,7 +22,7 @@
               alt="My Profile"
               class="account-icon"
           /></a>
-          <a routerLink="/login" routerLinkActive="active"
+          <a routerLink="/login" routerLinkActive="active" (click)="onLogout()"
             ><img src="icons/logout-icon.svg" alt="Logout" class="logout-icon"
           /></a>
         }
