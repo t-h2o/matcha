@@ -24,6 +24,7 @@ services:
     environment:
       - FLASK_APP=app.py
       - FLASK_ENV=production
+      - PYTHONUNBUFFERED=1
     env_file:
       - .env
     command: gunicorn --bind 0.0.0.0:5000 app:app

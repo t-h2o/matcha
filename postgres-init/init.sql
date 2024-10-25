@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
-    firstname VARCHAR(100) NOT NULL,
-    lastname VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
+    firstname VARCHAR NOT NULL,
+    lastname VARCHAR NOT NULL,
+    email VARCHAR NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
-    password VARCHAR(100) NOT NULL
+    password VARCHAR NOT NULL
 );
