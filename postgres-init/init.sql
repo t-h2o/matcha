@@ -1,8 +1,9 @@
--- Create the test table
-CREATE TABLE IF NOT EXISTS test (
+CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
-    content TEXT NOT NULL
+    username VARCHAR(50) UNIQUE NOT NULL,
+    firstname VARCHAR(100) NOT NULL,
+    lastname VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+    password VARCHAR(100) NOT NULL
 );
-
--- Insert initial data
-INSERT INTO test (content) VALUES ('this is some test string');
