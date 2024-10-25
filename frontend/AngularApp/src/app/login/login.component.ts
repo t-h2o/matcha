@@ -1,11 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
-import { CardComponent } from '../UI/card/card.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
-import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 import { AuthService } from '../auth/auth.service';
 import { token } from '../shared/models/token';
+import { CardComponent } from '../UI/card/card.component';
+import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent {
   private httpClient = inject(HttpClient);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private baseUrl = environment.apiUrl;
   falseCredentials = signal<boolean>(false);
 
   onSubmit(formData: NgForm) {
@@ -35,7 +37,7 @@ export class LoginComponent {
   sendLoginDataToAPI(loginData: { username: string; password: string }) {
     this.falseCredentials.set(false);
     const subscription = this.httpClient
-      .post<token>('http://localhost:5001/login', loginData)
+      .post<token>(`${this.baseUrl}/login`, loginData)
       .subscribe({
         next: (data) => {
           localStorage.setItem('access_token', data.access_token);

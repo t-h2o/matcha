@@ -1,0 +1,56 @@
+services:
+  angular:
+    container_name: angular-prod
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile.prod
+    ports:
+      - '80:80'
+    volumes:
+      - uploads:/usr/share/nginx/uploads
+    depends_on:
+      - flask
+    networks:
+      - appnet
+
+  flask:
+    container_name: flask-prod
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile.prod
+    volumes:
+      - ./backend:/app
+      - uploads:/app/uploads
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=production
+      - PYTHONUNBUFFERED=1
+    env_file:
+      - .env
+    command: gunicorn --bind 0.0.0.0:5000 app:app
+    depends_on:
+      - postgres
+    networks:
+      - appnet
+
+  postgres:
+    container_name: postgres-prod
+    image: postgres:latest
+    volumes:
+      - data:/var/lib/postgresql/data
+      - ./postgres-init:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_NAME}
+    networks:
+      - appnet
+
+volumes:
+  data:
+    name: postgres-volume-prod
+  uploads:
+    name: uploads-volume-prod
+
+networks:
+  appnet:

@@ -1,11 +1,19 @@
-
 CONTAINER_FRONT = angular
 
-start: env
-	docker compose up
+start-dev: env
+	docker compose -f docker-compose.dev.yml up
 
-stop:
-	docker compose down
+stop-dev:
+	docker compose -f docker-compose.dev.yml down
+
+start-prod: build-prod
+	docker compose -f docker-compose.prod.yml up -d
+
+stop-prod:
+	docker compose -f docker-compose.prod.yml down
+
+build-prod: env
+	docker compose -f docker-compose.prod.yml build
 
 env:
 	@if [ ! -e .env ]; then \
@@ -13,14 +21,10 @@ env:
 		sh create-env.sh; \
 	fi
 
-cmd:
+cmd-dev:
 	docker exec -it $(CONTAINER_FRONT) sh
 
-.PHONY: env
+cmd-prod:
+	docker exec -it $(CONTAINER_FRONT)-prod sh
 
-# Colors
-RED     = \033[1;31m
-GREEN   = \033[1;32m
-YELLOW  = \033[1;33m
-CYAN    = \033[1;36m
-DEFAULT = \033[0m
+.PHONY: env start-dev stop-dev start-prod stop-prod build-prod cmd-dev cmd-prod
