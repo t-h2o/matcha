@@ -30,4 +30,10 @@ dialog {
 .btn-wrapper {
   display: flex;
   justify-content: space-between;
+
+  .btn {
+    margin: 3rem auto 1rem auto;
+  }
 }
+
+
