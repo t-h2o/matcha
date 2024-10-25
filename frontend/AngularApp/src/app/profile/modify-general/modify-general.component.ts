@@ -12,7 +12,6 @@ import { UserData } from '../dummyUserData';
   styleUrl: './modify-general.component.scss',
 })
 export class ModifyGeneralComponent implements OnInit {
-  @Input({ required: true }) isModifyingGeneral!: boolean;
   @Input({ required: true }) onCancel!: () => void;
   @Input({ required: true }) userProfile!: UserData;
 

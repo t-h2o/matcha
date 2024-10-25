@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './modify-interests.component.scss',
 })
 export class ModifyInterestsComponent {
-  @Input({required: true}) isModifyingInterests: boolean = false;
   @Input({required: true}) onCancel!: () => void;
   @Input({required: true}) interestList: string[] = [];
 
