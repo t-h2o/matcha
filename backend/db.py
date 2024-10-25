@@ -52,3 +52,14 @@ def db_create_table_users():
             conn.commit()
 
     return jsonify({"success": "Table 'users' created"}), 201
+
+
+def db_get_username_password_where_username(username):
+    user_db = None
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT username,password FROM users WHERE username = %s", (username,)
+            )
+            user_db = cur.fetchone()
+    return user_db

@@ -21,6 +21,7 @@ from flask_cors import CORS
 
 
 from db import db_create_table_users
+from db import db_get_username_password_where_username
 
 
 def flaskprint(message):
@@ -88,20 +89,16 @@ def login_user():
     username = json["username"]
     password = json["password"]
 
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute(
-                "SELECT username,password FROM users WHERE username = %s", (username,)
-            )
-            user_db = cur.fetchone()
-            flaskprint(user_db)
+    user_db = db_get_username_password_where_username(username)
 
-            if user_db is None:
-                return jsonify({"error": "Incorrect username"}), 401
-            if check_password_hash(user_db[1], password):
-                access_token = create_access_token(identity=user_db[0])
-                return jsonify(access_token=access_token)
-            return jsonify({"error": "Incorrect password"}), 401
+    flaskprint(user_db)
+
+    if user_db is None:
+        return jsonify({"error": "Incorrect username"}), 401
+    if check_password_hash(user_db[1], password):
+        access_token = create_access_token(identity=user_db[0])
+        return jsonify(access_token=access_token)
+    return jsonify({"error": "Incorrect password"}), 401
 
 
 @app.route("/who_am_i", methods=["GET"])
