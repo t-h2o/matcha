@@ -24,6 +24,7 @@ from db import db_create_table_users
 from db import db_register
 from db import db_drop
 from db import db_get_username_password_where_username
+from db import db_get_user_per_id
 
 
 def flaskprint(message):
@@ -35,17 +36,6 @@ app.config["JWT_SECRET_KEY"] = environ["FLASK_JWT_SECRET_KEY"]
 CORS(app, origins="http://localhost:4200")
 
 jwt = JWTManager(app)
-
-
-def get_user_db_per_id(id_user):
-    user_db = None
-
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute("SELECT * FROM users WHERE id = %s", (id_user,))
-            user_db = cur.fetchone()
-
-    return user_db
 
 
 @contextmanager
@@ -109,7 +99,7 @@ def protected():
     # We can now access our sqlalchemy User object via `current_user`.
     user_id = get_jwt_identity()
     flaskprint(user_id)
-    user_db = get_user_db_per_id(user_id)
+    user_db = db_get_user_per_id(user_id)
     return jsonify(
         id=user_db[0],
         firstname=user_db[1],

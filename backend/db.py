@@ -63,6 +63,17 @@ def db_get_username_password_where_username(username):
     return user_db
 
 
+def db_get_user_per_id(id_user):
+    user_db = None
+
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute("SELECT * FROM users WHERE id = %s", (id_user,))
+            user_db = cur.fetchone()
+
+    return user_db
+
+
 def db_register(username, password, firstname, lastname, email):
     with get_db_connection() as conn:
         try:
