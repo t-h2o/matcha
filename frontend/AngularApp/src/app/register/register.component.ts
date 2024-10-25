@@ -6,6 +6,7 @@ import { PasswordConfirmValidatorDirective } from '../shared/directives/password
 import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
 import { HttpClient } from '@angular/common/http';
 import { UserRegister } from '../shared/models/user';
+import { environment } from '../../../environment/environment';
 
 @Component({
   selector: 'app-register',
@@ -22,6 +23,7 @@ import { UserRegister } from '../shared/models/user';
 })
 export class RegisterComponent {
   private httpClient = inject(HttpClient);
+  private baseUrl = environment.apiUrl;
   onSubmit(formData: NgForm) {
     if (formData.invalid) {
       Object.keys(formData.controls).forEach((field) => {
@@ -46,7 +48,7 @@ export class RegisterComponent {
 
   sendUserDataToAPI(userData: UserRegister) {
     const subscription = this.httpClient
-      .post('http://localhost:5001/api/register', userData)
+      .post(`${this.baseUrl}/register`, userData)
       .subscribe({
         next: (data) => {
           console.log('data: ' + JSON.stringify(data));
