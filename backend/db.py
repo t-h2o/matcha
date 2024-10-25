@@ -20,6 +20,21 @@ def get_db_connection():
         conn.close()
 
 
+def db_create_table_usersdata():
+    with get_db_connection() as conn:
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute(
+                """
+                CREATE TABLE IF NOT EXISTS usersdata (
+                id_user int references users(id),
+                gender VARCHAR(1),
+                biography TEXT
+                );
+                """
+            )
+            conn.commit()
+
+
 def db_create_table_users():
     """Create the Users's table."""
 
