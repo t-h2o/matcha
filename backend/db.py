@@ -63,3 +63,24 @@ def db_get_username_password_where_username(username):
             )
             user_db = cur.fetchone()
     return user_db
+
+
+def db_register(username, password, firstname, lastname, email):
+    with get_db_connection() as conn:
+        try:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);",
+                    (
+                        username,
+                        generate_password_hash(password),
+                        firstname,
+                        lastname,
+                        email,
+                    ),
+                )
+                conn.commit()
+        except conn.IntegrityError:
+            return {"error": f"User {username} is already registered."}
+
+    return {"succefull": f"User {username} was succefull added"}

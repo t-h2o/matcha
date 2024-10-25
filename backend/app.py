@@ -21,6 +21,7 @@ from flask_cors import CORS
 
 
 from db import db_create_table_users
+from db import db_register
 from db import db_get_username_password_where_username
 
 
@@ -148,24 +149,9 @@ def register_user():
     lastname = json["lastname"]
     email = json["email"]
 
-    with get_db_connection() as conn:
-        try:
-            with conn.cursor() as cur:
-                cur.execute(
-                    "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);",
-                    (
-                        username,
-                        generate_password_hash(password),
-                        firstname,
-                        lastname,
-                        email,
-                    ),
-                )
-                conn.commit()
-        except conn.IntegrityError:
-            return jsonify({"error": f"User {username} is already registered."})
+    response = db_register(username, password, firstname, lastname, email)
 
-    return jsonify({"succefull": f"User {username} was succefull added"})
+    return jsonify(response)
 
 
 @app.route("/drop", methods=["POST"])
