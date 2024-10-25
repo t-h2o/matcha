@@ -22,6 +22,7 @@ from flask_cors import CORS
 
 from db import db_create_table_users
 from db import db_register
+from db import db_drop
 from db import db_get_username_password_where_username
 
 
@@ -171,17 +172,9 @@ def drop_table():
     if error is not None:
         return jsonify({"error": error})
 
-    with get_db_connection() as conn:
-        try:
-            cur = conn.cursor()
-            cur.execute(f"DROP table IF EXISTS {table}")
-            conn.commit()
-            return jsonify({"success": f"Table {table} was successfully dropped"})
-        except UndefinedTable:
-            return jsonify({"error": "Undefined table"}), 400
+    response = db_drop(table)
 
-        except Exception as e:
-            return jsonify({"error": str(e)}), 500
+    return jsonify(response)
 
 
 if __name__ == "__main__":
