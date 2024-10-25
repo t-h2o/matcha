@@ -14,8 +14,7 @@ from flask_jwt_extended import get_jwt_identity
 from werkzeug.security import check_password_hash
 from flask_cors import CORS
 
-from db import db_create_table_users
-from db import db_create_table_usersdata
+from db import db_create_table
 from db import db_register
 from db import db_drop
 from db import db_get_id_password_where_username
@@ -37,18 +36,18 @@ jwt = JWTManager(app)
 def create_table_users():
     """Create the Users's table."""
 
-    db_create_table_users()
+    db = db_create_table_usersdata("users")
 
-    return jsonify({"success": "Table 'users' created"}), 201
+    return jsonify(db[0]), db[1]
 
 
 @app.route("/api/createaa")
 def create_table_usersdata():
     """Create the Users's table."""
 
-    db_create_table_usersdata()
+    db = db_create_table_usersdata("usersdata")
 
-    return jsonify({"success": "Table 'usersdata' created"}), 201
+    return jsonify(db[0]), db[1]
 
 
 @app.route("/api/login", methods=["POST"])

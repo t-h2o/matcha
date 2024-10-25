@@ -20,28 +20,17 @@ def get_db_connection():
         conn.close()
 
 
-def db_create_table_usersdata():
-    with get_db_connection() as conn:
-        with conn.cursor(cursor_factory=RealDictCursor) as cur:
-            cur.execute(
-                """
+def db_create_table(tablename):
+
+    tables = {
+        "usersdata": """
                 CREATE TABLE IF NOT EXISTS usersdata (
                 id_user int references users(id),
                 gender VARCHAR(1),
                 biography TEXT
                 );
-                """
-            )
-            conn.commit()
-
-
-def db_create_table_users():
-    """Create the Users's table."""
-
-    with get_db_connection() as conn:
-        with conn.cursor(cursor_factory=RealDictCursor) as cur:
-            cur.execute(
-                """
+                """,
+        "users": """
                 CREATE TABLE IF NOT EXISTS users (
                 id SERIAL PRIMARY KEY,
                 username VARCHAR(12) UNIQUE NOT NULL,
@@ -51,9 +40,18 @@ def db_create_table_users():
                 created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
                 password VARCHAR NOT NULL
                 );
-                """
-            )
+                """,
+    }
+
+    if not tablename in tables:
+        return {"error": f"table {tablename} not found"}, 400
+
+    with get_db_connection() as conn:
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute(tables[tablename])
             conn.commit()
+
+    return {"success": f"table {tablename} created"}, 201
 
 
 def db_get_id_password_where_username(username):
