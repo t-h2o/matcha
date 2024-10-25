@@ -51,8 +51,6 @@ def db_create_table_users():
             )
             conn.commit()
 
-    return jsonify({"success": "Table 'users' created"}), 201
-
 
 def db_get_username_password_where_username(username):
     user_db = None
