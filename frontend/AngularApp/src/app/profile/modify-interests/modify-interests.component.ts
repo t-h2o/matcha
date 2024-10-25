@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { tags } from '../../shared/models/tags';
 import { CardComponent } from '../../UI/card/card.component';
 import { FormsModule } from '@angular/forms';
@@ -11,6 +11,10 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './modify-interests.component.scss',
 })
 export class ModifyInterestsComponent {
+  @Input({required: true}) isModifyingInterests: boolean = false;
+  @Input({required: true}) onCancel!: () => void;
+  @Input({required: true}) interestList: string[] = [];
+
   tagsList = tags;
   selectedTags: string[] = [];
 

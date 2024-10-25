@@ -7,6 +7,7 @@ import { InterestsComponent } from './interests/interests.component';
 import { EmailPasswdComponent } from './email-passwd/email-passwd.component';
 import { dummyUserData, UserData } from './dummyUserData';
 import { ModifyGeneralComponent } from './modify-general/modify-general.component';
+import { ModifyInterestsComponent } from './modify-interests/modify-interests.component';
 
 @Component({
   selector: 'app-profile',
@@ -19,6 +20,7 @@ import { ModifyGeneralComponent } from './modify-general/modify-general.componen
     InterestsComponent,
     EmailPasswdComponent,
     ModifyGeneralComponent,
+    ModifyInterestsComponent
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
@@ -26,17 +28,21 @@ import { ModifyGeneralComponent } from './modify-general/modify-general.componen
 export class ProfileComponent {
   profileData: UserData = dummyUserData;
   isModifyingGeneral: boolean = false;
+  isModifyingInterests: boolean = false;
 
   onCancelModifyGeneral = () => {
-    console.log('onCancelModifyGeneral general profile');
     this.isModifyingGeneral = false;
-    console.log(this.isModifyingGeneral);
   };
 
   onOpenModifyGeneral = () => {
-    console.log('onOpenModifyGeneral general profile');
-    console.log('before: ' + this.isModifyingGeneral);
     this.isModifyingGeneral = true;
-    console.log('after: ' + this.isModifyingGeneral);
+  };
+
+  onCancelModifyInterests = () => {
+    this.isModifyingInterests = false;
+  };
+
+  onOpenModifyInterests = () => {
+    this.isModifyingInterests = true;
   };
 }
