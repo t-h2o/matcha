@@ -81,7 +81,7 @@ def db_register(username, password, firstname, lastname, email):
         except conn.IntegrityError:
             return {"error": f"User {username} is already registered."}
 
-    return {"succefull": f"User {username} was succefull added"}
+    return {"success": f"User {username} was successfully added"}
 
 
 def db_drop(table):
