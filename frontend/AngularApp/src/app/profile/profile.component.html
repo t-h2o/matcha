@@ -1,31 +1,28 @@
 <div class="app-wrapper">
   @if (isModifyingGeneral) {
-    <main class="main">
-      <app-modify-general
-        [isModifyingGeneral]="isModifyingGeneral"
-        [onCancel]="onCancelModifyGeneral"
-<<<<<<< HEAD
-        [userProfile]="profileData"
-=======
->>>>>>> ff549bf (modal right style and centered)
-      ></app-modify-general>
-    </main>
+  <main class="main">
+    <app-modify-general
+      [isModifyingGeneral]="isModifyingGeneral"
+      [onCancel]="onCancelModifyGeneral"
+      [userProfile]="profileData"
+    ></app-modify-general>
+  </main>
   } @else {
-    <main class="profile-container">
-      <div class="left">
-        <app-general-profile
-          [userProfile]="profileData"
-          [onModify]="onOpenModifyGeneral"
-        ></app-general-profile>
-        <app-interests [interestList]="profileData.interests"></app-interests>
-        <app-email-passwd [email]="profileData.email"></app-email-passwd>
-      </div>
-      <div class="right">
-        <app-pictures-profile
-          [userPictures]="profileData.pictures"
-          [profilePicture]="profileData.profilePic"
-        ></app-pictures-profile>
-      </div>
-    </main>
+  <main class="profile-container">
+    <div class="left">
+      <app-general-profile
+        [userProfile]="profileData"
+        [onModify]="onOpenModifyGeneral"
+      ></app-general-profile>
+      <app-interests [interestList]="profileData.interests"></app-interests>
+      <app-email-passwd [email]="profileData.email"></app-email-passwd>
+    </div>
+    <div class="right">
+      <app-pictures-profile
+        [userPictures]="profileData.pictures"
+        [profilePicture]="profileData.profilePic"
+      ></app-pictures-profile>
+    </div>
+  </main>
   }
 </div>
