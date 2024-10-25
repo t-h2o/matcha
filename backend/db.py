@@ -1,23 +1,12 @@
 """Flask, psycopg2, os.environ, contextmanager"""
 
 from os import environ
-from sys import stderr
 from contextlib import contextmanager
-from flask import Flask
-from flask import request
-from flask import jsonify
-
-from flask_jwt_extended import create_access_token
-from flask_jwt_extended import jwt_required
-from flask_jwt_extended import JWTManager
-from flask_jwt_extended import get_jwt_identity
 
 from psycopg2 import connect
 from psycopg2.extras import RealDictCursor
 from psycopg2.errors import UndefinedTable
 from werkzeug.security import generate_password_hash
-from werkzeug.security import check_password_hash
-from flask_cors import CORS
 
 
 @contextmanager

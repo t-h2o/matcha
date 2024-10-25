@@ -1,8 +1,7 @@
-"""Flask, psycopg2, os.environ, contextmanager"""
+"""Flask, os.environ"""
 
 from os import environ
 from sys import stderr
-from contextlib import contextmanager
 from flask import Flask
 from flask import request
 from flask import jsonify
@@ -12,13 +11,8 @@ from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 from flask_jwt_extended import get_jwt_identity
 
-from psycopg2 import connect
-from psycopg2.extras import RealDictCursor
-from psycopg2.errors import UndefinedTable
-from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 from flask_cors import CORS
-
 
 from db import db_create_table_users
 from db import db_register
@@ -36,17 +30,6 @@ app.config["JWT_SECRET_KEY"] = environ["FLASK_JWT_SECRET_KEY"]
 CORS(app, origins="http://localhost:4200")
 
 jwt = JWTManager(app)
-
-
-@contextmanager
-def get_db_connection():
-    """Generator of database connection"""
-
-    conn = connect(environ["DATABASE_URL"])
-    try:
-        yield conn
-    finally:
-        conn.close()
 
 
 @app.route("/create")
