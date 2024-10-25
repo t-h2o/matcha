@@ -1,12 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { CardComponent } from '../UI/card/card.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../environments/environment';
 import { PasswordConfirmValidatorDirective } from '../shared/directives/password-confirm-validator.directive';
-import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
-import { HttpClient } from '@angular/common/http';
 import { UserRegister } from '../shared/models/user';
-import { environment } from '../../../environment/environment';
+import { CardComponent } from '../UI/card/card.component';
+import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-register',

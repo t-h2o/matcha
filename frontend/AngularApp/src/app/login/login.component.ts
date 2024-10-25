@@ -1,12 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
-import { CardComponent } from '../UI/card/card.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
-import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 import { AuthService } from '../auth/auth.service';
 import { token } from '../shared/models/token';
-import { environment } from '../../../environment/environment';
+import { CardComponent } from '../UI/card/card.component';
+import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-login',
