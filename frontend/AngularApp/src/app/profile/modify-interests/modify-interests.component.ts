@@ -2,11 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { tags } from '../../shared/models/tags';
 import { CardComponent } from '../../UI/card/card.component';
 import { FormsModule } from '@angular/forms';
+import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-modify-interests',
   standalone: true,
-  imports: [CardComponent, FormsModule],
+  imports: [CardComponent, FormsModule, CustomButtonComponent],
   templateUrl: './modify-interests.component.html',
   styleUrl: './modify-interests.component.scss',
 })
