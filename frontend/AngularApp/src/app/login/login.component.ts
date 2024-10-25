@@ -1,10 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { environment } from '../../environments/environment';
 import { AuthService } from '../auth/auth.service';
-import { token } from '../shared/models/token';
+import { UserService } from '../shared/services/user.service';
 import { CardComponent } from '../UI/card/card.component';
 import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
 
@@ -16,10 +14,9 @@ import { CustomButtonComponent } from '../UI/custom-button/custom-button.compone
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  private httpClient = inject(HttpClient);
+  private userService = inject(UserService);
   private authService = inject(AuthService);
   private router = inject(Router);
-  private baseUrl = environment.apiUrl;
   falseCredentials = signal<boolean>(false);
 
   onSubmit(formData: NgForm) {
@@ -36,23 +33,21 @@ export class LoginComponent {
 
   sendLoginDataToAPI(loginData: { username: string; password: string }) {
     this.falseCredentials.set(false);
-    const subscription = this.httpClient
-      .post<token>(`${this.baseUrl}/login`, loginData)
-      .subscribe({
-        next: (data) => {
-          localStorage.setItem('access_token', data.access_token);
-          this.authService.tokenSignal.set(data);
-          this.router.navigate(['/profile']);
-        },
-        error: (error) => {
-          if (error.status === 401) {
-            this.falseCredentials.set(true);
-          }
-          console.error(error.status);
-        },
-        complete: () => {
-          subscription.unsubscribe();
-        },
-      });
+    const subscription = this.userService.login(loginData).subscribe({
+      next: (data) => {
+        localStorage.setItem('access_token', data.access_token);
+        this.authService.tokenSignal.set(data);
+        this.router.navigate(['/profile']);
+      },
+      error: (error) => {
+        if (error.status === 401) {
+          this.falseCredentials.set(true);
+        }
+        console.error(error.status);
+      },
+      complete: () => {
+        subscription.unsubscribe();
+      },
+    });
   }
 }
