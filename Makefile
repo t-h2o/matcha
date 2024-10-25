@@ -7,7 +7,7 @@ stop-dev:
 	docker compose -f docker-compose.dev.yml down
 
 start-prod: build-prod
-	docker compose -f docker-compose.prod.yml up -d
+	docker compose -f docker-compose.prod.yml up
 
 stop-prod:
 	docker compose -f docker-compose.prod.yml down

@@ -254,7 +254,7 @@ def login():
 
 
 def create_table():
-    check_api_get("/create", 201, b'{"success":"Table \'users\' created"}\n')
+    check_api_get("/api/create", 201, b'{"success":"Table \'users\' created"}\n')
 
 
 def main():

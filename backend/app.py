@@ -32,34 +32,6 @@ CORS(app, origins="http://localhost:4200")
 jwt = JWTManager(app)
 
 
-def get_user_db_per_id(id_user):
-    user_db = None
-
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute("SELECT * FROM users WHERE id = %s", (id_user,))
-            user_db = cur.fetchone()
-
-    return user_db
-
-
-@contextmanager
-def get_db_connection():
-    """Generator of database connection"""
-
-    conn = connect(environ["DATABASE_URL"])
-    try:
-        yield conn
-    finally:
-        conn.close()
-
-
-@app.route("/api/")
-def hello_world():
-    """Simple title"""
-    return "<h1>Hello, World!</h1>"
-
-
 @app.route("/api/create")
 def create_table_users():
     """Create the Users's table."""
