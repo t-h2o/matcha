@@ -1,6 +1,7 @@
 services:
   angular:
     container_name: angular-prod
+    image: matcha/prod-angular
     build:
       context: ./frontend/
       dockerfile: Dockerfile.prod
@@ -15,6 +16,7 @@ services:
 
   flask:
     container_name: flask-prod
+    image: matcha/prod-flask
     build:
       context: ./backend/
       dockerfile: Dockerfile.prod
