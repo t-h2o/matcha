@@ -6,6 +6,7 @@ import { CustomButtonComponent } from '../UI/custom-button/custom-button.compone
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { token } from '../shared/models/token';
+import { environment } from '../../../environment/environment';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent {
   private httpClient = inject(HttpClient);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private baseUrl = environment.apiUrl;
   falseCredentials = signal<boolean>(false);
 
   onSubmit(formData: NgForm) {
@@ -35,7 +37,7 @@ export class LoginComponent {
   sendLoginDataToAPI(loginData: { username: string; password: string }) {
     this.falseCredentials.set(false);
     const subscription = this.httpClient
-      .post<token>('http://localhost:5001/api/login', loginData)
+      .post<token>(`${this.baseUrl}/login`, loginData)
       .subscribe({
         next: (data) => {
           localStorage.setItem('access_token', data.access_token);
