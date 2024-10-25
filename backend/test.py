@@ -102,6 +102,24 @@ def check_who_am_i():
     )
 
 
+def check_who_am_i():
+    headers = {"Authorization": f"Bearer {access_token}"}
+
+    response = get(URL + "/who_am_i", headers=headers)
+
+    if response.content != b'{"firstname":"user","id":1,"lastname":"firstname"}\n':
+        print(f"error: content {response.content}")
+        return
+
+    print(
+        bcolors.OKGREEN
+        + "success: "
+        + bcolors.ENDC
+        + "/who_am_i "
+        + str(response.content)
+    )
+
+
 def register():
     check_415("/api/register")
     check_api_get("/api/register", 405, HTTP_405)
