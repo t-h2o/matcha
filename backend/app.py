@@ -32,11 +32,19 @@ CORS(app, origins="http://localhost:4200")
 jwt = JWTManager(app)
 
 
-@app.route("/api/create")
+@app.route("/api/create", methods=["POST"])
 def create_table_users():
     """Create the Users's table."""
 
-    db = db_create_table_usersdata("users")
+    json = request.json
+
+    if "table" not in json or not json["table"]:
+        return (
+            jsonify({"error": f"table is empty or not present"}),
+            400,
+        )
+
+    db = db_create_table(json["table"])
 
     return jsonify(db[0]), db[1]
 

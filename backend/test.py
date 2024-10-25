@@ -290,6 +290,15 @@ def login():
 
 def create_table():
     check_api_get("/api/create", 201, b'{"success":"Table \'users\' created"}\n')
+    check_api_post(
+        "/create", 201, {"table": "users"}, b'{"success":"table users created"}\n'
+    )
+    check_api_post(
+        "/create",
+        201,
+        {"table": "usersdata"},
+        b'{"success":"table usersdata created"}\n',
+    )
 
 
 def main():
