@@ -20,7 +20,7 @@ import { ModifyInterestsComponent } from './modify-interests/modify-interests.co
     InterestsComponent,
     EmailPasswdComponent,
     ModifyGeneralComponent,
-    ModifyInterestsComponent
+    ModifyInterestsComponent,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
@@ -30,19 +30,11 @@ export class ProfileComponent {
   isModifyingGeneral: boolean = false;
   isModifyingInterests: boolean = false;
 
-  onCancelModifyGeneral = () => {
-    this.isModifyingGeneral = false;
+  toggleIsModifyingGeneral = () => {
+    this.isModifyingGeneral = !this.isModifyingGeneral;
   };
 
-  onOpenModifyGeneral = () => {
-    this.isModifyingGeneral = true;
-  };
-
-  onCancelModifyInterests = () => {
-    this.isModifyingInterests = false;
-  };
-
-  onOpenModifyInterests = () => {
-    this.isModifyingInterests = true;
+  toggleIModifyInterests = () => {
+    this.isModifyingInterests = !this.isModifyingInterests;
   };
 }

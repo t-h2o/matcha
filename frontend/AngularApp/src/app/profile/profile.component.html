@@ -2,7 +2,7 @@
   @if (isModifyingGeneral) {
   <main class="main">
     <app-modify-general
-      [onCancel]="onCancelModifyGeneral"
+      [onCancel]="toggleIsModifyingGeneral"
       [userProfile]="profileData"
     ></app-modify-general>
   </main>
@@ -11,11 +11,11 @@
     <div class="left">
       <app-general-profile
         [userProfile]="profileData"
-        [onModify]="onOpenModifyGeneral"
+        [onModify]="toggleIsModifyingGeneral"
       ></app-general-profile>
       <app-interests
         [interestList]="profileData.interests"
-        [onModify]="onOpenModifyInterests"
+        [onModify]="toggleIModifyInterests"
       ></app-interests>
       <app-email-passwd [email]="profileData.email"></app-email-passwd>
     </div>
