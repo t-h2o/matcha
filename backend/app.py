@@ -17,7 +17,7 @@ from flask_cors import CORS
 from db import db_create_table_users
 from db import db_register
 from db import db_drop
-from db import db_get_username_password_where_username
+from db import db_get_id_password_where_username
 from db import db_get_user_per_id
 
 
@@ -64,7 +64,7 @@ def login_user():
     username = json["username"]
     password = json["password"]
 
-    user_db = db_get_username_password_where_username(username)
+    user_db = db_get_id_password_where_username(username)
 
     flaskprint(user_db)
 
