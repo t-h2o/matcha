@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { tags } from '../../shared/models/tags';
 import { CardComponent } from '../../UI/card/card.component';
 import { FormsModule } from '@angular/forms';
@@ -10,12 +10,16 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './modify-interests.component.html',
   styleUrl: './modify-interests.component.scss',
 })
-export class ModifyInterestsComponent {
+export class ModifyInterestsComponent implements OnInit {
   @Input({required: true}) onCancel!: () => void;
   @Input({required: true}) interestList: string[] = [];
 
   tagsList = tags;
   selectedTags: string[] = [];
+
+  ngOnInit() {
+    this.selectedTags = [...this.interestList];
+  }
 
   onTagChange(event: any) {
     const tag = event.target.value;
@@ -30,6 +34,6 @@ export class ModifyInterestsComponent {
   }
 
   onSubmit(form: any) {
-    console.log('Form Submitted!', form.value);
+    console.log('Form Submitted!', this.selectedTags);
   }
 }

@@ -16,12 +16,13 @@
             <div class="checkbox-item">
               <input
                 type="checkbox"
-                id="{{ tag }}"
+                [id]="tag"
                 name="interests"
                 [value]="tag"
+                [checked]="selectedTags.includes(tag)"
                 (change)="onTagChange($event)"
               />
-              <label for="{{ tag }}">{{ tag }}</label>
+              <label [for]="tag">{{ tag }}</label>
             </div>
             }
           </div>
