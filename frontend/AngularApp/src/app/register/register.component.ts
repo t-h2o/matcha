@@ -1,10 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { environment } from '../../environments/environment';
 import { PasswordConfirmValidatorDirective } from '../shared/directives/password-confirm-validator.directive';
 import { UserRegister } from '../shared/models/user';
+import { UserService } from '../shared/services/user.service';
 import { CardComponent } from '../UI/card/card.component';
 import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
 
@@ -22,8 +21,8 @@ import { CustomButtonComponent } from '../UI/custom-button/custom-button.compone
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
-  private httpClient = inject(HttpClient);
-  private baseUrl = environment.apiUrl;
+  private userService = inject(UserService);
+
   onSubmit(formData: NgForm) {
     if (formData.invalid) {
       Object.keys(formData.controls).forEach((field) => {
@@ -47,18 +46,16 @@ export class RegisterComponent {
   }
 
   sendUserDataToAPI(userData: UserRegister) {
-    const subscription = this.httpClient
-      .post(`${this.baseUrl}/register`, userData)
-      .subscribe({
-        next: (data) => {
-          console.log('data: ' + JSON.stringify(data));
-        },
-        error: (error) => {
-          console.error('error: ' + JSON.stringify(error));
-        },
-        complete: () => {
-          subscription.unsubscribe();
-        },
-      });
+    const subscription = this.userService.register(userData).subscribe({
+      next: (data) => {
+        console.log('data: ' + JSON.stringify(data));
+      },
+      error: (error) => {
+        console.error('error: ' + JSON.stringify(error));
+      },
+      complete: () => {
+        subscription.unsubscribe();
+      },
+    });
   }
 }
