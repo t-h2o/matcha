@@ -27,6 +27,7 @@ dialog {
   overflow: hidden;
 }
 
-.btn {
-  margin: 1rem;
+.btn-wrapper {
+  display: flex;
+  justify-content: space-between;
 }

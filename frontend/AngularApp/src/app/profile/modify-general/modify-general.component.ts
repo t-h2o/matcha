@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { tags } from '../../shared/models/tags';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
+import { UserData } from '../dummyUserData';
 
 @Component({
   selector: 'app-modify-general',
@@ -11,22 +11,23 @@ import { CustomButtonComponent } from '../../UI/custom-button/custom-button.comp
   templateUrl: './modify-general.component.html',
   styleUrl: './modify-general.component.scss',
 })
-export class ModifyGeneralComponent {
+export class ModifyGeneralComponent implements OnInit {
   @Input({ required: true }) isModifyingGeneral!: boolean;
   @Input({ required: true }) onCancel!: () => void;
-  tagsList = tags;
-  selectedTags: string[] = [];
+  @Input({ required: true }) userProfile!: UserData;
 
-  onTagChange(event: any) {
-    const tag = event.target.value;
-    if (event.target.checked) {
-      this.selectedTags.push(tag);
-    } else {
-      const index = this.selectedTags.indexOf(tag);
-      if (index > -1) {
-        this.selectedTags.splice(index, 1);
-      }
-    }
+  firstName: string = '';
+  lastName: string = '';
+  selectedGender: string = '';
+  sexualPreference: string = '';
+  bio: string = '';
+
+  ngOnInit() {
+    this.firstName = this.userProfile.firstName;
+    this.lastName = this.userProfile.lastName;
+    this.selectedGender = this.userProfile.gender;
+    this.sexualPreference = this.userProfile.sexualPreference;
+    this.bio = this.userProfile.bio;
   }
 
   onSubmit(form: any) {
