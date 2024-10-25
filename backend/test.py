@@ -46,6 +46,7 @@ def check_415(path):
 
     if response.status_code != 415:
         print(f"error: status code {response.status_code}")
+        return
 
     print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " 415 error")
 
@@ -54,8 +55,10 @@ def check_api_get(path, status, content):
     response = get(URL + path)
     if response.status_code != status:
         print(f"error: status code {response.status_code}")
+        return
     if response.content != content:
         print(f"error: content {response.content}")
+        return
     print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + str(content))
 
 
@@ -66,8 +69,10 @@ def check_api_post(path, status, json, content):
 
     if response.content != content:
         print(f"error: content {response.content}")
+        return
     if response.status_code != status:
         print(f"error: status code {response.status_code}")
+        return
 
     print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " " + str(content))
 
@@ -135,6 +140,19 @@ def register():
         },
         b'{"succefull":"User user was succefull added"}\n',
     )
+    check_api_post(
+        "/register",
+        200,
+        {
+            "username": "user",
+            "firstname": "firstname",
+            "lastname": "lastname",
+            "email": "email@email.com",
+            "password": "1234",
+        },
+        b'{"succefull":"User user was succefull added"}\n',
+    )
+    print("----")
 
     check_api_post(
         "/api/register",

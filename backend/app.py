@@ -111,6 +111,7 @@ def register_user():
     Validates that the username is not already taken.
     Hashes the password for security.
     """
+    flaskprint(request.headers.get("Content-Type"))
     if request.headers.get("Content-Type") != "application/json":
         return jsonify({"error": "Content-Type not supported!"}), 415
 
