@@ -290,6 +290,7 @@ def create_table():
 
 def update():
     check_api_put("/api/modify-general", 200, {"firstname": "Johnny"}, b"ok")
+    check_api_put("/api/modify-general", 200, {"email": "b@b.com"}, b"ok")
 
 
 def main():
