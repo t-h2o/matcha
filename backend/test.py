@@ -82,6 +82,12 @@ def drop_table():
     check_api_post(
         "/api/drop",
         200,
+        {"table": "usersdata"},
+        b'{"success":"Table users was successfully dropped"}\n',
+    )
+    check_api_post(
+        "/api/drop",
+        200,
         {"table": "users"},
         b'{"success":"Table users was successfully dropped"}\n',
     )
@@ -321,10 +327,10 @@ def create_table():
 
 def main():
     drop_table()
-    create_table()
-    register()
-    login()
-    check_who_am_i()
+    #create_table()
+    #register()
+    #login()
+    #check_who_am_i()
 
 
 if __name__ == "__main__":
