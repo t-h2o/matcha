@@ -32,6 +32,17 @@ CORS(app, origins="http://localhost:4200")
 jwt = JWTManager(app)
 
 
+@app.route("/api/modify-general", methods=["PUT"])
+def update():
+    json = request.json
+    flaskprint(json)
+    for item in json:
+        flaskprint(item)
+        flaskprint(json[item])
+
+    return "ok"
+
+
 @app.route("/api/create")
 def create_table_users():
     """Create the Users's table."""
