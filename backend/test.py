@@ -1,6 +1,7 @@
 #!/bin/python
 
 
+from requests import put
 from requests import post
 from requests import get
 
@@ -57,6 +58,19 @@ def check_api_get(path, status, content):
     if response.content != content:
         print(f"error: content {response.content}")
     print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + str(content))
+
+
+def check_api_put(path, status, json, content):
+    headers = {"content-type": "application/json"}
+
+    response = put(URL + path, json=json, headers=headers)
+
+    if response.content != content:
+        print(f"error: content {response.content}")
+    if response.status_code != status:
+        print(f"error: status code {response.status_code}")
+
+    print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " " + str(content))
 
 
 def check_api_post(path, status, json, content):
@@ -274,12 +288,17 @@ def create_table():
     check_api_get("/api/create", 201, b'{"success":"Table \'users\' created"}\n')
 
 
+def update():
+    check_api_put("/api/modify-general", 200, {"firstname": "Johnny"}, b"ok")
+
+
 def main():
     drop_table()
     create_table()
     register()
     login()
     check_who_am_i()
+    update()
 
 
 if __name__ == "__main__":
