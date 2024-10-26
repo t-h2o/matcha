@@ -44,12 +44,14 @@ export class ModifyGeneralComponent implements OnInit {
       return;
     }
     const modifiedUserData: UserModifyGeneral = {
-      firstname: formData.value.firstname,
-      lastname: formData.value.lastname,
-      selectedGender: formData.value.selectedGender,
-      sexualPreference: formData.value.sexualPreference,
-      bio: formData.value.bio,
+      firstname: this.firstName,
+      lastname: this.lastName,
+      selectedGender: this.selectedGender,
+      sexualPreference: this.sexualPreference,
+      bio: this.bio,
     };
+
+    console.log(formData.value);
 
     this.sendUserDataToAPI(modifiedUserData);
     formData.form.reset();
