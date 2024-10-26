@@ -34,8 +34,6 @@ jwt = JWTManager(app)
 
 
 def update_email(id_user, email):
-    flaskprint("---- email ----")
-    flaskprint("---- email ----")
     db_set_email(id_user, email)
 
 
