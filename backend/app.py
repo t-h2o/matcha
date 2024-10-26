@@ -66,7 +66,6 @@ def login_user():
 
     user_db = db_get_id_password_where_username(username)
 
-
     if user_db is None:
         return jsonify({"error": "Incorrect username"}), 401
     if check_password_hash(user_db[1], password):
