@@ -3,8 +3,8 @@ export let dummyUserData = {
   firstName: 'Johnny',
   lastName: 'Appleseed',
   email: 'JohnnyAppleseed@test.com',
-  gender: 'male',
-  sexualPreference: 'heterosexual',
+  gender: 'm',
+  sexualPreference: 'e',
   birthDate: '1990-01-01',
   bio: 'I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.',
   interests: [
@@ -24,7 +24,7 @@ export let dummyUserData = {
     'johnnyAppleseed2.jpg',
     'johnnyAppleseed3.jpg',
     'johnnyAppleseed4.jpg',
-    // 'johnnyAppleseed5.jpg',
+    'johnnyAppleseed5.jpg',
   ],
   profilePic: 'johnnyAppleseed1',
 };

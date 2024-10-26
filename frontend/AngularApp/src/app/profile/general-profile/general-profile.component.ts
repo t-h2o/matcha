@@ -18,4 +18,21 @@ export class GeneralProfileComponent {
   onClickModify() {
     this.onModify();
   }
+
+  get sexualPreference() {
+    if (this.userProfile.sexualPreference === 'e') {
+      return 'Heterosexual';
+    }
+    if (this.userProfile.sexualPreference === 'o') {
+      return 'Homosexual';
+    }
+    return 'Bisexual';
+  }
+
+  get gender() {
+    if (this.userProfile.gender === 'm') {
+      return 'Male';
+    }
+    return 'Female';
+  }
 }
