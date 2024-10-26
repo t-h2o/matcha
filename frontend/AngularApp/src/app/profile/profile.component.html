@@ -2,19 +2,29 @@
   @if (isModifyingGeneral) {
     <main class="main">
       <app-modify-general
-        [isModifyingGeneral]="isModifyingGeneral"
-        [onCancel]="onCancelModifyGeneral"
+        [onCancel]="toggleIsModifyingGeneral"
         [userProfile]="profileData"
       ></app-modify-general>
+    </main>
+  }
+  @if (isModifyingInterests) {
+    <main class="main">
+      <app-modify-interests
+        [onCancel]="toggleIModifyInterests"
+        [interestList]="profileData.interests"
+      ></app-modify-interests>
     </main>
   } @else {
     <main class="profile-container">
       <div class="left">
         <app-general-profile
           [userProfile]="profileData"
-          [onModify]="onOpenModifyGeneral"
+          [onModify]="toggleIsModifyingGeneral"
         ></app-general-profile>
-        <app-interests [interestList]="profileData.interests"></app-interests>
+        <app-interests
+          [interestList]="profileData.interests"
+          [onModify]="toggleIModifyInterests"
+        ></app-interests>
         <app-email-passwd [email]="profileData.email"></app-email-passwd>
       </div>
       <div class="right">

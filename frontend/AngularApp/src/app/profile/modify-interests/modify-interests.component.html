@@ -1,0 +1,29 @@
+<div class="backdrop">
+  <dialog open>
+    <form class="form" id="profile" #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <h1 class="title">Your Interests</h1>
+
+      <div class="form-group">
+        <div class="checkbox-group">
+          @for (tag of tagsList; track $index) {
+            <div class="checkbox-item">
+              <input
+                type="checkbox"
+                [id]="tag"
+                name="interests"
+                [value]="tag"
+                [checked]="selectedTags.includes(tag)"
+                (change)="onTagChange($event)"
+              />
+              <label [for]="tag">{{ tag }}</label>
+            </div>
+          }
+        </div>
+      </div>
+      <div class="btn-wrapper">
+        <button custom-button class="btn">Save</button>
+        <button type="button" custom-button class="btn" (click)="onCancel()">Cancel</button>
+      </div>
+    </form>
+  </dialog>
+</div>

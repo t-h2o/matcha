@@ -11,4 +11,5 @@ import { CardComponent } from '../../UI/card/card.component';
 })
 export class InterestsComponent {
   @Input({ required: true }) interestList!: string[];
+  @Input({ required: true }) onModify!: () => void;
 }

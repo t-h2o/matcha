@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
@@ -12,7 +12,6 @@ import { UserData } from '../dummyUserData';
   styleUrl: './modify-general.component.scss',
 })
 export class ModifyGeneralComponent implements OnInit {
-  @Input({ required: true }) isModifyingGeneral!: boolean;
   @Input({ required: true }) onCancel!: () => void;
   @Input({ required: true }) userProfile!: UserData;
 
