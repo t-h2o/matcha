@@ -1,0 +1,85 @@
+<div class="backdrop">
+  <dialog open>
+    <form class="form" id="profile" #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <h1 class="title">Modify Profile Details</h1>
+
+      <app-card>
+        <div class="form-group">
+          <label for="username">email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="register"
+            ngModel
+            required
+            email
+            #email="ngModel"
+          />
+        </div>
+      </app-card>
+
+      <app-card>
+        <div class="form-group">
+          <label for="current-password">Enter you current password</label>
+          <input
+            type="password"
+            id="current-password
+              name="
+            current-password
+            class="register"
+            required
+            ngModel
+            #currentPassword="ngModel"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">
+            Enter new password
+            <span class="tooltip-icon">?</span>
+            <div class="tooltip-content">
+              Password must be:
+              <ul>
+                <li>At least 8 characters long</li>
+                <li>Contain at least one uppercase letter</li>
+                <li>Contain at least one lowercase letter</li>
+                <li>Contain at least one number</li>
+                <li>Contain at least one non-alpha numeric</li>
+              </ul>
+            </div>
+          </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="register"
+            ngModel
+            required
+            pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s])([^\s]){8,15}$"
+            #password="ngModel"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password-repetition">Repeat your new password</label>
+          <input
+            type="password"
+            id="password-repetition"
+            name="password-repetition"
+            class="register"
+            required
+            ngModel
+            appPasswordConfirm="password"
+            #password2="ngModel"
+          />
+        </div>
+      </app-card>
+
+      <div class="btn-wrapper">
+        <button custom-button class="btn">Save</button>
+        <button type="button" custom-button class="btn" (click)="onCancel()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </dialog>
+</div>

@@ -1,0 +1,27 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CardComponent } from '../../UI/card/card.component';
+import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
+
+@Component({
+  selector: 'app-modify-email',
+  standalone: true,
+  imports: [FormsModule, CardComponent, CustomButtonComponent],
+  templateUrl: './modify-email.component.html',
+  styleUrl: './modify-email.component.scss'
+})
+export class ModifyEmailComponent implements OnInit {
+ 
+  @Input({ required: true }) onCancel!: () => void;
+  @Input({ required: true }) userEmail!: string;
+
+  email: string = '';
+
+  ngOnInit(): void {
+    this.email = this.userEmail;
+  }
+
+  onSubmit(form: any) {
+    console.log('Form Submitted!', form.value);
+  }
+}
