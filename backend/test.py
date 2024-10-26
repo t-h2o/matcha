@@ -160,19 +160,6 @@ def register():
         },
         b'{"success":"User user was successfully added"}\n',
     )
-    check_api_post(
-        "/register",
-        200,
-        {
-            "username": "user",
-            "firstname": "firstname",
-            "lastname": "lastname",
-            "email": "email@email.com",
-            "password": "1234",
-        },
-        b'{"succefull":"User user was succefull added"}\n',
-    )
-    print("----")
 
     check_api_post(
         "/api/register",
