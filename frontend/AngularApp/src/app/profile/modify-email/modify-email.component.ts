@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { PasswordConfirmValidatorDirective } from '../../shared/directives/password-confirm-validator.directive';
@@ -27,7 +27,13 @@ export class ModifyEmailComponent implements OnInit {
     console.log('Email:', this.userEmail);
   }
 
-  onSubmit(form: any) {
+  onSubmitEmail(form: NgForm) {
     console.log('Form Submitted!', form.value);
+    this.onCancel();
+  }
+
+  onSubmitPassword(form: NgForm) {
+    console.log('Form Submitted!', form.value);
+    this.onCancel();
   }
 }
