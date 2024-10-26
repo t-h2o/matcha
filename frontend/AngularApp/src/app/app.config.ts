@@ -19,7 +19,7 @@ const tokenInterceptor = (
       'Bearer ' + localStorage.getItem('access_token'),
     ),
   });
-  console.log('Request:', req.headers);
+  console.log('Request:', req);
   return next(req);
 };
 
