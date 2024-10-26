@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject, Inject, Input, OnInit } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { UserData } from '../dummyUserData';
+import { UserModifyGeneral } from '../../shared/models/data-to-api/user';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-modify-general',
@@ -14,6 +16,8 @@ import { UserData } from '../dummyUserData';
 export class ModifyGeneralComponent implements OnInit {
   @Input({ required: true }) onCancel!: () => void;
   @Input({ required: true }) userProfile!: UserData;
+
+  private userService =  inject(UserService);
 
   firstName: string = '';
   lastName: string = '';
@@ -29,7 +33,41 @@ export class ModifyGeneralComponent implements OnInit {
     this.bio = this.userProfile.bio;
   }
 
-  onSubmit(form: any) {
-    console.log('Form Submitted!', form.value);
+  onSubmit(formData: NgForm) {
+    if (formData.invalid) {
+      Object.keys(formData.controls).forEach((field) => {
+        const control = formData.controls[field];
+        if (control.invalid) {
+          console.log(`${field} is invalid`);
+        }
+      });
+      return;
+    }
+    const modifiedUserData: UserModifyGeneral = {
+      firstname: formData.value.firstname,
+      lastname: formData.value.lastname,
+      selectedGender: formData.value.selectedGender,
+      sexualPreference: formData.value.sexualPreference,
+      bio: formData.value.bio,
+    };
+    
+    this.sendUserDataToAPI(modifiedUserData);
+    formData.form.reset();
+    this.onCancel();
+  }
+
+
+  private sendUserDataToAPI(userData: UserModifyGeneral) {
+    const subscription = this.userService.modifyGeneral(userData).subscribe({
+      next: (data: any) => {
+        console.log('data: ' + JSON.stringify(data));
+      },
+      error: (error: any) => {
+        console.error('error: ' + JSON.stringify(error));
+      },
+      complete: () => {
+        subscription.unsubscribe();
+      },
+    });
   }
 }

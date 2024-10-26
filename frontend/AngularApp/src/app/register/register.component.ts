@@ -45,7 +45,7 @@ export class RegisterComponent {
     formData.form.reset();
   }
 
-  sendUserDataToAPI(userData: UserRegister) {
+  private sendUserDataToAPI(userData: UserRegister) {
     const subscription = this.userService.register(userData).subscribe({
       next: (data) => {
         console.log('data: ' + JSON.stringify(data));
