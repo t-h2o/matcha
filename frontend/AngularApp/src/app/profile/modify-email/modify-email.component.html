@@ -1,7 +1,7 @@
 <div class="backdrop">
   <dialog open>
     <form class="form" id="profile" #form="ngForm" (ngSubmit)="onSubmit(form)">
-      <h1 class="title">Modify Profile Details</h1>
+      <h1 class="title">Email or Password</h1>
 
       <app-card>
         <div class="form-group">
@@ -17,6 +17,9 @@
             #email="ngModel"
           />
         </div>
+        <div class="btn-wrapper">
+            <button custom-button class="btn">Save</button>
+          </div>
       </app-card>
 
       <app-card>
@@ -72,10 +75,12 @@
             #password2="ngModel"
           />
         </div>
+        <div class="btn-wrapper">
+            <button custom-button class="btn">Save</button>
+          </div>
       </app-card>
 
       <div class="btn-wrapper">
-        <button custom-button class="btn">Save</button>
         <button type="button" custom-button class="btn" (click)="onCancel()">
           Cancel
         </button>

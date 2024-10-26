@@ -42,7 +42,6 @@ export class ProfileComponent {
   };
 
   toggleIModifyEmail = () => {
-    console.log('toggleIModifyEmail');
     this.isModifyingEmail = !this.isModifyingEmail;
   };
 }
