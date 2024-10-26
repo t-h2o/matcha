@@ -108,12 +108,12 @@ def drop_table():
     check_api_get("/api/drop", 405, HTTP_405)
 
 
-def check_put_token(path, json):
+def check_put_token(path, json, content):
     headers = {"Authorization": f"Bearer {access_token}"}
 
     response = put(URL + path, headers=headers, json=json)
 
-    if response.content != b'{"firstname":"user","id":1,"lastname":"firstname"}\n':
+    if response.content != content:
         print(f"error: content {response.content}")
         return
 
@@ -318,9 +318,8 @@ def create_table():
 
 
 def update():
-    check_put_token("/api/modify-general", {"email": "b@b.com"})
-    check_api_put("/api/modify-general", 200, {"firstname": "Johnny"}, b"ok")
-    check_api_put("/api/modify-general", 200, {"email": "b@b.com"}, b"ok")
+    check_put_token("/api/modify-general", {"email": "b@b.com"}, b'ok')
+    check_api_put("/api/modify-general", 401, {"firstname": "Johnny"}, b'{"msg":"Missing Authorization Header"}\n')
 
 
 def main():
