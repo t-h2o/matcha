@@ -17,4 +17,4 @@ export type UserModifyGeneral = {
   selectedGender: string;
   sexualPreference: string;
   bio: string;
-}
+};

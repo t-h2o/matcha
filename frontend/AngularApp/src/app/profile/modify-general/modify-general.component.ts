@@ -17,7 +17,7 @@ export class ModifyGeneralComponent implements OnInit {
   @Input({ required: true }) onCancel!: () => void;
   @Input({ required: true }) userProfile!: UserData;
 
-  private userService =  inject(UserService);
+  private userService = inject(UserService);
 
   firstName: string = '';
   lastName: string = '';
@@ -50,12 +50,11 @@ export class ModifyGeneralComponent implements OnInit {
       sexualPreference: formData.value.sexualPreference,
       bio: formData.value.bio,
     };
-    
+
     this.sendUserDataToAPI(modifiedUserData);
     formData.form.reset();
     this.onCancel();
   }
-
 
   private sendUserDataToAPI(userData: UserModifyGeneral) {
     const subscription = this.userService.modifyGeneral(userData).subscribe({

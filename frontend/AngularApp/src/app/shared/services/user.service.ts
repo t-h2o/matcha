@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { UserLogin, UserModifyGeneral, UserRegister } from '../models/data-to-api/user';
+import {
+  UserLogin,
+  UserModifyGeneral,
+  UserRegister,
+} from '../models/data-to-api/user';
 import { token } from '../models/token';
 
 @Injectable({
