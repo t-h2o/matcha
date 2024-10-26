@@ -2,16 +2,21 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
+import { PasswordConfirmValidatorDirective } from '../../shared/directives/password-confirm-validator.directive';
 
 @Component({
   selector: 'app-modify-email',
   standalone: true,
-  imports: [FormsModule, CardComponent, CustomButtonComponent],
+  imports: [
+    FormsModule,
+    CardComponent,
+    CustomButtonComponent,
+    PasswordConfirmValidatorDirective,
+  ],
   templateUrl: './modify-email.component.html',
-  styleUrl: './modify-email.component.scss'
+  styleUrl: './modify-email.component.scss',
 })
 export class ModifyEmailComponent implements OnInit {
- 
   @Input({ required: true }) onCancel!: () => void;
   @Input({ required: true }) userEmail!: string;
 

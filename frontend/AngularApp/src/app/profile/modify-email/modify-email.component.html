@@ -13,13 +13,13 @@
             class="register"
             required
             email
-            [(ngModel)]="uEmail"
+            [(ngModel)]="userEmail"
             #email="ngModel"
           />
         </div>
         <div class="btn-wrapper">
-            <button custom-button class="btn">Save</button>
-          </div>
+          <button custom-button class="btn">Save</button>
+        </div>
       </app-card>
 
       <app-card>
@@ -27,9 +27,9 @@
           <label for="current-password">Enter you current password</label>
           <input
             type="password"
-            id="current-password
-              name="
-            current-password
+            id="current-password"
+            name="current-password"
+            class="no-validation"
             required
             ngModel
             #currentPassword="ngModel"
@@ -75,8 +75,8 @@
           />
         </div>
         <div class="btn-wrapper">
-            <button custom-button class="btn">Save</button>
-          </div>
+          <button custom-button class="btn">Save</button>
+        </div>
       </app-card>
 
       <div class="btn-wrapper">
