@@ -35,11 +35,15 @@ jwt = JWTManager(app)
 
 def update_email(id_user, email):
     flaskprint("---- email ----")
+    flaskprint("---- email ----")
     db_set_email(id_user, email)
 
 
 @app.route("/api/modify-general", methods=["PUT"])
+@jwt_required()
 def update():
+    user_id = get_jwt_identity()
+    flaskprint(user_id)
     json = request.json
     flaskprint(json)
     for item in json:
