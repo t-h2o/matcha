@@ -11,10 +11,11 @@ import {
 
 const tokenInterceptor = (
   request: HttpRequest<unknown>,
-  next: HttpHandlerFn,
+  next: HttpHandlerFn
 ) => {
   const token = localStorage.getItem('access_token');
   if (!token) {
+    console.log('Request:', request);
     return next(request);
   }
   const req = request.clone({
