@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { UserLogin, UserRegister } from '../models/data-to-api/user';
 import { token } from '../models/token';
-import { UserRegister } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ export class UserService {
   private httpClient = inject(HttpClient);
   private baseUrl = environment.apiUrl;
 
-  login(loginData: { username: string; password: string }) {
+  login(loginData: UserLogin) {
     return this.httpClient.post<token>(`${this.baseUrl}/login`, loginData);
   }
 
