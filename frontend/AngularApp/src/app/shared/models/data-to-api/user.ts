@@ -10,3 +10,11 @@ export type UserLogin = {
   username: string;
   password: string;
 };
+
+export type UserModifyGeneral = {
+  firstname: string;
+  lastname: string;
+  selectedGender: string;
+  sexualPreference: string;
+  bio: string;
+}
