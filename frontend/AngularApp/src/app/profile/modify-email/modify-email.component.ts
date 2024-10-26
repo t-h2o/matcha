@@ -15,10 +15,11 @@ export class ModifyEmailComponent implements OnInit {
   @Input({ required: true }) onCancel!: () => void;
   @Input({ required: true }) userEmail!: string;
 
-  email: string = '';
+  uEmail: string = '';
 
   ngOnInit(): void {
-    this.email = this.userEmail;
+    this.uEmail = this.userEmail;
+    console.log('Email:', this.userEmail);
   }
 
   onSubmit(form: any) {
