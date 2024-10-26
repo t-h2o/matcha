@@ -30,12 +30,11 @@ def check_login_token(path, json):
     if "access_token" not in json:
         print("error: access token not in response")
 
-    print(
-        bcolors.OKGREEN
-        + "success: got access token: "
-        + bcolors.ENDC
-        + json["access_token"]
-    )
+    print(bcolors.OKGREEN + "success: got access token" + bcolors.ENDC)
+
+    global access_token
+
+    access_token = json["access_token"]
 
 
 def check_415(path):
@@ -83,6 +82,24 @@ def drop_table():
     )
     check_api_post("/api/drop", 200, {"table": ""}, b'{"error":"table is required."}\n')
     check_api_get("/api/drop", 405, HTTP_405)
+
+
+def check_who_am_i():
+    headers = {"Authorization": f"Bearer {access_token}"}
+
+    response = get(URL + "/who_am_i", headers=headers)
+
+    if response.content != b'{"firstname":"user","id":1,"lastname":"firstname"}\n':
+        print(f"error: content {response.content}")
+        return
+
+    print(
+        bcolors.OKGREEN
+        + "success: "
+        + bcolors.ENDC
+        + "/who_am_i "
+        + str(response.content)
+    )
 
 
 def register():
@@ -262,6 +279,7 @@ def main():
     create_table()
     register()
     login()
+    check_who_am_i()
 
 
 if __name__ == "__main__":

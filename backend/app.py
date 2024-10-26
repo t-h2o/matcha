@@ -17,7 +17,7 @@ from flask_cors import CORS
 from db import db_create_table_users
 from db import db_register
 from db import db_drop
-from db import db_get_username_password_where_username
+from db import db_get_id_password_where_username
 from db import db_get_user_per_id
 
 
@@ -64,9 +64,8 @@ def login_user():
     username = json["username"]
     password = json["password"]
 
-    user_db = db_get_username_password_where_username(username)
+    user_db = db_get_id_password_where_username(username)
 
-    flaskprint(user_db)
 
     if user_db is None:
         return jsonify({"error": "Incorrect username"}), 401
@@ -81,7 +80,6 @@ def login_user():
 def protected():
     # We can now access our sqlalchemy User object via `current_user`.
     user_id = get_jwt_identity()
-    flaskprint(user_id)
     user_db = db_get_user_per_id(user_id)
     return jsonify(
         id=user_db[0],
