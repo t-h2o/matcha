@@ -123,7 +123,7 @@ def login_user():
     return jsonify({"error": "Incorrect password"}), 401
 
 
-@app.route("/who_am_i", methods=["GET"])
+@app.route("/api/who_am_i", methods=["GET"])
 @jwt_required()
 def protected():
     # We can now access our sqlalchemy User object via `current_user`.
@@ -131,8 +131,10 @@ def protected():
     user_db = db_get_user_per_id(user_id)
     return jsonify(
         id=user_db[0],
-        firstname=user_db[1],
-        lastname=user_db[2],
+        username=user_db[1],
+        firstname=user_db[2],
+        lastname=user_db[3],
+        email=user_db[4],
     )
 
 

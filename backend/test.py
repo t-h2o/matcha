@@ -130,7 +130,7 @@ def check_put_token(path, json, content):
 def check_who_am_i(content):
     headers = {"Authorization": f"Bearer {access_token}"}
 
-    response = get(URL + "/who_am_i", headers=headers)
+    response = get(URL + "/api/who_am_i", headers=headers)
 
     if response.content != content:
         print("----")
