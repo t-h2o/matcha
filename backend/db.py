@@ -56,11 +56,8 @@ def db_set_email(id_user, email):
     with get_db_connection() as conn:
         with conn.cursor() as cur:
             cur.execute(
-                "UPDATE users SET email %s = %s where id = %s",
-                (
-                    email,
-                    id_user,
-                ),
+                "UPDATE users SET email = %s where id = %s",
+                (email, id_user),
             )
             conn.commit()
 

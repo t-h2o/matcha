@@ -42,8 +42,8 @@ def update_email(id_user, email):
 @app.route("/api/modify-general", methods=["PUT"])
 @jwt_required()
 def update():
-    user_id = get_jwt_identity()
-    flaskprint(user_id)
+    id_user = get_jwt_identity()
+    flaskprint(id_user)
     json = request.json
     flaskprint(json)
     for item in json:
@@ -88,7 +88,6 @@ def login_user():
     password = json["password"]
 
     user_db = db_get_id_password_where_username(username)
-
 
     if user_db is None:
         return jsonify({"error": "Incorrect username"}), 401
