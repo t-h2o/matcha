@@ -35,6 +35,7 @@ export class ProfileComponent {
   };
 
   toggleIModifyInterests = () => {
+    console.log('toggleIModifyInterests');
     this.isModifyingInterests = !this.isModifyingInterests;
   };
 }

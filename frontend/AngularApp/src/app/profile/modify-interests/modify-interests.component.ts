@@ -12,8 +12,8 @@ import { CustomButtonComponent } from '../../UI/custom-button/custom-button.comp
   styleUrl: './modify-interests.component.scss',
 })
 export class ModifyInterestsComponent implements OnInit {
-  @Input({required: true}) onCancel!: () => void;
-  @Input({required: true}) interestList: string[] = [];
+  @Input({ required: true }) onCancel!: () => void;
+  @Input({ required: true }) interestList: string[] = [];
 
   tagsList = tags;
   selectedTags: string[] = [];
