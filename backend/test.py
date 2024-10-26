@@ -1,6 +1,7 @@
 #!/bin/python
 
 
+from requests import put
 from requests import post
 from requests import get
 
@@ -59,6 +60,19 @@ def check_api_get(path, status, content):
     print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + str(content))
 
 
+def check_api_put(path, status, json, content):
+    headers = {"content-type": "application/json"}
+
+    response = put(URL + path, json=json, headers=headers)
+
+    if response.content != content:
+        print(f"error: content {response.content}")
+    if response.status_code != status:
+        print(f"error: status code {response.status_code}")
+
+    print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " " + str(content))
+
+
 def check_api_post(path, status, json, content):
     headers = {"content-type": "application/json"}
 
@@ -66,8 +80,18 @@ def check_api_post(path, status, json, content):
 
     if response.content != content:
         print(f"error: content {response.content}")
+        print("----")
+        print(f"url: {URL}")
+        print(f"path: {path}")
+        print(f"json: {json}")
+        print(f"expected: {content}")
+        print(f"received: {response.content}")
+        print("----")
+        return
     if response.status_code != status:
         print(f"error: status code {response.status_code}")
+        print("----")
+        return
 
     print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " " + str(content))
 
@@ -82,6 +106,25 @@ def drop_table():
     )
     check_api_post("/api/drop", 200, {"table": ""}, b'{"error":"table is required."}\n')
     check_api_get("/api/drop", 405, HTTP_405)
+
+
+def check_put_token(path, json, content):
+    headers = {"Authorization": f"Bearer {access_token}"}
+
+    response = put(URL + path, headers=headers, json=json)
+
+    if response.content != content:
+        print(f"error: content {response.content}")
+        return
+
+    print(
+        bcolors.OKGREEN
+        + "success: "
+        + bcolors.ENDC
+        + path
+        + " "
+        + str(response.content)
+    )
 
 
 def check_who_am_i():
@@ -274,12 +317,23 @@ def create_table():
     check_api_get("/api/create", 201, b'{"success":"Table \'users\' created"}\n')
 
 
+def update():
+    check_put_token("/api/modify-general", {"email": "b@b.com"}, b"ok")
+    check_api_put(
+        "/api/modify-general",
+        401,
+        {"firstname": "Johnny"},
+        b'{"msg":"Missing Authorization Header"}\n',
+    )
+
+
 def main():
     drop_table()
     create_table()
     register()
     login()
     check_who_am_i()
+    update()
 
 
 if __name__ == "__main__":
