@@ -18,6 +18,7 @@ from db import db_create_table_users
 from db import db_register
 from db import db_drop
 from db import db_get_id_password_where_username
+from db import db_set_email
 from db import db_get_user_per_id
 
 
@@ -32,11 +33,18 @@ CORS(app, origins="http://localhost:4200")
 jwt = JWTManager(app)
 
 
+def update_email(id_user, email):
+    flaskprint("---- email ----")
+    db_set_email(id_user, email)
+
+
 @app.route("/api/modify-general", methods=["PUT"])
 def update():
     json = request.json
     flaskprint(json)
     for item in json:
+        if item == "email":
+            update_email(id_user, json[item])
         flaskprint(item)
         flaskprint(json[item])
 
