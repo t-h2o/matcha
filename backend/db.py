@@ -52,6 +52,16 @@ def db_get_id_password_where_username(username):
     return user_db
 
 
+def db_set_email(id_user, email):
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "UPDATE users SET email = %s where id = %s",
+                (email, id_user),
+            )
+            conn.commit()
+
+
 def db_get_user_per_id(id_user):
     user_db = None
 

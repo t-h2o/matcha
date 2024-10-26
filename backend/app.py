@@ -18,6 +18,7 @@ from db import db_create_table_users
 from db import db_register
 from db import db_drop
 from db import db_get_id_password_where_username
+from db import db_set_email
 from db import db_get_user_per_id
 
 
@@ -30,6 +31,26 @@ app.config["JWT_SECRET_KEY"] = environ["FLASK_JWT_SECRET_KEY"]
 CORS(app, origins="http://localhost:4200")
 
 jwt = JWTManager(app)
+
+
+def update_email(id_user, email):
+    db_set_email(id_user, email)
+
+
+@app.route("/api/modify-general", methods=["PUT"])
+@jwt_required()
+def update():
+    id_user = get_jwt_identity()
+    flaskprint(id_user)
+    json = request.json
+    flaskprint(json)
+    for item in json:
+        if item == "email":
+            update_email(id_user, json[item])
+        flaskprint(item)
+        flaskprint(json[item])
+
+    return "ok"
 
 
 @app.route("/api/create")
