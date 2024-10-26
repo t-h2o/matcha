@@ -4,7 +4,7 @@ pylint:
 	docker exec flask pylint .
 
 black:
-	docker exec flask black .
+	docker exec flask-dev black .
 
 test:
 	python test.py
