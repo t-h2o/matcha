@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PasswordConfirmValidatorDirective } from '../shared/directives/password-confirm-validator.directive';
-import { UserRegister } from '../shared/models/user';
+import { UserRegister } from '../shared/models/data-to-api/user';
 import { UserService } from '../shared/services/user.service';
 import { CardComponent } from '../UI/card/card.component';
 import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
@@ -45,7 +45,7 @@ export class RegisterComponent {
     formData.form.reset();
   }
 
-  sendUserDataToAPI(userData: UserRegister) {
+  private sendUserDataToAPI(userData: UserRegister) {
     const subscription = this.userService.register(userData).subscribe({
       next: (data) => {
         console.log('data: ' + JSON.stringify(data));
