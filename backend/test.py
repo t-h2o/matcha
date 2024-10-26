@@ -342,9 +342,9 @@ def create_table():
 def main():
     drop_table()
     create_table()
-    #register()
-    #login()
-    #check_who_am_i()
+    register()
+    login()
+    check_who_am_i()
 
 
 if __name__ == "__main__":
