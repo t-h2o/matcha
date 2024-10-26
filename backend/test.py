@@ -53,11 +53,17 @@ def check_415(path):
 
 def check_api_get(path, status, content):
     response = get(URL + path)
-    if response.status_code != status:
-        print(f"error: status code {response.status_code}")
-        return
     if response.content != content:
         print(f"error: content {response.content}")
+        print("---- get ----")
+        print(f"url: {URL}")
+        print(f"path: {path}")
+        print(f"expected: {content}")
+        print(f"received: {response.content}")
+        print("----")
+        return
+    if response.status_code != status:
+        print(f"error: status code {response.status_code}")
         return
     print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + str(content))
 
@@ -69,7 +75,7 @@ def check_api_post(path, status, json, content):
 
     if response.content != content:
         print(f"error: content {response.content}")
-        print("----")
+        print("---- post ----")
         print(f"url: {URL}")
         print(f"path: {path}")
         print(f"json: {json}")
