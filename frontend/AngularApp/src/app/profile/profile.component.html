@@ -14,6 +14,14 @@
         [interestList]="profileData.interests"
       ></app-modify-interests>
     </main>
+  }
+  @if (isModifyingEmail) {
+    <main class="main">
+      <app-modify-email
+        [onCancel]="toggleIModifyEmail"
+        [userEmail]="profileData.email"
+      ></app-modify-email>
+    </main>
   } @else {
     <main class="profile-container">
       <div class="left">
@@ -25,7 +33,10 @@
           [interestList]="profileData.interests"
           [onModify]="toggleIModifyInterests"
         ></app-interests>
-        <app-email-passwd [email]="profileData.email"></app-email-passwd>
+        <app-email-passwd
+          [email]="profileData.email"
+          [onModify]="toggleIModifyEmail"
+        ></app-email-passwd>
       </div>
       <div class="right">
         <app-pictures-profile

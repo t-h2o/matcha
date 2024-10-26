@@ -11,4 +11,5 @@ import { CardComponent } from '../../UI/card/card.component';
 })
 export class EmailPasswdComponent {
   @Input({ required: true }) email!: string;
+  @Input({ required: true }) onModify!: () => void;
 }
