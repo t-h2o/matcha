@@ -4,7 +4,10 @@ import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { PasswordConfirmValidatorDirective } from '../../shared/directives/password-confirm-validator.directive';
 import { finalize } from 'rxjs';
-import { UserModifyEmail, UserModifyPassword } from '../../shared/models/data-to-api/user';
+import {
+  UserModifyEmail,
+  UserModifyPassword,
+} from '../../shared/models/data-to-api/user';
 import { UserService } from '../../shared/services/user.service';
 
 @Component({
@@ -59,7 +62,7 @@ export class ModifyEmailComponent implements OnInit {
       .pipe(
         finalize(() => {
           subscription.unsubscribe();
-        })
+        }),
       )
       .subscribe({
         next: (data: any) => {
@@ -77,7 +80,7 @@ export class ModifyEmailComponent implements OnInit {
       .pipe(
         finalize(() => {
           subscription.unsubscribe();
-        })
+        }),
       )
       .subscribe({
         next: (data: any) => {

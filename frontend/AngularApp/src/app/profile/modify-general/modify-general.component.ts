@@ -65,7 +65,7 @@ export class ModifyGeneralComponent implements OnInit {
       .pipe(
         finalize(() => {
           subscription.unsubscribe();
-        })
+        }),
       )
       .subscribe({
         next: (data: any) => {
