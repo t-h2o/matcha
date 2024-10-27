@@ -52,8 +52,6 @@ export class ModifyGeneralComponent implements OnInit {
       bio: this.bio,
     };
 
-    console.log(formData.value);
-
     this.sendUserDataToAPI(modifiedUserData);
     formData.form.reset();
     this.onCancel();
