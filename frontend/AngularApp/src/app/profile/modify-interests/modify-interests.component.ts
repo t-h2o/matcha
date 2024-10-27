@@ -44,8 +44,8 @@ export class ModifyInterestsComponent implements OnInit {
       .pipe(
         finalize(() => {
           subscription.unsubscribe();
-        }
-      ))
+        }),
+      )
       .subscribe({
         next: (data: any) => {
           console.log('data: ' + JSON.stringify(data));
@@ -54,6 +54,6 @@ export class ModifyInterestsComponent implements OnInit {
           console.log('Error updating interests:', error);
         },
       });
-      this.onCancel();
+    this.onCancel();
   }
 }
