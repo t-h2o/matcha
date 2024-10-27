@@ -133,15 +133,12 @@ def check_put_token(path, json, content):
     )
 
 
-def check_who_am_i():
+def check_who_am_i(content):
     headers = {"Authorization": f"Bearer {access_token}"}
 
     response = get(URL + "/api/who_am_i", headers=headers)
 
-    if (
-        response.content
-        != b'{"email":"b@b.com","firstname":"firstname","id":1,"lastname":"lastname","username":"user"}\n'
-    ):
+    if response.content != content:
         print("----")
         print(f"url: {URL}")
         print(f"path: /api/who_am_i")
@@ -345,8 +342,13 @@ def main():
     create_table()
     register()
     login()
-    check_who_am_i()
+    check_who_am_i(
+        b'{"email":"email@email.com","firstname":"firstname","id":1,"lastname":"lastname","username":"user"}\n'
+    )
     update()
+    check_who_am_i(
+        b'{"email":"b@b.com","firstname":"firstname","id":1,"lastname":"lastname","username":"user"}\n'
+    )
 
 
 if __name__ == "__main__":
