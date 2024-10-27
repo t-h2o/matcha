@@ -1,7 +1,6 @@
 """Flask, os.environ"""
 
 from os import environ
-from sys import stderr
 from flask import Flask
 from flask import request
 from flask import jsonify
@@ -21,9 +20,7 @@ from db import db_get_id_password_where_username
 from db import db_set_email
 from db import db_get_user_per_id
 
-
-def flaskprint(message):
-    print(message, file=stderr)
+from flaskprint import flaskprint
 
 
 app = Flask(__name__)
