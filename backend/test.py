@@ -318,8 +318,13 @@ def create_table():
 
 
 def update():
-    check_put_token("/api/modify-general", {"email": "b@b.com"}, b'ok')
-    check_api_put("/api/modify-general", 401, {"firstname": "Johnny"}, b'{"msg":"Missing Authorization Header"}\n')
+    check_put_token("/api/modify-general", {"email": "b@b.com"}, b"ok")
+    check_api_put(
+        "/api/modify-general",
+        401,
+        {"firstname": "Johnny"},
+        b'{"msg":"Missing Authorization Header"}\n',
+    )
 
 
 def main():
