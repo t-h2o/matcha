@@ -171,7 +171,7 @@ def register():
             "email": "email@email.com",
             "password": "1234",
         },
-        b'{"succefull":"User user was succefull added"}\n',
+        b'{"success":"User user was successfully added"}\n',
     )
 
     check_api_post(
