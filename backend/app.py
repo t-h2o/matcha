@@ -20,6 +20,7 @@ from db import db_drop
 from db import db_get_id_password_where_username
 from db import db_set_email
 from db import db_get_user_per_id
+from db import db_set_user_data
 
 
 def flaskprint(message):
@@ -37,6 +38,10 @@ def update_email(id_user, email):
     db_set_email(id_user, email)
 
 
+def update_user_field(id_user, field, data):
+    db_set_user_data(id_user, field, data)
+
+
 @app.route("/api/modify-email", methods=["PUT"])
 @jwt_required()
 def modify_email():
@@ -52,16 +57,19 @@ def modify_email():
 
 @app.route("/api/modify-general", methods=["PUT"])
 @jwt_required()
-def update():
+def modify_general():
     id_user = get_jwt_identity()
-    flaskprint(id_user)
     json = request.json
-    flaskprint(json)
+
     for item in json:
-        if item == "email":
-            update_email(id_user, json[item])
-        flaskprint(item)
-        flaskprint(json[item])
+        if item == "firstname":
+            update_user_field(id_user, item, json[item])
+        elif item == "lastname":
+            update_user_field(id_user, item, json[item])
+        elif item == "sexualPreference":
+            update_user_field(id_user, item, json[item])
+        elif item == "bio":
+            update_user_field(id_user, item, json[item])
 
     return "ok"
 
