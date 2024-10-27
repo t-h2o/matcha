@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 
--- one-to-one relationship with users: no need for id PRIMARY KEY
+-- one-to-one relationship with users: we can use user_id as PRIMARY KEY
 CREATE TABLE IF NOT EXISTS user_profiles (
     user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
     bio TEXT,
@@ -38,6 +38,24 @@ CREATE TABLE IF NOT EXISTS user_interests (
     interest_id INTEGER REFERENCES interests(id) ON DELETE CASCADE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
     PRIMARY KEY (user_id, interest_id)
+);
+
+CREATE TABLE IF NOT EXISTS user_visits (
+    id SERIAL PRIMARY KEY,
+    visitor_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    visited_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    visited_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+    CONSTRAINT no_self_visits CHECK (visitor_id != visited_id)
+);
+
+CREATE TABLE IF NOT EXISTS user_likes (
+    id SERIAL PRIMARY KEY,
+    liker_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    liked_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    is_mutual BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+    CONSTRAINT unique_like UNIQUE(liker_id, liked_id),
+    CONSTRAINT no_self_likes CHECK (liker_id != liked_id)
 );
 
 
