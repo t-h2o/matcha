@@ -3,8 +3,9 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { UserData } from '../dummyUserData';
-import { UserModifyGeneral } from '../../shared/models/data-to-api/user';
+import { ModifiedUserGeneral } from '../../shared/models/data-to-api/user';
 import { UserService } from '../../shared/services/user.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-modify-general',
@@ -43,7 +44,7 @@ export class ModifyGeneralComponent implements OnInit {
       });
       return;
     }
-    const modifiedUserData: UserModifyGeneral = {
+    const modifiedUserData: ModifiedUserGeneral = {
       firstname: this.firstName,
       lastname: this.lastName,
       selectedGender: this.selectedGender,
@@ -58,17 +59,21 @@ export class ModifyGeneralComponent implements OnInit {
     this.onCancel();
   }
 
-  private sendUserDataToAPI(userData: UserModifyGeneral) {
-    const subscription = this.userService.modifyGeneral(userData).subscribe({
-      next: (data: any) => {
-        console.log('data: ' + JSON.stringify(data));
-      },
-      error: (error: any) => {
-        console.error('error: ' + JSON.stringify(error));
-      },
-      complete: () => {
-        subscription.unsubscribe();
-      },
-    });
+  private sendUserDataToAPI(userData: ModifiedUserGeneral) {
+    const subscription = this.userService
+      .modifyGeneral(userData)
+      .pipe(
+        finalize(() => {
+          subscription.unsubscribe();
+        }),
+      )
+      .subscribe({
+        next: (data: any) => {
+          console.log('data: ' + JSON.stringify(data));
+        },
+        error: (error: any) => {
+          console.error('error: ' + JSON.stringify(error));
+        },
+      });
   }
 }

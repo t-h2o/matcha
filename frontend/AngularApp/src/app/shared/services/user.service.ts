@@ -3,7 +3,9 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import {
   UserLogin,
-  UserModifyGeneral,
+  ModifiedUserEmail,
+  ModifiedUserGeneral,
+  ModifiedUserPassword,
   UserRegister,
 } from '../models/data-to-api/user';
 import { token } from '../models/token';
@@ -23,7 +25,14 @@ export class UserService {
     return this.httpClient.post(`${this.baseUrl}/register`, userData);
   }
 
-  modifyGeneral(userData: UserModifyGeneral) {
+  modifyGeneral(userData: ModifiedUserGeneral) {
     return this.httpClient.put(`${this.baseUrl}/modify-general`, userData);
+  }
+  modifyEmail(userData: ModifiedUserEmail) {
+    return this.httpClient.put(`${this.baseUrl}/modify-email`, userData);
+  }
+
+  modifyPassword(userData: ModifiedUserPassword) {
+    return this.httpClient.put(`${this.baseUrl}/modify-password`, userData);
   }
 }
