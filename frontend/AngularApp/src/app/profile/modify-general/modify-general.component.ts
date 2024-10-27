@@ -5,6 +5,7 @@ import { CustomButtonComponent } from '../../UI/custom-button/custom-button.comp
 import { UserData } from '../dummyUserData';
 import { UserModifyGeneral } from '../../shared/models/data-to-api/user';
 import { UserService } from '../../shared/services/user.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-modify-general',
@@ -59,16 +60,20 @@ export class ModifyGeneralComponent implements OnInit {
   }
 
   private sendUserDataToAPI(userData: UserModifyGeneral) {
-    const subscription = this.userService.modifyGeneral(userData).subscribe({
-      next: (data: any) => {
-        console.log('data: ' + JSON.stringify(data));
-      },
-      error: (error: any) => {
-        console.error('error: ' + JSON.stringify(error));
-      },
-      complete: () => {
-        subscription.unsubscribe();
-      },
-    });
+    const subscription = this.userService
+      .modifyGeneral(userData)
+      .pipe(
+        finalize(() => {
+          subscription.unsubscribe();
+        })
+      )
+      .subscribe({
+        next: (data: any) => {
+          console.log('data: ' + JSON.stringify(data));
+        },
+        error: (error: any) => {
+          console.error('error: ' + JSON.stringify(error));
+        },
+      });
   }
 }
