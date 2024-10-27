@@ -335,6 +335,7 @@ def update():
         {"firstname": "Johnny"},
         b'{"msg":"Missing Authorization Header"}\n',
     )
+    check_put_token("/api/modify-general", {"firstname": "Johnny"}, b"ok")
 
 
 def main():

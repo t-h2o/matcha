@@ -34,6 +34,10 @@ def update_email(id_user, email):
     db_set_email(id_user, email)
 
 
+def update_firstname(id_user, firstname):
+    flaskprint(firstname)
+
+
 @app.route("/api/modify-general", methods=["PUT"])
 @jwt_required()
 def update():
@@ -44,6 +48,8 @@ def update():
     for item in json:
         if item == "email":
             update_email(id_user, json[item])
+        elif item == "firstname":
+            update_firstname(id_user, json[item])
         flaskprint(item)
         flaskprint(json[item])
 
