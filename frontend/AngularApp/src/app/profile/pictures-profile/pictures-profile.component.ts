@@ -13,4 +13,5 @@ import { NgClass } from '@angular/common';
 export class PicturesProfileComponent {
   @Input() userPictures!: string[];
   @Input() profilePicture!: string;
+  @Input() onModify!: () => void;
 }
