@@ -3,6 +3,7 @@
 from os import environ
 from contextlib import contextmanager
 
+from psycopg2 import sql
 from psycopg2 import connect
 from psycopg2.extras import RealDictCursor
 from psycopg2.errors import UndefinedTable
@@ -50,6 +51,20 @@ def db_get_id_password_where_username(username):
             )
             user_db = cur.fetchone()
     return user_db
+
+
+def db_set_user_data(id_user, field, data):
+    query = sql.SQL("UPDATE users SET {} = %s where id = %s").format(
+        sql.Identifier(field)
+    )
+
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                query,
+                (data, id_user),
+            )
+            conn.commit()
 
 
 def db_set_email(id_user, email):
