@@ -4,6 +4,7 @@ import { tags } from '../../shared/models/tags';
 import { UserService } from '../../shared/services/user.service';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-modify-interests',
@@ -40,6 +41,11 @@ export class ModifyInterestsComponent implements OnInit {
     const selectedTagsObj = { interests: this.selectedTags };
     const subscription = this.userService
       .modifyInterests(selectedTagsObj)
+      .pipe(
+        finalize(() => {
+          subscription.unsubscribe();
+        }
+      ))
       .subscribe({
         next: (data: any) => {
           console.log('data: ' + JSON.stringify(data));
@@ -47,9 +53,7 @@ export class ModifyInterestsComponent implements OnInit {
         error: (error: any) => {
           console.log('Error updating interests:', error);
         },
-        complete: () => {
-          subscription.unsubscribe();
-        },
       });
+      this.onCancel();
   }
 }
