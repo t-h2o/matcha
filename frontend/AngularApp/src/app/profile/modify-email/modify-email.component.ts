@@ -31,12 +31,25 @@ export class ModifyEmailComponent implements OnInit {
   }
 
   onSubmitEmail(form: NgForm) {
-    console.log('Form Submitted!', form.value);
+    if (form.invalid) {
+      return;
+    }
+    const modifiedUserData: UserModifyEmail = {
+      email: this.uEmail,
+    };
+    this.sendUserEmailToAPI(modifiedUserData);
     this.onCancel();
   }
 
   onSubmitPassword(form: NgForm) {
-    console.log('Form Submitted!', form.value);
+    if (form.invalid) {
+      return;
+    }
+    const modifiedUserData: UserModifyPassword = {
+      currentPassword: form.value.currentPassword,
+      newPassword: form.value.newPassword,
+    };
+    this.sendUserPasswordToAPI(modifiedUserData);
     this.onCancel();
   }
 

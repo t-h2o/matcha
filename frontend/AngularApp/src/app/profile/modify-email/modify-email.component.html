@@ -1,6 +1,6 @@
 <div class="backdrop">
   <dialog open>
-    <form class="form" id="profile" #form="ngForm">
+    <form class="form" id="profile" #form1="ngForm">
       <h1 class="title">Email or Password</h1>
 
       <app-card>
@@ -22,20 +22,22 @@
             type="button"
             custom-button
             class="btn"
-            (click)="onSubmitEmail(form)"
+            (click)="onSubmitEmail(form1)"
           >
             Save
           </button>
         </div>
       </app-card>
+    </form>
 
+    <form class="form" id="profile" #form2="ngForm">
       <app-card>
         <div class="form-group">
           <label for="current-password">Enter you current password</label>
           <input
             type="password"
-            id="current-password"
-            name="current-password"
+            id="currentPassword"
+            name="currentPassword"
             class="no-validation"
             required
             ngModel
@@ -59,25 +61,25 @@
           </label>
           <input
             type="password"
-            id="password"
-            name="password"
+            id="newPassword"
+            name="newPassword"
             class="register"
             ngModel
             required
             pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s])([^\s]){8,15}$"
-            #password="ngModel"
+            #newPassword="ngModel"
           />
         </div>
         <div class="form-group">
           <label for="password-repetition">Repeat your new password</label>
           <input
             type="password"
-            id="password-repetition"
-            name="password-repetition"
+            id="passwordRepetition"
+            name="passwordRepetition"
             class="register"
             required
             ngModel
-            appPasswordConfirm="password"
+            appPasswordConfirm="newPassword"
             #password2="ngModel"
           />
         </div>
@@ -86,7 +88,7 @@
             type="button"
             custom-button
             class="btn"
-            (click)="onSubmitPassword(form)"
+            (click)="onSubmitPassword(form2)"
           >
             Save
           </button>
