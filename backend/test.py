@@ -101,6 +101,12 @@ def drop_table():
     check_api_post(
         "/api/drop",
         200,
+        {"table": "usersdata"},
+        b'{"success":"Table usersdata was successfully dropped"}\n',
+    )
+    check_api_post(
+        "/api/drop",
+        200,
         {"table": "users"},
         b'{"success":"Table users was successfully dropped"}\n',
     )
