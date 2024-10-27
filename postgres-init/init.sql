@@ -60,24 +60,24 @@ CREATE TABLE IF NOT EXISTS user_likes (
 );
 
 
-
-
 -- populate interests table
-INSERT INTO interests (name) VALUES ('travel');
-INSERT INTO interests (name) VALUES ('fitness');
-INSERT INTO interests (name) VALUES ('music');
-INSERT INTO interests (name) VALUES ('photography');
-INSERT INTO interests (name) VALUES ('gaming');
-INSERT INTO interests (name) VALUES ('yoga');
-INSERT INTO interests (name) VALUES ('reading');
-INSERT INTO interests (name) VALUES ('movies');
-INSERT INTO interests (name) VALUES ('cooking');
-INSERT INTO interests (name) VALUES ('hiking');
-INSERT INTO interests (name) VALUES ('technology');
-INSERT INTO interests (name) VALUES ('fashion');
-INSERT INTO interests (name) VALUES ('nature');
-INSERT INTO interests (name) VALUES ('meditation');
-INSERT INTO interests (name) VALUES ('tattoos');
-INSERT INTO interests (name) VALUES ('cats');
-INSERT INTO interests (name) VALUES ('dogs');
-INSERT INTO interests (name) VALUES ('dance');
+INSERT INTO interests (name) VALUES 
+('travel'),
+('fitness'),
+('music'),
+('photography'),
+('gaming'),
+('yoga'),
+('reading'),
+('movies'),
+('cooking'),
+('hiking'),
+('technology'),
+('fashion'),
+('nature'),
+('meditation'),
+('tattoos'),
+('cats'),
+('dogs'),
+('dance')
+ON CONFLICT (name) DO NOTHING;
