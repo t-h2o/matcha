@@ -56,3 +56,26 @@ CREATE TABLE IF NOT EXISTS user_likes (
     CONSTRAINT unique_like UNIQUE(liker_id, liked_id),
     CONSTRAINT no_self_likes CHECK (liker_id != liked_id)
 );
+
+
+-- populate interests table
+INSERT INTO interests (name) VALUES 
+('travel'),
+('fitness'),
+('music'),
+('photography'),
+('gaming'),
+('yoga'),
+('reading'),
+('movies'),
+('cooking'),
+('hiking'),
+('technology'),
+('fashion'),
+('nature'),
+('meditation'),
+('tattoos'),
+('cats'),
+('dogs'),
+('dance')
+ON CONFLICT (name) DO NOTHING;
