@@ -37,6 +37,19 @@ def update_email(id_user, email):
     db_set_email(id_user, email)
 
 
+@app.route("/api/modify-email", methods=["PUT"])
+@jwt_required()
+def modify_email():
+    id_user = get_jwt_identity()
+    json = request.json
+
+    for item in json:
+        if item == "email":
+            update_email(id_user, json[item])
+
+    return "ok"
+
+
 @app.route("/api/modify-general", methods=["PUT"])
 @jwt_required()
 def update():
