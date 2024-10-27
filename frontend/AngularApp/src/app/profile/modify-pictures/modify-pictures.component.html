@@ -1,6 +1,34 @@
 <div class="backdrop">
   <dialog open>
     <form class="form" id="profile" #form="ngForm">
+      <div
+        class="form-group"
+        (dragover)="onDragOver($event)"
+        (drop)="onDrop($event)"
+      >
+        <label for="pictures">Upload Pictures (max 5)</label>
+        <input
+          type="file"
+          id="pictures"
+          accept="image/*"
+          multiple
+          (change)="onFileChange($event)"
+        />
+        @if (uploadedPictures.length > 0) {
+          <div>
+            <h3>Selected Files:</h3>
+            <ul>
+              @for (file of uploadedPictures; track $index) {
+                <li>
+                  {{ file.name }} ({{ (file.size / 1024).toFixed(2) }} KB)
+                </li>
+              }
+            </ul>
+            <button (click)="uploadFiles()">Upload Files</button>
+          </div>
+        }
+      </div>
+
       <div class="btn-wrapper">
         <button custom-button class="btn">Save</button>
         <button type="button" custom-button class="btn" (click)="onCancel()">
