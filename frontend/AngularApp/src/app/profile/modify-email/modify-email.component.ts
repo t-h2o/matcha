@@ -5,8 +5,8 @@ import { CustomButtonComponent } from '../../UI/custom-button/custom-button.comp
 import { PasswordConfirmValidatorDirective } from '../../shared/directives/password-confirm-validator.directive';
 import { finalize } from 'rxjs';
 import {
-  UserModifyEmail,
-  UserModifyPassword,
+  ModifiedUserEmail,
+  ModifiedUserPassword,
 } from '../../shared/models/data-to-api/user';
 import { UserService } from '../../shared/services/user.service';
 
@@ -37,7 +37,7 @@ export class ModifyEmailComponent implements OnInit {
     if (form.invalid) {
       return;
     }
-    const modifiedUserData: UserModifyEmail = {
+    const modifiedUserData: ModifiedUserEmail = {
       email: this.uEmail,
     };
     this.sendUserEmailToAPI(modifiedUserData);
@@ -48,7 +48,7 @@ export class ModifyEmailComponent implements OnInit {
     if (form.invalid) {
       return;
     }
-    const modifiedUserData: UserModifyPassword = {
+    const modifiedUserData: ModifiedUserPassword = {
       currentPassword: form.value.currentPassword,
       newPassword: form.value.newPassword,
     };
@@ -56,7 +56,7 @@ export class ModifyEmailComponent implements OnInit {
     this.onCancel();
   }
 
-  private sendUserEmailToAPI(userData: UserModifyEmail) {
+  private sendUserEmailToAPI(userData: ModifiedUserEmail) {
     const subscription = this.userService
       .modifyEmail(userData)
       .pipe(
@@ -74,7 +74,7 @@ export class ModifyEmailComponent implements OnInit {
       });
   }
 
-  private sendUserPasswordToAPI(userData: UserModifyPassword) {
+  private sendUserPasswordToAPI(userData: ModifiedUserPassword) {
     const subscription = this.userService
       .modifyPassword(userData)
       .pipe(

@@ -11,7 +11,7 @@ export type UserLogin = {
   password: string;
 };
 
-export type UserModifyGeneral = {
+export type ModifiedUserGeneral = {
   firstname: string;
   lastname: string;
   selectedGender: string;
@@ -19,11 +19,11 @@ export type UserModifyGeneral = {
   bio: string;
 };
 
-export type UserModifyEmail = {
+export type ModifiedUserEmail = {
   email: string;
 };
 
-export type UserModifyPassword = {
+export type ModifiedUserPassword = {
   currentPassword: string;
   newPassword: string;
 };

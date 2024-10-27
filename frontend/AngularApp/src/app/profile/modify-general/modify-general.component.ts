@@ -3,7 +3,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { UserData } from '../dummyUserData';
-import { UserModifyGeneral } from '../../shared/models/data-to-api/user';
+import { ModifiedUserGeneral } from '../../shared/models/data-to-api/user';
 import { UserService } from '../../shared/services/user.service';
 import { finalize } from 'rxjs';
 
@@ -44,7 +44,7 @@ export class ModifyGeneralComponent implements OnInit {
       });
       return;
     }
-    const modifiedUserData: UserModifyGeneral = {
+    const modifiedUserData: ModifiedUserGeneral = {
       firstname: this.firstName,
       lastname: this.lastName,
       selectedGender: this.selectedGender,
@@ -59,7 +59,7 @@ export class ModifyGeneralComponent implements OnInit {
     this.onCancel();
   }
 
-  private sendUserDataToAPI(userData: UserModifyGeneral) {
+  private sendUserDataToAPI(userData: ModifiedUserGeneral) {
     const subscription = this.userService
       .modifyGeneral(userData)
       .pipe(
