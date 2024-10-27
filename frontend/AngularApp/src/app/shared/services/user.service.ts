@@ -28,11 +28,16 @@ export class UserService {
   modifyGeneral(userData: ModifiedUserGeneral) {
     return this.httpClient.put(`${this.baseUrl}/modify-general`, userData);
   }
+
   modifyEmail(userData: ModifiedUserEmail) {
     return this.httpClient.put(`${this.baseUrl}/modify-email`, userData);
   }
 
   modifyPassword(userData: ModifiedUserPassword) {
     return this.httpClient.put(`${this.baseUrl}/modify-password`, userData);
+  }
+
+  modifyInterests(userData: { interests: string[] }) {
+    return this.httpClient.put(`${this.baseUrl}/modify-interests`, userData);
   }
 }

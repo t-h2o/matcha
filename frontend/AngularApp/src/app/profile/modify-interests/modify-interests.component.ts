@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { tags } from '../../shared/models/tags';
-import { CardComponent } from '../../UI/card/card.component';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { tags } from '../../shared/models/tags';
+import { UserService } from '../../shared/services/user.service';
+import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 
 @Component({
@@ -14,6 +15,7 @@ import { CustomButtonComponent } from '../../UI/custom-button/custom-button.comp
 export class ModifyInterestsComponent implements OnInit {
   @Input({ required: true }) onCancel!: () => void;
   @Input({ required: true }) interestList: string[] = [];
+  private userService = inject(UserService);
 
   tagsList = tags;
   selectedTags: string[] = [];
@@ -34,7 +36,20 @@ export class ModifyInterestsComponent implements OnInit {
     }
   }
 
-  onSubmit(form: any) {
-    console.log('Form Submitted!', this.selectedTags);
+  onSubmit() {
+    const selectedTagsObj = { interests: this.selectedTags };
+    const subscription = this.userService
+      .modifyInterests(selectedTagsObj)
+      .subscribe({
+        next: (data: any) => {
+          console.log('data: ' + JSON.stringify(data));
+        },
+        error: (error: any) => {
+          console.log('Error updating interests:', error);
+        },
+        complete: () => {
+          subscription.unsubscribe();
+        },
+      });
   }
 }
