@@ -18,3 +18,12 @@ export type UserModifyGeneral = {
   sexualPreference: string;
   bio: string;
 };
+
+export type UserModifyEmail = {
+  email: string;
+};
+
+export type UserModifyPassword = {
+  currentPassword: string;
+  newPassword: string;
+};
