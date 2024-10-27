@@ -2,11 +2,14 @@
   <div class="container">
     <div class="grid">
       @for (pic of userPictures; track $index) {
-        <div class="picture-item">
+        <div>
           <img
             [src]="'/dummy-pics/' + pic"
             alt="{{ pic }}"
-            class="image-resize"
+            [ngClass]="{
+              'image-resize': true,
+              'profile-picture': pic === profilePicture,
+            }"
           />
         </div>
       }
