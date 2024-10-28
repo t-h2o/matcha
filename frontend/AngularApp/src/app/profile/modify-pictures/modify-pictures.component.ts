@@ -13,8 +13,8 @@ import { PicturePreviewComponent } from './picture-preview/picture-preview.compo
   styleUrl: './modify-pictures.component.scss',
 })
 export class ModifyPicturesComponent {
-  @Input() userPictures!: string[];
-  @Input() profilePicture!: string;
+  @Input({ required: true }) userPictures!: string[];
+  @Input({ required: true }) profilePicture!: string;
   @Input() onCancel!: () => void;
   private userService = inject(UserService);
 
@@ -105,8 +105,10 @@ export class ModifyPicturesComponent {
   }
 
   onSubmit() {
-    this.uploadFiles();
-    this.changeProfilePicture();
+    if (this.selectedPictures.length > 0) {
+      this.uploadFiles();
+      this.changeProfilePicture();
+    }
     this.onCancel();
   }
 }

@@ -9,8 +9,8 @@ import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
   styleUrl: './picture-preview.component.scss'
 })
 export class PicturePreviewComponent {
-  @Input() file!: File;
-  @Input() profilePicture!: string;
+  @Input({required: true}) file!: File;
+  @Input({required: true}) profilePicture!: string;
   @Output() selectProfilePicture = new EventEmitter<string>();
   @Output() remove = new EventEmitter<File>();
 
@@ -42,6 +42,9 @@ export class PicturePreviewComponent {
   }
 
   handleSelectProfilePicture(fileName: string) {
+    console.log("fileName", fileName);
+    console.log("profilePicture", this.profilePicture);
+
     this.selectProfilePicture.emit(fileName);
   }
 }
