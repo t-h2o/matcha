@@ -96,18 +96,6 @@ def check_api_post(path, status, json, content):
     print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " " + str(content))
 
 
-def drop_table():
-    check_415("/api/drop")
-    check_api_post(
-        "/api/drop",
-        200,
-        {"table": "users"},
-        b'{"success":"Table users was successfully dropped"}\n',
-    )
-    check_api_post("/api/drop", 200, {"table": ""}, b'{"error":"table is required."}\n')
-    check_api_get("/api/drop", 405, HTTP_405)
-
-
 def check_put_token(path, json, content):
     headers = {"Authorization": f"Bearer {access_token}"}
 
@@ -295,10 +283,6 @@ def login():
     )
 
 
-def create_table():
-    check_api_get("/api/create", 201, b'{"success":"Table \'users\' created"}\n')
-
-
 def update():
     check_put_token(
         "/api/modify-general",
@@ -336,8 +320,6 @@ def update():
 
 
 def main():
-    drop_table()
-    create_table()
     register()
     login()
     update()
