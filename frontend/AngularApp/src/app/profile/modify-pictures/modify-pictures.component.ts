@@ -75,6 +75,7 @@ export class ModifyPicturesComponent {
   }
 
   onSubmit() {
+    // this.uploadFiles();
     console.log('Submit');
   }
 }
