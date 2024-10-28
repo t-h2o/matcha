@@ -131,7 +131,6 @@ def protected():
     user_id = get_jwt_identity()
     user_db = db_get_user_per_id(user_id)
     return jsonify(
-        id=user_db[0],
         username=user_db[1],
         firstname=user_db[2],
         lastname=user_db[3],
