@@ -115,6 +115,30 @@ def check_put_token(path, json, content):
     )
 
 
+def check_get_token(path, content):
+    headers = {"Authorization": f"Bearer {access_token}"}
+
+    response = get(URL + path, headers=headers)
+
+    if response.content != content:
+        print("----")
+        print(f"url: {URL}")
+        print(f"path: {path}")
+        print(f"expected: {content}")
+        print(f"received: {response.content}")
+        print("----")
+        return
+
+    print(
+        bcolors.OKGREEN
+        + "success: "
+        + bcolors.ENDC
+        + path
+        + " "
+        + str(response.content)
+    )
+
+
 def check_delete_me(content):
     path = "/api/deleteme"
     headers = {"Authorization": f"Bearer {access_token}"}
@@ -345,10 +369,18 @@ def update():
         b'{"email":"update@b.com","firstname":"Johnny","lastname":"lastname","username":"user"}\n'
     )
     check_put_token("/api/modify-general", {"bio": "Hello world!1111111111"}, b"ok")
+    check_get_token(
+        "/api/getprofile",
+        b'{"bio":"Hello world!1111111111","gender":null,"sexual_orientation":null}\n',
+    )
     check_who_am_i(
         b'{"email":"update@b.com","firstname":"Johnny","lastname":"lastname","username":"user"}\n'
     )
     check_put_token("/api/modify-general", {"bio": "Hello world!2222222222"}, b"ok")
+    check_get_token(
+        "/api/getprofile",
+        b'{"bio":"Hello world!2222222222","gender":null,"sexual_orientation":null}\n',
+    )
     check_api_put(
         "/api/modify-general",
         401,
