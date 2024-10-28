@@ -87,3 +87,21 @@ def db_register(username, password, firstname, lastname, email):
             return {"error": f"User {username} is already registered."}
 
     return {"success": f"User {username} was successfully added"}
+
+
+def db_delete_user(id_user):
+    response_json = {}
+    response_code = 200
+
+    with get_db_connection() as conn:
+        try:
+            cur = conn.cursor()
+            cur.execute("DELETE from users where id = (%s);", (id_user,))
+            conn.commit()
+            response_json = {"success": "user delete"}
+            response_code = 200
+        except Exception as e:
+            response_json = {"error": str(e)}
+            response_code = 401
+
+    return response_json, response_code
