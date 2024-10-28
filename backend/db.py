@@ -106,6 +106,29 @@ def db_set_email(id_user, email):
             conn.commit()
 
 
+def db_get_profile_per_id(id_user):
+    user_db = None
+
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT bio,sexual_orientation,gender FROM user_profiles WHERE user_id = %s",
+                (id_user,),
+            )
+            user_db = cur.fetchone()
+
+    from sys import stderr
+
+    print(user_db, file=stderr)
+    user_profile = {
+        "bio": user_db[0],
+        "sexual_orientation": user_db[1],
+        "gender": user_db[2],
+    }
+
+    return user_profile, 200
+
+
 def db_get_user_per_id(id_user):
     user_db = None
 

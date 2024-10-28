@@ -20,6 +20,7 @@ from db import db_drop
 from db import db_get_id_password_where_username
 from db import db_set_email
 from db import db_get_user_per_id
+from db import db_get_profile_per_id
 from db import db_set_user_data
 from db import db_set_user_profile_data
 from db import db_delete_user
@@ -194,6 +195,17 @@ def drop_table():
     response = db_drop(table)
 
     return jsonify(response)
+
+
+@app.route("/api/getprofile")
+@jwt_required()
+def get_profile():
+    """get profile"""
+
+    id_user = get_jwt_identity()
+    db = db_get_profile_per_id(id_user)
+
+    return jsonify(db[0]), db[1]
 
 
 @app.route("/api/deleteme")
