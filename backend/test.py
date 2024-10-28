@@ -139,54 +139,6 @@ def check_get_token(path, content):
     )
 
 
-def check_delete_me(content):
-    path = "/api/deleteme"
-    headers = {"Authorization": f"Bearer {access_token}"}
-
-    response = get(URL + path, headers=headers)
-
-    if response.content != content:
-        print("----")
-        print(f"url: {URL}")
-        print(f"path: {path}")
-        print(f"expected: {content}")
-        print(f"received: {response.content}")
-        print("----")
-        return
-
-    print(
-        bcolors.OKGREEN
-        + "success: "
-        + bcolors.ENDC
-        + path
-        + " "
-        + str(response.content)
-    )
-
-
-def check_who_am_i(content):
-    headers = {"Authorization": f"Bearer {access_token}"}
-
-    response = get(URL + "/api/who_am_i", headers=headers)
-
-    if response.content != content:
-        print("----")
-        print(f"url: {URL}")
-        print(f"path: /api/who_am_i")
-        print(f"expected: {content}")
-        print(f"received: {response.content}")
-        print("----")
-        return
-
-    print(
-        bcolors.OKGREEN
-        + "success: "
-        + bcolors.ENDC
-        + "/who_am_i "
-        + str(response.content)
-    )
-
-
 def register():
     check_415("/api/register")
     check_api_get("/api/register", 405, HTTP_405)
@@ -356,25 +308,29 @@ def login():
 
 
 def update():
-    check_who_am_i(
-        b'{"email":"email@email.com","firstname":"firstname","lastname":"lastname","username":"user"}\n'
+    check_get_token(
+        "/api/who_am_i",
+        b'{"email":"email@email.com","firstname":"firstname","lastname":"lastname","username":"user"}\n',
     )
 
     check_put_token("/api/modify-email", {"email": "update@b.com"}, b"ok")
-    check_who_am_i(
-        b'{"email":"update@b.com","firstname":"firstname","lastname":"lastname","username":"user"}\n'
+    check_get_token(
+        "/api/who_am_i",
+        b'{"email":"update@b.com","firstname":"firstname","lastname":"lastname","username":"user"}\n',
     )
     check_put_token("/api/modify-general", {"firstname": "Johnny"}, b"ok")
-    check_who_am_i(
-        b'{"email":"update@b.com","firstname":"Johnny","lastname":"lastname","username":"user"}\n'
+    check_get_token(
+        "/api/who_am_i",
+        b'{"email":"update@b.com","firstname":"Johnny","lastname":"lastname","username":"user"}\n',
     )
     check_put_token("/api/modify-general", {"bio": "Hello world!1111111111"}, b"ok")
     check_get_token(
         "/api/getprofile",
         b'{"bio":"Hello world!1111111111","gender":null,"sexual_orientation":null}\n',
     )
-    check_who_am_i(
-        b'{"email":"update@b.com","firstname":"Johnny","lastname":"lastname","username":"user"}\n'
+    check_get_token(
+        "/api/who_am_i",
+        b'{"email":"update@b.com","firstname":"Johnny","lastname":"lastname","username":"user"}\n',
     )
     check_put_token("/api/modify-general", {"bio": "Hello world!2222222222"}, b"ok")
     check_get_token(
@@ -393,7 +349,7 @@ def main():
     register()
     login()
     update()
-    check_delete_me(b'{"success":"user delete"}\n')
+    check_get_token("/api/deleteme", b'{"success":"user delete"}\n')
 
 
 if __name__ == "__main__":
