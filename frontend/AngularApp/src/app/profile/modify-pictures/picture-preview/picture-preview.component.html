@@ -1,14 +1,14 @@
 <li class="item-container">
   @if (previewUrl) {
-  <div class="wrapper">
-    <img
-      [src]="previewUrl"
-      [alt]="file.name"
-      class="image-preview"
-      [class.selected]="file.name === profilePicture"
-      (click)="handleSelectProfilePicture(file.name)"
-    />
-    <div class="img-delete" (click)="removeFile()">X</div>
-  </div>
+    <div class="wrapper">
+      <img
+        [src]="previewUrl"
+        [alt]="file.name"
+        class="image-preview"
+        [class.selected]="file.name === profilePicture"
+        (click)="handleSelectProfilePicture(file.name)"
+      />
+      <div class="img-delete" (click)="removeFile()">X</div>
+    </div>
   }
 </li>

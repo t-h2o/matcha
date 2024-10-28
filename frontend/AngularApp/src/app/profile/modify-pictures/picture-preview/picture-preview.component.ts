@@ -6,14 +6,13 @@ import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
   standalone: true,
   imports: [],
   templateUrl: './picture-preview.component.html',
-  styleUrl: './picture-preview.component.scss'
+  styleUrl: './picture-preview.component.scss',
 })
 export class PicturePreviewComponent {
-  @Input({required: true}) file!: File;
-  @Input({required: true}) profilePicture!: string;
+  @Input({ required: true }) file!: File;
+  @Input({ required: true }) profilePicture!: string;
   @Output() selectProfilePicture = new EventEmitter<string>();
   @Output() remove = new EventEmitter<File>();
-
 
   previewUrl: SafeUrl | null = null;
 
@@ -32,7 +31,9 @@ export class PicturePreviewComponent {
   private createPreview() {
     const reader = new FileReader();
     reader.onload = () => {
-      this.previewUrl = this.sanitizer.bypassSecurityTrustUrl(reader.result as string);
+      this.previewUrl = this.sanitizer.bypassSecurityTrustUrl(
+        reader.result as string,
+      );
     };
     reader.readAsDataURL(this.file);
   }
@@ -42,8 +43,8 @@ export class PicturePreviewComponent {
   }
 
   handleSelectProfilePicture(fileName: string) {
-    console.log("fileName", fileName);
-    console.log("profilePicture", this.profilePicture);
+    console.log('fileName', fileName);
+    console.log('profilePicture', this.profilePicture);
 
     this.selectProfilePicture.emit(fileName);
   }
