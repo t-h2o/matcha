@@ -73,4 +73,8 @@ export class ModifyPicturesComponent {
       (error) => console.error('Upload failed', error),
     );
   }
+
+  onSubmit() {
+    console.log('Submit');
+  }
 }
