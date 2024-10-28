@@ -115,6 +115,31 @@ def check_put_token(path, json, content):
     )
 
 
+def check_delete_me(content):
+    path = "/api/deleteme"
+    headers = {"Authorization": f"Bearer {access_token}"}
+
+    response = get(URL + path, headers=headers)
+
+    if response.content != content:
+        print("----")
+        print(f"url: {URL}")
+        print(f"path: {path}")
+        print(f"expected: {content}")
+        print(f"received: {response.content}")
+        print("----")
+        return
+
+    print(
+        bcolors.OKGREEN
+        + "success: "
+        + bcolors.ENDC
+        + path
+        + " "
+        + str(response.content)
+    )
+
+
 def check_who_am_i(content):
     headers = {"Authorization": f"Bearer {access_token}"}
 
@@ -336,6 +361,7 @@ def main():
     register()
     login()
     update()
+    check_delete_me(b'{"success":"user delete"}\n')
 
 
 if __name__ == "__main__":
