@@ -22,6 +22,7 @@ from db import db_set_email
 from db import db_get_user_per_id
 from db import db_set_user_data
 from db import db_set_user_profile_data
+from db import db_delete_user
 
 
 def flaskprint(message):
@@ -196,6 +197,17 @@ def drop_table():
     response = db_drop(table)
 
     return jsonify(response)
+
+
+@app.route("/api/deleteme")
+@jwt_required()
+def delete_me():
+    """Delete"""
+
+    id_user = get_jwt_identity()
+    db = db_delete_user(id_user)
+
+    return jsonify(db[0]), db[1]
 
 
 if __name__ == "__main__":

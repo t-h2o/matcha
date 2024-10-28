@@ -151,3 +151,22 @@ def db_drop(table):
             {"error": str(e)}
 
     return {"success": f"Table {table} was successfully dropped"}
+
+
+def db_delete_user(id_user):
+    response_json = {}
+    response_code = 200
+
+    with get_db_connection() as conn:
+        try:
+            cur = conn.cursor()
+            cur.execute("DELETE from user_profiles where user_id = (%s);", (id_user,))
+            cur.execute("DELETE from users where id = (%s);", (id_user,))
+            conn.commit()
+            response_json = {"success": "user delete"}
+            response_code = 200
+        except Exception as e:
+            response_json = {"error": str(e)}
+            response_code = 401
+
+    return response_json, response_code
