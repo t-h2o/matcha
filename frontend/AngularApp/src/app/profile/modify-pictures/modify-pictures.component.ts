@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, inject, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { finalize } from 'rxjs';
+import { UserService } from '../../shared/services/user.service';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { PicturePreviewComponent } from './picture-preview/picture-preview.component';
 
@@ -15,7 +16,7 @@ export class ModifyPicturesComponent {
   @Input() userPictures!: string[];
   @Input() profilePicture!: string;
   @Input() onCancel!: () => void;
-  private http = inject(HttpClient);
+  private userService = inject(UserService);
 
   selectedPictures: File[] = [];
   maxFiles = 5;
@@ -60,24 +61,29 @@ export class ModifyPicturesComponent {
       alert(`You can upload a maximum of ${this.maxFiles} pictures.`);
       return;
     }
-
     this.selectedPictures.push(file);
   }
 
   uploadFiles() {
-    const formData = new FormData();
-    this.selectedPictures.forEach((file, index) => {
-      formData.append(`file${index}`, file, file.name);
-    });
-
-    this.http.post('/api/upload', formData).subscribe(
-      (response) => console.log('Upload successful', response),
-      (error) => console.error('Upload failed', error)
-    );
+    const subscription = this.userService
+      .modifyPictures(this.selectedPictures)
+      .pipe(
+        finalize(() => {
+          subscription.unsubscribe();
+        })
+      )
+      .subscribe({
+        next: (data: any) => {
+          console.log('data: ' + JSON.stringify(data));
+        },
+        error: (error: any) => {
+          console.log('Error uploading pictures:', error);
+        },
+      });
+    this.onCancel();
   }
 
   onSubmit() {
-    // this.uploadFiles();
-    console.log('Submit');
+    this.uploadFiles();
   }
 }
