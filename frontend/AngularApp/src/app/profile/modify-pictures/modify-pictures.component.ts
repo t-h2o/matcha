@@ -20,7 +20,11 @@ export class ModifyPicturesComponent {
 
   selectedPictures: File[] = [];
   maxFiles = 5;
-  maxSizePerFile = 5 * 1024 * 1024; // 5MB
+  maxSizePerFile = 5 * 1024 * 1024;
+
+  handleSelectProfilePicture(fileName: string) {
+    this.profilePicture = fileName;
+  }
 
   onDragOver(event: DragEvent) {
     event.preventDefault();
@@ -80,10 +84,29 @@ export class ModifyPicturesComponent {
           console.log('Error uploading pictures:', error);
         },
       });
-    this.onCancel();
+  }
+
+  changeProfilePicture() {
+    const subscription = this.userService
+      .modifyProfilePicture(this.profilePicture)
+      .pipe(
+        finalize(() => {
+          subscription.unsubscribe();
+        })
+      )
+      .subscribe({
+        next: (data: any) => {
+          console.log('data: ' + JSON.stringify(data));
+        },
+        error: (error: any) => {
+          console.log('Error changing profile pictures:', error);
+        },
+      });
   }
 
   onSubmit() {
     this.uploadFiles();
+    this.changeProfilePicture();
+    this.onCancel();
   }
 }

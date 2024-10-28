@@ -46,4 +46,10 @@ export class UserService {
     pictures.forEach((picture) => formData.append('pictures', picture));
     return this.httpClient.post(`${this.baseUrl}/modify-pictures`, formData);
   }
+
+  modifyProfilePicture(selectedPictures: string) {
+    return this.httpClient.put(`${this.baseUrl}/modify-profile-picture`, {
+      selectedPictures,
+    });
+  }
 }

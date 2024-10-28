@@ -1,7 +1,8 @@
-<li class="item-container" (click)="removeFile()">
-  <div>
-    @if (previewUrl) {
-    <img [src]="previewUrl" [alt]="file.name" class="image-preview" />
-    }
+<li class="item-container">
+  @if (previewUrl) {
+  <div class="wrapper">
+    <img [src]="previewUrl" [alt]="file.name" class="image-preview" (click)="handleSelectProfilePicture(file.name)"/>
+    <div class="img-delete" (click)="removeFile()">X</div>
   </div>
+  }
 </li>

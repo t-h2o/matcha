@@ -29,12 +29,15 @@
         </label>
         @if (selectedPictures.length > 0) {
         <div>
-          <h3>Selected Files:</h3>
+          <h5>Selected Files:</h5>
+          <p class="file-upload-option">Select one to be your profile picture </p>
           <ul>
               @for (file of selectedPictures; track $index) {
                 <app-picture-preview
                   [file]="file"
                   (remove)="removeFile(file)"
+                  (selectProfilePicture)="handleSelectProfilePicture($event)"
+                  (profilePicture)="profilePicture"
                 />
               }
           </ul>
