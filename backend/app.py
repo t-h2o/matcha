@@ -75,9 +75,7 @@ def modify_general():
         elif item == "sexualPreference":
             update_user_profile_field(id_user, item, json[item])
         elif item == "bio":
-            flaskprint("---- bio ----")
             update_user_profile_field(id_user, item, json[item])
-            flaskprint("---- bio ----")
 
     return "ok"
 
