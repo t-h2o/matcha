@@ -1,59 +1,56 @@
 <div class="app-wrapper">
   @if (isModifyingGeneral) {
-    <main class="main">
-      <app-modify-general
-        [onCancel]="toggleIsModifyingGeneral"
+  <main class="main">
+    <app-modify-general
+      [onCancel]="toggleIsModifyingGeneral"
+      [userProfile]="profileData"
+    ></app-modify-general>
+  </main>
+  } @if (isModifyingInterests) {
+  <main class="main">
+    <app-modify-interests
+      [onCancel]="toggleIModifyInterests"
+      [interestList]="profileData.interests"
+    ></app-modify-interests>
+  </main>
+  } @if (isModifyingEmail) {
+  <main class="main">
+    <app-modify-email
+      [onCancel]="toggleIModifyEmail"
+      [userEmail]="profileData.email"
+    ></app-modify-email>
+  </main>
+  } @if (isModifyingPictures) {
+  <main class="main">
+    <app-modify-pictures
+      [onCancel]="toggleIModifyPictures"
+      [userPictures]="profileData.pictures"
+      [profilePicture]="profileData.profilePic"
+    ></app-modify-pictures>
+  </main>
+  } @else {
+  <main class="profile-container">
+    <div class="left">
+      <app-general-profile
         [userProfile]="profileData"
-      ></app-modify-general>
-    </main>
-  }
-  @if (isModifyingInterests) {
-    <main class="main">
-      <app-modify-interests
-        [onCancel]="toggleIModifyInterests"
+        [onModify]="toggleIsModifyingGeneral"
+      ></app-general-profile>
+      <app-interests
         [interestList]="profileData.interests"
-      ></app-modify-interests>
-    </main>
-  }
-  @if (isModifyingEmail) {
-    <main class="main">
-      <app-modify-email
-        [onCancel]="toggleIModifyEmail"
-        [userEmail]="profileData.email"
-      ></app-modify-email>
-    </main>
-  }
-  @if (isModifyingPictures) {
-    <main class="main">
-      <app-modify-pictures
-        [onCancel]="toggleIModifyPictures"
+        [onModify]="toggleIModifyInterests"
+      ></app-interests>
+      <app-email-passwd
+        [email]="profileData.email"
+        [onModify]="toggleIModifyEmail"
+      ></app-email-passwd>
+    </div>
+    <div class="right">
+      <app-pictures-profile
         [userPictures]="profileData.pictures"
         [profilePicture]="profileData.profilePic"
-      ></app-modify-pictures>
-    </main>
-  } @else {
-    <main class="profile-container">
-      <div class="left">
-        <app-general-profile
-          [userProfile]="profileData"
-          [onModify]="toggleIsModifyingGeneral"
-        ></app-general-profile>
-        <app-interests
-          [interestList]="profileData.interests"
-          [onModify]="toggleIModifyInterests"
-        ></app-interests>
-        <app-email-passwd
-          [email]="profileData.email"
-          [onModify]="toggleIModifyEmail"
-        ></app-email-passwd>
-      </div>
-      <div class="right">
-        <app-pictures-profile
-          [userPictures]="profileData.pictures"
-          [profilePicture]="profileData.profilePic"
-          [onModify]="toggleIModifyPictures"
-        ></app-pictures-profile>
-      </div>
-    </main>
+        [onModify]="toggleIModifyPictures"
+      ></app-pictures-profile>
+    </div>
+  </main>
   }
 </div>

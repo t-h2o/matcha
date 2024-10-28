@@ -43,9 +43,6 @@ export class PicturePreviewComponent {
   }
 
   handleSelectProfilePicture(fileName: string) {
-    console.log('fileName', fileName);
-    console.log('profilePicture', this.profilePicture);
-
     this.selectProfilePicture.emit(fileName);
   }
 }
