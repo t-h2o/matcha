@@ -51,7 +51,7 @@ export class ModifyPicturesComponent {
 
   removeFile(file: File) {
     this.selectedPictures = this.selectedPictures.filter(
-      (picture) => picture !== file
+      (picture) => picture !== file,
     );
     if (this.localProfilePicture === file.name) {
       this.localProfilePicture = '';
@@ -61,7 +61,7 @@ export class ModifyPicturesComponent {
   private addFile(file: File) {
     if (file?.size >= this.maxSizePerFile) {
       alert(
-        'File size is too large. Please ensure all files are less than 5MB each.'
+        'File size is too large. Please ensure all files are less than 5MB each.',
       );
       return;
     }
@@ -78,7 +78,7 @@ export class ModifyPicturesComponent {
       .pipe(
         finalize(() => {
           subscription.unsubscribe();
-        })
+        }),
       )
       .subscribe({
         next: (data: any) => {
@@ -96,7 +96,7 @@ export class ModifyPicturesComponent {
       .pipe(
         finalize(() => {
           subscription.unsubscribe();
-        })
+        }),
       )
       .subscribe({
         next: (data: any) => {
