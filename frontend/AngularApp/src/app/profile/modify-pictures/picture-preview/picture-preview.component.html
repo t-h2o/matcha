@@ -1,0 +1,7 @@
+<li class="item-container" (click)="removeFile()">
+  <div>
+    @if (previewUrl) {
+    <img [src]="previewUrl" [alt]="file.name" class="image-preview" />
+    }
+  </div>
+</li>

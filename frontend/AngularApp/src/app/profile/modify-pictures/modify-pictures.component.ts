@@ -2,11 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
+import { PicturePreviewComponent } from './picture-preview/picture-preview.component';
 
 @Component({
   selector: 'app-modify-pictures',
   standalone: true,
-  imports: [FormsModule, CustomButtonComponent],
+  imports: [FormsModule, CustomButtonComponent, PicturePreviewComponent],
   templateUrl: './modify-pictures.component.html',
   styleUrl: './modify-pictures.component.scss',
 })
@@ -16,7 +17,7 @@ export class ModifyPicturesComponent {
   @Input() onCancel!: () => void;
   private http = inject(HttpClient);
 
-  uploadedPictures: File[] = [];
+  selectedPictures: File[] = [];
   maxFiles = 5;
   maxSizePerFile = 5 * 1024 * 1024; // 5MB
 
@@ -30,7 +31,7 @@ export class ModifyPicturesComponent {
     event.stopPropagation();
     const files = event.dataTransfer?.files;
     if (files) {
-      this.handleFiles(files);
+      this.handleFiles(files[0]);
     }
   }
 
@@ -38,39 +39,40 @@ export class ModifyPicturesComponent {
     const input = event.target as HTMLInputElement;
     const files = input.files;
     if (files) {
-      this.handleFiles(files);
+      this.handleFiles(files[0]);
     }
   }
 
-  handleFiles(files: FileList) {
-    const validFiles = Array.from(files).filter(
-      (file) =>
-        file.type.startsWith('image/') && file.size <= this.maxSizePerFile,
-    );
-
-    if (validFiles.length > this.maxFiles) {
+  handleFiles(file: File) {
+    if (file?.size >= this.maxSizePerFile) {
+      alert(
+        'File size is too large. Please ensure all files are less than 5MB each.'
+      );
+      return;
+    }
+    if (this.selectedPictures.length >= this.maxFiles) {
       alert(`You can upload a maximum of ${this.maxFiles} pictures.`);
       return;
     }
 
-    if (validFiles.length < files.length) {
-      alert(
-        'Some files were skipped. Please ensure all files are images and less than 5MB each.',
-      );
-    }
-
-    this.uploadedPictures = validFiles;
+    this.selectedPictures.push(file);
   }
 
   uploadFiles() {
     const formData = new FormData();
-    this.uploadedPictures.forEach((file, index) => {
+    this.selectedPictures.forEach((file, index) => {
       formData.append(`file${index}`, file, file.name);
     });
 
     this.http.post('/api/upload', formData).subscribe(
       (response) => console.log('Upload successful', response),
-      (error) => console.error('Upload failed', error),
+      (error) => console.error('Upload failed', error)
+    );
+  }
+
+  removeFile(file: File) {
+    this.selectedPictures = this.selectedPictures.filter(
+      (picture) => picture !== file
     );
   }
 
