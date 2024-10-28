@@ -31,7 +31,7 @@ export class ModifyPicturesComponent {
     event.stopPropagation();
     const files = event.dataTransfer?.files;
     if (files) {
-      this.handleFiles(files[0]);
+      this.addFile(files[0]);
     }
   }
 
@@ -39,11 +39,17 @@ export class ModifyPicturesComponent {
     const input = event.target as HTMLInputElement;
     const files = input.files;
     if (files) {
-      this.handleFiles(files[0]);
+      this.addFile(files[0]);
     }
   }
 
-  handleFiles(file: File) {
+  removeFile(file: File) {
+    this.selectedPictures = this.selectedPictures.filter(
+      (picture) => picture !== file
+    );
+  }
+
+  private addFile(file: File) {
     if (file?.size >= this.maxSizePerFile) {
       alert(
         'File size is too large. Please ensure all files are less than 5MB each.'
@@ -67,12 +73,6 @@ export class ModifyPicturesComponent {
     this.http.post('/api/upload', formData).subscribe(
       (response) => console.log('Upload successful', response),
       (error) => console.error('Upload failed', error)
-    );
-  }
-
-  removeFile(file: File) {
-    this.selectedPictures = this.selectedPictures.filter(
-      (picture) => picture !== file
     );
   }
 
