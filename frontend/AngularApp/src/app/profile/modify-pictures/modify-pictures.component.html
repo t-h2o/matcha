@@ -14,15 +14,19 @@
           <img src="icons/drop-item-icon.svg" alt="Drop Icon" />
         </div>
       </div>
+      <p class="file-upload-option">or select picture from files</p>
       <div class="form-group">
-        <label for="pictures">or select picture from files</label>
         <input
           type="file"
           id="pictures"
           accept="image/*"
           multiple
           (change)="onFileChange($event)"
+          style="display: none"
         />
+        <label for="pictures" class="custom-file-upload">
+          Upload Pictures
+        </label>
         @if (uploadedPictures.length > 0) {
         <div>
           <h3>Selected Files:</h3>

@@ -75,4 +75,16 @@ dialog {
       cursor: copy;
     }
   }
+  .custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .file-upload-option{
+    font-size: 0.8rem;
+  }
 }
