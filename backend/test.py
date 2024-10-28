@@ -321,6 +321,8 @@ def update():
     check_put_token("/api/modify-general", {"email": "b@b.com"}, b"ok")
     check_put_token("/api/modify-email", {"email": "update@b.com"}, b"ok")
     check_put_token("/api/modify-general", {"firstname": "Johnny"}, b"ok")
+    check_put_token("/api/modify-general", {"bio": "Hello world!1111111111"}, b"ok")
+    check_put_token("/api/modify-general", {"bio": "Hello world!2222222222"}, b"ok")
     check_api_put(
         "/api/modify-general",
         401,
