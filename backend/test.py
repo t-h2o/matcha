@@ -307,10 +307,22 @@ def login():
 
 
 def update():
-    check_put_token("/api/modify-general", {"email": "b@b.com"}, b"ok")
+    check_who_am_i(
+        b'{"email":"email@email.com","firstname":"firstname","lastname":"lastname","username":"user"}\n'
+    )
+
     check_put_token("/api/modify-email", {"email": "update@b.com"}, b"ok")
+    check_who_am_i(
+        b'{"email":"update@b.com","firstname":"firstname","lastname":"lastname","username":"user"}\n'
+    )
     check_put_token("/api/modify-general", {"firstname": "Johnny"}, b"ok")
+    check_who_am_i(
+        b'{"email":"update@b.com","firstname":"Johnny","lastname":"lastname","username":"user"}\n'
+    )
     check_put_token("/api/modify-general", {"bio": "Hello world!1111111111"}, b"ok")
+    check_who_am_i(
+        b'{"email":"update@b.com","firstname":"Johnny","lastname":"lastname","username":"user"}\n'
+    )
     check_put_token("/api/modify-general", {"bio": "Hello world!2222222222"}, b"ok")
     check_api_put(
         "/api/modify-general",
@@ -323,13 +335,7 @@ def update():
 def main():
     register()
     login()
-    check_who_am_i(
-        b'{"email":"email@email.com","firstname":"firstname","id":1,"lastname":"lastname","username":"user"}\n'
-    )
     update()
-    check_who_am_i(
-        b'{"email":"b@b.com","firstname":"firstname","id":1,"lastname":"lastname","username":"user"}\n'
-    )
 
 
 if __name__ == "__main__":
