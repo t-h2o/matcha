@@ -1,6 +1,7 @@
 """Flask, psycopg2, os.environ, contextmanager"""
 
 from os import environ
+from sys import stderr
 from contextlib import contextmanager
 
 from psycopg2 import sql
@@ -51,6 +52,34 @@ def db_get_id_password_where_username(username):
             )
             user_db = cur.fetchone()
     return user_db
+
+
+def db_set_user_profile_data(id_user, field, data):
+    row_exist = True
+
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT user_id FROM user_profiles WHERE user_id = %s", (id_user,)
+            )
+            row_exist = cur.fetchone() is not None
+
+    if row_exist:
+        query = sql.SQL("UPDATE user_profiles SET {} = %s where user_id = %s").format(
+            sql.Identifier(field)
+        )
+    else:
+        query = sql.SQL(
+            "INSERT INTO user_profiles ({}, user_id) VALUES (%s, %s);"
+        ).format(sql.Identifier(field))
+
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                query,
+                (data, id_user),
+            )
+            conn.commit()
 
 
 def db_set_user_data(id_user, field, data):

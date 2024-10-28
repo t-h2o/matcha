@@ -21,6 +21,7 @@ from db import db_get_id_password_where_username
 from db import db_set_email
 from db import db_get_user_per_id
 from db import db_set_user_data
+from db import db_set_user_profile_data
 
 
 def flaskprint(message):
@@ -40,6 +41,10 @@ def update_email(id_user, email):
 
 def update_user_field(id_user, field, data):
     db_set_user_data(id_user, field, data)
+
+
+def update_user_profile_field(id_user, field, data):
+    db_set_user_profile_data(id_user, field, data)
 
 
 @app.route("/api/modify-email", methods=["PUT"])
@@ -67,9 +72,11 @@ def modify_general():
         elif item == "lastname":
             update_user_field(id_user, item, json[item])
         elif item == "sexualPreference":
-            update_user_field(id_user, item, json[item])
+            update_user_profile_field(id_user, item, json[item])
         elif item == "bio":
-            update_user_field(id_user, item, json[item])
+            flaskprint("---- bio ----")
+            update_user_profile_field(id_user, item, json[item])
+            flaskprint("---- bio ----")
 
     return "ok"
 
