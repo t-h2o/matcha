@@ -1,7 +1,6 @@
 from requests import put
 from requests import post
 from requests import get
-
 from json import loads
 
 
@@ -38,6 +37,45 @@ def print_error_get(
     print(f"code expected: {code_expected}")
     print(f"code received: {code_received}")
     print("----")
+
+
+def check_content_code(
+    url, path, json, code_expected, code_received, content_expected, content_received
+):
+    if content_received != content_expected:
+        print("--- bad content ---")
+        print_error_post(
+            url,
+            path,
+            json,
+            code_expected,
+            code_received,
+            content_expected,
+            content_received,
+        )
+        return
+
+    if code_received != code_expected:
+        print("--- bad http code ---")
+        print_error_post(
+            url,
+            path,
+            json,
+            code_expected,
+            code_received,
+            content_expected,
+            content_received,
+        )
+        return
+
+    print(
+        bcolors.OKGREEN
+        + "success: "
+        + bcolors.ENDC
+        + path
+        + " "
+        + str(content_expected)
+    )
 
 
 def check_login_token(path, json):
@@ -96,20 +134,9 @@ def check_put(path, status, json, content):
 
     response = put(URL + path, json=json, headers=headers)
 
-    if response.content != content:
-        print("--- bad content ---")
-        print_error_post(
-            URL, path, json, status, response.status_code, content, response.content
-        )
-        return
-    if response.status_code != status:
-        print("--- bad http code ---")
-        print_error_post(
-            URL, path, json, status, response.status_code, content, response.content
-        )
-        return
-
-    print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " " + str(content))
+    check_content_code(
+        URL, path, json, status, response.status_code, content, response.content
+    )
 
 
 def check_post(path, status, json, content):
@@ -117,20 +144,9 @@ def check_post(path, status, json, content):
 
     response = post(URL + path, json=json, headers=headers)
 
-    if response.content != content:
-        print("--- bad content ---")
-        print_error_post(
-            URL, path, json, status, response.status_code, content, response.content
-        )
-        return
-    if response.status_code != status:
-        print("--- bad http code ---")
-        print_error_post(
-            URL, path, json, status, response.status_code, content, response.content
-        )
-        return
-
-    print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " " + str(content))
+    check_content_code(
+        URL, path, json, status, response.status_code, content, response.content
+    )
 
 
 def check_put_token(path, json, content):
