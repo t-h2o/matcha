@@ -20,27 +20,6 @@ def get_db_connection():
         conn.close()
 
 
-def db_create_table_users():
-    """Create the Users's table."""
-
-    with get_db_connection() as conn:
-        with conn.cursor(cursor_factory=RealDictCursor) as cur:
-            cur.execute(
-                """
-                CREATE TABLE IF NOT EXISTS users (
-                id SERIAL PRIMARY KEY,
-                username VARCHAR(12) UNIQUE NOT NULL,
-                firstname VARCHAR NOT NULL,
-                lastname VARCHAR NOT NULL,
-                email VARCHAR NOT NULL,
-                created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
-                password VARCHAR NOT NULL
-                );
-                """
-            )
-            conn.commit()
-
-
 def db_get_id_password_where_username(username):
     user_db = None
     with get_db_connection() as conn:

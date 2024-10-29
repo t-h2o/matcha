@@ -14,7 +14,6 @@ from flask_jwt_extended import get_jwt_identity
 from werkzeug.security import check_password_hash
 from flask_cors import CORS
 
-from db import db_create_table_users
 from db import db_register
 from db import db_drop
 from db import db_get_id_password_where_username
@@ -71,15 +70,6 @@ def modify_general():
     )
 
     return jsonify(response), 200
-
-
-@app.route("/api/create")
-def create_table_users():
-    """Create the Users's table."""
-
-    db_create_table_users()
-
-    return jsonify({"success": "Table 'users' created"}), 201
 
 
 @app.route("/api/login", methods=["POST"])
