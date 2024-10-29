@@ -1,5 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 
 @Component({
@@ -12,4 +12,12 @@ import { AuthService } from '../../auth/auth.service';
 export class NavbarComponent {
   @Input() onLogout!: () => void;
   authService = inject(AuthService);
+  router = inject(Router);
+  isLoginRoute(): boolean {
+    return this.router.url === '/login';
+  }
+
+  isRegisterRoute(): boolean {
+    return this.router.url === '/register';
+  }
 }

@@ -8,8 +8,12 @@
       </div>
       <div class="links-container">
         @if (!authService.tokenSignal()) {
-          <a routerLink="/login" routerLinkActive="active">Login</a>
-          <a routerLink="/register" routerLinkActive="active">Register</a>
+          @if (!isLoginRoute()) {
+            <a routerLink="/login" routerLinkActive="active">Login</a>
+          }
+          @if (!isRegisterRoute()) {
+            <a routerLink="/register" routerLinkActive="active">Register</a>
+          }
         }
         @if (authService.tokenSignal()) {
           <a routerLink="/register-profile" routerLinkActive="active"
