@@ -144,13 +144,13 @@ def register_user():
             400,
         )
 
-    username = json["username"]
-    password = json["password"]
-    firstname = json["firstname"]
-    lastname = json["lastname"]
-    email = json["email"]
-
-    response = db_register(username, password, firstname, lastname, email)
+    response = db_register(
+        json["username"],
+        json["password"],
+        json["firstname"],
+        json["lastname"],
+        json["email"],
+    )
 
     return jsonify(response)
 
