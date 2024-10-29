@@ -1,5 +1,6 @@
 """Flask, os.environ"""
 
+from os import path
 from os import environ
 from sys import stderr
 from flask import Flask
@@ -11,7 +12,9 @@ from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 from flask_jwt_extended import get_jwt_identity
 
+from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
+
 from flask_cors import CORS
 
 from app_utils import check_request_json
@@ -29,6 +32,8 @@ def flaskprint(message):
 
 app = Flask(__name__)
 app.config["JWT_SECRET_KEY"] = environ["FLASK_JWT_SECRET_KEY"]
+app.config["UPLOAD_FOLDER"] = environ["FLASK_UPLOAD_FOLDER"]
+
 CORS(app, origins="http://localhost:4200")
 
 jwt = JWTManager(app)
@@ -60,6 +65,21 @@ def modify_general():
     )
 
     return jsonify(response), 200
+
+
+@app.route("/api/modify-pictures", methods=["POST"])
+@jwt_required()
+def modify_pictures():
+    """Create the Users's table."""
+
+    user_id = get_jwt_identity()
+
+    flaskprint(request.files)
+    flaskprint(request.files["pictures"])
+    filename = secure_filename(request.files["pictures"].filename)
+    request.files["pictures"].save(path.join(app.config["UPLOAD_FOLDER"], filename))
+
+    return jsonify({"success": "file uploaded"}), 201
 
 
 @app.route("/api/login", methods=["POST"])
