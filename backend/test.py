@@ -4,9 +4,9 @@ from test_utils import print_error_post
 from test_utils import print_error_get
 from test_utils import check_login_token
 from test_utils import check_415
-from test_utils import check_api_get
-from test_utils import check_api_post
-from test_utils import check_api_put
+from test_utils import check_get
+from test_utils import check_post
+from test_utils import check_put
 from test_utils import check_put_token
 
 
@@ -15,8 +15,8 @@ HTTP_405 = b"<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</tit
 
 def register():
     check_415("/api/register")
-    check_api_get("/api/register", 405, HTTP_405)
-    check_api_post(
+    check_get("/api/register", 405, HTTP_405)
+    check_post(
         "/api/register",
         200,
         {
@@ -29,7 +29,7 @@ def register():
         b'{"success":"User user was successfully added"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/register",
         400,
         {
@@ -41,7 +41,7 @@ def register():
         b'{"error":"The following fields are required and cannot be empty: firstname"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/register",
         400,
         {
@@ -53,7 +53,7 @@ def register():
         b'{"error":"The following fields are required and cannot be empty: username"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/register",
         200,
         {
@@ -66,7 +66,7 @@ def register():
         b'{"error":"User user is already registered."}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/register",
         400,
         {
@@ -79,7 +79,7 @@ def register():
         b'{"error":"The following fields are required and cannot be empty: username"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/register",
         400,
         {
@@ -92,7 +92,7 @@ def register():
         b'{"error":"The following fields are required and cannot be empty: firstname"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/register",
         400,
         {
@@ -105,7 +105,7 @@ def register():
         b'{"error":"The following fields are required and cannot be empty: lastname"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/register",
         400,
         {
@@ -118,7 +118,7 @@ def register():
         b'{"error":"The following fields are required and cannot be empty: password"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/register",
         400,
         {
@@ -138,42 +138,42 @@ def login():
         {"username": "user", "password": "1234"},
     )
 
-    check_api_post(
+    check_post(
         "/api/login",
         401,
         {"username": "user", "password": "bad"},
         b'{"error":"Incorrect password"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/login",
         400,
         {"username": "", "password": "1234"},
         b'{"error":"The following fields are required and cannot be empty: username"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/login",
         400,
         {"username": None, "password": "1234"},
         b'{"error":"The following fields are required and cannot be empty: username"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/login",
         400,
         {"username": "", "password": ""},
         b'{"error":"The following fields are required and cannot be empty: username, password"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/login",
         401,
         {"username": "no_user", "password": "1234"},
         b'{"error":"Incorrect username"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/login",
         400,
         {"password": "1234"},
@@ -209,7 +209,7 @@ def update():
         },
         b'{"error":"value too long for type character(1)\\n"}\n',
     )
-    check_api_put(
+    check_put(
         "/api/modify-general",
         401,
         {"firstname": "Johnny"},

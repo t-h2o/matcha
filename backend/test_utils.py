@@ -73,7 +73,7 @@ def check_415(path):
     print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " 415 error")
 
 
-def check_api_get(path, status, content):
+def check_get(path, status, content):
     response = get(URL + path)
 
     if response.content != content:
@@ -91,7 +91,7 @@ def check_api_get(path, status, content):
     print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + str(content))
 
 
-def check_api_put(path, status, json, content):
+def check_put(path, status, json, content):
     headers = {"content-type": "application/json"}
 
     response = put(URL + path, json=json, headers=headers)
@@ -112,7 +112,7 @@ def check_api_put(path, status, json, content):
     print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " " + str(content))
 
 
-def check_api_post(path, status, json, content):
+def check_post(path, status, json, content):
     headers = {"content-type": "application/json"}
 
     response = post(URL + path, json=json, headers=headers)
