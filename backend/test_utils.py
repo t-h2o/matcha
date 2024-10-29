@@ -155,20 +155,11 @@ def check_get_token(path, status, content):
     )
 
 
-def check_put_token(path, json, content):
+def check_put_token(path, status, json, content):
     headers = {"Authorization": f"Bearer {access_token}"}
 
     response = put(URL + path, headers=headers, json=json)
 
-    if response.content != content:
-        print(f"error: content {response.content}")
-        return
-
-    print(
-        bcolors.OKGREEN
-        + "success: "
-        + bcolors.ENDC
-        + path
-        + " "
-        + str(response.content)
+    check_content_code(
+        URL, path, status, response.status_code, content, response.content, json
     )

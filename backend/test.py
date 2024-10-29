@@ -183,11 +183,13 @@ def login():
 def update():
     check_put_token(
         "/api/modify-general",
+        400,
         {"email": "b@b.com"},
         b'{"error":"The following fields are required and cannot be empty: firstname, lastname, selectedGender, sexualPreference, bio"}\n',
     )
     check_put_token(
         "/api/modify-general",
+        200,
         {
             "firstname": "Johnny",
             "lastname": "Appleseed",
@@ -199,6 +201,7 @@ def update():
     )
     check_put_token(
         "/api/modify-general",
+        200,
         {
             "firstname": "Johnny",
             "lastname": "Appleseed",
