@@ -75,14 +75,11 @@ def login_user():
     if check_request is not None:
         return jsonify(check_request[0]), check_request[1]
 
-    username = json["username"]
-    password = json["password"]
-
-    user_db = db_get_id_password_where_username(username)
+    user_db = db_get_id_password_where_username(json["username"])
 
     if user_db is None:
         return jsonify({"error": "Incorrect username"}), 401
-    if check_password_hash(user_db[1], password):
+    if check_password_hash(user_db[1], json["password"]):
         access_token = create_access_token(identity=user_db[0])
         return jsonify(access_token=access_token)
     return jsonify({"error": "Incorrect password"}), 401
