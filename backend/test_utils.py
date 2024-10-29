@@ -12,26 +12,20 @@ class bcolors:
 URL = "http://localhost:5001"
 
 
-def print_error_post(
-    url, path, json, code_expected, code_received, content_expected, content_received
+def print_error(
+    url,
+    path,
+    code_expected,
+    code_received,
+    content_expected,
+    content_received,
+    json=None,
 ):
     print("----")
     print(f"url: {url}")
     print(f"path: {path}")
-    print(f"json: {json}")
-    print(f"expected: {content_expected}")
-    print(f"received: {content_received}")
-    print(f"code expected: {code_expected}")
-    print(f"code received: {code_received}")
-    print("----")
-
-
-def print_error_get(
-    url, path, code_expected, code_received, content_expected, content_received
-):
-    print("----")
-    print(f"url: {url}")
-    print(f"path: {path}")
+    if json:
+        print(f"json: {json}")
     print(f"expected: {content_expected}")
     print(f"received: {content_received}")
     print(f"code expected: {code_expected}")
@@ -44,27 +38,27 @@ def check_content_code(
 ):
     if content_received != content_expected:
         print("--- bad content ---")
-        print_error_post(
+        print_error(
             url,
             path,
-            json,
             code_expected,
             code_received,
             content_expected,
             content_received,
+            json,
         )
         return
 
     if code_received != code_expected:
         print("--- bad http code ---")
-        print_error_post(
+        print_error(
             url,
             path,
-            json,
             code_expected,
             code_received,
             content_expected,
             content_received,
+            json,
         )
         return
 
@@ -116,15 +110,11 @@ def check_get(path, status, content):
 
     if response.content != content:
         print("--- bad content ---")
-        print_error_get(
-            URL, path, status, response.status_code, content, response.content
-        )
+        print_error(URL, path, status, response.status_code, content, response.content)
         return
     if response.status_code != status:
         print("--- bad http code ---")
-        print_error_get(
-            URL, path, status, response.status_code, content, response.content
-        )
+        print_error(URL, path, status, response.status_code, content, response.content)
 
     print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + str(content))
 
