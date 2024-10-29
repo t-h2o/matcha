@@ -20,6 +20,10 @@ dialog {
   border-color: $pink;
   border-style: solid;
   overflow: hidden;
+  @media screen and (max-width: $mobile-max-width) {
+    width: 380px;
+    height: 105vh;
+  }
 }
 
 #profile {

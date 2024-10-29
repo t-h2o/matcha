@@ -4,7 +4,6 @@ import { BrowsingComponent } from './browsing/browsing.component';
 import { GuestGuard } from './guest.guard';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
-import { RegisterProfileComponent } from './register-profile/register-profile.component';
 import { RegisterComponent } from './register/register.component';
 
 export const routes: Routes = [
@@ -27,9 +26,5 @@ export const routes: Routes = [
     path: 'browsing',
     component: BrowsingComponent,
     canActivate: [AuthGuard],
-  },
-  {
-    path: 'register-profile',
-    component: RegisterProfileComponent,
   },
 ];

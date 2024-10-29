@@ -26,6 +26,11 @@ dialog {
   border-style: solid;
   overflow-y: auto;
   max-height: 90vh;
+  @media screen and (max-width: $mobile-max-width) {
+    width: 380px;
+    height: 105vh;
+    max-height: 105vh;
+  }
 }
 
 .btn-wrapper {
