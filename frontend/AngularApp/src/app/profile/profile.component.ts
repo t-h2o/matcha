@@ -9,6 +9,7 @@ import { dummyUserData, UserData } from './dummyUserData';
 import { ModifyGeneralComponent } from './modify-general/modify-general.component';
 import { ModifyInterestsComponent } from './modify-interests/modify-interests.component';
 import { ModifyEmailComponent } from './modify-email/modify-email.component';
+import { ModifyPicturesComponent } from './modify-pictures/modify-pictures.component';
 
 @Component({
   selector: 'app-profile',
@@ -23,6 +24,7 @@ import { ModifyEmailComponent } from './modify-email/modify-email.component';
     ModifyGeneralComponent,
     ModifyInterestsComponent,
     ModifyEmailComponent,
+    ModifyPicturesComponent,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
@@ -32,6 +34,7 @@ export class ProfileComponent {
   isModifyingGeneral: boolean = false;
   isModifyingInterests: boolean = false;
   isModifyingEmail: boolean = false;
+  isModifyingPictures: boolean = false;
 
   toggleIsModifyingGeneral = () => {
     this.isModifyingGeneral = !this.isModifyingGeneral;
@@ -43,5 +46,9 @@ export class ProfileComponent {
 
   toggleIModifyEmail = () => {
     this.isModifyingEmail = !this.isModifyingEmail;
+  };
+
+  toggleIModifyPictures = () => {
+    this.isModifyingPictures = !this.isModifyingPictures;
   };
 }

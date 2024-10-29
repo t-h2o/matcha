@@ -1,0 +1,29 @@
+@import "../../../../styles.scss";
+
+.item-container {
+  cursor: pointer;
+  list-style: none;
+
+  .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .image-preview {
+      height: 50px;
+      width: auto;
+    }
+
+    .img-delete {
+      margin-left: 2rem;
+      padding-top: 0.7rem;
+      font-size: 1.5rem;
+      text-align: center;
+      color: $pink;
+    }
+
+    .image-preview.selected {
+      border: 2px solid $pink;
+    }
+  }
+}

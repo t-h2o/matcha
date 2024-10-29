@@ -23,7 +23,7 @@ export let dummyUserData = {
     'johnnyAppleseed4.jpg',
     'johnnyAppleseed5.jpg',
   ],
-  profilePic: 'johnnyAppleseed1',
+  profilePic: 'johnnyAppleseed1.jpg',
 };
 
 export type UserData = typeof dummyUserData;

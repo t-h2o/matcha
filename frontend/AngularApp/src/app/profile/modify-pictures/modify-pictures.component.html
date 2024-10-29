@@ -1,0 +1,58 @@
+<div class="backdrop">
+  <dialog open>
+    <form class="form" id="profile" #form="ngForm">
+      <h1 class="title">Manage Pictures</h1>
+      <div
+        class="drag-drop-area"
+        (dragover)="onDragOver($event)"
+        (drop)="onDrop($event)"
+      >
+        <div class="drop-text">
+          <h5>Drag & Drop Files Here</h5>
+        </div>
+        <div class="drop-icon">
+          <img src="icons/drop-item-icon.svg" alt="Drop Icon" />
+        </div>
+      </div>
+      <p class="file-upload-option">or select picture from files</p>
+      <div class="form-group">
+        <input
+          type="file"
+          id="pictures"
+          accept="image/*"
+          multiple
+          (change)="onFileChange($event)"
+          style="display: none"
+        />
+        <label for="pictures" class="custom-file-upload">
+          Upload Pictures
+        </label>
+        @if (selectedPictures.length > 0) {
+          <div>
+            <h5>Selected Files:</h5>
+            <p class="file-upload-option">
+              Select one to be your profile picture
+            </p>
+            <ul>
+              @for (file of selectedPictures; track $index) {
+                <app-picture-preview
+                  [file]="file"
+                  [profilePicture]="localProfilePicture"
+                  (remove)="removeFile(file)"
+                  (selectProfilePicture)="handleSelectProfilePicture($event)"
+                />
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <div class="btn-wrapper">
+        <button custom-button class="btn" (click)="onSubmit()">Save</button>
+        <button type="button" custom-button class="btn" (click)="onCancel()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </dialog>
+</div>

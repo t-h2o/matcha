@@ -40,4 +40,16 @@ export class UserService {
   modifyInterests(userData: { interests: string[] }) {
     return this.httpClient.put(`${this.baseUrl}/modify-interests`, userData);
   }
+
+  modifyPictures(pictures: File[]) {
+    const formData = new FormData();
+    pictures.forEach((picture) => formData.append('pictures', picture));
+    return this.httpClient.post(`${this.baseUrl}/modify-pictures`, formData);
+  }
+
+  modifyProfilePicture(selectedPictures: string) {
+    return this.httpClient.put(`${this.baseUrl}/modify-profile-picture`, {
+      selectedPictures,
+    });
+  }
 }

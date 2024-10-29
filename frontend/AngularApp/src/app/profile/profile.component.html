@@ -22,6 +22,15 @@
         [userEmail]="profileData.email"
       ></app-modify-email>
     </main>
+  }
+  @if (isModifyingPictures) {
+    <main class="main">
+      <app-modify-pictures
+        [onCancel]="toggleIModifyPictures"
+        [userPictures]="profileData.pictures"
+        [profilePicture]="profileData.profilePic"
+      ></app-modify-pictures>
+    </main>
   } @else {
     <main class="profile-container">
       <div class="left">
@@ -42,6 +51,7 @@
         <app-pictures-profile
           [userPictures]="profileData.pictures"
           [profilePicture]="profileData.profilePic"
+          [onModify]="toggleIModifyPictures"
         ></app-pictures-profile>
       </div>
     </main>
