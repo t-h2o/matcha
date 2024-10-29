@@ -88,7 +88,6 @@ def login_user():
 @app.route("/who_am_i", methods=["GET"])
 @jwt_required()
 def protected():
-    # We can now access our sqlalchemy User object via `current_user`.
     user_id = get_jwt_identity()
     user_db = db_get_user_per_id(user_id)
     return jsonify(
