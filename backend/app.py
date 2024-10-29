@@ -14,6 +14,8 @@ from flask_jwt_extended import get_jwt_identity
 from werkzeug.security import check_password_hash
 from flask_cors import CORS
 
+from app_utils import check_request_json
+
 from db import db_register
 from db import db_get_id_password_where_username
 from db import db_get_user_per_id
@@ -35,29 +37,17 @@ jwt = JWTManager(app)
 @jwt_required()
 def modify_general():
     id_user = get_jwt_identity()
+
     json = request.json
 
-    required_fields = [
-        "firstname",
-        "lastname",
-        "selectedGender",
-        "sexualPreference",
-        "bio",
-    ]
+    check_request = check_request_json(
+        request.headers.get("Content-Type"),
+        json,
+        ["firstname", "lastname", "selectedGender", "sexualPreference", "bio"],
+    )
 
-    missing_fields = [
-        field for field in required_fields if field not in json or not json[field]
-    ]
-
-    if missing_fields:
-        return (
-            jsonify(
-                {
-                    "error": f"The following fields are required and cannot be empty: {', '.join(missing_fields)}"
-                }
-            ),
-            400,
-        )
+    if check_request is not None:
+        return jsonify(check_request[0]), check_request[1]
 
     response = db_set_user_profile_data(
         json["firstname"],
@@ -76,20 +66,14 @@ def login_user():
     """Check the login"""
     json = request.json
 
-    required_fields = ["username", "password"]
-    missing_fields = [
-        field for field in required_fields if field not in json or not json[field]
-    ]
+    check_request = check_request_json(
+        request.headers.get("Content-Type"),
+        json,
+        ["username", "password"],
+    )
 
-    if missing_fields:
-        return (
-            jsonify(
-                {
-                    "error": f"The following fields are required and cannot be empty: {', '.join(missing_fields)}"
-                }
-            ),
-            400,
-        )
+    if check_request is not None:
+        return jsonify(check_request[0]), check_request[1]
 
     username = json["username"]
     password = json["password"]
@@ -124,25 +108,17 @@ def register_user():
     Validates that the username is not already taken.
     Hashes the password for security.
     """
-    if request.headers.get("Content-Type") != "application/json":
-        return jsonify({"error": "Content-Type not supported!"}), 415
 
     json = request.json
 
-    required_fields = ["username", "password", "firstname", "lastname", "email"]
-    missing_fields = [
-        field for field in required_fields if field not in json or not json[field]
-    ]
+    check_request = check_request_json(
+        request.headers.get("Content-Type"),
+        json,
+        ["username", "password", "firstname", "lastname", "email"],
+    )
 
-    if missing_fields:
-        return (
-            jsonify(
-                {
-                    "error": f"The following fields are required and cannot be empty: {', '.join(missing_fields)}"
-                }
-            ),
-            400,
-        )
+    if check_request is not None:
+        return jsonify(check_request[0]), check_request[1]
 
     response = db_register(
         json["username"],
