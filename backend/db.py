@@ -52,6 +52,32 @@ def db_get_id_password_where_username(username):
     return user_db
 
 
+def db_set_user_profile_data(
+    firstname, lastname, selectedGender, sexualPreference, bio, id_user
+):
+    query = "UPDATE users SET (firstname, lastname, gender, sexual_orientation, bio) = (%s, %s, %s, %s, %s) where id = %s"
+
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            try:
+                cur.execute(
+                    query,
+                    (
+                        firstname,
+                        lastname,
+                        selectedGender,
+                        sexualPreference,
+                        bio,
+                        id_user,
+                    ),
+                )
+                conn.commit()
+            except Exception as e:
+                return {"error": str(e)}
+
+    return {"success": "profile updated"}
+
+
 def db_get_user_per_id(id_user):
     user_db = None
 

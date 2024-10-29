@@ -19,6 +19,7 @@ from db import db_register
 from db import db_drop
 from db import db_get_id_password_where_username
 from db import db_get_user_per_id
+from db import db_set_user_profile_data
 
 
 def flaskprint(message):
@@ -30,6 +31,46 @@ app.config["JWT_SECRET_KEY"] = environ["FLASK_JWT_SECRET_KEY"]
 CORS(app, origins="http://localhost:4200")
 
 jwt = JWTManager(app)
+
+
+@app.route("/api/modify-general", methods=["PUT"])
+@jwt_required()
+def modify_general():
+    id_user = get_jwt_identity()
+    json = request.json
+
+    required_fields = [
+        "firstname",
+        "lastname",
+        "selectedGender",
+        "sexualPreference",
+        "bio",
+    ]
+
+    missing_fields = [
+        field for field in required_fields if field not in json or not json[field]
+    ]
+
+    if missing_fields:
+        return (
+            jsonify(
+                {
+                    "error": f"The following fields are required and cannot be empty: {', '.join(missing_fields)}"
+                }
+            ),
+            400,
+        )
+
+    response = db_set_user_profile_data(
+        json["firstname"],
+        json["lastname"],
+        json["selectedGender"],
+        json["sexualPreference"],
+        json["bio"],
+        id_user,
+    )
+
+    return jsonify(response), 200
 
 
 @app.route("/api/create")
@@ -65,7 +106,6 @@ def login_user():
     password = json["password"]
 
     user_db = db_get_id_password_where_username(username)
-
 
     if user_db is None:
         return jsonify({"error": "Incorrect username"}), 401
