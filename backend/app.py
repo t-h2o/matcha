@@ -15,7 +15,6 @@ from werkzeug.security import check_password_hash
 from flask_cors import CORS
 
 from db import db_register
-from db import db_drop
 from db import db_get_id_password_where_username
 from db import db_get_user_per_id
 from db import db_set_user_profile_data
@@ -152,28 +151,6 @@ def register_user():
     email = json["email"]
 
     response = db_register(username, password, firstname, lastname, email)
-
-    return jsonify(response)
-
-
-@app.route("/api/drop", methods=["POST"])
-def drop_table():
-    """Drop table name in JSON"""
-
-    if request.headers.get("Content-Type") != "application/json":
-        return jsonify({"error": "Content-Type not supported!"}), 415
-    json = request.json
-    table = json["table"]
-
-    error = None
-
-    if not table:
-        error = "table is required."
-
-    if error is not None:
-        return jsonify({"error": error})
-
-    response = db_drop(table)
 
     return jsonify(response)
 

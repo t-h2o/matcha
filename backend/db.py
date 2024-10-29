@@ -87,18 +87,3 @@ def db_register(username, password, firstname, lastname, email):
             return {"error": f"User {username} is already registered."}
 
     return {"success": f"User {username} was successfully added"}
-
-
-def db_drop(table):
-
-    with get_db_connection() as conn:
-        try:
-            cur = conn.cursor()
-            cur.execute(f"DROP table IF EXISTS {table}")
-            conn.commit()
-        except UndefinedTable:
-            {"error": "Undefined table"}
-        except Exception as e:
-            {"error": str(e)}
-
-    return {"success": f"Table {table} was successfully dropped"}
