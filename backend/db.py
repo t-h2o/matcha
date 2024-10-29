@@ -59,19 +59,23 @@ def db_set_user_profile_data(
 
     with get_db_connection() as conn:
         with conn.cursor() as cur:
-            cur.execute(
-                query,
-                (
-                    firstname,
-                    lastname,
-                    selectedGender,
-                    sexualPreference,
-                    bio,
-                    id_user,
-                ),
-            )
-            conn.commit()
-            return {"success": "profile updated"}
+            try:
+                cur.execute(
+                    query,
+                    (
+                        firstname,
+                        lastname,
+                        selectedGender,
+                        sexualPreference,
+                        bio,
+                        id_user,
+                    ),
+                )
+                conn.commit()
+            except Exception as e:
+                return {"error": str(e)}
+
+    return {"success": "profile updated"}
 
 
 def db_get_user_per_id(id_user):

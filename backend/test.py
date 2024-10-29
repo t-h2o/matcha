@@ -316,6 +316,17 @@ def update():
         },
         b'{"success":"profile updated"}\n',
     )
+    check_put_token(
+        "/api/modify-general",
+        {
+            "firstname": "Johnny",
+            "lastname": "Appleseed",
+            "selectedGender": "ma",
+            "sexualPreference": "e",
+            "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
+        },
+        b'{"error":"value too long for type character(1)\\n"}\n',
+    )
     check_api_put(
         "/api/modify-general",
         401,
