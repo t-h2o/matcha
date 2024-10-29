@@ -30,7 +30,7 @@
       font-weight: 500;
       cursor: pointer;
     }
-    @media (max-width: $mobile-max-width) {
+    @media screen and (max-width: $mobile-max-width) {
       font-size: 0.8em;
       margin-left: 40px;
     }
