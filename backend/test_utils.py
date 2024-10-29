@@ -34,7 +34,13 @@ def print_error(
 
 
 def check_content_code(
-    url, path, json, code_expected, code_received, content_expected, content_received
+    url,
+    path,
+    code_expected,
+    code_received,
+    content_expected,
+    content_received,
+    json=None,
 ):
     if content_received != content_expected:
         print("--- bad content ---")
@@ -125,7 +131,7 @@ def check_put(path, status, json, content):
     response = put(URL + path, json=json, headers=headers)
 
     check_content_code(
-        URL, path, json, status, response.status_code, content, response.content
+        URL, path, status, response.status_code, content, response.content, json
     )
 
 
@@ -135,7 +141,7 @@ def check_post(path, status, json, content):
     response = post(URL + path, json=json, headers=headers)
 
     check_content_code(
-        URL, path, json, status, response.status_code, content, response.content
+        URL, path, status, response.status_code, content, response.content, json
     )
 
 
