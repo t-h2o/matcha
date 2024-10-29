@@ -1,136 +1,16 @@
 #!/bin/python
 
-
-from requests import put
-from requests import post
-from requests import get
-
-from json import loads
-
 from test_utils import print_error_post
 from test_utils import print_error_get
-
-URL = "http://localhost:5001"
+from test_utils import check_login_token
+from test_utils import check_415
+from test_utils import check_api_get
+from test_utils import check_api_post
+from test_utils import check_api_put
+from test_utils import check_put_token
 
 
 HTTP_405 = b"<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
-
-
-class bcolors:
-    OKGREEN = "\033[92m"
-    ENDC = "\033[0m"
-
-
-def check_login_token(path, json):
-    headers = {"content-type": "application/json"}
-
-    response = post(URL + path, json=json, headers=headers)
-
-    if response.status_code != 200:
-        print(f"error: status code {response.status_code}")
-
-    json = loads(response.content)
-
-    if "access_token" not in json:
-        print("error: access token not in response")
-
-    print(bcolors.OKGREEN + "success: got access token" + bcolors.ENDC)
-
-    global access_token
-
-    access_token = json["access_token"]
-
-
-def check_415(path):
-    headers = {"content-type": "application/not_json"}
-
-    json = {}
-
-    response = post(URL + path, json=json, headers=headers)
-
-    if response.status_code != 415:
-        print(f"error: status code {response.status_code}")
-
-    print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " 415 error")
-
-
-def check_api_get(path, status, content):
-    response = get(URL + path)
-
-    if response.content != content:
-        print("--- bad content ---")
-        print_error_get(
-            URL, path, status, response.status_code, content, response.content
-        )
-        return
-    if response.status_code != status:
-        print("--- bad http code ---")
-        print_error_get(
-            URL, path, status, response.status_code, content, response.content
-        )
-
-    print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + str(content))
-
-
-def check_api_put(path, status, json, content):
-    headers = {"content-type": "application/json"}
-
-    response = put(URL + path, json=json, headers=headers)
-
-    if response.content != content:
-        print("--- bad content ---")
-        print_error_post(
-            URL, path, json, status, response.status_code, content, response.content
-        )
-        return
-    if response.status_code != status:
-        print("--- bad http code ---")
-        print_error_post(
-            URL, path, json, status, response.status_code, content, response.content
-        )
-        return
-
-    print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " " + str(content))
-
-
-def check_api_post(path, status, json, content):
-    headers = {"content-type": "application/json"}
-
-    response = post(URL + path, json=json, headers=headers)
-
-    if response.content != content:
-        print("--- bad content ---")
-        print_error_post(
-            URL, path, json, status, response.status_code, content, response.content
-        )
-        return
-    if response.status_code != status:
-        print("--- bad http code ---")
-        print_error_post(
-            URL, path, json, status, response.status_code, content, response.content
-        )
-        return
-
-    print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " " + str(content))
-
-
-def check_put_token(path, json, content):
-    headers = {"Authorization": f"Bearer {access_token}"}
-
-    response = put(URL + path, headers=headers, json=json)
-
-    if response.content != content:
-        print(f"error: content {response.content}")
-        return
-
-    print(
-        bcolors.OKGREEN
-        + "success: "
-        + bcolors.ENDC
-        + path
-        + " "
-        + str(response.content)
-    )
 
 
 def register():
