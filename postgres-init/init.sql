@@ -5,6 +5,10 @@ CREATE TABLE IF NOT EXISTS users (
     lastname VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
     password VARCHAR NOT NULL,
+    bio TEXT DEFAULT NULL,
+    gender CHAR(1) DEFAULT NULL,
+    sexual_orientation CHAR(1) DEFAULT NULL,
+    profile_picture_id INTEGER REFERENCES user_images(id) ON DELETE SET NULL,
     profile_complete BOOLEAN DEFAULT FALSE,
     fame_rating INTEGER DEFAULT 0 CHECK (fame_rating >= 0 AND fame_rating <= 10),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
@@ -14,15 +18,6 @@ CREATE TABLE IF NOT EXISTS user_images (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     image_url VARCHAR NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
-);
-
-CREATE TABLE IF NOT EXISTS user_profiles (
-    user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
-    bio TEXT,
-    gender CHAR(1),
-    sexual_orientation CHAR(1),
-    profile_picture_id INTEGER REFERENCES user_images(id) ON DELETE SET NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 
@@ -57,25 +52,51 @@ CREATE TABLE IF NOT EXISTS user_likes (
     CONSTRAINT no_self_likes CHECK (liker_id != liked_id)
 );
 
+CREATE OR REPLACE FUNCTION check_profile_completion()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.username IS NOT NULL AND
+       NEW.firstname IS NOT NULL AND
+       NEW.lastname IS NOT NULL AND
+       NEW.email IS NOT NULL AND
+       NEW.password IS NOT NULL AND
+       NEW.bio IS NOT NULL AND
+       NEW.gender IS NOT NULL AND
+       NEW.sexual_orientation IS NOT NULL AND
+       NEW.profile_picture_id IS NOT NULL THEN
+        NEW.profile_complete = TRUE;
+    ELSE
+        NEW.profile_complete = FALSE;
+    END IF;
+    
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
--- populate interests table
-INSERT INTO interests (name) VALUES 
-('travel'),
-('fitness'),
-('music'),
-('photography'),
-('gaming'),
-('yoga'),
-('reading'),
-('movies'),
-('cooking'),
-('hiking'),
-('technology'),
-('fashion'),
-('nature'),
-('meditation'),
-('tattoos'),
-('cats'),
-('dogs'),
-('dance')
+DROP TRIGGER IF EXISTS update_profile_complete ON users;
+
+CREATE TRIGGER update_profile_complete
+    BEFORE INSERT OR UPDATE ON users
+    FOR EACH ROW
+    EXECUTE FUNCTION check_profile_completion();
+
+INSERT INTO interests (name) VALUES
+    ('travel'),
+    ('fitness'),
+    ('music'),
+    ('photography'),
+    ('gaming'),
+    ('yoga'),
+    ('reading'),
+    ('movies'),
+    ('cooking'),
+    ('hiking'),
+    ('technology'),
+    ('fashion'),
+    ('nature'),
+    ('meditation'),
+    ('tattoos'),
+    ('cats'),
+    ('dogs'),
+    ('dance')
 ON CONFLICT (name) DO NOTHING;
