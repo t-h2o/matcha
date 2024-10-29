@@ -149,6 +149,30 @@ def check_post(path, status, json, content):
     )
 
 
+def check_get_token(path, content):
+    headers = {"Authorization": f"Bearer {access_token}"}
+
+    response = get(URL + path, headers=headers)
+
+    if response.content != content:
+        print("----")
+        print(f"url: {URL}")
+        print(f"path: {path}")
+        print(f"expected: {content}")
+        print(f"received: {response.content}")
+        print("----")
+        return
+
+    print(
+        bcolors.OKGREEN
+        + "success: "
+        + bcolors.ENDC
+        + path
+        + " "
+        + str(response.content)
+    )
+
+
 def check_put_token(path, json, content):
     headers = {"Authorization": f"Bearer {access_token}"}
 

@@ -6,6 +6,7 @@ from test_utils import check_get
 from test_utils import check_post
 from test_utils import check_put
 from test_utils import check_put_token
+from test_utils import check_get_token
 
 
 HTTP_405 = b"<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
@@ -219,6 +220,7 @@ def main():
     register()
     login()
     update()
+    check_get_token("/api/deleteme", b'{"success":"user delete"}\n')
 
 
 if __name__ == "__main__":
