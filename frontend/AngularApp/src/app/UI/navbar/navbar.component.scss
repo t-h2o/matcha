@@ -5,6 +5,9 @@
   padding: 10px;
   margin-bottom: 20px;
   border-bottom: 2px solid $white;
+  @media screen and (max-width: $mobile-max-width) {
+    padding: 0;
+  }
 }
 
 .inside-wrapper {
@@ -32,7 +35,8 @@
     }
     @media screen and (max-width: $mobile-max-width) {
       font-size: 0.8em;
-      margin-left: 40px;
+      justify-content: space-around;
+      margin-left: 0px;
     }
   }
 }
