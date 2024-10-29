@@ -220,7 +220,7 @@ def main():
     register()
     login()
     update()
-    check_get_token("/api/deleteme", b'{"success":"user delete"}\n')
+    check_get_token("/api/deleteme", 200, b'{"success":"user delete"}\n')
 
 
 if __name__ == "__main__":
