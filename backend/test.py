@@ -7,7 +7,7 @@ from test_utils import check_post
 from test_utils import check_put
 from test_utils import check_put_token
 from test_utils import check_get_token
-
+from test_utils import check_post_token_file
 
 HTTP_405 = b"<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
 
@@ -223,6 +223,12 @@ def main():
     register()
     login()
     update()
+    check_post_token_file(
+        "/api/modify-pictures",
+        201,
+        "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed1.jpg",
+        b'{"success":"file uploaded"}\n',
+    )
     check_get_token("/api/deleteme", 200, b'{"success":"user delete"}\n')
 
 
