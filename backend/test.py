@@ -7,6 +7,9 @@ from requests import get
 
 from json import loads
 
+from test_utils import print_error_post
+from test_utils import print_error_get
+
 URL = "http://localhost:5001"
 
 
@@ -53,10 +56,19 @@ def check_415(path):
 
 def check_api_get(path, status, content):
     response = get(URL + path)
-    if response.status_code != status:
-        print(f"error: status code {response.status_code}")
+
     if response.content != content:
-        print(f"error: content {response.content}")
+        print("--- bad content ---")
+        print_error_get(
+            URL, path, status, response.status_code, content, response.content
+        )
+        return
+    if response.status_code != status:
+        print("--- bad http code ---")
+        print_error_get(
+            URL, path, status, response.status_code, content, response.content
+        )
+
     print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + str(content))
 
 
@@ -66,9 +78,17 @@ def check_api_put(path, status, json, content):
     response = put(URL + path, json=json, headers=headers)
 
     if response.content != content:
-        print(f"error: content {response.content}")
+        print("--- bad content ---")
+        print_error_post(
+            URL, path, json, status, response.status_code, content, response.content
+        )
+        return
     if response.status_code != status:
-        print(f"error: status code {response.status_code}")
+        print("--- bad http code ---")
+        print_error_post(
+            URL, path, json, status, response.status_code, content, response.content
+        )
+        return
 
     print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " " + str(content))
 
@@ -79,18 +99,16 @@ def check_api_post(path, status, json, content):
     response = post(URL + path, json=json, headers=headers)
 
     if response.content != content:
-        print(f"error: content {response.content}")
-        print("----")
-        print(f"url: {URL}")
-        print(f"path: {path}")
-        print(f"json: {json}")
-        print(f"expected: {content}")
-        print(f"received: {response.content}")
-        print("----")
+        print("--- bad content ---")
+        print_error_post(
+            URL, path, json, status, response.status_code, content, response.content
+        )
         return
     if response.status_code != status:
-        print(f"error: status code {response.status_code}")
-        print("----")
+        print("--- bad http code ---")
+        print_error_post(
+            URL, path, json, status, response.status_code, content, response.content
+        )
         return
 
     print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " " + str(content))
