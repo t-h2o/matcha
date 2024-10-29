@@ -5,11 +5,10 @@ CREATE TABLE IF NOT EXISTS users (
     lastname VARCHAR NOT NULL,
     email VARCHAR NOT NULL,
     password VARCHAR NOT NULL,
-    bio TEXT DEFAULT NULL,
-    gender CHAR(1) DEFAULT NULL,
-    sexual_orientation CHAR(1) DEFAULT NULL,
-    profile_picture_id INTEGER REFERENCES user_images(id) ON DELETE SET NULL,
     profile_complete BOOLEAN DEFAULT FALSE,
+    bio TEXT,
+    gender CHAR(1),
+    sexual_orientation CHAR(1),
     fame_rating INTEGER DEFAULT 0 CHECK (fame_rating >= 0 AND fame_rating <= 10),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
@@ -20,6 +19,11 @@ CREATE TABLE IF NOT EXISTS user_images (
     image_url VARCHAR NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
+
+ALTER TABLE users
+ADD COLUMN profile_picture_id INTEGER,
+ADD CONSTRAINT fk_profile_picture
+FOREIGN KEY (profile_picture_id) REFERENCES user_images(id) ON DELETE SET NULL;
 
 CREATE TABLE IF NOT EXISTS interests (
     id SERIAL PRIMARY KEY,
