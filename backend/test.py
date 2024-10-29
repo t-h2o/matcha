@@ -1,6 +1,7 @@
 #!/bin/python
 
 
+from requests import put
 from requests import post
 from requests import get
 
@@ -59,6 +60,19 @@ def check_api_get(path, status, content):
     print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + str(content))
 
 
+def check_api_put(path, status, json, content):
+    headers = {"content-type": "application/json"}
+
+    response = put(URL + path, json=json, headers=headers)
+
+    if response.content != content:
+        print(f"error: content {response.content}")
+    if response.status_code != status:
+        print(f"error: status code {response.status_code}")
+
+    print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " " + str(content))
+
+
 def check_api_post(path, status, json, content):
     headers = {"content-type": "application/json"}
 
@@ -66,8 +80,18 @@ def check_api_post(path, status, json, content):
 
     if response.content != content:
         print(f"error: content {response.content}")
+        print("----")
+        print(f"url: {URL}")
+        print(f"path: {path}")
+        print(f"json: {json}")
+        print(f"expected: {content}")
+        print(f"received: {response.content}")
+        print("----")
+        return
     if response.status_code != status:
         print(f"error: status code {response.status_code}")
+        print("----")
+        return
 
     print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " " + str(content))
 
@@ -84,12 +108,12 @@ def drop_table():
     check_api_get("/api/drop", 405, HTTP_405)
 
 
-def check_who_am_i():
+def check_put_token(path, json, content):
     headers = {"Authorization": f"Bearer {access_token}"}
 
-    response = get(URL + "/who_am_i", headers=headers)
+    response = put(URL + path, headers=headers, json=json)
 
-    if response.content != b'{"firstname":"user","id":1,"lastname":"firstname"}\n':
+    if response.content != content:
         print(f"error: content {response.content}")
         return
 
@@ -97,7 +121,8 @@ def check_who_am_i():
         bcolors.OKGREEN
         + "success: "
         + bcolors.ENDC
-        + "/who_am_i "
+        + path
+        + " "
         + str(response.content)
     )
 
@@ -115,7 +140,7 @@ def register():
             "email": "email@email.com",
             "password": "1234",
         },
-        b'{"succefull":"User user was succefull added"}\n',
+        b'{"success":"User user was successfully added"}\n',
     )
 
     check_api_post(
@@ -274,12 +299,37 @@ def create_table():
     check_api_get("/api/create", 201, b'{"success":"Table \'users\' created"}\n')
 
 
+def update():
+    check_put_token(
+        "/api/modify-general",
+        {"email": "b@b.com"},
+        b'{"error":"The following fields are required and cannot be empty: firstname, lastname, selectedGender, sexualPreference, bio"}\n',
+    )
+    check_put_token(
+        "/api/modify-general",
+        {
+            "firstname": "Johnny",
+            "lastname": "Appleseed",
+            "selectedGender": "m",
+            "sexualPreference": "e",
+            "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
+        },
+        b'{"success":"profile updated"}\n',
+    )
+    check_api_put(
+        "/api/modify-general",
+        401,
+        {"firstname": "Johnny"},
+        b'{"msg":"Missing Authorization Header"}\n',
+    )
+
+
 def main():
     drop_table()
     create_table()
     register()
     login()
-    check_who_am_i()
+    update()
 
 
 if __name__ == "__main__":
