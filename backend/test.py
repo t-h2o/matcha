@@ -1,7 +1,5 @@
 #!/bin/python
 
-from test_utils import print_error_post
-from test_utils import print_error_get
 from test_utils import check_login_token
 from test_utils import check_415
 from test_utils import check_get
