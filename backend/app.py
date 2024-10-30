@@ -29,6 +29,7 @@ from db import db_delete_user
 from db import db_upload_pictures
 from db import db_get_user_images
 from db import db_set_profile_picture
+from db import db_count_number_image
 
 from re import search
 
@@ -119,7 +120,14 @@ def modify_pictures():
 
     user_id = get_jwt_identity()
 
+    number_of_picture = db_count_number_image(user_id)
+
+    available_picture = 5 - number_of_picture[0]
+
     list_pictures = request.files.getlist("pictures")
+
+    if len(list_pictures) > available_picture:
+        return jsonify({"error": "too much pictures"}), 401
 
     filenames = []
     for item in list_pictures:

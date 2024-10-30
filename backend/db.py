@@ -57,6 +57,26 @@ def db_set_user_profile_data(
     return {"success": "profile updated"}
 
 
+def db_count_number_image(id_user):
+    query = """
+     SELECT
+         COUNT(*)
+     FROM
+         user_images
+     WHERE
+         user_id = %s;
+    """
+
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                query,
+                (id_user,),
+            )
+            count = cur.fetchone()
+            return count
+
+
 def db_upload_pictures(id_user, filenames):
     query = "INSERT INTO user_images (user_id, image_url) VALUES (%s,%s);"
 
