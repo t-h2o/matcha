@@ -57,6 +57,22 @@ def db_set_user_profile_data(
     return {"success": "profile updated"}
 
 
+def db_upload_pictures(id_user, filenames):
+    query = "INSERT INTO user_images (user_id, image_url) VALUES (%s,%s);"
+
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            for filename in filenames:
+                cur.execute(
+                    query,
+                    (
+                        id_user,
+                        filename,
+                    ),
+                )
+            conn.commit()
+
+
 def db_get_user_per_id(id_user):
     user_db = None
 

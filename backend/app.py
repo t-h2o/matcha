@@ -25,6 +25,7 @@ from db import db_get_id_password_where_username
 from db import db_get_user_per_id
 from db import db_set_user_profile_data
 from db import db_delete_user
+from db import db_upload_pictures
 
 
 def flaskprint(message):
@@ -82,6 +83,8 @@ def modify_pictures():
         filename = str(user_id) + "_" + make_unique(secure_filename(item.filename))
         item.save(path.join(app.config["UPLOAD_FOLDER"], filename))
         filenames.append(filename)
+
+    db_upload_pictures(user_id, filenames)
 
     return jsonify({"success": "file uploaded"}), 201
 
