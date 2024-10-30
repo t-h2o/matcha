@@ -238,6 +238,14 @@ def main():
         ],
         b'{"success":"file uploaded"}\n',
     )
+    check_put_token(
+        "/api/modify-profile-picture",
+        200,
+        {
+            "selectedPictures": "johnnyAppleseed1.jpg",
+        },
+        b'{"error":"value too long for type character(1)\\n"}\n',
+    )
     check_get_token("/api/deleteme", 200, b'{"success":"user delete"}\n')
 
 
