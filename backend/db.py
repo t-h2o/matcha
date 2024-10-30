@@ -73,6 +73,20 @@ def db_upload_pictures(id_user, filenames):
             conn.commit()
 
 
+def db_get_user_images(id_user):
+    filenames = None
+
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT image_url FROM user_images WHERE user_id = %s", (id_user,)
+            )
+            filenames = cur.fetchall()
+            return filenames
+
+    return filenames
+
+
 def db_get_user_per_id(id_user):
     user_db = None
 

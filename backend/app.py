@@ -26,6 +26,7 @@ from db import db_get_user_per_id
 from db import db_set_user_profile_data
 from db import db_delete_user
 from db import db_upload_pictures
+from db import db_get_user_images
 
 
 def flaskprint(message):
@@ -161,6 +162,9 @@ def delete_me():
     """Delete"""
 
     id_user = get_jwt_identity()
+
+    image_filenames = db_get_user_images(id_user)
+
     db = db_delete_user(id_user)
 
     return jsonify(db[0]), db[1]
