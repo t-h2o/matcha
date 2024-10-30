@@ -238,6 +238,25 @@ def main():
         ],
         b'{"success":"file uploaded"}\n',
     )
+    check_post_token_file(
+        "/api/modify-pictures",
+        401,
+        [
+            "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed1.jpg",
+            "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed3.jpg",
+            "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed4.jpg",
+        ],
+        b'{"error":"too much pictures"}\n',
+    )
+    check_post_token_file(
+        "/api/modify-pictures",
+        201,
+        [
+            "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed3.jpg",
+            "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed4.jpg",
+        ],
+        b'{"success":"file uploaded"}\n',
+    )
     check_put_token(
         "/api/modify-profile-picture",
         201,
