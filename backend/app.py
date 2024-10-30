@@ -29,6 +29,8 @@ from db import db_delete_user
 from db import db_upload_pictures
 from db import db_get_user_images
 
+from re import search
+
 
 def flaskprint(message):
     print(message, file=stderr)
@@ -69,6 +71,48 @@ def modify_general():
     )
 
     return jsonify(response), 200
+
+
+@app.route("/api/modify-profile-picture", methods=["PUT"])
+@jwt_required()
+def modify_profile_picture():
+    """Create the Users's table."""
+
+    id_user = get_jwt_identity()
+
+    json = request.json
+
+    flaskprint(json)
+
+    check_request = check_request_json(
+        request.headers.get("Content-Type"),
+        json,
+        ["selectedPictures"],
+    )
+
+    if check_request is not None:
+        return jsonify(check_request[0]), check_request[1]
+
+    image_filenames = db_get_user_images(id_user)
+
+    profile_picture_name = None
+
+    for image in image_filenames:
+        regex_result = search(
+            str(id_user) + "_.{36}-" + json["selectedPictures"], image[0]
+        )
+        if regex_result is not None:
+            profile_picture_name = regex_result.string
+            break
+
+    if profile_picture_name is None:
+        return jsonify({"error": "cannot find the profile picture"}), 401
+
+    flaskprint(profile_picture_name)
+
+    # TODO: add the image_id where image_url = profile_picture_name from the user_images into the column profile_picture_id from table users
+
+    return jsonify({"success": "change profile picture"}), 201
 
 
 @app.route("/api/modify-pictures", methods=["POST"])
