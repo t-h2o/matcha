@@ -240,11 +240,11 @@ def main():
     )
     check_put_token(
         "/api/modify-profile-picture",
-        200,
+        201,
         {
             "selectedPictures": "johnnyAppleseed1.jpg",
         },
-        b'{"error":"value too long for type character(1)\\n"}\n',
+        b'{"success":"change profile picture"}\n',
     )
     check_get_token("/api/deleteme", 200, b'{"success":"user delete"}\n')
 
