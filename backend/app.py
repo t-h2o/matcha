@@ -1,5 +1,3 @@
-"""Flask, os.environ"""
-
 from os import path
 from os import environ
 from os import remove
@@ -77,8 +75,6 @@ def modify_general():
 @app.route("/api/modify-profile-picture", methods=["PUT"])
 @jwt_required()
 def modify_profile_picture():
-    """Create the Users's table."""
-
     id_user = get_jwt_identity()
 
     json = request.json
@@ -109,8 +105,6 @@ def modify_profile_picture():
 @app.route("/api/modify-pictures", methods=["POST"])
 @jwt_required()
 def modify_pictures():
-    """Create the Users's table."""
-
     user_id = get_jwt_identity()
 
     number_of_picture = db_count_number_image(user_id)
@@ -135,7 +129,6 @@ def modify_pictures():
 
 @app.route("/api/login", methods=["POST"])
 def login_user():
-    """Check the login"""
     json = request.json
 
     check_request = check_request_json(
@@ -171,11 +164,6 @@ def protected():
 
 @app.route("/api/register", methods=["POST"])
 def register_user():
-    """Register a new user.
-
-    Validates that the username is not already taken.
-    Hashes the password for security.
-    """
 
     json = request.json
 
@@ -202,8 +190,6 @@ def register_user():
 @app.route("/api/deleteme")
 @jwt_required()
 def delete_me():
-    """Delete"""
-
     id_user = get_jwt_identity()
 
     image_filenames = db_get_user_images(id_user)
