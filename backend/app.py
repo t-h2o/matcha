@@ -28,6 +28,7 @@ from db import db_set_user_profile_data
 from db import db_delete_user
 from db import db_upload_pictures
 from db import db_get_user_images
+from db import db_set_profile_picture
 
 from re import search
 
@@ -110,7 +111,7 @@ def modify_profile_picture():
 
     flaskprint(profile_picture_name)
 
-    # TODO: add the image_id where image_url = profile_picture_name from the user_images into the column profile_picture_id from table users
+    db_set_profile_picture(id_user, profile_picture_name)
 
     return jsonify({"success": "change profile picture"}), 201
 

@@ -73,6 +73,26 @@ def db_upload_pictures(id_user, filenames):
             conn.commit()
 
 
+def db_set_profile_picture(id_user, image_url):
+    query = """
+    UPDATE users
+    SET profile_picture_id = subquery.id
+    FROM (SELECT user_images.id FROM user_images WHERE image_url = %s) AS subquery
+    WHERE users.id = %s
+    """
+
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                query,
+                (
+                    image_url,
+                    id_user,
+                ),
+            )
+            conn.commit()
+
+
 def db_get_user_images(id_user):
     filenames = None
 
