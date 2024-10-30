@@ -2,6 +2,7 @@
 
 from os import path
 from os import environ
+from os import remove
 from sys import stderr
 from flask import Flask
 from flask import request
@@ -164,6 +165,9 @@ def delete_me():
     id_user = get_jwt_identity()
 
     image_filenames = db_get_user_images(id_user)
+
+    for image_to_delete in image_filenames:
+        remove("uploads/" + image_to_delete[0])
 
     db = db_delete_user(id_user)
 
