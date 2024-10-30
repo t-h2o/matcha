@@ -74,10 +74,11 @@ def modify_pictures():
 
     user_id = get_jwt_identity()
 
-    flaskprint(request.files)
-    flaskprint(request.files["pictures"])
-    filename = secure_filename(request.files["pictures"].filename)
-    request.files["pictures"].save(path.join(app.config["UPLOAD_FOLDER"], filename))
+    list_pictures = request.files.getlist("pictures")
+
+    for item in list_pictures:
+        filename = secure_filename(item.filename)
+        item.save(path.join(app.config["UPLOAD_FOLDER"], filename))
 
     return jsonify({"success": "file uploaded"}), 201
 
