@@ -18,6 +18,7 @@ from werkzeug.security import check_password_hash
 from flask_cors import CORS
 
 from app_utils import check_request_json
+from app_utils import make_unique
 
 from db import db_register
 from db import db_get_id_password_where_username
@@ -76,9 +77,11 @@ def modify_pictures():
 
     list_pictures = request.files.getlist("pictures")
 
+    filenames = []
     for item in list_pictures:
-        filename = secure_filename(item.filename)
+        filename = str(user_id) + "_" + make_unique(secure_filename(item.filename))
         item.save(path.join(app.config["UPLOAD_FOLDER"], filename))
+        filenames.append(filename)
 
     return jsonify({"success": "file uploaded"}), 201
 
