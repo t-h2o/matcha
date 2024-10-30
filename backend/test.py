@@ -1,136 +1,21 @@
 #!/bin/python
 
-
-from requests import put
-from requests import post
-from requests import get
-
-from json import loads
-
-URL = "http://localhost:5001"
+from test_utils import check_login_token
+from test_utils import check_415
+from test_utils import check_get
+from test_utils import check_post
+from test_utils import check_put
+from test_utils import check_put_token
+from test_utils import check_get_token
 
 
 HTTP_405 = b"<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
 
 
-class bcolors:
-    OKGREEN = "\033[92m"
-    ENDC = "\033[0m"
-
-
-def check_login_token(path, json):
-    headers = {"content-type": "application/json"}
-
-    response = post(URL + path, json=json, headers=headers)
-
-    if response.status_code != 200:
-        print(f"error: status code {response.status_code}")
-
-    json = loads(response.content)
-
-    if "access_token" not in json:
-        print("error: access token not in response")
-
-    print(bcolors.OKGREEN + "success: got access token" + bcolors.ENDC)
-
-    global access_token
-
-    access_token = json["access_token"]
-
-
-def check_415(path):
-    headers = {"content-type": "application/not_json"}
-
-    json = {}
-
-    response = post(URL + path, json=json, headers=headers)
-
-    if response.status_code != 415:
-        print(f"error: status code {response.status_code}")
-
-    print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " 415 error")
-
-
-def check_api_get(path, status, content):
-    response = get(URL + path)
-    if response.status_code != status:
-        print(f"error: status code {response.status_code}")
-    if response.content != content:
-        print(f"error: content {response.content}")
-    print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + str(content))
-
-
-def check_api_put(path, status, json, content):
-    headers = {"content-type": "application/json"}
-
-    response = put(URL + path, json=json, headers=headers)
-
-    if response.content != content:
-        print(f"error: content {response.content}")
-    if response.status_code != status:
-        print(f"error: status code {response.status_code}")
-
-    print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " " + str(content))
-
-
-def check_api_post(path, status, json, content):
-    headers = {"content-type": "application/json"}
-
-    response = post(URL + path, json=json, headers=headers)
-
-    if response.content != content:
-        print(f"error: content {response.content}")
-        print("----")
-        print(f"url: {URL}")
-        print(f"path: {path}")
-        print(f"json: {json}")
-        print(f"expected: {content}")
-        print(f"received: {response.content}")
-        print("----")
-        return
-    if response.status_code != status:
-        print(f"error: status code {response.status_code}")
-        print("----")
-        return
-
-    print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " " + str(content))
-
-
-def drop_table():
-    check_415("/api/drop")
-    check_api_post(
-        "/api/drop",
-        200,
-        {"table": "users"},
-        b'{"success":"Table users was successfully dropped"}\n',
-    )
-    check_api_post("/api/drop", 200, {"table": ""}, b'{"error":"table is required."}\n')
-    check_api_get("/api/drop", 405, HTTP_405)
-
-
-def check_put_token(path, json, content):
-    headers = {"Authorization": f"Bearer {access_token}"}
-
-    response = put(URL + path, headers=headers, json=json)
-
-    if response.content != content:
-        print(f"error: content {response.content}")
-        return
-
-    print(
-        bcolors.OKGREEN
-        + "success: "
-        + bcolors.ENDC
-        + path
-        + " "
-        + str(response.content)
-    )
-
-
 def register():
     check_415("/api/register")
-    check_api_get("/api/register", 405, HTTP_405)
-    check_api_post(
+    check_get("/api/register", 405, HTTP_405)
+    check_post(
         "/api/register",
         200,
         {
@@ -143,7 +28,7 @@ def register():
         b'{"success":"User user was successfully added"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/register",
         400,
         {
@@ -155,7 +40,7 @@ def register():
         b'{"error":"The following fields are required and cannot be empty: firstname"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/register",
         400,
         {
@@ -167,7 +52,7 @@ def register():
         b'{"error":"The following fields are required and cannot be empty: username"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/register",
         200,
         {
@@ -180,7 +65,7 @@ def register():
         b'{"error":"User user is already registered."}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/register",
         400,
         {
@@ -193,7 +78,7 @@ def register():
         b'{"error":"The following fields are required and cannot be empty: username"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/register",
         400,
         {
@@ -206,7 +91,7 @@ def register():
         b'{"error":"The following fields are required and cannot be empty: firstname"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/register",
         400,
         {
@@ -219,7 +104,7 @@ def register():
         b'{"error":"The following fields are required and cannot be empty: lastname"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/register",
         400,
         {
@@ -232,7 +117,7 @@ def register():
         b'{"error":"The following fields are required and cannot be empty: password"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/register",
         400,
         {
@@ -252,42 +137,42 @@ def login():
         {"username": "user", "password": "1234"},
     )
 
-    check_api_post(
+    check_post(
         "/api/login",
         401,
         {"username": "user", "password": "bad"},
         b'{"error":"Incorrect password"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/login",
         400,
         {"username": "", "password": "1234"},
         b'{"error":"The following fields are required and cannot be empty: username"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/login",
         400,
         {"username": None, "password": "1234"},
         b'{"error":"The following fields are required and cannot be empty: username"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/login",
         400,
         {"username": "", "password": ""},
         b'{"error":"The following fields are required and cannot be empty: username, password"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/login",
         401,
         {"username": "no_user", "password": "1234"},
         b'{"error":"Incorrect username"}\n',
     )
 
-    check_api_post(
+    check_post(
         "/api/login",
         400,
         {"password": "1234"},
@@ -295,18 +180,16 @@ def login():
     )
 
 
-def create_table():
-    check_api_get("/api/create", 201, b'{"success":"Table \'users\' created"}\n')
-
-
 def update():
     check_put_token(
         "/api/modify-general",
+        400,
         {"email": "b@b.com"},
         b'{"error":"The following fields are required and cannot be empty: firstname, lastname, selectedGender, sexualPreference, bio"}\n',
     )
     check_put_token(
         "/api/modify-general",
+        200,
         {
             "firstname": "Johnny",
             "lastname": "Appleseed",
@@ -318,6 +201,7 @@ def update():
     )
     check_put_token(
         "/api/modify-general",
+        200,
         {
             "firstname": "Johnny",
             "lastname": "Appleseed",
@@ -327,7 +211,7 @@ def update():
         },
         b'{"error":"value too long for type character(1)\\n"}\n',
     )
-    check_api_put(
+    check_put(
         "/api/modify-general",
         401,
         {"firstname": "Johnny"},
@@ -336,11 +220,10 @@ def update():
 
 
 def main():
-    drop_table()
-    create_table()
     register()
     login()
     update()
+    check_get_token("/api/deleteme", 200, b'{"success":"user delete"}\n')
 
 
 if __name__ == "__main__":

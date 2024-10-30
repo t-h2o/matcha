@@ -20,27 +20,6 @@ def get_db_connection():
         conn.close()
 
 
-def db_create_table_users():
-    """Create the Users's table."""
-
-    with get_db_connection() as conn:
-        with conn.cursor(cursor_factory=RealDictCursor) as cur:
-            cur.execute(
-                """
-                CREATE TABLE IF NOT EXISTS users (
-                id SERIAL PRIMARY KEY,
-                username VARCHAR(12) UNIQUE NOT NULL,
-                firstname VARCHAR NOT NULL,
-                lastname VARCHAR NOT NULL,
-                email VARCHAR NOT NULL,
-                created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
-                password VARCHAR NOT NULL
-                );
-                """
-            )
-            conn.commit()
-
-
 def db_get_id_password_where_username(username):
     user_db = None
     with get_db_connection() as conn:
@@ -110,16 +89,19 @@ def db_register(username, password, firstname, lastname, email):
     return {"success": f"User {username} was successfully added"}
 
 
-def db_drop(table):
+def db_delete_user(id_user):
+    response_json = {}
+    response_code = 200
 
     with get_db_connection() as conn:
         try:
             cur = conn.cursor()
-            cur.execute(f"DROP table IF EXISTS {table}")
+            cur.execute("DELETE from users where id = (%s);", (id_user,))
             conn.commit()
-        except UndefinedTable:
-            {"error": "Undefined table"}
+            response_json = {"success": "user delete"}
+            response_code = 200
         except Exception as e:
-            {"error": str(e)}
+            response_json = {"error": str(e)}
+            response_code = 401
 
-    return {"success": f"Table {table} was successfully dropped"}
+    return response_json, response_code
