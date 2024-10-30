@@ -1,6 +1,12 @@
+from sys import stderr
+
 from uuid import uuid4
 
 from re import search
+
+
+def flaskprint(message):
+    print(message, file=stderr)
 
 
 def check_request_json(content_type, json, required_fields):

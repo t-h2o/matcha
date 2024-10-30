@@ -1,7 +1,6 @@
 from os import path
 from os import environ
 from os import remove
-from sys import stderr
 from flask import Flask
 from flask import request
 from flask import jsonify
@@ -29,10 +28,6 @@ from db import db_upload_pictures
 from db import db_get_user_images
 from db import db_set_profile_picture
 from db import db_count_number_image
-
-
-def flaskprint(message):
-    print(message, file=stderr)
 
 
 app = Flask(__name__)
