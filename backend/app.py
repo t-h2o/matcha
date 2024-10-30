@@ -83,8 +83,6 @@ def modify_profile_picture():
 
     json = request.json
 
-    flaskprint(json)
-
     check_request = check_request_json(
         request.headers.get("Content-Type"),
         json,
@@ -108,8 +106,6 @@ def modify_profile_picture():
 
     if profile_picture_name is None:
         return jsonify({"error": "cannot find the profile picture"}), 401
-
-    flaskprint(profile_picture_name)
 
     db_set_profile_picture(id_user, profile_picture_name)
 
