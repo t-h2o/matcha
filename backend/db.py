@@ -9,6 +9,14 @@ from psycopg2.errors import UndefinedTable
 from werkzeug.security import generate_password_hash
 
 
+def db_fetchone(query, arguments):
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(query, arguments)
+            conn.commit()
+            return cur.fetchone()
+
+
 def db_query(query, arguments):
     with get_db_connection() as conn:
         with conn.cursor() as cur:
@@ -35,14 +43,7 @@ def get_db_connection():
 
 
 def db_get_id_password_where_username(username):
-    user_db = None
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute(
-                "SELECT id,password FROM users WHERE username = %s", (username,)
-            )
-            user_db = cur.fetchone()
-    return user_db
+    return db_fetchone("SELECT id,password FROM users WHERE username = %s", (username,))
 
 
 def db_set_user_profile_data(
@@ -69,23 +70,10 @@ def db_set_user_profile_data(
 
 
 def db_count_number_image(id_user):
-    query = """
-     SELECT
-         COUNT(*)
-     FROM
-         user_images
-     WHERE
-         user_id = %s;
-    """
-
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute(
-                query,
-                (id_user,),
-            )
-            count = cur.fetchone()
-            return count
+    return db_fetchone(
+        "SELECT COUNT(*) FROM user_images WHERE   user_id = %s;",
+        (id_user,),
+    )
 
 
 def db_upload_pictures(id_user, filenames):
@@ -139,14 +127,7 @@ def db_get_user_images(id_user):
 
 
 def db_get_user_per_id(id_user):
-    user_db = None
-
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute("SELECT * FROM users WHERE id = %s", (id_user,))
-            user_db = cur.fetchone()
-
-    return user_db
+    return db_fetchone("SELECT * FROM users WHERE id = %s", (id_user,))
 
 
 def db_register(username, password, firstname, lastname, email):
