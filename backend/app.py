@@ -20,6 +20,7 @@ from flask_cors import CORS
 
 from app_utils import check_request_json
 from app_utils import make_unique
+from app_utils import get_profile_picture_name
 
 from db import db_register
 from db import db_get_id_password_where_username
@@ -30,8 +31,6 @@ from db import db_upload_pictures
 from db import db_get_user_images
 from db import db_set_profile_picture
 from db import db_count_number_image
-
-from re import search
 
 
 def flaskprint(message):
@@ -95,15 +94,9 @@ def modify_profile_picture():
 
     image_filenames = db_get_user_images(id_user)
 
-    profile_picture_name = None
-
-    for image in image_filenames:
-        regex_result = search(
-            str(id_user) + "_.{36}-" + json["selectedPictures"], image[0]
-        )
-        if regex_result is not None:
-            profile_picture_name = regex_result.string
-            break
+    profile_picture_name = get_profile_picture_name(
+        id_user, json["selectedPictures"], image_filenames
+    )
 
     if profile_picture_name is None:
         return jsonify({"error": "cannot find the profile picture"}), 401
