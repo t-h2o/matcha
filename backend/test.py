@@ -229,6 +229,15 @@ def main():
         "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed1.jpg",
         b'{"success":"file uploaded"}\n',
     )
+    check_post_token_file(
+        "/api/modify-pictures",
+        201,
+        [
+            "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed2.jpg",
+            "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed3.jpg",
+        ],
+        b'{"success":"file uploaded"}\n',
+    )
     check_get_token("/api/deleteme", 200, b'{"success":"user delete"}\n')
 
 
