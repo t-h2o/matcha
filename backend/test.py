@@ -246,7 +246,7 @@ def main():
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed3.jpg",
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed4.jpg",
         ],
-        b'{"error":"too much pictures"}\n',
+        b'{"error":"too many pictures"}\n',
     )
     check_post_token_file(
         "/api/modify-pictures",

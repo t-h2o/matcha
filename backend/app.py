@@ -109,7 +109,7 @@ def modify_pictures():
     list_pictures = request.files.getlist("pictures")
 
     if len(list_pictures) > available_picture:
-        return jsonify({"error": "too much pictures"}), 401
+        return jsonify({"error": "too many pictures"}), 401
 
     filenames = []
     for item in list_pictures:
