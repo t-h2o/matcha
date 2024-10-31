@@ -175,7 +175,7 @@ def modify_pictures():
     for item in list_pictures:
         filename = str(user_id) + "_" + make_unique(secure_filename(item.filename))
         item.save(path.join(app.config["UPLOAD_FOLDER"], filename))
-        filenames.append(filename)
+        filenames.append(app.config["URL"] + "/api/images/" + filename)
 
     db_upload_pictures(user_id, filenames)
 
@@ -238,7 +238,7 @@ def delete_me():
     image_filenames = db_get_user_images(id_user)
 
     for image_to_delete in image_filenames:
-        remove("uploads/" + image_to_delete[0])
+        remove("uploads/" + image_to_delete[0].removeprefix(app.config['URL'] + "/api/images/"))
 
     db = db_delete_user(id_user)
 
