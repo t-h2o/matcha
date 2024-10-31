@@ -8,6 +8,16 @@ from psycopg2.extras import RealDictCursor
 from psycopg2.errors import UndefinedTable
 from werkzeug.security import generate_password_hash
 
+from app_utils import fetchall_to_array
+
+
+def db_fetchall(query, arguments):
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(query, arguments)
+            conn.commit()
+            return cur.fetchall()
+
 
 def db_fetchone(query, arguments):
     with get_db_connection() as conn:
@@ -74,6 +84,47 @@ def db_count_number_image(id_user):
         "SELECT COUNT(*) FROM user_images WHERE   user_id = %s;",
         (id_user,),
     )
+
+
+def db_get_interests(id_user):
+    query = """
+    SELECT name FROM interests
+    WHERE id IN (SELECT interest_id FROM user_interests where user_id = %s);
+    """
+
+    interests = db_fetchall(query, (id_user,))
+
+    return fetchall_to_array(interests)
+
+
+def db_set_interests(id_user, interests):
+    # delete all entry for the user
+    # that will avoid to check where is there duplicate / old entry
+
+    db_query("DELETE from user_interests where user_id = (%s);", (id_user,))
+
+    query = """
+    INSERT INTO user_interests
+    (
+      user_id,
+      interest_id
+    )
+    VALUES (
+    (SELECT users.id FROM users WHERE id = %s),
+    (SELECT interests.id FROM interests WHERE name = %s));
+    """
+
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            for interest in interests:
+                cur.execute(
+                    query,
+                    (
+                        id_user,
+                        interest,
+                    ),
+                )
+            conn.commit()
 
 
 def db_upload_pictures(id_user, filenames):
