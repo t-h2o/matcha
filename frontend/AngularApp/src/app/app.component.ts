@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from './UI/footer/footer.component';
 import { NavbarComponent } from './UI/navbar/navbar.component';
@@ -19,11 +19,6 @@ export class AppComponent implements OnInit {
     if (token) {
       this.authService.tokenSignal.set({ access_token: token });
     }
-  }
-
-  @HostListener('window:beforeunload', ['$event'])
-  clearLocalStorage(event: BeforeUnloadEvent) {
-    localStorage.clear();
   }
 
   logoutHandler() {

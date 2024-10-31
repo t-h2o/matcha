@@ -1,5 +1,5 @@
 <div class="app-wrapper">
-  @if (isModifyingGeneral) {
+  @if (isModifyingGeneral()) {
     <main class="main">
       <app-modify-general
         [onCancel]="toggleIsModifyingGeneral"
@@ -7,15 +7,15 @@
       ></app-modify-general>
     </main>
   }
-  @if (isModifyingInterests) {
+  @if (isModifyingInterests()) {
     <main class="main">
       <app-modify-interests
         [onCancel]="toggleIModifyInterests"
-        [interestList]="profileData.interests"
+        [interestList]="interests()"
       ></app-modify-interests>
     </main>
   }
-  @if (isModifyingEmail) {
+  @if (isModifyingEmail()) {
     <main class="main">
       <app-modify-email
         [onCancel]="toggleIModifyEmail"
@@ -23,7 +23,7 @@
       ></app-modify-email>
     </main>
   }
-  @if (isModifyingPictures) {
+  @if (isModifyingPictures()) {
     <main class="main">
       <app-modify-pictures
         [onCancel]="toggleIModifyPictures"
@@ -39,7 +39,7 @@
           [onModify]="toggleIsModifyingGeneral"
         ></app-general-profile>
         <app-interests
-          [interestList]="profileData.interests"
+          [interestList]="interests()"
           [onModify]="toggleIModifyInterests"
         ></app-interests>
         <app-email-passwd
