@@ -59,10 +59,8 @@ def db_get_id_password_where_username(username):
 def db_set_user_profile_data(
     firstname, lastname, selectedGender, sexualPreference, bio, id_user
 ):
-    query = "UPDATE users SET (firstname, lastname, gender, sexual_orientation, bio) = (%s, %s, %s, %s, %s) where id = %s"
-
     error_msg = db_query(
-        query,
+        "UPDATE users SET (firstname, lastname, gender, sexual_orientation, bio) = (%s, %s, %s, %s, %s) where id = %s",
         (
             firstname,
             lastname,
@@ -128,13 +126,11 @@ def db_set_interests(id_user, interests):
 
 
 def db_upload_pictures(id_user, filenames):
-    query = "INSERT INTO user_images (user_id, image_url) VALUES (%s,%s);"
-
     with get_db_connection() as conn:
         with conn.cursor() as cur:
             for filename in filenames:
                 cur.execute(
-                    query,
+                    "INSERT INTO user_images (user_id, image_url) VALUES (%s,%s);",
                     (
                         id_user,
                         filename,
@@ -182,10 +178,8 @@ def db_get_user_per_id(id_user):
 
 
 def db_register(username, password, firstname, lastname, email):
-    query = "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);"
-
     error_msg = db_query(
-        query,
+        "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);",
         (
             username,
             generate_password_hash(password),
