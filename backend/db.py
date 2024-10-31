@@ -88,8 +88,6 @@ def db_set_user_profile_data(
     if error_msg:
         return error_msg
 
-    return {"success": "profile updated"}
-
 
 def db_count_number_image(id_user):
     return db_fetchone(
@@ -172,7 +170,10 @@ def db_get_user_images(id_user):
 
 
 def db_get_user_per_id(id_user):
-    return db_fetchone("SELECT * FROM users WHERE id = %s", (id_user,))
+    return db_fetchone(
+        "SELECT firstname, lastname, gender, sexual_orientation, bio FROM users WHERE id = %s",
+        (id_user,),
+    )
 
 
 def db_register(username, password, firstname, lastname, email):

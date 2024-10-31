@@ -85,7 +85,7 @@ def users_put(id_user, request):
     if check_request is not None:
         return jsonify(check_request[0]), check_request[1]
 
-    response = db_set_user_profile_data(
+    return db_set_user_profile_data(
         json["firstname"],
         json["lastname"],
         json["selectedGender"],
@@ -93,7 +93,6 @@ def users_put(id_user, request):
         json["bio"],
         id_user,
     )
-    return jsonify(response), 200
 
 
 @app.route("/api/users", methods=["PUT"])
@@ -105,6 +104,19 @@ def users():
         error_msg = users_put(id_user, request)
         if error_msg:
             return error_msg
+
+    user_db = db_get_user_per_id(id_user)
+
+    return (
+        jsonify(
+            firstname=user_db[0],
+            lastname=user_db[1],
+            selectedGender=user_db[2],
+            sexualPreference=user_db[3],
+            bio=user_db[4],
+        ),
+        200,
+    )
 
 
 @app.route("/api/modify-profile-picture", methods=["PUT"])
@@ -183,18 +195,6 @@ def login_user():
         access_token = create_access_token(identity=user_db[0])
         return jsonify(access_token=access_token)
     return jsonify({"error": "Incorrect password"}), 401
-
-
-@app.route("/who_am_i", methods=["GET"])
-@jwt_required()
-def protected():
-    user_id = get_jwt_identity()
-    user_db = db_get_user_per_id(user_id)
-    return jsonify(
-        id=user_db[0],
-        firstname=user_db[1],
-        lastname=user_db[2],
-    )
 
 
 @app.route("/api/register", methods=["POST"])
