@@ -261,6 +261,17 @@ def interests():
         201,
         b'{"interests":["technology","nature","hiking","meditation","fashion"]}\n',
     )
+    check_put_token(
+        "/api/modify-interests",
+        201,
+        {"interests": []},
+        b'{"success":"change interests"}\n',
+    )
+    check_get_token(
+        "/api/get-interests",
+        201,
+        b'{"interests":[]}\n',
+    )
 
 
 def main():
