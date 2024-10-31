@@ -38,6 +38,7 @@ from db import db_count_number_image
 app = Flask(__name__)
 app.config["JWT_SECRET_KEY"] = environ["FLASK_JWT_SECRET_KEY"]
 app.config["UPLOAD_FOLDER"] = environ["FLASK_UPLOAD_FOLDER"]
+app.config["URL"] = environ["FLASK_URL"]
 
 CORS(app, origins="http://localhost:4200")
 
