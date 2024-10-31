@@ -95,7 +95,7 @@ def users_put(id_user, request):
     )
 
 
-@app.route("/api/users", methods=["PUT"])
+@app.route("/api/users", methods=("PUT", "GET"))
 @jwt_required()
 def users():
     id_user = get_jwt_identity()
