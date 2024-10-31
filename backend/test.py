@@ -184,7 +184,7 @@ def login():
 
 def update():
     check_put_token(
-        "/api/modify-general",
+        "/api/users",
         400,
         {"email": "b@b.com"},
         {
@@ -192,7 +192,7 @@ def update():
         },
     )
     check_put_token(
-        "/api/modify-general",
+        "/api/users",
         200,
         {
             "firstname": "Johnny",
@@ -204,7 +204,7 @@ def update():
         {"success": "profile updated"},
     )
     check_put_token(
-        "/api/modify-general",
+        "/api/users",
         200,
         {
             "firstname": "Johnny",
@@ -216,7 +216,7 @@ def update():
         {"error": "value too long for type character(1)\n"},
     )
     check_put(
-        "/api/modify-general",
+        "/api/users",
         401,
         {"firstname": "Johnny"},
         {"msg": "Missing Authorization Header"},

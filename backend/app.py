@@ -73,7 +73,7 @@ def interests():
     return jsonify({"interests": interests}), 201
 
 
-@app.route("/api/modify-general", methods=["PUT"])
+@app.route("/api/users", methods=["PUT"])
 @jwt_required()
 def modify_general():
     id_user = get_jwt_identity()
@@ -99,6 +99,17 @@ def modify_general():
     )
 
     return jsonify(response), 200
+
+
+@app.route("/api/users", methods=["PUT"])
+@jwt_required()
+def users():
+    id_user = get_jwt_identity()
+
+    if request.method == "PUT":
+        error_msg = users_put(id_user, request)
+        if error_msg:
+            return error_msg
 
 
 @app.route("/api/modify-profile-picture", methods=["PUT"])
