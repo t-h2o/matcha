@@ -201,7 +201,13 @@ def update():
             "sexualPreference": "e",
             "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
         },
-        {"success": "profile updated"},
+        {
+            "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
+            "firstname": "Johnny",
+            "lastname": "Appleseed",
+            "selectedGender": "m",
+            "sexualPreference": "e",
+        },
     )
     check_put_token(
         "/api/users",
