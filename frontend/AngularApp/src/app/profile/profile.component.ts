@@ -50,24 +50,24 @@ export class ProfileComponent implements OnInit {
       });
   }
   profileData: UserData = dummyUserData;
-  isModifyingGeneral: boolean = false;
-  isModifyingInterests: boolean = false;
-  isModifyingEmail: boolean = false;
-  isModifyingPictures: boolean = false;
+  isModifyingGeneral = signal<boolean>(false);
+  isModifyingInterests = signal<boolean>(false);
+  isModifyingEmail = signal<boolean>(false);
+  isModifyingPictures = signal<boolean>(false);
 
   toggleIsModifyingGeneral = () => {
-    this.isModifyingGeneral = !this.isModifyingGeneral;
+    this.isModifyingGeneral.set(!this.isModifyingGeneral());
   };
 
   toggleIModifyInterests = () => {
-    this.isModifyingInterests = !this.isModifyingInterests;
+    this.isModifyingInterests.set(!this.isModifyingInterests());
   };
 
   toggleIModifyEmail = () => {
-    this.isModifyingEmail = !this.isModifyingEmail;
+    this.isModifyingEmail.set(!this.isModifyingEmail());
   };
 
   toggleIModifyPictures = () => {
-    this.isModifyingPictures = !this.isModifyingPictures;
+    this.isModifyingPictures.set(!this.isModifyingPictures());
   };
 }
