@@ -36,8 +36,7 @@ CREATE TABLE IF NOT EXISTS interests (
 CREATE TABLE IF NOT EXISTS user_interests (
     user_id INTEGER REFERENCES users (id) ON DELETE CASCADE,
     interest_id INTEGER REFERENCES interests (id) ON DELETE CASCADE,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
-    PRIMARY KEY (user_id, interest_id)
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 
 CREATE TABLE IF NOT EXISTS user_visits (

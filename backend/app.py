@@ -18,7 +18,10 @@ from flask_cors import CORS
 from app_utils import check_request_json
 from app_utils import make_unique
 from app_utils import get_profile_picture_name
+from app_utils import flaskprint
 
+from db import db_get_interests
+from db import db_set_interests
 from db import db_register
 from db import db_get_id_password_where_username
 from db import db_get_user_per_id
@@ -37,6 +40,37 @@ app.config["UPLOAD_FOLDER"] = environ["FLASK_UPLOAD_FOLDER"]
 CORS(app, origins="http://localhost:4200")
 
 jwt = JWTManager(app)
+
+
+@app.route("/api/modify-interests", methods=["PUT"])
+@jwt_required()
+def modify_interests():
+    id_user = get_jwt_identity()
+
+    json = request.json
+
+    check_request = check_request_json(
+        request.headers.get("Content-Type"),
+        json,
+        ["interests"],
+    )
+
+    if check_request is not None:
+        return jsonify(check_request[0]), check_request[1]
+
+    db_set_interests(id_user, json["interests"])
+
+    return jsonify({"success": "change interests"}), 201
+
+
+@app.route("/api/get-interests")
+@jwt_required()
+def get_interests():
+    id_user = get_jwt_identity()
+
+    interests = db_get_interests(id_user)
+
+    return jsonify({"interests": interests}), 201
 
 
 @app.route("/api/modify-general", methods=["PUT"])

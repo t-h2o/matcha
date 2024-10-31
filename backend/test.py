@@ -219,10 +219,55 @@ def update():
     )
 
 
+def interests():
+    check_get_token("/api/get-interests", 201, b'{"interests":[]}\n')
+    check_put_token(
+        "/api/modify-interests",
+        201,
+        {
+            "interests": [
+                "movies",
+                "cooking",
+                "hiking",
+                "technology",
+                "fashion",
+                "nature",
+                "meditation",
+            ]
+        },
+        b'{"success":"change interests"}\n',
+    )
+    check_get_token(
+        "/api/get-interests",
+        201,
+        b'{"interests":["technology","movies","nature","hiking","cooking","meditation","fashion"]}\n',
+    )
+    check_put_token(
+        "/api/modify-interests",
+        201,
+        {
+            "interests": [
+                "hiking",
+                "technology",
+                "fashion",
+                "nature",
+                "meditation",
+            ]
+        },
+        b'{"success":"change interests"}\n',
+    )
+    check_get_token(
+        "/api/get-interests",
+        201,
+        b'{"interests":["technology","nature","hiking","meditation","fashion"]}\n',
+    )
+
+
 def main():
     register()
     login()
     update()
+    interests()
     check_post_token_file(
         "/api/modify-pictures",
         201,

@@ -8,6 +8,16 @@ from psycopg2.extras import RealDictCursor
 from psycopg2.errors import UndefinedTable
 from werkzeug.security import generate_password_hash
 
+from app_utils import fetchall_to_array
+
+
+def db_fetchall(query, arguments):
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(query, arguments)
+            conn.commit()
+            return cur.fetchall()
+
 
 def db_fetchone(query, arguments):
     with get_db_connection() as conn:
@@ -31,6 +41,20 @@ def db_query(query, arguments):
     return
 
 
+def db_query_for(query, argument, loopme):
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            for item in loopme:
+                cur.execute(
+                    query,
+                    (
+                        argument,
+                        item,
+                    ),
+                )
+            conn.commit()
+
+
 @contextmanager
 def get_db_connection():
     """Generator of database connection"""
@@ -49,10 +73,8 @@ def db_get_id_password_where_username(username):
 def db_set_user_profile_data(
     firstname, lastname, selectedGender, sexualPreference, bio, id_user
 ):
-    query = "UPDATE users SET (firstname, lastname, gender, sexual_orientation, bio) = (%s, %s, %s, %s, %s) where id = %s"
-
     error_msg = db_query(
-        query,
+        "UPDATE users SET (firstname, lastname, gender, sexual_orientation, bio) = (%s, %s, %s, %s, %s) where id = %s",
         (
             firstname,
             lastname,
@@ -76,20 +98,43 @@ def db_count_number_image(id_user):
     )
 
 
-def db_upload_pictures(id_user, filenames):
-    query = "INSERT INTO user_images (user_id, image_url) VALUES (%s,%s);"
+def db_get_interests(id_user):
+    query = """
+    SELECT name FROM interests
+    WHERE id IN (SELECT interest_id FROM user_interests where user_id = %s);
+    """
 
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            for filename in filenames:
-                cur.execute(
-                    query,
-                    (
-                        id_user,
-                        filename,
-                    ),
-                )
-            conn.commit()
+    interests = db_fetchall(query, (id_user,))
+
+    return fetchall_to_array(interests)
+
+
+def db_set_interests(id_user, interests):
+    # delete all entry for the user
+    # that will avoid to check where is there duplicate / old entry
+
+    db_query("DELETE from user_interests where user_id = (%s);", (id_user,))
+
+    query = """
+    INSERT INTO user_interests
+    (
+      user_id,
+      interest_id
+    )
+    VALUES (
+    (SELECT users.id FROM users WHERE id = %s),
+    (SELECT interests.id FROM interests WHERE name = %s));
+    """
+
+    db_query_for(query, id_user, interests)
+
+
+def db_upload_pictures(id_user, filenames):
+    db_query_for(
+        "INSERT INTO user_images (user_id, image_url) VALUES (%s,%s);",
+        id_user,
+        filenames,
+    )
 
 
 def db_set_profile_picture(id_user, image_url):
@@ -131,10 +176,8 @@ def db_get_user_per_id(id_user):
 
 
 def db_register(username, password, firstname, lastname, email):
-    query = "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);"
-
     error_msg = db_query(
-        query,
+        "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);",
         (
             username,
             generate_password_hash(password),
@@ -154,15 +197,9 @@ def db_delete_user(id_user):
     response_json = {}
     response_code = 200
 
-    with get_db_connection() as conn:
-        try:
-            cur = conn.cursor()
-            cur.execute("DELETE from users where id = (%s);", (id_user,))
-            conn.commit()
-            response_json = {"success": "user delete"}
-            response_code = 200
-        except Exception as e:
-            response_json = {"error": str(e)}
-            response_code = 401
+    error_msg = db_query("DELETE from users where id = (%s);", (id_user,))
 
-    return response_json, response_code
+    if error_msg:
+        return error_msg, 401
+
+    return {"success": "user delete"}, 200
