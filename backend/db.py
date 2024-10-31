@@ -51,7 +51,7 @@ def db_set_user_profile_data(
 ):
     query = "UPDATE users SET (firstname, lastname, gender, sexual_orientation, bio) = (%s, %s, %s, %s, %s) where id = %s"
 
-    response = db_query(
+    error_msg = db_query(
         query,
         (
             firstname,
@@ -63,8 +63,8 @@ def db_set_user_profile_data(
         ),
     )
 
-    if response:
-        return response
+    if error_msg:
+        return error_msg
 
     return {"success": "profile updated"}
 
@@ -100,7 +100,7 @@ def db_set_profile_picture(id_user, image_url):
     WHERE users.id = %s
     """
 
-    response = db_query(
+    error_msg = db_query(
         query,
         (
             image_url,
@@ -108,8 +108,8 @@ def db_set_profile_picture(id_user, image_url):
         ),
     )
 
-    if response:
-        return response
+    if error_msg:
+        return error_msg
 
 
 def db_get_user_images(id_user):
@@ -133,7 +133,7 @@ def db_get_user_per_id(id_user):
 def db_register(username, password, firstname, lastname, email):
     query = "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);"
 
-    response = db_query(
+    error_msg = db_query(
         query,
         (
             username,
@@ -144,7 +144,7 @@ def db_register(username, password, firstname, lastname, email):
         ),
     )
 
-    if response:
+    if error_msg:
         return {"error": f"User {username} is already registered."}
 
     return {"success": f"User {username} was successfully added"}
