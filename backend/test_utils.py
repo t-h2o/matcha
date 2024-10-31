@@ -42,7 +42,7 @@ def check_content_code(
     content_received,
     json=None,
 ):
-    if content_received != content_expected:
+    if loads(content_received) != content_expected:
         print("--- bad content ---")
         print_error(
             url,

@@ -25,7 +25,7 @@ def register():
             "email": "email@email.com",
             "password": "1234",
         },
-        b'{"success":"User user was successfully added"}\n',
+        {"success": "User user was successfully added"},
     )
 
     check_post(
@@ -37,7 +37,7 @@ def register():
             "email": "email@email.com",
             "password": "1234",
         },
-        b'{"error":"The following fields are required and cannot be empty: firstname"}\n',
+        {"error": "The following fields are required and cannot be empty: firstname"},
     )
 
     check_post(
@@ -49,7 +49,7 @@ def register():
             "email": "email@email.com",
             "password": "1234",
         },
-        b'{"error":"The following fields are required and cannot be empty: username"}\n',
+        {"error": "The following fields are required and cannot be empty: username"},
     )
 
     check_post(
@@ -62,7 +62,7 @@ def register():
             "email": "email@email.com",
             "password": "1234",
         },
-        b'{"error":"User user is already registered."}\n',
+        {"error": "User user is already registered."},
     )
 
     check_post(
@@ -75,7 +75,7 @@ def register():
             "email": "email@email.com",
             "password": "1234",
         },
-        b'{"error":"The following fields are required and cannot be empty: username"}\n',
+        {"error": "The following fields are required and cannot be empty: username"},
     )
 
     check_post(
@@ -88,7 +88,7 @@ def register():
             "email": "email@email.com",
             "password": "1234",
         },
-        b'{"error":"The following fields are required and cannot be empty: firstname"}\n',
+        {"error": "The following fields are required and cannot be empty: firstname"},
     )
 
     check_post(
@@ -101,7 +101,7 @@ def register():
             "email": "email@email.com",
             "password": "1234",
         },
-        b'{"error":"The following fields are required and cannot be empty: lastname"}\n',
+        {"error": "The following fields are required and cannot be empty: lastname"},
     )
 
     check_post(
@@ -114,7 +114,7 @@ def register():
             "email": "email@email.com",
             "password": "",
         },
-        b'{"error":"The following fields are required and cannot be empty: password"}\n',
+        {"error": "The following fields are required and cannot be empty: password"},
     )
 
     check_post(
@@ -127,7 +127,7 @@ def register():
             "email": "",
             "password": "1234",
         },
-        b'{"error":"The following fields are required and cannot be empty: email"}\n',
+        {"error": "The following fields are required and cannot be empty: email"},
     )
 
 
@@ -141,42 +141,44 @@ def login():
         "/api/login",
         401,
         {"username": "user", "password": "bad"},
-        b'{"error":"Incorrect password"}\n',
+        {"error": "Incorrect password"},
     )
 
     check_post(
         "/api/login",
         400,
         {"username": "", "password": "1234"},
-        b'{"error":"The following fields are required and cannot be empty: username"}\n',
+        {"error": "The following fields are required and cannot be empty: username"},
     )
 
     check_post(
         "/api/login",
         400,
         {"username": None, "password": "1234"},
-        b'{"error":"The following fields are required and cannot be empty: username"}\n',
+        {"error": "The following fields are required and cannot be empty: username"},
     )
 
     check_post(
         "/api/login",
         400,
         {"username": "", "password": ""},
-        b'{"error":"The following fields are required and cannot be empty: username, password"}\n',
+        {
+            "error": "The following fields are required and cannot be empty: username, password"
+        },
     )
 
     check_post(
         "/api/login",
         401,
         {"username": "no_user", "password": "1234"},
-        b'{"error":"Incorrect username"}\n',
+        {"error": "Incorrect username"},
     )
 
     check_post(
         "/api/login",
         400,
         {"password": "1234"},
-        b'{"error":"The following fields are required and cannot be empty: username"}\n',
+        {"error": "The following fields are required and cannot be empty: username"},
     )
 
 
@@ -185,7 +187,9 @@ def update():
         "/api/modify-general",
         400,
         {"email": "b@b.com"},
-        b'{"error":"The following fields are required and cannot be empty: firstname, lastname, selectedGender, sexualPreference, bio"}\n',
+        {
+            "error": "The following fields are required and cannot be empty: firstname, lastname, selectedGender, sexualPreference, bio"
+        },
     )
     check_put_token(
         "/api/modify-general",
@@ -197,7 +201,7 @@ def update():
             "sexualPreference": "e",
             "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
         },
-        b'{"success":"profile updated"}\n',
+        {"success": "profile updated"},
     )
     check_put_token(
         "/api/modify-general",
@@ -209,18 +213,18 @@ def update():
             "sexualPreference": "e",
             "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
         },
-        b'{"error":"value too long for type character(1)\\n"}\n',
+        {"error": "value too long for type character(1)\n"},
     )
     check_put(
         "/api/modify-general",
         401,
         {"firstname": "Johnny"},
-        b'{"msg":"Missing Authorization Header"}\n',
+        {"msg": "Missing Authorization Header"},
     )
 
 
 def interests():
-    check_get_token("/api/get-interests", 201, b'{"interests":[]}\n')
+    check_get_token("/api/get-interests", 201, {"interests": []})
     check_put_token(
         "/api/modify-interests",
         201,
@@ -235,12 +239,22 @@ def interests():
                 "meditation",
             ]
         },
-        b'{"success":"change interests"}\n',
+        {"success": "change interests"},
     )
     check_get_token(
         "/api/get-interests",
         201,
-        b'{"interests":["technology","movies","nature","hiking","cooking","meditation","fashion"]}\n',
+        {
+            "interests": [
+                "technology",
+                "movies",
+                "nature",
+                "hiking",
+                "cooking",
+                "meditation",
+                "fashion",
+            ]
+        },
     )
     check_put_token(
         "/api/modify-interests",
@@ -254,23 +268,23 @@ def interests():
                 "meditation",
             ]
         },
-        b'{"success":"change interests"}\n',
+        {"success": "change interests"},
     )
     check_get_token(
         "/api/get-interests",
         201,
-        b'{"interests":["technology","nature","hiking","meditation","fashion"]}\n',
+        {"interests": ["technology", "nature", "hiking", "meditation", "fashion"]},
     )
     check_put_token(
         "/api/modify-interests",
         201,
         {"interests": []},
-        b'{"success":"change interests"}\n',
+        {"success": "change interests"},
     )
     check_get_token(
         "/api/get-interests",
         201,
-        b'{"interests":[]}\n',
+        {"interests": []},
     )
 
 
@@ -283,7 +297,7 @@ def main():
         "/api/modify-pictures",
         201,
         "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed1.jpg",
-        b'{"success":"file uploaded"}\n',
+        {"success": "file uploaded"},
     )
     check_post_token_file(
         "/api/modify-pictures",
@@ -292,7 +306,7 @@ def main():
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed2.jpg",
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed3.jpg",
         ],
-        b'{"success":"file uploaded"}\n',
+        {"success": "file uploaded"},
     )
     check_post_token_file(
         "/api/modify-pictures",
@@ -302,7 +316,7 @@ def main():
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed3.jpg",
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed4.jpg",
         ],
-        b'{"error":"too many pictures"}\n',
+        {"error": "too many pictures"},
     )
     check_post_token_file(
         "/api/modify-pictures",
@@ -311,7 +325,7 @@ def main():
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed3.jpg",
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed4.jpg",
         ],
-        b'{"success":"file uploaded"}\n',
+        {"success": "file uploaded"},
     )
     check_put_token(
         "/api/modify-profile-picture",
@@ -319,9 +333,9 @@ def main():
         {
             "selectedPictures": "johnnyAppleseed1.jpg",
         },
-        b'{"success":"change profile picture"}\n',
+        {"success": "change profile picture"},
     )
-    check_get_token("/api/deleteme", 200, b'{"success":"user delete"}\n')
+    check_get_token("/api/deleteme", 200, {"success": "user delete"})
 
 
 if __name__ == "__main__":
