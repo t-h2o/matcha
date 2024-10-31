@@ -4,6 +4,7 @@ from os import remove
 from flask import Flask
 from flask import request
 from flask import jsonify
+from flask import send_from_directory
 
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import jwt_required
@@ -41,6 +42,12 @@ app.config["UPLOAD_FOLDER"] = environ["FLASK_UPLOAD_FOLDER"]
 CORS(app, origins="http://localhost:4200")
 
 jwt = JWTManager(app)
+
+
+@app.route("/api/images/<filename>")
+@jwt_required()
+def serve_image(filename):
+    return send_from_directory("uploads", filename)
 
 
 def interests_put(id_user, request):
