@@ -226,7 +226,7 @@ def update():
 def interests():
     check_get_token("/api/get-interests", 201, {"interests": []})
     check_put_token(
-        "/api/modify-interests",
+        "/api/interests",
         201,
         {
             "interests": [
@@ -257,7 +257,7 @@ def interests():
         },
     )
     check_put_token(
-        "/api/modify-interests",
+        "/api/interests",
         201,
         {
             "interests": [
@@ -276,7 +276,7 @@ def interests():
         {"interests": ["technology", "nature", "hiking", "meditation", "fashion"]},
     )
     check_put_token(
-        "/api/modify-interests",
+        "/api/interests",
         201,
         {"interests": []},
         {"success": "change interests"},

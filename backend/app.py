@@ -43,9 +43,9 @@ CORS(app, origins="http://localhost:4200")
 jwt = JWTManager(app)
 
 
-@app.route("/api/modify-interests", methods=["PUT"])
+@app.route("/api/interests", methods=("PUT", "GET"))
 @jwt_required()
-def modify_interests():
+def interests():
     id_user = get_jwt_identity()
 
     json = request.json
