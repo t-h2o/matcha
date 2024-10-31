@@ -30,4 +30,10 @@
   .interest-items {
     margin-top: 4px;
   }
+
+  .interests-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
 }

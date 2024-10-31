@@ -27,3 +27,7 @@ export type ModifiedUserPassword = {
   currentPassword: string;
   newPassword: string;
 };
+
+export type UserInterests = {
+  interests: string[];
+};

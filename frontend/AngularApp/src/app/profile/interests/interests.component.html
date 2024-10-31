@@ -2,8 +2,10 @@
   <div class="container">
     <div class="title-item">
       <p><span class="list-title">Interests:</span></p>
-      <div class="interest-items">
-        <p>{{ interestList.join(", ") }}</p>
+      <div class="interests-grid">
+        @for (interest of interests(); track $index) {
+          <div class="interest-item">{{ interest }}</div>
+        }
       </div>
     </div>
     <div class="btn-container">

@@ -52,4 +52,10 @@ export class UserService {
       selectedPictures,
     });
   }
+
+  getInterests() {
+    return this.httpClient.get<{ interests: string[] }>(
+      `${this.baseUrl}/get-interests`,
+    );
+  }
 }

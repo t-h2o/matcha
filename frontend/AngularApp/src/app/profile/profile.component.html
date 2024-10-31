@@ -11,7 +11,7 @@
     <main class="main">
       <app-modify-interests
         [onCancel]="toggleIModifyInterests"
-        [interestList]="profileData.interests"
+        [interestList]="interests()"
       ></app-modify-interests>
     </main>
   }
@@ -39,7 +39,7 @@
           [onModify]="toggleIsModifyingGeneral"
         ></app-general-profile>
         <app-interests
-          [interestList]="profileData.interests"
+          [interestList]="interests()"
           [onModify]="toggleIModifyInterests"
         ></app-interests>
         <app-email-passwd

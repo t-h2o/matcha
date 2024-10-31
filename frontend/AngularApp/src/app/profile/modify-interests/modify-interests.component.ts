@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, input, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { tags } from '../../shared/models/tags';
 import { UserService } from '../../shared/services/user.service';
@@ -15,14 +15,14 @@ import { finalize } from 'rxjs';
 })
 export class ModifyInterestsComponent implements OnInit {
   @Input({ required: true }) onCancel!: () => void;
-  @Input({ required: true }) interestList: string[] = [];
+  interestList = input.required<{ interests: string[] }>();
   private userService = inject(UserService);
 
   tagsList = tags;
   selectedTags: string[] = [];
 
   ngOnInit() {
-    this.selectedTags = [...this.interestList];
+    this.selectedTags = [...this.interestList().interests];
   }
 
   onTagChange(event: any) {

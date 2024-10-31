@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
+import { Component, computed, effect, input, Input } from '@angular/core';
 import { CardComponent } from '../../UI/card/card.component';
+import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-interests',
@@ -10,6 +10,8 @@ import { CardComponent } from '../../UI/card/card.component';
   styleUrl: './interests.component.scss',
 })
 export class InterestsComponent {
-  @Input({ required: true }) interestList!: string[];
+  interestList = input.required<{ interests: string[] }>();
   @Input({ required: true }) onModify!: () => void;
+
+  interests = computed(() => this.interestList().interests);
 }
