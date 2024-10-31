@@ -163,3 +163,22 @@ def check_put_token(path, status, json, content):
     check_content_code(
         URL, path, status, response.status_code, content, response.content, json
     )
+
+
+def check_post_token_file(path, status, filenames, content):
+    headers = {"Authorization": f"Bearer {access_token}"}
+
+    files = None
+
+    if type(filenames) == str:
+        files = {"pictures": open(filenames, "rb")}
+    else:
+        files = []
+        for filename in filenames:
+            files.append(("pictures", open(filename, "rb")))
+
+    response = post(URL + path, files=files, headers=headers)
+
+    check_content_code(
+        URL, path, status, response.status_code, content, response.content
+    )

@@ -1,7 +1,6 @@
-"""Flask, os.environ"""
-
+from os import path
 from os import environ
-from sys import stderr
+from os import remove
 from flask import Flask
 from flask import request
 from flask import jsonify
@@ -11,24 +10,30 @@ from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 from flask_jwt_extended import get_jwt_identity
 
+from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
+
 from flask_cors import CORS
 
 from app_utils import check_request_json
+from app_utils import make_unique
+from app_utils import get_profile_picture_name
 
 from db import db_register
 from db import db_get_id_password_where_username
 from db import db_get_user_per_id
 from db import db_set_user_profile_data
 from db import db_delete_user
-
-
-def flaskprint(message):
-    print(message, file=stderr)
+from db import db_upload_pictures
+from db import db_get_user_images
+from db import db_set_profile_picture
+from db import db_count_number_image
 
 
 app = Flask(__name__)
 app.config["JWT_SECRET_KEY"] = environ["FLASK_JWT_SECRET_KEY"]
+app.config["UPLOAD_FOLDER"] = environ["FLASK_UPLOAD_FOLDER"]
+
 CORS(app, origins="http://localhost:4200")
 
 jwt = JWTManager(app)
@@ -62,9 +67,63 @@ def modify_general():
     return jsonify(response), 200
 
 
+@app.route("/api/modify-profile-picture", methods=["PUT"])
+@jwt_required()
+def modify_profile_picture():
+    id_user = get_jwt_identity()
+
+    json = request.json
+
+    check_request = check_request_json(
+        request.headers.get("Content-Type"),
+        json,
+        ["selectedPictures"],
+    )
+
+    if check_request is not None:
+        return jsonify(check_request[0]), check_request[1]
+
+    image_filenames = db_get_user_images(id_user)
+
+    profile_picture_name = get_profile_picture_name(
+        id_user, json["selectedPictures"], image_filenames
+    )
+
+    if profile_picture_name is None:
+        return jsonify({"error": "cannot find the profile picture"}), 401
+
+    db_set_profile_picture(id_user, profile_picture_name)
+
+    return jsonify({"success": "change profile picture"}), 201
+
+
+@app.route("/api/modify-pictures", methods=["POST"])
+@jwt_required()
+def modify_pictures():
+    user_id = get_jwt_identity()
+
+    number_of_picture = db_count_number_image(user_id)
+
+    available_picture = 5 - number_of_picture[0]
+
+    list_pictures = request.files.getlist("pictures")
+
+    if len(list_pictures) > available_picture:
+        return jsonify({"error": "too many pictures"}), 401
+
+    filenames = []
+    for item in list_pictures:
+        filename = str(user_id) + "_" + make_unique(secure_filename(item.filename))
+        item.save(path.join(app.config["UPLOAD_FOLDER"], filename))
+        filenames.append(filename)
+
+    db_upload_pictures(user_id, filenames)
+
+    return jsonify({"success": "file uploaded"}), 201
+
+
 @app.route("/api/login", methods=["POST"])
 def login_user():
-    """Check the login"""
     json = request.json
 
     check_request = check_request_json(
@@ -100,11 +159,6 @@ def protected():
 
 @app.route("/api/register", methods=["POST"])
 def register_user():
-    """Register a new user.
-
-    Validates that the username is not already taken.
-    Hashes the password for security.
-    """
 
     json = request.json
 
@@ -131,9 +185,13 @@ def register_user():
 @app.route("/api/deleteme")
 @jwt_required()
 def delete_me():
-    """Delete"""
-
     id_user = get_jwt_identity()
+
+    image_filenames = db_get_user_images(id_user)
+
+    for image_to_delete in image_filenames:
+        remove("uploads/" + image_to_delete[0])
+
     db = db_delete_user(id_user)
 
     return jsonify(db[0]), db[1]

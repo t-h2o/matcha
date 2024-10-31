@@ -9,6 +9,28 @@ from psycopg2.errors import UndefinedTable
 from werkzeug.security import generate_password_hash
 
 
+def db_fetchone(query, arguments):
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(query, arguments)
+            conn.commit()
+            return cur.fetchone()
+
+
+def db_query(query, arguments):
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            try:
+                cur.execute(query, arguments)
+                conn.commit()
+            except conn.IntegrityError as e:
+                return str(e)
+            except Exception as e:
+                return {"error": str(e)}
+
+    return
+
+
 @contextmanager
 def get_db_connection():
     """Generator of database connection"""
@@ -21,14 +43,7 @@ def get_db_connection():
 
 
 def db_get_id_password_where_username(username):
-    user_db = None
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute(
-                "SELECT id,password FROM users WHERE username = %s", (username,)
-            )
-            user_db = cur.fetchone()
-    return user_db
+    return db_fetchone("SELECT id,password FROM users WHERE username = %s", (username,))
 
 
 def db_set_user_profile_data(
@@ -36,55 +51,101 @@ def db_set_user_profile_data(
 ):
     query = "UPDATE users SET (firstname, lastname, gender, sexual_orientation, bio) = (%s, %s, %s, %s, %s) where id = %s"
 
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            try:
-                cur.execute(
-                    query,
-                    (
-                        firstname,
-                        lastname,
-                        selectedGender,
-                        sexualPreference,
-                        bio,
-                        id_user,
-                    ),
-                )
-                conn.commit()
-            except Exception as e:
-                return {"error": str(e)}
+    error_msg = db_query(
+        query,
+        (
+            firstname,
+            lastname,
+            selectedGender,
+            sexualPreference,
+            bio,
+            id_user,
+        ),
+    )
+
+    if error_msg:
+        return error_msg
 
     return {"success": "profile updated"}
 
 
-def db_get_user_per_id(id_user):
-    user_db = None
+def db_count_number_image(id_user):
+    return db_fetchone(
+        "SELECT COUNT(*) FROM user_images WHERE   user_id = %s;",
+        (id_user,),
+    )
+
+
+def db_upload_pictures(id_user, filenames):
+    query = "INSERT INTO user_images (user_id, image_url) VALUES (%s,%s);"
 
     with get_db_connection() as conn:
         with conn.cursor() as cur:
-            cur.execute("SELECT * FROM users WHERE id = %s", (id_user,))
-            user_db = cur.fetchone()
+            for filename in filenames:
+                cur.execute(
+                    query,
+                    (
+                        id_user,
+                        filename,
+                    ),
+                )
+            conn.commit()
 
-    return user_db
+
+def db_set_profile_picture(id_user, image_url):
+    query = """
+    UPDATE users
+    SET profile_picture_id = subquery.id
+    FROM (SELECT user_images.id FROM user_images WHERE image_url = %s) AS subquery
+    WHERE users.id = %s
+    """
+
+    error_msg = db_query(
+        query,
+        (
+            image_url,
+            id_user,
+        ),
+    )
+
+    if error_msg:
+        return error_msg
+
+
+def db_get_user_images(id_user):
+    filenames = None
+
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT image_url FROM user_images WHERE user_id = %s", (id_user,)
+            )
+            filenames = cur.fetchall()
+            return filenames
+
+    return filenames
+
+
+def db_get_user_per_id(id_user):
+    return db_fetchone("SELECT * FROM users WHERE id = %s", (id_user,))
 
 
 def db_register(username, password, firstname, lastname, email):
-    with get_db_connection() as conn:
-        try:
-            with conn.cursor() as cur:
-                cur.execute(
-                    "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);",
-                    (
-                        username,
-                        generate_password_hash(password),
-                        firstname,
-                        lastname,
-                        email,
-                    ),
-                )
-                conn.commit()
-        except conn.IntegrityError:
-            return {"error": f"User {username} is already registered."}
+    query = "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);"
+
+    error_msg = db_query(
+        query,
+        (
+            username,
+            generate_password_hash(password),
+            firstname,
+            lastname,
+            email,
+        ),
+    )
+
+    if error_msg:
+        return {"error": f"User {username} is already registered."}
 
     return {"success": f"User {username} was successfully added"}
 
