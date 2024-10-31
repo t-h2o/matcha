@@ -41,6 +41,20 @@ def db_query(query, arguments):
     return
 
 
+def db_query_for(query, argument, loopme):
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            for item in loopme:
+                cur.execute(
+                    query,
+                    (
+                        argument,
+                        item,
+                    ),
+                )
+            conn.commit()
+
+
 @contextmanager
 def get_db_connection():
     """Generator of database connection"""
@@ -112,31 +126,15 @@ def db_set_interests(id_user, interests):
     (SELECT interests.id FROM interests WHERE name = %s));
     """
 
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            for interest in interests:
-                cur.execute(
-                    query,
-                    (
-                        id_user,
-                        interest,
-                    ),
-                )
-            conn.commit()
+    db_query_for(query, id_user, interests)
 
 
 def db_upload_pictures(id_user, filenames):
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            for filename in filenames:
-                cur.execute(
-                    "INSERT INTO user_images (user_id, image_url) VALUES (%s,%s);",
-                    (
-                        id_user,
-                        filename,
-                    ),
-                )
-            conn.commit()
+    db_query_for(
+        "INSERT INTO user_images (user_id, image_url) VALUES (%s,%s);",
+        id_user,
+        filenames,
+    )
 
 
 def db_set_profile_picture(id_user, image_url):
