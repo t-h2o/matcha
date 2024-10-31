@@ -245,7 +245,17 @@ def interests():
                 "meditation",
             ]
         },
-        {"interests":["technology","movies","nature","hiking","cooking","meditation","fashion"]},
+        {
+            "interests": [
+                "technology",
+                "movies",
+                "nature",
+                "hiking",
+                "cooking",
+                "meditation",
+                "fashion",
+            ]
+        },
     )
     check_get_token(
         "/api/interests",
@@ -274,7 +284,7 @@ def interests():
                 "meditation",
             ]
         },
-        {"interests":["technology","nature","hiking","meditation","fashion"]},
+        {"interests": ["technology", "nature", "hiking", "meditation", "fashion"]},
     )
     check_get_token(
         "/api/interests",
@@ -285,7 +295,7 @@ def interests():
         "/api/interests",
         201,
         {"interests": []},
-        {"interests":[]},
+        {"interests": []},
     )
     check_get_token(
         "/api/interests",
