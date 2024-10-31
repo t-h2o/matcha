@@ -16,6 +16,7 @@ from werkzeug.security import check_password_hash
 from flask_cors import CORS
 
 from app_utils import check_request_json
+from app_utils import check_request_json_values
 from app_utils import make_unique
 from app_utils import get_profile_picture_name
 from app_utils import flaskprint
@@ -49,7 +50,7 @@ def modify_interests():
 
     json = request.json
 
-    check_request = check_request_json(
+    check_request = check_request_json_values(
         request.headers.get("Content-Type"),
         json,
         ["interests"],
