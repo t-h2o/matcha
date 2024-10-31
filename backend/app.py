@@ -48,26 +48,19 @@ jwt = JWTManager(app)
 def interests():
     id_user = get_jwt_identity()
 
-    json = request.json
+    if request.method == "PUT":
+        json = request.json
 
-    check_request = check_request_json_values(
-        request.headers.get("Content-Type"),
-        json,
-        ["interests"],
-    )
+        check_request = check_request_json_values(
+            request.headers.get("Content-Type"),
+            json,
+            ["interests"],
+        )
 
-    if check_request is not None:
-        return jsonify(check_request[0]), check_request[1]
+        if check_request is not None:
+            return jsonify(check_request[0]), check_request[1]
 
-    db_set_interests(id_user, json["interests"])
-
-    return jsonify({"success": "change interests"}), 201
-
-
-@app.route("/api/get-interests")
-@jwt_required()
-def get_interests():
-    id_user = get_jwt_identity()
+        db_set_interests(id_user, json["interests"])
 
     interests = db_get_interests(id_user)
 
