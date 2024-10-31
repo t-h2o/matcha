@@ -73,11 +73,7 @@ def interests():
     return jsonify({"interests": interests}), 201
 
 
-@app.route("/api/users", methods=["PUT"])
-@jwt_required()
-def modify_general():
-    id_user = get_jwt_identity()
-
+def users_put(id_user, request):
     json = request.json
 
     check_request = check_request_json(
@@ -97,7 +93,6 @@ def modify_general():
         json["bio"],
         id_user,
     )
-
     return jsonify(response), 200
 
 
