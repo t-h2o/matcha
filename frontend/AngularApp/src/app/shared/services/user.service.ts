@@ -2,22 +2,23 @@ import { inject, Injectable, signal } from '@angular/core';
 import { UserRequestsService } from './user.requests.service';
 import { finalize } from 'rxjs';
 
+type Interests = { interests: string[] };
+
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private userRequestsService = inject(UserRequestsService);
 
-  interestList = signal<{ interests: string[] }>({ interests: [] });
+  interestList = signal<Interests>({ interests: [] });
 
   getInterests() {
     const subscription = this.userRequestsService
       .getInterests()
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
-        next: (data: { interests: string[] }) => {
+        next: (data: Interests) => {
           this.interestList.set(data);
-          console.log('Interests from back :', data);
         },
         error: (error: any) => {
           console.log('Error getting interests:', error);
@@ -25,7 +26,7 @@ export class UserService {
       });
   }
 
-  modifyInterests(selectedTagsObj: { interests: string[] }) {
+  modifyInterests(selectedTagsObj: Interests) {
     const subscription = this.userRequestsService
       .modifyInterestsRequest(selectedTagsObj)
       .pipe(
@@ -34,8 +35,8 @@ export class UserService {
         }),
       )
       .subscribe({
-        next: (data: any) => {
-          console.log('data: ' + JSON.stringify(data));
+        next: (data: Interests) => {
+          this.interestList.set(data);
         },
         error: (error: any) => {
           console.log('Error updating interests:', error);
