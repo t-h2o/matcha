@@ -16,6 +16,20 @@ def flaskprint(message):
     print(message, file=stderr)
 
 
+def check_request_json_values(content_type, json, required_fields):
+    if content_type != "application/json":
+        return {"error": "Content-Type not supported!"}, 415
+
+    missing_fields = [field for field in required_fields if field not in json]
+
+    if missing_fields:
+        return {
+            "error": f"The following fields are required: {', '.join(missing_fields)}"
+        }, 400
+
+    return None
+
+
 def check_request_json(content_type, json, required_fields):
     if content_type != "application/json":
         return {"error": "Content-Type not supported!"}, 415
