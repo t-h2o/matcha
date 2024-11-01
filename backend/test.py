@@ -310,13 +310,13 @@ def main():
     update()
     interests()
     check_post_token_file(
-        "/api/modify-pictures",
+        "/api/pictures",
         201,
         "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed1.jpg",
         {"success": "file uploaded"},
     )
     check_post_token_file(
-        "/api/modify-pictures",
+        "/api/pictures",
         201,
         [
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed2.jpg",
@@ -325,7 +325,7 @@ def main():
         {"success": "file uploaded"},
     )
     check_post_token_file(
-        "/api/modify-pictures",
+        "/api/pictures",
         401,
         [
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed1.jpg",
@@ -335,7 +335,7 @@ def main():
         {"error": "too many pictures"},
     )
     check_post_token_file(
-        "/api/modify-pictures",
+        "/api/pictures",
         201,
         [
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed3.jpg",

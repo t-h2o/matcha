@@ -176,7 +176,7 @@ def picture_post(user_id, request):
     db_upload_pictures(user_id, filenames)
 
 
-@app.route("/api/modify-pictures", methods=("POST", "GET"))
+@app.route("/api/pictures", methods=("POST", "GET"))
 @jwt_required()
 def modify_pictures():
     id_user = get_jwt_identity()
