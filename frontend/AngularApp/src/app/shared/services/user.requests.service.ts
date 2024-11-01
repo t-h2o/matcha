@@ -25,8 +25,8 @@ export class UserRequestsService {
     return this.httpClient.post(`${this.baseUrl}/register`, userData);
   }
 
-  modifyGeneral(userData: ModifiedUserGeneral) {
-    return this.httpClient.put(`${this.baseUrl}/modify-general`, userData);
+  modifyUser(userData: ModifiedUserGeneral) {
+    return this.httpClient.put(`${this.baseUrl}/users`, userData);
   }
 
   modifyEmail(userData: ModifiedUserEmail) {

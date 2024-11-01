@@ -59,7 +59,7 @@ export class ModifyGeneralComponent implements OnInit {
 
   private sendUserDataToAPI(userData: ModifiedUserGeneral) {
     const subscription = this.userService
-      .modifyGeneral(userData)
+      .modifyUser(userData)
       .pipe(
         finalize(() => {
           subscription.unsubscribe();
