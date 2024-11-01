@@ -1,1 +1,21 @@
 = Matcha
+
+== Glossary
+
+WSGI:: https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface[Web Server Gateway Interface]
+
+== Frameworks
+
+=== Frontend
+
+* https://angular.dev/[Angular]
+
+=== Database
+
+* https://www.postgresql.org/[PostgreSQL]
+
+=== Backend
+
+* https://flask.palletsprojects.com/en/3.0.x/quickstart/[Flask] as WSGI
+* https://www.psycopg.org/[psycopg] as adapter between Python and PostgreSQL
+* https://black.readthedocs.io/en/stable/index.html#[black] as code formatter
