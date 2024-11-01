@@ -4,6 +4,8 @@ import { UserRequestsService } from './user.requests.service';
 
 type Interests = { interests: string[] };
 
+type Interests = { interests: string[] };
+
 @Injectable({
   providedIn: 'root',
 })
