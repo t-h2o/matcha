@@ -3,6 +3,7 @@ import { finalize } from 'rxjs';
 import { UserRequestsService } from './user.requests.service';
 import { UserData } from '../../profile/dummyUserData';
 import { emptyUser } from '../models/emptyUser';
+import { ModifiedUserGeneral } from '../models/data-to-api/user';
 
 type Interests = { interests: string[] };
 
@@ -43,6 +44,52 @@ export class UserService {
         },
         error: (error: any) => {
           console.log('Error updating interests:', error);
+        },
+      });
+  }
+
+  getUserProfile() {
+    const subscription = this.userRequestsService
+      .getUser()
+      .pipe(finalize(() => subscription.unsubscribe()))
+      .subscribe({
+        next: (data: ModifiedUserGeneral) => {
+          this.profileData.update((prev) => {
+            return {
+              ...prev,
+              firstName: data.firstname,
+              lastName: data.lastname,
+              selectedGender: data.selectedGender,
+              sexualPreference: data.sexualPreference,
+              bio: data.bio,
+            };
+          });
+        },
+        error: (error: any) => {
+          console.log('Error getting user profile:', error);
+        },
+      });
+  }
+
+  modifyUserProfile(userData: ModifiedUserGeneral) {
+    const subscription = this.userRequestsService
+      .modifyUser(userData)
+      .pipe(finalize(() => subscription.unsubscribe()))
+      .subscribe({
+        next: (data: ModifiedUserGeneral) => {
+          this.profileData.update((prev) => {
+            return {
+              ...prev,
+              firstName: data.firstname,
+              lastName: data.lastname,
+              selectedGender: data.selectedGender,
+              sexualPreference: data.sexualPreference,
+              bio: data.bio,
+            };
+          });
+        },
+        error: (error: any) => {
+          console.log('Error getting user profile:', error);
         },
       });
   }
