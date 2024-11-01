@@ -38,7 +38,7 @@ export class UserService {
   }
 
   modifyInterests(userData: { interests: string[] }) {
-    return this.httpClient.put(`${this.baseUrl}/modify-interests`, userData);
+    return this.httpClient.put(`${this.baseUrl}/interests`, userData);
   }
 
   modifyPictures(pictures: File[]) {
@@ -55,7 +55,7 @@ export class UserService {
 
   getInterests() {
     return this.httpClient.get<{ interests: string[] }>(
-      `${this.baseUrl}/get-interests`,
+      `${this.baseUrl}/interests`,
     );
   }
 }
