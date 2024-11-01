@@ -26,7 +26,14 @@ export class UserRequestsService {
   }
 
   modifyUser(userData: ModifiedUserGeneral) {
-    return this.httpClient.put(`${this.baseUrl}/users`, userData);
+    return this.httpClient.put<ModifiedUserGeneral>(
+      `${this.baseUrl}/users`,
+      userData
+    );
+  }
+
+  getUser() {
+    return this.httpClient.get<ModifiedUserGeneral>(`${this.baseUrl}/users`);
   }
 
   modifyEmail(userData: ModifiedUserEmail) {
@@ -40,7 +47,7 @@ export class UserRequestsService {
   modifyInterestsRequest(userData: { interests: string[] }) {
     return this.httpClient.put<{ interests: string[] }>(
       `${this.baseUrl}/interests`,
-      userData,
+      userData
     );
   }
   
@@ -58,7 +65,7 @@ export class UserRequestsService {
 
   getInterests() {
     return this.httpClient.get<{ interests: string[] }>(
-      `${this.baseUrl}/interests`,
+      `${this.baseUrl}/interests`
     );
   }
 }
