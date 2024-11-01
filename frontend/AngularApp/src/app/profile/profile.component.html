@@ -3,7 +3,7 @@
     <main class="main">
       <app-modify-general
         [onCancel]="toggleIsModifyingGeneral"
-        [userProfile]="profileData"
+        [userProfile]="userData()"
       ></app-modify-general>
     </main>
   }
@@ -18,7 +18,7 @@
     <main class="main">
       <app-modify-email
         [onCancel]="toggleIModifyEmail"
-        [userEmail]="profileData.email"
+        [userEmail]="userData().email"
       ></app-modify-email>
     </main>
   }
@@ -26,27 +26,27 @@
     <main class="main">
       <app-modify-pictures
         [onCancel]="toggleIModifyPictures"
-        [userPictures]="profileData.pictures"
-        [profilePicture]="profileData.profilePic"
+        [userPictures]="userData().pictures"
+        [profilePicture]="userData().profilePic"
       ></app-modify-pictures>
     </main>
   } @else {
     <main class="profile-container">
       <div class="left">
         <app-general-profile
-          [userProfile]="profileData"
+          [userProfile]="userData()"
           [onModify]="toggleIsModifyingGeneral"
         ></app-general-profile>
         <app-interests [onModify]="toggleIModifyInterests"></app-interests>
         <app-email-passwd
-          [email]="profileData.email"
+          [email]="userData().email"
           [onModify]="toggleIModifyEmail"
         ></app-email-passwd>
       </div>
       <div class="right">
         <app-pictures-profile
-          [userPictures]="profileData.pictures"
-          [profilePicture]="profileData.profilePic"
+          [userPictures]="userData().pictures"
+          [profilePicture]="userData().profilePic"
           [onModify]="toggleIModifyPictures"
         ></app-pictures-profile>
       </div>

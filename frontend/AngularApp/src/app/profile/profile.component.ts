@@ -2,7 +2,6 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { UserService } from '../shared/services/user.service';
 import { CardComponent } from '../UI/card/card.component';
 import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
-import { dummyUserData, UserData } from './dummyUserData';
 import { EmailPasswdComponent } from './email-passwd/email-passwd.component';
 import { GeneralProfileComponent } from './general-profile/general-profile.component';
 import { InterestsComponent } from './interests/interests.component';
@@ -33,11 +32,12 @@ import { PicturesProfileComponent } from './pictures-profile/pictures-profile.co
 export class ProfileComponent implements OnInit {
   private userServices = inject(UserService);
   interests = this.userServices.interestList;
+  userData = this.userServices.profileData;
 
   ngOnInit(): void {
     this.userServices.getInterests();
+    this.userServices.getUserProfile();
   }
-  profileData: UserData = dummyUserData;
   isModifyingGeneral = signal<boolean>(false);
   isModifyingInterests = signal<boolean>(false);
   isModifyingEmail = signal<boolean>(false);
