@@ -184,7 +184,7 @@ def login():
 
 def update():
     check_put_token(
-        "/api/modify-general",
+        "/api/users",
         400,
         {"email": "b@b.com"},
         {
@@ -192,7 +192,7 @@ def update():
         },
     )
     check_put_token(
-        "/api/modify-general",
+        "/api/users",
         200,
         {
             "firstname": "Johnny",
@@ -201,10 +201,16 @@ def update():
             "sexualPreference": "e",
             "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
         },
-        {"success": "profile updated"},
+        {
+            "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
+            "firstname": "Johnny",
+            "lastname": "Appleseed",
+            "selectedGender": "m",
+            "sexualPreference": "e",
+        },
     )
     check_put_token(
-        "/api/modify-general",
+        "/api/users",
         200,
         {
             "firstname": "Johnny",
@@ -216,7 +222,7 @@ def update():
         {"error": "value too long for type character(1)\n"},
     )
     check_put(
-        "/api/modify-general",
+        "/api/users",
         401,
         {"firstname": "Johnny"},
         {"msg": "Missing Authorization Header"},
@@ -224,9 +230,9 @@ def update():
 
 
 def interests():
-    check_get_token("/api/get-interests", 201, {"interests": []})
+    check_get_token("/api/interests", 201, {"interests": []})
     check_put_token(
-        "/api/modify-interests",
+        "/api/interests",
         201,
         {
             "interests": [
@@ -239,10 +245,20 @@ def interests():
                 "meditation",
             ]
         },
-        {"success": "change interests"},
+        {
+            "interests": [
+                "technology",
+                "movies",
+                "nature",
+                "hiking",
+                "cooking",
+                "meditation",
+                "fashion",
+            ]
+        },
     )
     check_get_token(
-        "/api/get-interests",
+        "/api/interests",
         201,
         {
             "interests": [
@@ -257,7 +273,7 @@ def interests():
         },
     )
     check_put_token(
-        "/api/modify-interests",
+        "/api/interests",
         201,
         {
             "interests": [
@@ -268,21 +284,21 @@ def interests():
                 "meditation",
             ]
         },
-        {"success": "change interests"},
+        {"interests": ["technology", "nature", "hiking", "meditation", "fashion"]},
     )
     check_get_token(
-        "/api/get-interests",
+        "/api/interests",
         201,
         {"interests": ["technology", "nature", "hiking", "meditation", "fashion"]},
     )
     check_put_token(
-        "/api/modify-interests",
+        "/api/interests",
         201,
         {"interests": []},
-        {"success": "change interests"},
+        {"interests": []},
     )
     check_get_token(
-        "/api/get-interests",
+        "/api/interests",
         201,
         {"interests": []},
     )
