@@ -31,7 +31,7 @@ export class GeneralProfileComponent {
   }
 
   get gender() {
-    if (this.userProfile().gender === 'm') {
+    if (this.userProfile().selectedGender === 'm') {
       return 'Male';
     }
     return 'Female';
