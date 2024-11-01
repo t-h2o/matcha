@@ -3,6 +3,8 @@ from requests import post
 from requests import get
 from json import loads
 
+import re
+
 
 class bcolors:
     OKGREEN = "\033[92m"
@@ -180,7 +182,73 @@ def check_put_token(path, status, json, content):
     )
 
 
-def check_post_token_file(path, status, filenames, content):
+def check_pictures(
+    content_expected, content_received, path, code_expected, code_received
+):
+    if "pictures" in content_received and "pictures" in content_expected:
+        if len(content_expected["pictures"]) != len(content_received["pictures"]):
+            print_error(
+                URL,
+                path,
+                code_expected,
+                code_received,
+                content_expected,
+                content_received,
+            )
+            return True
+        for item in content_received["pictures"]:
+            pattern = re.compile("^" + URL + "/api/images")
+            if pattern.match(item) is None:
+                print_error(
+                    URL,
+                    path,
+                    code_expected,
+                    code_received,
+                    content_expected,
+                    content_received,
+                )
+                return True
+    elif "error" in content_received and "error" in content_expected:
+        if content_received["error"] != content_expected["error"]:
+            print_error(
+                URL,
+                path,
+                code_expected,
+                code_received,
+                content_expected,
+                content_received,
+            )
+            return True
+    else:
+        print_error(
+            URL,
+            path,
+            code_expected,
+            code_received,
+            content_expected,
+            content_received,
+        )
+        return True
+    return False
+
+
+def check_response_pictures(response, path, status, content):
+    content_received = loads(response.content)
+    if check_pictures(content, content_received, path, status, response.status_code):
+        return
+
+    print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path + " " + str(content))
+
+
+def check_get_token_pictures(path, status, content):
+    headers = {"Authorization": f"Bearer {access_token}"}
+
+    response = get(URL + path, headers=headers)
+
+    check_response_pictures(response, path, status, content)
+
+
+def check_post_token_pictures(path, status, filenames, content):
     headers = {"Authorization": f"Bearer {access_token}"}
 
     files = None
@@ -194,6 +262,4 @@ def check_post_token_file(path, status, filenames, content):
 
     response = post(URL + path, files=files, headers=headers)
 
-    check_content_code(
-        URL, path, status, response.status_code, content, response.content
-    )
+    check_response_pictures(response, path, status, content)

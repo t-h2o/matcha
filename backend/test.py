@@ -7,7 +7,8 @@ from test_utils import check_post
 from test_utils import check_put
 from test_utils import check_put_token
 from test_utils import check_get_token
-from test_utils import check_post_token_file
+from test_utils import check_get_token_pictures
+from test_utils import check_post_token_pictures
 
 HTTP_405 = b"<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
 
@@ -305,23 +306,23 @@ def interests():
 
 
 def pictures():
-    check_get_token("/api/pictures", 201, [])
-    check_post_token_file(
+    check_get_token("/api/pictures", 201, {"pictures": []})
+    check_post_token_pictures(
         "/api/pictures",
-        201,
+        200,
         "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed1.jpg",
-        {"success": "file uploaded"},
+        {"pictures": ["1"]},
     )
-    check_post_token_file(
+    check_post_token_pictures(
         "/api/pictures",
         201,
         [
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed2.jpg",
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed3.jpg",
         ],
-        {"success": "file uploaded"},
+        {"pictures": ["1", "2", "3"]},
     )
-    check_post_token_file(
+    check_post_token_pictures(
         "/api/pictures",
         401,
         [
@@ -331,14 +332,14 @@ def pictures():
         ],
         {"error": "too many pictures"},
     )
-    check_post_token_file(
+    check_post_token_pictures(
         "/api/pictures",
         201,
         [
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed3.jpg",
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed4.jpg",
         ],
-        {"success": "file uploaded"},
+        {"pictures": ["1", "2", "3", "4", "5"]},
     )
     check_put_token(
         "/api/modify-profile-picture",
@@ -347,6 +348,9 @@ def pictures():
             "selectedPictures": "johnnyAppleseed1.jpg",
         },
         {"success": "change profile picture"},
+    )
+    check_get_token_pictures(
+        "/api/pictures", 201, {"pictures": ["1", "2", "3", "4", "5"]}
     )
 
 
