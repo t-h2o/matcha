@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { UserRequestsService } from './user.requests.service';
 import { finalize } from 'rxjs';
+import { UserRequestsService } from './user.requests.service';
 
 type Interests = { interests: string[] };
 
