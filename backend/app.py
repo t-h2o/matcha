@@ -186,7 +186,7 @@ def modify_pictures():
         if error_msg:
             return error_msg
 
-    return jsonify({"success": "file uploaded"}), 201
+    return db_get_user_images(id_user), 201
 
 
 @app.route("/api/login", methods=["POST"])
