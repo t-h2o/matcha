@@ -184,6 +184,17 @@ def login():
 
 
 def update():
+    check_get_token(
+        "/api/users",
+        200,
+        {
+            "bio": None,
+            "firstname": "firstname",
+            "lastname": "lastname",
+            "selectedGender": None,
+            "sexualPreference": None,
+        },
+    )
     check_put_token(
         "/api/users",
         400,
@@ -227,6 +238,17 @@ def update():
         401,
         {"firstname": "Johnny"},
         {"msg": "Missing Authorization Header"},
+    )
+    check_get_token(
+        "/api/users",
+        200,
+        {
+            "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
+            "firstname": "Johnny",
+            "lastname": "Appleseed",
+            "selectedGender": "m",
+            "sexualPreference": "e",
+        },
     )
 
 
