@@ -37,7 +37,10 @@ export class UserRequestsService {
   }
 
   modifyEmail(userData: ModifiedUserEmail) {
-    return this.httpClient.put(`${this.baseUrl}/modify-email`, userData);
+    return this.httpClient.put<ModifiedUserEmail>(
+      `${this.baseUrl}/modify-email`,
+      userData,
+    );
   }
 
   modifyPassword(userData: ModifiedUserPassword) {

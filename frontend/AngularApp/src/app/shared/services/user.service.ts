@@ -2,7 +2,12 @@ import { inject, Injectable, signal } from '@angular/core';
 import { finalize } from 'rxjs';
 import { UserRequestsService } from './user.requests.service';
 import { emptyUser } from '../models/emptyUser';
-import { ModifiedUserGeneral, UserData } from '../models/data-to-api/user';
+import {
+  ModifiedUserEmail,
+  ModifiedUserGeneral,
+  ModifiedUserPassword,
+  UserData,
+} from '../models/data-to-api/user';
 
 type Interests = { interests: string[] };
 
@@ -89,6 +94,39 @@ export class UserService {
         },
         error: (error: any) => {
           console.log('Error getting user profile:', error);
+        },
+      });
+  }
+
+  modifyEmail(userData: ModifiedUserEmail) {
+    const subscription = this.userRequestsService
+      .modifyEmail(userData)
+      .pipe(finalize(() => subscription.unsubscribe()))
+      .subscribe({
+        next: (data: ModifiedUserEmail) => {
+          this.profileData.update((prev) => {
+            return {
+              ...prev,
+              email: data.email,
+            };
+          });
+        },
+        error: (error: any) => {
+          console.error('error: ' + JSON.stringify(error));
+        },
+      });
+  }
+
+  modifyPassword(userData: ModifiedUserPassword) {
+    const subscription = this.userRequestsService
+      .modifyPassword(userData)
+      .pipe(finalize(() => subscription.unsubscribe()))
+      .subscribe({
+        next: (data: any) => {
+          console.log('data: ' + JSON.stringify(data));
+        },
+        error: (error: any) => {
+          console.error('error: ' + JSON.stringify(error));
         },
       });
   }

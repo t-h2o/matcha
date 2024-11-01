@@ -8,7 +8,7 @@ import {
   ModifiedUserEmail,
   ModifiedUserPassword,
 } from '../../shared/models/data-to-api/user';
-import { UserRequestsService } from '../../shared/services/user.requests.service';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-modify-email',
@@ -24,8 +24,8 @@ import { UserRequestsService } from '../../shared/services/user.requests.service
 })
 export class ModifyEmailComponent implements OnInit {
   @Input({ required: true }) onCancel!: () => void;
-  @Input({ required: true }) userEmail!: string;
-  private userService = inject(UserRequestsService);
+  private userService = inject(UserService);
+  userEmail = this.userService.profileData().email;
 
   uEmail: string = '';
 
@@ -40,7 +40,7 @@ export class ModifyEmailComponent implements OnInit {
     const modifiedUserData: ModifiedUserEmail = {
       email: this.uEmail,
     };
-    this.sendUserEmailToAPI(modifiedUserData);
+    this.userService.modifyEmail(modifiedUserData);
     this.onCancel();
   }
 
@@ -52,43 +52,7 @@ export class ModifyEmailComponent implements OnInit {
       currentPassword: form.value.currentPassword,
       newPassword: form.value.newPassword,
     };
-    this.sendUserPasswordToAPI(modifiedUserData);
+    this.userService.modifyPassword(modifiedUserData);
     this.onCancel();
-  }
-
-  private sendUserEmailToAPI(userData: ModifiedUserEmail) {
-    const subscription = this.userService
-      .modifyEmail(userData)
-      .pipe(
-        finalize(() => {
-          subscription.unsubscribe();
-        }),
-      )
-      .subscribe({
-        next: (data: any) => {
-          console.log('data: ' + JSON.stringify(data));
-        },
-        error: (error: any) => {
-          console.error('error: ' + JSON.stringify(error));
-        },
-      });
-  }
-
-  private sendUserPasswordToAPI(userData: ModifiedUserPassword) {
-    const subscription = this.userService
-      .modifyPassword(userData)
-      .pipe(
-        finalize(() => {
-          subscription.unsubscribe();
-        }),
-      )
-      .subscribe({
-        next: (data: any) => {
-          console.log('data: ' + JSON.stringify(data));
-        },
-        error: (error: any) => {
-          console.error('error: ' + JSON.stringify(error));
-        },
-      });
   }
 }
