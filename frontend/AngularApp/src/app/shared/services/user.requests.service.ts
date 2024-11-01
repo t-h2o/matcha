@@ -50,7 +50,13 @@ export class UserRequestsService {
       userData
     );
   }
-  
+
+  getInterests() {
+    return this.httpClient.get<{ interests: string[] }>(
+      `${this.baseUrl}/interests`
+    );
+  }
+
   modifyPictures(pictures: File[]) {
     const formData = new FormData();
     pictures.forEach((picture) => formData.append('pictures', picture));
@@ -63,9 +69,5 @@ export class UserRequestsService {
     });
   }
 
-  getInterests() {
-    return this.httpClient.get<{ interests: string[] }>(
-      `${this.baseUrl}/interests`
-    );
-  }
+  
 }
