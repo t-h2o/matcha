@@ -304,11 +304,7 @@ def interests():
     )
 
 
-def main():
-    register()
-    login()
-    update()
-    interests()
+def pictures():
     check_post_token_file(
         "/api/pictures",
         201,
@@ -351,6 +347,14 @@ def main():
         },
         {"success": "change profile picture"},
     )
+
+
+def main():
+    register()
+    login()
+    update()
+    interests()
+    pictures()
     check_get_token("/api/deleteme", 200, {"success": "user delete"})
 
 
