@@ -37,7 +37,7 @@ export class UserRequestsService {
     return this.httpClient.put(`${this.baseUrl}/modify-password`, userData);
   }
 
-  modifyInterests(userData: { interests: string[] }) {
+  modifyInterestsRequest(userData: { interests: string[] }) {
     return this.httpClient.put(`${this.baseUrl}/interests`, userData);
   }
 

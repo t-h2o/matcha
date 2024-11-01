@@ -27,7 +27,7 @@ export class UserService {
 
   modifyInterests(selectedTagsObj: { interests: string[] }) {
     const subscription = this.userRequestsService
-      .modifyInterests(selectedTagsObj)
+      .modifyInterestsRequest(selectedTagsObj)
       .pipe(
         finalize(() => {
           subscription.unsubscribe();

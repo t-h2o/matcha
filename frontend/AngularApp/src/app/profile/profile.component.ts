@@ -1,6 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { finalize } from 'rxjs';
-import { UserRequestsService } from '../shared/services/user.requests.service';
+import { UserService } from '../shared/services/user.service';
 import { CardComponent } from '../UI/card/card.component';
 import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
 import { dummyUserData, UserData } from './dummyUserData';
@@ -32,22 +31,11 @@ import { PicturesProfileComponent } from './pictures-profile/pictures-profile.co
   styleUrl: './profile.component.scss',
 })
 export class ProfileComponent implements OnInit {
-  private userServices = inject(UserRequestsService);
-  interests = signal<{ interests: string[] }>({ interests: [] });
+  private userServices = inject(UserService);
+  interests = this.userServices.interestList;
 
   ngOnInit(): void {
-    const subscription = this.userServices
-      .getInterests()
-      .pipe(finalize(() => subscription.unsubscribe()))
-      .subscribe({
-        next: (data: { interests: string[] }) => {
-          this.interests.set(data);
-          console.log('Interests from back :', data);
-        },
-        error: (error: any) => {
-          console.log('Error getting interests:', error);
-        },
-      });
+    this.userServices.getInterests();
   }
   profileData: UserData = dummyUserData;
   isModifyingGeneral = signal<boolean>(false);
