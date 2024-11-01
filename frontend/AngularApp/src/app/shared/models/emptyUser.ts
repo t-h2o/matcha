@@ -10,5 +10,5 @@ export const emptyUser: UserData = {
   birthDate: '',
   bio: '',
   pictures: [],
-  profilePic: '',
+  profilePicture: '',
 };
