@@ -1,14 +1,16 @@
 #!/bin/python
 
-from test_utils import check_login_token
-from test_utils import check_415
-from test_utils import check_get
-from test_utils import check_post
-from test_utils import check_put
-from test_utils import check_put_token
-from test_utils import check_get_token
-from test_utils import check_get_token_pictures
-from test_utils import check_post_token_pictures
+from test_utils import (
+    check_login_token,
+    check_415,
+    check_get,
+    check_post,
+    check_put,
+    check_put_token,
+    check_get_token,
+    check_get_token_pictures,
+    check_post_token_pictures,
+)
 
 HTTP_405 = b"<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
 

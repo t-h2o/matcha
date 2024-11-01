@@ -1,39 +1,40 @@
-from os import path
-from os import environ
-from os import remove
-from flask import Flask
-from flask import request
-from flask import jsonify
-from flask import send_from_directory
+from os import path, environ, remove
 
-from flask_jwt_extended import create_access_token
-from flask_jwt_extended import jwt_required
-from flask_jwt_extended import JWTManager
-from flask_jwt_extended import get_jwt_identity
+from flask import Flask, request, jsonify, send_from_directory
+
+from flask_jwt_extended import (
+    create_access_token,
+    jwt_required,
+    JWTManager,
+    get_jwt_identity,
+)
 
 from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
 
 from flask_cors import CORS
 
-from app_utils import check_request_json
-from app_utils import check_request_json_values
-from app_utils import make_unique
-from app_utils import get_profile_picture_name
-from app_utils import flaskprint
+from app_utils import (
+    check_request_json,
+    check_request_json_values,
+    make_unique,
+    get_profile_picture_name,
+    flaskprint,
+)
 
-from db import db_get_interests
-from db import db_set_interests
-from db import db_register
-from db import db_get_id_password_where_username
-from db import db_get_user_per_id
-from db import db_set_user_profile_data
-from db import db_delete_user
-from db import db_upload_pictures
-from db import db_get_user_images
-from db import db_set_profile_picture
-from db import db_count_number_image
-
+from db import (
+    db_get_interests,
+    db_set_interests,
+    db_register,
+    db_get_id_password_where_username,
+    db_get_user_per_id,
+    db_set_user_profile_data,
+    db_delete_user,
+    db_upload_pictures,
+    db_get_user_images,
+    db_set_profile_picture,
+    db_count_number_image,
+)
 
 app = Flask(__name__)
 app.config["JWT_SECRET_KEY"] = environ["FLASK_JWT_SECRET_KEY"]
