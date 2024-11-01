@@ -157,11 +157,7 @@ def modify_profile_picture():
     return jsonify({"success": "change profile picture"}), 201
 
 
-@app.route("/api/modify-pictures", methods=["POST"])
-@jwt_required()
-def modify_pictures():
-    user_id = get_jwt_identity()
-
+def picture_post(user_id, request):
     number_of_picture = db_count_number_image(user_id)
 
     available_picture = 5 - number_of_picture[0]
@@ -178,6 +174,17 @@ def modify_pictures():
         filenames.append(app.config["URL"] + "/api/images/" + filename)
 
     db_upload_pictures(user_id, filenames)
+
+
+@app.route("/api/modify-pictures", methods=("POST", "GET"))
+@jwt_required()
+def modify_pictures():
+    id_user = get_jwt_identity()
+
+    if request.method == "POST":
+        error_msg = picture_post(id_user, request)
+        if error_msg:
+            return error_msg
 
     return jsonify({"success": "file uploaded"}), 201
 
@@ -238,7 +245,10 @@ def delete_me():
     image_filenames = db_get_user_images(id_user)
 
     for image_to_delete in image_filenames:
-        remove("uploads/" + image_to_delete[0].removeprefix(app.config['URL'] + "/api/images/"))
+        remove(
+            "uploads/"
+            + image_to_delete[0].removeprefix(app.config["URL"] + "/api/images/")
+        )
 
     db = db_delete_user(id_user)
 
