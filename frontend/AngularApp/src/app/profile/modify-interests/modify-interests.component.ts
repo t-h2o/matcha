@@ -1,10 +1,10 @@
 import { Component, inject, input, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { finalize } from 'rxjs';
 import { tags } from '../../shared/models/tags';
-import { UserService } from '../../shared/services/user.service';
+import { UserRequestsService } from '../../shared/services/user.requests.service';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
-import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-modify-interests',
@@ -16,7 +16,7 @@ import { finalize } from 'rxjs';
 export class ModifyInterestsComponent implements OnInit {
   @Input({ required: true }) onCancel!: () => void;
   interestList = input.required<{ interests: string[] }>();
-  private userService = inject(UserService);
+  private userService = inject(UserRequestsService);
 
   tagsList = tags;
   selectedTags: string[] = [];

@@ -3,7 +3,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { PasswordConfirmValidatorDirective } from '../shared/directives/password-confirm-validator.directive';
 import { UserRegister } from '../shared/models/data-to-api/user';
-import { UserService } from '../shared/services/user.service';
+import { UserRequestsService } from '../shared/services/user.requests.service';
 import { CardComponent } from '../UI/card/card.component';
 import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
 
@@ -21,7 +21,7 @@ import { CustomButtonComponent } from '../UI/custom-button/custom-button.compone
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
-  private userService = inject(UserService);
+  private userService = inject(UserRequestsService);
   private router = inject(Router);
 
   onSubmit(formData: NgForm) {

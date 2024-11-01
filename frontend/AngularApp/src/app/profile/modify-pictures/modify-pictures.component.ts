@@ -1,7 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
-import { UserService } from '../../shared/services/user.service';
+import { UserRequestsService } from '../../shared/services/user.requests.service';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { PicturePreviewComponent } from './picture-preview/picture-preview.component';
 
@@ -16,7 +16,7 @@ export class ModifyPicturesComponent {
   @Input({ required: true }) userPictures!: string[];
   @Input({ required: true }) profilePicture!: string;
   @Input() onCancel!: () => void;
-  private userService = inject(UserService);
+  private userService = inject(UserRequestsService);
 
   selectedPictures: File[] = [];
   maxFiles = 5;
