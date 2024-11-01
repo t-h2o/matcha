@@ -37,18 +37,13 @@ export class UserRequestsService {
     return this.httpClient.put(`${this.baseUrl}/modify-password`, userData);
   }
 
-<<<<<<< HEAD
   modifyInterestsRequest(userData: { interests: string[] }) {
     return this.httpClient.put<{ interests: string[] }>(
       `${this.baseUrl}/interests`,
       userData,
     );
-=======
-  modifyInterests(userData: { interests: string[] }) {
-    return this.httpClient.put(`${this.baseUrl}/interests`, userData);
->>>>>>> d5d3e1b (userService -> userRequestsService)
   }
-
+  
   modifyPictures(pictures: File[]) {
     const formData = new FormData();
     pictures.forEach((picture) => formData.append('pictures', picture));

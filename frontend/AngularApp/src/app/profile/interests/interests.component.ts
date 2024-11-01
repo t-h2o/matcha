@@ -1,4 +1,15 @@
+<<<<<<< HEAD
 import { Component, computed, inject, Input } from '@angular/core';
+=======
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  Input,
+} from '@angular/core';
+>>>>>>> 71acfe7 (components use userService for interests CRUD)
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { UserService } from '../../shared/services/user.service';
