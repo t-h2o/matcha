@@ -305,6 +305,7 @@ def interests():
 
 
 def pictures():
+    check_get_token("/api/pictures", 201, [])
     check_post_token_file(
         "/api/pictures",
         201,
