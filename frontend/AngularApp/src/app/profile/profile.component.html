@@ -23,7 +23,7 @@
       <app-modify-pictures
         [onCancel]="toggleIModifyPictures"
         [userPictures]="userData().pictures"
-        [profilePicture]="userData().profilePic"
+        [profilePicture]="userData().profilePicture"
       ></app-modify-pictures>
     </main>
   } @else {
@@ -33,14 +33,10 @@
           [onModify]="toggleIsModifyingGeneral"
         ></app-general-profile>
         <app-interests [onModify]="toggleIModifyInterests"></app-interests>
-        <app-email-passwd
-          [onModify]="toggleIModifyEmail"
-        ></app-email-passwd>
+        <app-email-passwd [onModify]="toggleIModifyEmail"></app-email-passwd>
       </div>
       <div class="right">
         <app-pictures-profile
-          [userPictures]="userData().pictures"
-          [profilePicture]="userData().profilePic"
           [onModify]="toggleIModifyPictures"
         ></app-pictures-profile>
       </div>

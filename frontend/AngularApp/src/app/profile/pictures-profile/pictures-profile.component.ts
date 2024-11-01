@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { NgClass } from '@angular/common';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-pictures-profile',
@@ -11,7 +12,8 @@ import { NgClass } from '@angular/common';
   styleUrl: './pictures-profile.component.scss',
 })
 export class PicturesProfileComponent {
-  @Input() userPictures!: string[];
-  @Input() profilePicture!: string;
   @Input() onModify!: () => void;
+  private userService = inject(UserService);
+  userPictures = this.userService.profileData().pictures;
+  profilePicture = this.userService.profileData().profilePicture;
 }

@@ -42,5 +42,5 @@ export type UserData = {
   birthDate: string;
   bio: string;
   pictures: string[];
-  profilePic: string;
+  profilePicture: string;
 };
