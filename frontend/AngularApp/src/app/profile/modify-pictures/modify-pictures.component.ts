@@ -1,7 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { finalize } from 'rxjs';
-import { UserRequestsService } from '../../shared/services/user.requests.service';
+import { UserService } from '../../shared/services/user.service';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { PicturePreviewComponent } from './picture-preview/picture-preview.component';
 
@@ -13,10 +12,11 @@ import { PicturePreviewComponent } from './picture-preview/picture-preview.compo
   styleUrl: './modify-pictures.component.scss',
 })
 export class ModifyPicturesComponent {
-  @Input({ required: true }) userPictures!: string[];
-  @Input({ required: true }) profilePicture!: string;
   @Input() onCancel!: () => void;
-  private userService = inject(UserRequestsService);
+  private userService = inject(UserService);
+
+  userPictures = this.userService.profileData().pictures;
+  profilePicture = this.userService.profileData().profilePicture;
 
   selectedPictures: File[] = [];
   maxFiles = 5;
@@ -73,39 +73,11 @@ export class ModifyPicturesComponent {
   }
 
   uploadFiles() {
-    const subscription = this.userService
-      .modifyPictures(this.selectedPictures)
-      .pipe(
-        finalize(() => {
-          subscription.unsubscribe();
-        }),
-      )
-      .subscribe({
-        next: (data: any) => {
-          console.log('data: ' + JSON.stringify(data));
-        },
-        error: (error: any) => {
-          console.log('Error uploading pictures:', error);
-        },
-      });
+    this.userService.modifyPictures(this.selectedPictures);
   }
 
   changeProfilePicture() {
-    const subscription = this.userService
-      .modifyProfilePicture(this.localProfilePicture)
-      .pipe(
-        finalize(() => {
-          subscription.unsubscribe();
-        }),
-      )
-      .subscribe({
-        next: (data: any) => {
-          console.log('data: ' + JSON.stringify(data));
-        },
-        error: (error: any) => {
-          console.log('Error changing profile pictures:', error);
-        },
-      });
+    this.userService.modifyProfilePicture(this.localProfilePicture);
   }
 
   onSubmit() {

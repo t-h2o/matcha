@@ -130,4 +130,32 @@ export class UserService {
         },
       });
   }
+
+  modifyPictures(pictures: File[]) {
+    const subscription = this.userRequestsService
+      .modifyPictures(pictures)
+      .pipe(finalize(() => subscription.unsubscribe()))
+      .subscribe({
+        next: (data: any) => {
+          console.log('data: ' + JSON.stringify(data));
+        },
+        error: (error: any) => {
+          console.log('Error uploading pictures:', error);
+        },
+      });
+  }
+
+  modifyProfilePicture(picture: string) {
+    const subscription = this.userRequestsService
+      .modifyProfilePicture(picture)
+      .pipe(finalize(() => subscription.unsubscribe()))
+      .subscribe({
+        next: (data: any) => {
+          console.log('data: ' + JSON.stringify(data));
+        },
+        error: (error: any) => {
+          console.log('Error changing profile pictures:', error);
+        },
+      });
+  }
 }
