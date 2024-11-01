@@ -1,6 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { finalize } from 'rxjs';
 import { UserRequestsService } from './user.requests.service';
+import { UserData } from '../../profile/dummyUserData';
+import { emptyUser } from '../models/emptyUser';
 
 type Interests = { interests: string[] };
 
@@ -11,6 +13,7 @@ export class UserService {
   private userRequestsService = inject(UserRequestsService);
 
   interestList = signal<Interests>({ interests: [] });
+  profileData = signal<UserData>(emptyUser);
 
   getInterests() {
     const subscription = this.userRequestsService
