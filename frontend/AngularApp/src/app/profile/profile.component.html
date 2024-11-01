@@ -3,7 +3,6 @@
     <main class="main">
       <app-modify-general
         [onCancel]="toggleIsModifyingGeneral"
-        [userProfile]="userData()"
       ></app-modify-general>
     </main>
   }
@@ -34,7 +33,6 @@
     <main class="profile-container">
       <div class="left">
         <app-general-profile
-          [userProfile]="userData()"
           [onModify]="toggleIsModifyingGeneral"
         ></app-general-profile>
         <app-interests [onModify]="toggleIModifyInterests"></app-interests>

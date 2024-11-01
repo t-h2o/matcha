@@ -2,13 +2,13 @@
   <div class="container">
     <div class="detail-group">
       <p>
-        <span class="list-title">First Name:</span>{{ userProfile.firstName }}
+        <span class="list-title">First Name:</span>{{ userProfile().firstName }}
       </p>
     </div>
     <div class="detail-group">
       <p>
         <span class="list-title">Last Name:</span
-        >{{ userProfile.lastName | uppercase }}
+        >{{ userProfile().lastName | uppercase }}
       </p>
     </div>
     <div class="detail-group">
@@ -21,7 +21,7 @@
       </p>
     </div>
     <div class="detail-group">
-      <p><span class="list-title">Bio:</span>{{ userProfile.bio }}</p>
+      <p><span class="list-title">Bio:</span>{{ userProfile().bio }}</p>
     </div>
     <div class="btn-container">
       <button custom-button class="btn" (click)="onClickModify()">
