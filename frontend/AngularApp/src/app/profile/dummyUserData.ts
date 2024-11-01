@@ -16,5 +16,3 @@ export let dummyUserData = {
   ],
   profilePic: 'johnnyAppleseed1.jpg',
 };
-
-export type UserData = typeof dummyUserData;

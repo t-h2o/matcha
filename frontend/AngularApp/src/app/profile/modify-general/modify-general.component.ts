@@ -26,7 +26,7 @@ export class ModifyGeneralComponent implements OnInit {
   ngOnInit() {
     this.firstName = this.userProfile().firstName;
     this.lastName = this.userProfile().lastName;
-    this.selectedGender = this.userProfile().gender;
+    this.selectedGender = this.userProfile().selectedGender;
     this.sexualPreference = this.userProfile().sexualPreference;
     this.bio = this.userProfile().bio;
   }

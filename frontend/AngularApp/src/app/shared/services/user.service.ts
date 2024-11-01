@@ -1,9 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { finalize } from 'rxjs';
 import { UserRequestsService } from './user.requests.service';
-import { UserData } from '../../profile/dummyUserData';
 import { emptyUser } from '../models/emptyUser';
-import { ModifiedUserGeneral } from '../models/data-to-api/user';
+import { ModifiedUserGeneral, UserData } from '../models/data-to-api/user';
 
 type Interests = { interests: string[] };
 

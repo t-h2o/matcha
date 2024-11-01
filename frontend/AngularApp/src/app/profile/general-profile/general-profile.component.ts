@@ -1,9 +1,8 @@
-import { Component, inject, Input } from '@angular/core';
-import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
-import { CardComponent } from '../../UI/card/card.component';
-import { UserData } from '../dummyUserData';
 import { UpperCasePipe } from '@angular/common';
+import { Component, inject, Input } from '@angular/core';
 import { UserService } from '../../shared/services/user.service';
+import { CardComponent } from '../../UI/card/card.component';
+import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-general-profile',

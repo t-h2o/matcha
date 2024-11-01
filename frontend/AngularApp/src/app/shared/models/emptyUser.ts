@@ -1,11 +1,11 @@
-import { UserData } from '../../profile/dummyUserData';
+import { UserData } from './data-to-api/user';
 
 export const emptyUser: UserData = {
   username: '',
   firstName: '',
   lastName: '',
   email: '',
-  gender: '',
+  selectedGender: '',
   sexualPreference: '',
   birthDate: '',
   bio: '',
