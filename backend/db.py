@@ -164,7 +164,7 @@ def db_get_user_images(id_user):
                 "SELECT image_url FROM user_images WHERE user_id = %s", (id_user,)
             )
             filenames = cur.fetchall()
-            return filenames
+            return fetchall_to_array(filenames)
 
     return filenames
 

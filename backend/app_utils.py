@@ -58,7 +58,7 @@ def get_profile_picture_name(id_user, selected_picture, image_filenames):
     for image in image_filenames:
         regex_result = search(
             str(id_user) + "_.{36}-" + selected_picture,
-            image[0],
+            image,
         )
         if regex_result is not None:
             return regex_result.string
