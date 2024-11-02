@@ -272,11 +272,7 @@ def register_user():
     return jsonify(response)
 
 
-@app.route("/api/deleteme")
-@jwt_required()
-def delete_me():
-    id_user = get_jwt_identity()
-
+def wipe_user_image(id_user):
     image_filenames = db_get_user_images(id_user)
 
     for image_to_delete in image_filenames:
@@ -285,6 +281,14 @@ def delete_me():
 
             continue
         remove("uploads/" + filename)
+
+
+@app.route("/api/deleteme")
+@jwt_required()
+def delete_me():
+    id_user = get_jwt_identity()
+
+    wipe_user_image(id_user)
 
     db = db_delete_user(id_user)
 
