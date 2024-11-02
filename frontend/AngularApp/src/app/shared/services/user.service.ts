@@ -137,7 +137,6 @@ export class UserService {
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: any) => {
-          console.log('data: ' + data.pictures);
           this.profileData.update((prev) => {
             return {
               ...prev,
@@ -177,7 +176,6 @@ export class UserService {
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: any) => {
-          console.log('data: ' + data.pictures);
           this.profileData.update((prev) => {
             return {
               ...prev,
