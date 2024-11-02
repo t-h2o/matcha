@@ -220,7 +220,6 @@ def db_register(username, password, firstname, lastname, email, default_avatar):
 
     id_user = db_get_iduser_per_username(username)
 
-    # insert default avatar as user image
     db_query(
         "INSERT INTO user_images (user_id, image_url) VALUES (%s,%s);",
         (
@@ -229,17 +228,10 @@ def db_register(username, password, firstname, lastname, email, default_avatar):
         ),
     )
 
-    # get id of the default avatar
-    id_image = db_fetchone(
-        "SELECT id FROM user_images WHERE user_id = %s",
-        (id_user,),
-    )
-
-    # set id of the default avatar
     error_msg = db_query(
-        "UPDATE users SET profile_picture_id = %s where id = %s",
+        "UPDATE users SET profile_picture_id = subquery.id FROM (SELECT id FROM user_images WHERE user_id = %s) AS subquery WHERE id = %s",
         (
-            id_image,
+            id_user,
             id_user,
         ),
     )
