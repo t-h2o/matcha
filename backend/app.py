@@ -280,10 +280,11 @@ def delete_me():
     image_filenames = db_get_user_images(id_user)
 
     for image_to_delete in image_filenames:
-        remove(
-            "uploads/"
-            + image_to_delete.removeprefix(app.config["URL"] + "/api/images/")
-        )
+        filename = image_to_delete.removeprefix(app.config["URL"] + "/api/images/")
+        if filename == "avatar.png":
+
+            continue
+        remove("uploads/" + filename)
 
     db = db_delete_user(id_user)
 
