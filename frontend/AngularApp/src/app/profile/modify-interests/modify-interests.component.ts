@@ -1,10 +1,9 @@
-import { Component, inject, input, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { tags } from '../../shared/models/tags';
 import { UserService } from '../../shared/services/user.service';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
-import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-modify-interests',
@@ -15,9 +14,9 @@ import { finalize } from 'rxjs';
 })
 export class ModifyInterestsComponent implements OnInit {
   @Input({ required: true }) onCancel!: () => void;
-  interestList = input.required<{ interests: string[] }>();
   private userService = inject(UserService);
 
+  interestList = this.userService.interestList;
   tagsList = tags;
   selectedTags: string[] = [];
 
@@ -39,21 +38,7 @@ export class ModifyInterestsComponent implements OnInit {
 
   onSubmit() {
     const selectedTagsObj = { interests: this.selectedTags };
-    const subscription = this.userService
-      .modifyInterests(selectedTagsObj)
-      .pipe(
-        finalize(() => {
-          subscription.unsubscribe();
-        }),
-      )
-      .subscribe({
-        next: (data: any) => {
-          console.log('data: ' + JSON.stringify(data));
-        },
-        error: (error: any) => {
-          console.log('Error updating interests:', error);
-        },
-      });
+    this.userService.modifyInterests(selectedTagsObj);
     this.onCancel();
   }
 }

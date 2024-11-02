@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
-import { UserService } from '../shared/services/user.service';
+import { UserRequestsService } from '../shared/services/user.requests.service';
 import { CardComponent } from '../UI/card/card.component';
 import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
 
@@ -14,7 +14,7 @@ import { CustomButtonComponent } from '../UI/custom-button/custom-button.compone
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  private userService = inject(UserService);
+  private userService = inject(UserRequestsService);
   private authService = inject(AuthService);
   private router = inject(Router);
   falseCredentials = signal<boolean>(false);
