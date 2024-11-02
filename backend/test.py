@@ -334,15 +334,15 @@ def pictures():
     check_post_token_pictures(
         "/api/pictures",
         200,
-        "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed1.jpg",
+        "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
         {"pictures": ["1"]},
     )
     check_post_token_pictures(
         "/api/pictures",
         201,
         [
-            "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed2.jpg",
-            "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed3.jpg",
+            "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
+            "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
         ],
         {"pictures": ["1", "2", "3"]},
     )
@@ -350,9 +350,9 @@ def pictures():
         "/api/pictures",
         401,
         [
-            "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed1.jpg",
-            "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed3.jpg",
-            "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed4.jpg",
+            "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
+            "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
+            "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
         ],
         {"error": "too many pictures"},
     )
@@ -360,8 +360,8 @@ def pictures():
         "/api/pictures",
         201,
         [
-            "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed3.jpg",
-            "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed4.jpg",
+            "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
+            "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
         ],
         {"pictures": ["1", "2", "3", "4", "5"]},
     )
@@ -369,7 +369,7 @@ def pictures():
         "/api/modify-profile-picture",
         201,
         {
-            "selectedPictures": "johnnyAppleseed1.jpg",
+            "selectedPictures": "placeholderPic.jpg",
         },
         {"success": "change profile picture"},
     )

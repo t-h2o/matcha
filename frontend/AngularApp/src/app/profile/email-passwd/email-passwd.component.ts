@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { CardComponent } from '../../UI/card/card.component';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-email-passwd',
@@ -10,6 +11,14 @@ import { CardComponent } from '../../UI/card/card.component';
   styleUrl: './email-passwd.component.scss',
 })
 export class EmailPasswdComponent {
-  @Input({ required: true }) email!: string;
   @Input({ required: true }) onModify!: () => void;
+  private userService = inject(UserService);
+  userEmail = this.userService.profileData().email;
+
+  get Email() {
+    if (this.userEmail === '') {
+      return 'No email';
+    }
+    return this.userEmail;
+  }
 }

@@ -25,12 +25,22 @@ export class UserRequestsService {
     return this.httpClient.post(`${this.baseUrl}/register`, userData);
   }
 
-  modifyGeneral(userData: ModifiedUserGeneral) {
-    return this.httpClient.put(`${this.baseUrl}/modify-general`, userData);
+  modifyUser(userData: ModifiedUserGeneral) {
+    return this.httpClient.put<ModifiedUserGeneral>(
+      `${this.baseUrl}/users`,
+      userData,
+    );
+  }
+
+  getUser() {
+    return this.httpClient.get<ModifiedUserGeneral>(`${this.baseUrl}/users`);
   }
 
   modifyEmail(userData: ModifiedUserEmail) {
-    return this.httpClient.put(`${this.baseUrl}/modify-email`, userData);
+    return this.httpClient.put<ModifiedUserEmail>(
+      `${this.baseUrl}/modify-email`,
+      userData,
+    );
   }
 
   modifyPassword(userData: ModifiedUserPassword) {
@@ -44,21 +54,21 @@ export class UserRequestsService {
     );
   }
 
+  getInterests() {
+    return this.httpClient.get<{ interests: string[] }>(
+      `${this.baseUrl}/interests`,
+    );
+  }
+
   modifyPictures(pictures: File[]) {
     const formData = new FormData();
     pictures.forEach((picture) => formData.append('pictures', picture));
-    return this.httpClient.post(`${this.baseUrl}/modify-pictures`, formData);
+    return this.httpClient.post(`${this.baseUrl}/pictures`, formData);
   }
 
   modifyProfilePicture(selectedPictures: string) {
     return this.httpClient.put(`${this.baseUrl}/modify-profile-picture`, {
       selectedPictures,
     });
-  }
-
-  getInterests() {
-    return this.httpClient.get<{ interests: string[] }>(
-      `${this.baseUrl}/interests`,
-    );
   }
 }

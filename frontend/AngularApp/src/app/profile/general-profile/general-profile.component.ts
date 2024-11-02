@@ -1,38 +1,52 @@
-import { Component, Input } from '@angular/core';
-import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
+import { Component, inject, Input } from '@angular/core';
+import { UserService } from '../../shared/services/user.service';
 import { CardComponent } from '../../UI/card/card.component';
-import { UserData } from '../dummyUserData';
-import { UpperCasePipe } from '@angular/common';
+import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-general-profile',
   standalone: true,
-  imports: [CardComponent, CustomButtonComponent, UpperCasePipe],
+  imports: [CardComponent, CustomButtonComponent, TitleCasePipe],
   templateUrl: './general-profile.component.html',
   styleUrl: './general-profile.component.scss',
 })
 export class GeneralProfileComponent {
-  @Input() userProfile!: UserData;
   @Input() onModify!: () => void;
+  private userServices = inject(UserService);
+  userProfile = this.userServices.profileData;
 
   onClickModify() {
     this.onModify();
   }
 
   get sexualPreference() {
-    if (this.userProfile.sexualPreference === 'e') {
+    if (this.userProfile().sexualPreference === 'e') {
       return 'Heterosexual';
     }
-    if (this.userProfile.sexualPreference === 'o') {
+    if (this.userProfile().sexualPreference === 'o') {
       return 'Homosexual';
     }
-    return 'Bisexual';
+    if (this.userProfile().sexualPreference === 'b') {
+      return 'Bisexual';
+    }
+    return 'NOT SPECIFIED';
   }
 
   get gender() {
-    if (this.userProfile.gender === 'm') {
+    if (this.userProfile().selectedGender === 'm') {
       return 'Male';
     }
-    return 'Female';
+    if (this.userProfile().selectedGender === 'f') {
+      return 'Female';
+    }
+    return 'NOT SPECIFIED';
+  }
+
+  get bio() {
+    if (this.userProfile().bio === '') {
+      return 'EMPTY';
+    }
+    return this.userProfile().bio;
   }
 }

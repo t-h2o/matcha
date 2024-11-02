@@ -1,11 +1,9 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { finalize } from 'rxjs';
 import { ModifiedUserGeneral } from '../../shared/models/data-to-api/user';
-import { UserRequestsService } from '../../shared/services/user.requests.service';
+import { UserService } from '../../shared/services/user.service';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
-import { UserData } from '../dummyUserData';
 
 @Component({
   selector: 'app-modify-general',
@@ -16,9 +14,8 @@ import { UserData } from '../dummyUserData';
 })
 export class ModifyGeneralComponent implements OnInit {
   @Input({ required: true }) onCancel!: () => void;
-  @Input({ required: true }) userProfile!: UserData;
-
-  private userService = inject(UserRequestsService);
+  private userService = inject(UserService);
+  userProfile = this.userService.profileData;
 
   firstName: string = '';
   lastName: string = '';
@@ -27,11 +24,11 @@ export class ModifyGeneralComponent implements OnInit {
   bio: string = '';
 
   ngOnInit() {
-    this.firstName = this.userProfile.firstName;
-    this.lastName = this.userProfile.lastName;
-    this.selectedGender = this.userProfile.gender;
-    this.sexualPreference = this.userProfile.sexualPreference;
-    this.bio = this.userProfile.bio;
+    this.firstName = this.userProfile().firstName;
+    this.lastName = this.userProfile().lastName;
+    this.selectedGender = this.userProfile().selectedGender;
+    this.sexualPreference = this.userProfile().sexualPreference;
+    this.bio = this.userProfile().bio;
   }
 
   onSubmit(formData: NgForm) {
@@ -52,26 +49,8 @@ export class ModifyGeneralComponent implements OnInit {
       bio: this.bio,
     };
 
-    this.sendUserDataToAPI(modifiedUserData);
+    this.userService.modifyUserProfile(modifiedUserData);
     formData.form.reset();
     this.onCancel();
-  }
-
-  private sendUserDataToAPI(userData: ModifiedUserGeneral) {
-    const subscription = this.userService
-      .modifyGeneral(userData)
-      .pipe(
-        finalize(() => {
-          subscription.unsubscribe();
-        }),
-      )
-      .subscribe({
-        next: (data: any) => {
-          console.log('data: ' + JSON.stringify(data));
-        },
-        error: (error: any) => {
-          console.error('error: ' + JSON.stringify(error));
-        },
-      });
   }
 }

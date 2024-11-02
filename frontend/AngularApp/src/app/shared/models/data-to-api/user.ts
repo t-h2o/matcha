@@ -31,3 +31,16 @@ export type ModifiedUserPassword = {
 export type UserInterests = {
   interests: string[];
 };
+
+export type UserData = {
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  selectedGender: string;
+  sexualPreference: string;
+  birthDate: string;
+  bio: string;
+  pictures: string[];
+  profilePicture: string;
+};
