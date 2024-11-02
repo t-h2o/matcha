@@ -154,7 +154,7 @@ def modify_profile_picture():
 
     db_set_profile_picture(id_user, profile_picture_name)
 
-    return jsonify({"success": "change profile picture"}), 201
+    return jsonify({"selectedPicture": profile_picture_name}), 201
 
 
 def picture_post(user_id, request):

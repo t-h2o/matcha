@@ -152,17 +152,16 @@ export class UserService {
       });
   }
 
-  modifyProfilePicture(picture: string) {
+  modifyProfilePicture(pictureName: string) {
     const subscription = this.userRequestsService
-      .modifyProfilePicture(picture)
+      .modifyProfilePicture(pictureName)
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: any) => {
-          console.log('data: ' + data.profilePicture);
           this.profileData.update((prev) => {
             return {
               ...prev,
-              profilePicture: data.profilePicture,
+              profilePicture: data.selectedPicture,
             };
           });
         },
