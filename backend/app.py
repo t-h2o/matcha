@@ -266,6 +266,7 @@ def register_user():
         json["firstname"],
         json["lastname"],
         json["email"],
+        app.config["URL"] + "/api/images/avatar.png",
     )
 
     return jsonify(response)
