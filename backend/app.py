@@ -47,7 +47,6 @@ jwt = JWTManager(app)
 
 
 @app.route("/api/images/<filename>")
-@jwt_required()
 def serve_image(filename):
     return send_from_directory("uploads", filename)
 

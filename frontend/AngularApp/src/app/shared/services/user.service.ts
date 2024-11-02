@@ -137,7 +137,14 @@ export class UserService {
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: any) => {
-          console.log('data: ' + JSON.stringify(data));
+          console.log('data: ' + data.pictures);
+          this.profileData.update((prev) => {
+            return {
+              ...prev,
+              pictures: data.pictures,
+            };
+          }
+          );
           this.modifyProfilePicture(profilePicture);
         },
         error: (error: any) => {
@@ -152,10 +159,37 @@ export class UserService {
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: any) => {
-          console.log('data: ' + JSON.stringify(data));
+          console.log('data: ' + data.profilePicture);
+          this.profileData.update((prev) => {
+            return {
+              ...prev,
+              profilePicture: data.profilePicture,
+            };
+          });
         },
         error: (error: any) => {
           console.log('Error changing profile pictures:', error);
+        },
+      });
+  }
+
+  getUserPictures() {
+    const subscription = this.userRequestsService
+      .getPictures()
+      .pipe(finalize(() => subscription.unsubscribe()))
+      .subscribe({
+        next: (data: any) => {
+          console.log('data: ' + data.pictures);
+          this.profileData.update((prev) => {
+            return {
+              ...prev,
+              pictures: data.pictures,
+            };
+          }
+          );
+        },
+        error: (error: any) => {
+          console.log('Error uploading pictures:', error);
         },
       });
   }
