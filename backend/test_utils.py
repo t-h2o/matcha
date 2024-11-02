@@ -186,7 +186,7 @@ def check_pictures(
     content_expected, content_received, path, code_expected, code_received
 ):
     if "pictures" in content_received and "pictures" in content_expected:
-        if len(content_expected["pictures"]) != len(content_received["pictures"]):
+        if content_expected["pictures"] != len(content_received["pictures"]):
             print_error(
                 URL,
                 path,

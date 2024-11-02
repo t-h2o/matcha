@@ -330,12 +330,12 @@ def interests():
 
 
 def pictures():
-    check_get_token("/api/pictures", 201, {"pictures": []})
+    check_get_token_pictures("/api/pictures", 201, {"pictures": 1})
     check_post_token_pictures(
         "/api/pictures",
         200,
         "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
-        {"pictures": ["1"]},
+        {"pictures": 2},
     )
     check_post_token_pictures(
         "/api/pictures",
@@ -344,13 +344,12 @@ def pictures():
             "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
             "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
         ],
-        {"pictures": ["1", "2", "3"]},
+        {"pictures": 4},
     )
     check_post_token_pictures(
         "/api/pictures",
         401,
         [
-            "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
             "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
             "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
         ],
@@ -361,9 +360,8 @@ def pictures():
         201,
         [
             "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
-            "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
         ],
-        {"pictures": ["1", "2", "3", "4", "5"]},
+        {"pictures": 5},
     )
     check_put_token(
         "/api/modify-profile-picture",
@@ -373,9 +371,7 @@ def pictures():
         },
         {"success": "change profile picture"},
     )
-    check_get_token_pictures(
-        "/api/pictures", 201, {"pictures": ["1", "2", "3", "4", "5"]}
-    )
+    check_get_token_pictures("/api/pictures", 201, {"pictures": 5})
 
 
 def email():
