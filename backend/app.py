@@ -47,7 +47,6 @@ jwt = JWTManager(app)
 
 
 @app.route("/api/images/<filename>")
-@jwt_required()
 def serve_image(filename):
     return send_from_directory("uploads", filename)
 
@@ -155,7 +154,7 @@ def modify_profile_picture():
 
     db_set_profile_picture(id_user, profile_picture_name)
 
-    return jsonify({"success": "change profile picture"}), 201
+    return jsonify({"selectedPicture": profile_picture_name}), 201
 
 
 def picture_post(user_id, request):

@@ -1,7 +1,7 @@
 <app-card>
   <div class="container">
     <div class="grid">
-      @if (userPictures.length === 0) {
+      @if (userPictures().length === 0) {
         <div>
           <img
             [src]="'/dummy-pics/placeholderPic.jpg'"
@@ -12,14 +12,14 @@
           />
         </div>
       } @else {
-        @for (pic of userPictures; track $index) {
+        @for (pic of userPictures(); track $index) {
           <div>
             <img
-              [src]="'/dummy-pics/' + pic"
+              [src]="pic"
               alt="{{ pic }}"
               [ngClass]="{
                 'image-resize': true,
-                'profile-picture': pic === profilePicture,
+                'profile-picture': pic === profilePicture(),
               }"
             />
           </div>
