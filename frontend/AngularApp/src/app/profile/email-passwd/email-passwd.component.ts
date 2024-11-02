@@ -16,7 +16,6 @@ export class EmailPasswdComponent {
   userEmail = this.userService.profileData().email;
 
   get Email() {
-    console.log(this.userEmail);
     if (this.userEmail === '') {
       return 'No email';
     }
