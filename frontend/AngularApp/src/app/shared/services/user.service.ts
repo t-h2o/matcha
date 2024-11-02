@@ -131,13 +131,14 @@ export class UserService {
       });
   }
 
-  modifyPictures(pictures: File[]) {
+  modifyPictures(pictures: File[], profilePicture: string) {
     const subscription = this.userRequestsService
       .modifyPictures(pictures)
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: any) => {
           console.log('data: ' + JSON.stringify(data));
+          this.modifyProfilePicture(profilePicture);
         },
         error: (error: any) => {
           console.log('Error uploading pictures:', error);

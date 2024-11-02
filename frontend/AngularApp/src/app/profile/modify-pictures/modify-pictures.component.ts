@@ -72,12 +72,11 @@ export class ModifyPicturesComponent {
     this.selectedPictures.push(file);
   }
 
-  uploadFiles() {
-    this.userService.modifyPictures(this.selectedPictures);
-  }
-
-  changeProfilePicture() {
-    this.userService.modifyProfilePicture(this.localProfilePicture);
+  uploadFilesAndProfilePicture() {
+    this.userService.modifyPictures(
+      this.selectedPictures,
+      this.localProfilePicture,
+    );
   }
 
   onSubmit() {
@@ -85,8 +84,7 @@ export class ModifyPicturesComponent {
       this.selectedPictures.length > 0 &&
       this.localProfilePicture.trim().length > 0
     ) {
-      this.uploadFiles();
-      this.changeProfilePicture();
+      this.uploadFilesAndProfilePicture();
     }
     this.onCancel();
   }
