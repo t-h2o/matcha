@@ -63,7 +63,10 @@ export class UserRequestsService {
   modifyPictures(pictures: File[]) {
     const formData = new FormData();
     pictures.forEach((picture) => formData.append('pictures', picture));
-    return this.httpClient.post<{pictures: string[]}>(`${this.baseUrl}/pictures`, formData);
+    return this.httpClient.post<{ pictures: string[] }>(
+      `${this.baseUrl}/pictures`,
+      formData,
+    );
   }
 
   modifyProfilePicture(selectedPictures: string) {
@@ -77,5 +80,4 @@ export class UserRequestsService {
       `${this.baseUrl}/pictures`,
     );
   }
-
 }

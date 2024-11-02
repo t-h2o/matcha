@@ -143,8 +143,7 @@ export class UserService {
               ...prev,
               pictures: data.pictures,
             };
-          }
-          );
+          });
           this.modifyProfilePicture(profilePicture);
         },
         error: (error: any) => {
@@ -185,8 +184,7 @@ export class UserService {
               ...prev,
               pictures: data.pictures,
             };
-          }
-          );
+          });
         },
         error: (error: any) => {
           console.log('Error uploading pictures:', error);

@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, computed, inject, Input } from '@angular/core';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { NgClass } from '@angular/common';
@@ -14,6 +14,8 @@ import { UserService } from '../../shared/services/user.service';
 export class PicturesProfileComponent {
   @Input() onModify!: () => void;
   private userService = inject(UserService);
-  userPictures = this.userService.profileData().pictures;
-  profilePicture = this.userService.profileData().profilePicture;
+  userPictures = computed(() => this.userService.profileData().pictures);
+  profilePicture = computed(
+    () => this.userService.profileData().profilePicture,
+  );
 }
