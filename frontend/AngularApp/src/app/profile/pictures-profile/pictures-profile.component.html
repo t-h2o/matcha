@@ -15,7 +15,7 @@
         @for (pic of userPictures; track $index) {
           <div>
             <img
-              [src]="'/dummy-pics/' + pic"
+              [src]="pic"
               alt="{{ pic }}"
               [ngClass]="{
                 'image-resize': true,
