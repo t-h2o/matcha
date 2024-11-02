@@ -1,46 +1,55 @@
-from os import path
-from os import environ
-from os import remove
-from flask import Flask
-from flask import request
-from flask import jsonify
+from os import path, environ, remove
 
-from flask_jwt_extended import create_access_token
-from flask_jwt_extended import jwt_required
-from flask_jwt_extended import JWTManager
-from flask_jwt_extended import get_jwt_identity
+from flask import Flask, request, jsonify, send_from_directory
+
+from flask_jwt_extended import (
+    create_access_token,
+    jwt_required,
+    JWTManager,
+    get_jwt_identity,
+)
 
 from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
 
 from flask_cors import CORS
 
-from app_utils import check_request_json
-from app_utils import check_request_json_values
-from app_utils import make_unique
-from app_utils import get_profile_picture_name
-from app_utils import flaskprint
+from app_utils import (
+    check_request_json,
+    check_request_json_values,
+    make_unique,
+    get_profile_picture_name,
+    flaskprint,
+)
 
-from db import db_get_interests
-from db import db_set_interests
-from db import db_register
-from db import db_get_id_password_where_username
-from db import db_get_user_per_id
-from db import db_set_user_profile_data
-from db import db_delete_user
-from db import db_upload_pictures
-from db import db_get_user_images
-from db import db_set_profile_picture
-from db import db_count_number_image
-
+from db import (
+    db_get_interests,
+    db_set_interests,
+    db_register,
+    db_get_id_password_where_username,
+    db_get_user_per_id,
+    db_set_user_profile_data,
+    db_delete_user,
+    db_upload_pictures,
+    db_get_user_images,
+    db_set_profile_picture,
+    db_count_number_image,
+)
 
 app = Flask(__name__)
 app.config["JWT_SECRET_KEY"] = environ["FLASK_JWT_SECRET_KEY"]
 app.config["UPLOAD_FOLDER"] = environ["FLASK_UPLOAD_FOLDER"]
+app.config["URL"] = environ["FLASK_URL"]
 
 CORS(app, origins="http://localhost:4200")
 
 jwt = JWTManager(app)
+
+
+@app.route("/api/images/<filename>")
+@jwt_required()
+def serve_image(filename):
+    return send_from_directory("uploads", filename)
 
 
 def interests_put(id_user, request):
@@ -149,11 +158,7 @@ def modify_profile_picture():
     return jsonify({"success": "change profile picture"}), 201
 
 
-@app.route("/api/modify-pictures", methods=["POST"])
-@jwt_required()
-def modify_pictures():
-    user_id = get_jwt_identity()
-
+def picture_post(user_id, request):
     number_of_picture = db_count_number_image(user_id)
 
     available_picture = 5 - number_of_picture[0]
@@ -167,11 +172,22 @@ def modify_pictures():
     for item in list_pictures:
         filename = str(user_id) + "_" + make_unique(secure_filename(item.filename))
         item.save(path.join(app.config["UPLOAD_FOLDER"], filename))
-        filenames.append(filename)
+        filenames.append(app.config["URL"] + "/api/images/" + filename)
 
     db_upload_pictures(user_id, filenames)
 
-    return jsonify({"success": "file uploaded"}), 201
+
+@app.route("/api/pictures", methods=("POST", "GET"))
+@jwt_required()
+def modify_pictures():
+    id_user = get_jwt_identity()
+
+    if request.method == "POST":
+        error_msg = picture_post(id_user, request)
+        if error_msg:
+            return error_msg
+
+    return {"pictures": db_get_user_images(id_user)}, 201
 
 
 @app.route("/api/login", methods=["POST"])
@@ -230,7 +246,10 @@ def delete_me():
     image_filenames = db_get_user_images(id_user)
 
     for image_to_delete in image_filenames:
-        remove("uploads/" + image_to_delete[0])
+        remove(
+            "uploads/"
+            + image_to_delete.removeprefix(app.config["URL"] + "/api/images/")
+        )
 
     db = db_delete_user(id_user)
 

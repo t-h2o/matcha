@@ -1,13 +1,16 @@
 #!/bin/python
 
-from test_utils import check_login_token
-from test_utils import check_415
-from test_utils import check_get
-from test_utils import check_post
-from test_utils import check_put
-from test_utils import check_put_token
-from test_utils import check_get_token
-from test_utils import check_post_token_file
+from test_utils import (
+    check_login_token,
+    check_415,
+    check_get,
+    check_post,
+    check_put,
+    check_put_token,
+    check_get_token,
+    check_get_token_pictures,
+    check_post_token_pictures,
+)
 
 HTTP_405 = b"<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
 
@@ -183,6 +186,17 @@ def login():
 
 
 def update():
+    check_get_token(
+        "/api/users",
+        200,
+        {
+            "bio": None,
+            "firstname": "firstname",
+            "lastname": "lastname",
+            "selectedGender": None,
+            "sexualPreference": None,
+        },
+    )
     check_put_token(
         "/api/users",
         400,
@@ -226,6 +240,17 @@ def update():
         401,
         {"firstname": "Johnny"},
         {"msg": "Missing Authorization Header"},
+    )
+    check_get_token(
+        "/api/users",
+        200,
+        {
+            "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
+            "firstname": "Johnny",
+            "lastname": "Appleseed",
+            "selectedGender": "m",
+            "sexualPreference": "e",
+        },
     )
 
 
@@ -304,28 +329,25 @@ def interests():
     )
 
 
-def main():
-    register()
-    login()
-    update()
-    interests()
-    check_post_token_file(
-        "/api/modify-pictures",
-        201,
+def pictures():
+    check_get_token("/api/pictures", 201, {"pictures": []})
+    check_post_token_pictures(
+        "/api/pictures",
+        200,
         "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed1.jpg",
-        {"success": "file uploaded"},
+        {"pictures": ["1"]},
     )
-    check_post_token_file(
-        "/api/modify-pictures",
+    check_post_token_pictures(
+        "/api/pictures",
         201,
         [
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed2.jpg",
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed3.jpg",
         ],
-        {"success": "file uploaded"},
+        {"pictures": ["1", "2", "3"]},
     )
-    check_post_token_file(
-        "/api/modify-pictures",
+    check_post_token_pictures(
+        "/api/pictures",
         401,
         [
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed1.jpg",
@@ -334,14 +356,14 @@ def main():
         ],
         {"error": "too many pictures"},
     )
-    check_post_token_file(
-        "/api/modify-pictures",
+    check_post_token_pictures(
+        "/api/pictures",
         201,
         [
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed3.jpg",
             "../frontend/AngularApp/public/dummy-pics/johnnyAppleseed4.jpg",
         ],
-        {"success": "file uploaded"},
+        {"pictures": ["1", "2", "3", "4", "5"]},
     )
     check_put_token(
         "/api/modify-profile-picture",
@@ -351,6 +373,17 @@ def main():
         },
         {"success": "change profile picture"},
     )
+    check_get_token_pictures(
+        "/api/pictures", 201, {"pictures": ["1", "2", "3", "4", "5"]}
+    )
+
+
+def main():
+    register()
+    login()
+    update()
+    interests()
+    pictures()
     check_get_token("/api/deleteme", 200, {"success": "user delete"})
 
 
