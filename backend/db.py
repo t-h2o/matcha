@@ -70,6 +70,26 @@ def db_get_id_password_where_username(username):
     return db_fetchone("SELECT id,password FROM users WHERE username = %s", (username,))
 
 
+def db_set_user_email(id_user, email):
+    error_msg = db_query(
+        "UPDATE users SET email = %s where id = %s",
+        (
+            email,
+            id_user,
+        ),
+    )
+
+    if error_msg:
+        return error_msg
+
+
+def db_get_user_email(id_user):
+    return db_fetchone(
+        "SELECT email FROM users where id = %s",
+        (id_user,),
+    )[0]
+
+
 def db_set_user_profile_data(
     firstname, lastname, selectedGender, sexualPreference, bio, id_user
 ):

@@ -378,12 +378,25 @@ def pictures():
     )
 
 
+def email():
+    check_put_token(
+        "/api/email",
+        201,
+        {
+            "email": "test@python.py",
+        },
+        {"email": "test@python.py"},
+    )
+    check_get_token("/api/email", 201, {"email": "test@python.py"})
+
+
 def main():
     register()
     login()
     update()
     interests()
     pictures()
+    email()
     check_get_token("/api/deleteme", 200, {"success": "user delete"})
 
 
