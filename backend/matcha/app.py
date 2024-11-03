@@ -280,7 +280,9 @@ def wipe_user_image(id_user):
     image_filenames = db_get_user_images(id_user)
 
     for image_to_delete in image_filenames:
-        filename = image_to_delete.removeprefix(current_app.config["URL"] + "/api/images/")
+        filename = image_to_delete.removeprefix(
+            current_app.config["URL"] + "/api/images/"
+        )
         if filename == "avatar.png":
 
             continue
