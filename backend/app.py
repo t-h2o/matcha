@@ -30,6 +30,7 @@ from db import (
     db_get_user_per_id,
     db_set_user_email,
     db_get_user_email,
+    db_get_url_profile,
     db_set_user_profile_data,
     db_delete_user,
     db_upload_pictures,
@@ -50,6 +51,8 @@ jwt = JWTManager(app)
 
 @app.route("/api/images/<filename>")
 def serve_image(filename):
+    if filename == "avatar.png":
+        return send_from_directory("default", filename)
     return send_from_directory("uploads", filename)
 
 
@@ -129,11 +132,7 @@ def users():
     )
 
 
-@app.route("/api/modify-profile-picture", methods=["PUT"])
-@jwt_required()
-def modify_profile_picture():
-    id_user = get_jwt_identity()
-
+def modify_profile_picture_put(id_user, request):
     json = request.json
 
     check_request = check_request_json(
@@ -151,10 +150,23 @@ def modify_profile_picture():
         id_user, json["selectedPictures"], image_filenames
     )
 
+    db_set_profile_picture(id_user, profile_picture_name)
+
     if profile_picture_name is None:
         return jsonify({"error": "cannot find the profile picture"}), 401
 
-    db_set_profile_picture(id_user, profile_picture_name)
+
+@app.route("/api/modify-profile-picture", methods=("PUT", "GET"))
+@jwt_required()
+def modify_profile_picture():
+    id_user = get_jwt_identity()
+
+    if request.method == "PUT":
+        error_msg = modify_profile_picture_put(id_user, request)
+        if error_msg:
+            return error_msg
+
+    profile_picture_name = db_get_url_profile(id_user)
 
     return jsonify({"selectedPicture": profile_picture_name}), 201
 
@@ -264,9 +276,21 @@ def register_user():
         json["firstname"],
         json["lastname"],
         json["email"],
+        app.config["URL"] + "/api/images/avatar.png",
     )
 
     return jsonify(response)
+
+
+def wipe_user_image(id_user):
+    image_filenames = db_get_user_images(id_user)
+
+    for image_to_delete in image_filenames:
+        filename = image_to_delete.removeprefix(app.config["URL"] + "/api/images/")
+        if filename == "avatar.png":
+
+            continue
+        remove("uploads/" + filename)
 
 
 @app.route("/api/deleteme")
@@ -274,13 +298,7 @@ def register_user():
 def delete_me():
     id_user = get_jwt_identity()
 
-    image_filenames = db_get_user_images(id_user)
-
-    for image_to_delete in image_filenames:
-        remove(
-            "uploads/"
-            + image_to_delete.removeprefix(app.config["URL"] + "/api/images/")
-        )
+    wipe_user_image(id_user)
 
     db = db_delete_user(id_user)
 

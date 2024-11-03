@@ -83,6 +83,13 @@ def db_set_user_email(id_user, email):
         return error_msg
 
 
+def db_get_url_profile(id_user):
+    return db_fetchone(
+        "SELECT image_url FROM user_images WHERE id = (SELECT profile_picture_id FROM users WHERE id = %s) ",
+        (id_user,),
+    )[0]
+
+
 def db_get_user_email(id_user):
     return db_fetchone(
         "SELECT email FROM users where id = %s",
@@ -189,6 +196,13 @@ def db_get_user_images(id_user):
     return filenames
 
 
+def db_get_iduser_per_username(username):
+    return db_fetchone(
+        "SELECT id FROM users WHERE username = %s",
+        (username,),
+    )
+
+
 def db_get_user_per_id(id_user):
     return db_fetchone(
         "SELECT firstname, lastname, gender, sexual_orientation, bio FROM users WHERE id = %s",
@@ -196,7 +210,7 @@ def db_get_user_per_id(id_user):
     )
 
 
-def db_register(username, password, firstname, lastname, email):
+def db_register(username, password, firstname, lastname, email, default_avatar):
     error_msg = db_query(
         "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);",
         (
@@ -210,6 +224,24 @@ def db_register(username, password, firstname, lastname, email):
 
     if error_msg:
         return {"error": f"User {username} is already registered."}
+
+    id_user = db_get_iduser_per_username(username)
+
+    db_query(
+        "INSERT INTO user_images (user_id, image_url) VALUES (%s,%s);",
+        (
+            id_user,
+            default_avatar,
+        ),
+    )
+
+    error_msg = db_query(
+        "UPDATE users SET profile_picture_id = subquery.id FROM (SELECT id FROM user_images WHERE user_id = %s) AS subquery WHERE id = %s",
+        (
+            id_user,
+            id_user,
+        ),
+    )
 
     return {"success": f"User {username} was successfully added"}
 

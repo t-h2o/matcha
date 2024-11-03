@@ -10,6 +10,7 @@ from test_utils import (
     check_get_token,
     check_get_token_pictures,
     check_post_token_pictures,
+    check_put_token_pictures,
 )
 
 HTTP_405 = b"<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
@@ -330,12 +331,12 @@ def interests():
 
 
 def pictures():
-    check_get_token("/api/pictures", 201, {"pictures": []})
+    check_get_token_pictures("/api/pictures", 201, {"pictures": 1})
     check_post_token_pictures(
         "/api/pictures",
         200,
         "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
-        {"pictures": ["1"]},
+        {"pictures": 2},
     )
     check_post_token_pictures(
         "/api/pictures",
@@ -344,13 +345,12 @@ def pictures():
             "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
             "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
         ],
-        {"pictures": ["1", "2", "3"]},
+        {"pictures": 4},
     )
     check_post_token_pictures(
         "/api/pictures",
         401,
         [
-            "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
             "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
             "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
         ],
@@ -361,21 +361,19 @@ def pictures():
         201,
         [
             "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
-            "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
         ],
-        {"pictures": ["1", "2", "3", "4", "5"]},
+        {"pictures": 5},
     )
-    check_put_token(
+    check_put_token_pictures(
         "/api/modify-profile-picture",
         201,
         {
             "selectedPictures": "placeholderPic.jpg",
         },
-        {"success": "change profile picture"},
+        {"selectedPicture": 1},
     )
-    check_get_token_pictures(
-        "/api/pictures", 201, {"pictures": ["1", "2", "3", "4", "5"]}
-    )
+    check_get_token_pictures("/api/pictures", 201, {"pictures": 5})
+    check_get_token_pictures("/api/modify-profile-picture", 201, {"selectedPicture": 1})
 
 
 def email():
@@ -390,6 +388,10 @@ def email():
     check_get_token("/api/email", 201, {"email": "test@python.py"})
 
 
+def deleteme():
+    check_get_token("/api/deleteme", 200, {"success": "user delete"})
+
+
 def main():
     register()
     login()
@@ -397,7 +399,7 @@ def main():
     interests()
     pictures()
     email()
-    check_get_token("/api/deleteme", 200, {"success": "user delete"})
+    deleteme()
 
 
 if __name__ == "__main__":
