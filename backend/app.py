@@ -30,6 +30,7 @@ from db import (
     db_get_user_per_id,
     db_set_user_email,
     db_get_user_email,
+    db_get_url_profile,
     db_set_user_profile_data,
     db_delete_user,
     db_upload_pictures,
@@ -131,11 +132,7 @@ def users():
     )
 
 
-@app.route("/api/modify-profile-picture", methods=["PUT"])
-@jwt_required()
-def modify_profile_picture():
-    id_user = get_jwt_identity()
-
+def modify_profile_picture_put(id_user, request):
     json = request.json
 
     check_request = check_request_json(
@@ -153,10 +150,23 @@ def modify_profile_picture():
         id_user, json["selectedPictures"], image_filenames
     )
 
+    db_set_profile_picture(id_user, profile_picture_name)
+
     if profile_picture_name is None:
         return jsonify({"error": "cannot find the profile picture"}), 401
 
-    db_set_profile_picture(id_user, profile_picture_name)
+
+@app.route("/api/modify-profile-picture", methods=("PUT", "GET"))
+@jwt_required()
+def modify_profile_picture():
+    id_user = get_jwt_identity()
+
+    if request.method == "PUT":
+        error_msg = modify_profile_picture_put(id_user, request)
+        if error_msg:
+            return error_msg
+
+    profile_picture_name = db_get_url_profile(id_user)
 
     return jsonify({"selectedPicture": profile_picture_name}), 201
 

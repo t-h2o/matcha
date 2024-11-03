@@ -83,6 +83,13 @@ def db_set_user_email(id_user, email):
         return error_msg
 
 
+def db_get_url_profile(id_user):
+    return db_fetchone(
+        "SELECT image_url FROM user_images WHERE id = (SELECT profile_picture_id FROM users WHERE id = %s) ",
+        (id_user,),
+    )[0]
+
+
 def db_get_user_email(id_user):
     return db_fetchone(
         "SELECT email FROM users where id = %s",
