@@ -50,6 +50,11 @@ jwt = JWTManager(app)
 
 @app.route("/api/images/<filename>")
 def serve_image(filename):
+    """
+    = `/api/images/<filename>`
+
+    get image without any JWT
+    """
     return send_from_directory("uploads", filename)
 
 
