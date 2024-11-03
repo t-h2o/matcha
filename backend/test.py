@@ -388,6 +388,10 @@ def email():
     check_get_token("/api/email", 201, {"email": "test@python.py"})
 
 
+def deleteme():
+    check_get_token("/api/deleteme", 200, {"success": "user delete"})
+
+
 def main():
     register()
     login()
@@ -395,7 +399,7 @@ def main():
     interests()
     pictures()
     email()
-    check_get_token("/api/deleteme", 200, {"success": "user delete"})
+    deleteme()
 
 
 if __name__ == "__main__":
