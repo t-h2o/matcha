@@ -1,4 +1,4 @@
-from os import path, environ, remove
+from os import path, remove
 
 from flask import Flask, request, jsonify, send_from_directory
 from flask import current_app
