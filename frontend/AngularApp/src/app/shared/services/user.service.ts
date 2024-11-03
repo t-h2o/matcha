@@ -99,8 +99,29 @@ export class UserService {
   }
 
   modifyEmail(userData: ModifiedUserEmail) {
+    console.log('userData: ' + JSON.stringify(userData));
     const subscription = this.userRequestsService
       .modifyEmail(userData)
+      .pipe(finalize(() => subscription.unsubscribe()))
+      .subscribe({
+        next: (data: ModifiedUserEmail) => {
+          console.log('data: ' + JSON.stringify(data));
+          this.profileData.update((prev) => {
+            return {
+              ...prev,
+              email: data.email,
+            };
+          });
+        },
+        error: (error: any) => {
+          console.error('error: ' + JSON.stringify(error));
+        },
+      });
+  }
+
+  getUserEmail() {
+    const subscription = this.userRequestsService
+      .getEmail()
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: ModifiedUserEmail) => {

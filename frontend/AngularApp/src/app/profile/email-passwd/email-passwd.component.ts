@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, computed, inject, Input } from '@angular/core';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { CardComponent } from '../../UI/card/card.component';
 import { UserService } from '../../shared/services/user.service';
@@ -13,12 +13,12 @@ import { UserService } from '../../shared/services/user.service';
 export class EmailPasswdComponent {
   @Input({ required: true }) onModify!: () => void;
   private userService = inject(UserService);
-  userEmail = this.userService.profileData().email;
+  userEmail = computed(() => this.userService.profileData().email);
 
   get Email() {
-    if (this.userEmail === '') {
+    if (this.userEmail() === '') {
       return 'No email';
     }
-    return this.userEmail;
+    return this.userEmail();
   }
 }

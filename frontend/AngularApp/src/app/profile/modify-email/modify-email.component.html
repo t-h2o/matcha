@@ -5,7 +5,7 @@
 
       <app-card>
         <div class="form-group">
-          <label for="email">email</label>
+          <label for="email">Enter new Email</label>
           <input
             type="email"
             id="email"
@@ -13,7 +13,7 @@
             class="register"
             required
             email
-            [(ngModel)]="userEmail"
+            [(ngModel)]="uEmail"
             #email="ngModel"
           />
         </div>
@@ -36,12 +36,12 @@
           <label for="current-password">Enter you current password</label>
           <input
             type="password"
-            id="currentPassword"
-            name="currentPassword"
+            id="curPassword"
+            name="curPassword"
             class="no-validation"
             required
             ngModel
-            #currentPassword="ngModel"
+            #curPassword="ngModel"
           />
         </div>
         <div class="form-group">
@@ -61,13 +61,13 @@
           </label>
           <input
             type="password"
-            id="newPassword"
+            id="nPassword"
             name="newPassword"
             class="register"
             ngModel
             required
             pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s])([^\s]){8,15}$"
-            #newPassword="ngModel"
+            #nPassword="ngModel"
           />
         </div>
         <div class="form-group">
