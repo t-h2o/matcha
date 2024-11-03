@@ -187,6 +187,7 @@ def check_pictures(
 ):
     if "pictures" in content_received and "pictures" in content_expected:
         if content_expected["pictures"] != len(content_received["pictures"]):
+            print("---- bad pictures number ----")
             print_error(
                 URL,
                 path,
@@ -199,6 +200,7 @@ def check_pictures(
         for item in content_received["pictures"]:
             pattern = re.compile("^" + URL + "/api/images")
             if pattern.match(item) is None:
+                print("---- bad error message ----")
                 print_error(
                     URL,
                     path,
@@ -208,8 +210,24 @@ def check_pictures(
                     content_received,
                 )
                 return True
+    elif (
+        "selectedPicture" in content_received and "selectedPicture" in content_expected
+    ):
+        pattern = re.compile("^" + URL + "/api/images")
+        if pattern.match(content_received["selectedPicture"]) is None:
+            print("---- bad error message ----")
+            print_error(
+                URL,
+                path,
+                code_expected,
+                code_received,
+                content_expected,
+                content_received,
+            )
+            return True
     elif "error" in content_received and "error" in content_expected:
         if content_received["error"] != content_expected["error"]:
+            print("---- bad error message ----")
             print_error(
                 URL,
                 path,
@@ -220,6 +238,7 @@ def check_pictures(
             )
             return True
     else:
+        print("---- bad key ----")
         print_error(
             URL,
             path,
@@ -244,6 +263,14 @@ def check_get_token_pictures(path, status, content):
     headers = {"Authorization": f"Bearer {access_token}"}
 
     response = get(URL + path, headers=headers)
+
+    check_response_pictures(response, path, status, content)
+
+
+def check_put_token_pictures(path, status, json, content):
+    headers = {"Authorization": f"Bearer {access_token}"}
+
+    response = put(URL + path, json=json, headers=headers)
 
     check_response_pictures(response, path, status, content)
 

@@ -10,6 +10,7 @@ from test_utils import (
     check_get_token,
     check_get_token_pictures,
     check_post_token_pictures,
+    check_put_token_pictures,
 )
 
 HTTP_405 = b"<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
@@ -363,13 +364,13 @@ def pictures():
         ],
         {"pictures": 5},
     )
-    check_put_token(
+    check_put_token_pictures(
         "/api/modify-profile-picture",
         201,
         {
             "selectedPictures": "placeholderPic.jpg",
         },
-        {"success": "change profile picture"},
+        {"selectedPicture": 1},
     )
     check_get_token_pictures("/api/pictures", 201, {"pictures": 5})
 
