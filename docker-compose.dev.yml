@@ -25,12 +25,12 @@ services:
     ports:
       - '5001:5000'
     environment:
-      - FLASK_APP=app.py
+      - FLASK_APP=matcha
       - FLASK_ENV=development
       - CHOKIDAR_USEPOLLING=true
     env_file:
       - .env
-    command: flask run --host=0.0.0.0 --reload
+    command: /usr/local/bin/flask run --host=0.0.0.0 --debug --reload
     depends_on:
       - postgres
     networks:
