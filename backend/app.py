@@ -28,6 +28,8 @@ from db import (
     db_register,
     db_get_id_password_where_username,
     db_get_user_per_id,
+    db_set_user_email,
+    db_get_user_email,
     db_set_user_profile_data,
     db_delete_user,
     db_upload_pictures,
@@ -187,6 +189,36 @@ def modify_pictures():
             return error_msg
 
     return {"pictures": db_get_user_images(id_user)}, 201
+
+
+def email_put(user_id, request):
+    id_user = get_jwt_identity()
+
+    json = request.json
+
+    check_request = check_request_json(
+        request.headers.get("Content-Type"),
+        json,
+        ["email"],
+    )
+
+    if check_request is not None:
+        return jsonify(check_request[0]), check_request[1]
+
+    db_set_user_email(id_user, json["email"])
+
+
+@app.route("/api/email", methods=("PUT", "GET"))
+@jwt_required()
+def modify_email():
+    id_user = get_jwt_identity()
+
+    if request.method == "PUT":
+        error_msg = email_put(id_user, request)
+        if error_msg:
+            return error_msg
+
+    return {"email": db_get_user_email(id_user)}, 201
 
 
 @app.route("/api/login", methods=["POST"])
