@@ -1,6 +1,7 @@
 from os import path, environ, remove
 
 from flask import Flask, request, jsonify, send_from_directory
+from flask import current_app
 
 from flask_jwt_extended import (
     create_access_token,
@@ -12,9 +13,7 @@ from flask_jwt_extended import (
 from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
 
-from flask_cors import CORS
-
-from app_utils import (
+from matcha.app_utils import (
     check_request_json,
     check_request_json_values,
     make_unique,
@@ -22,7 +21,7 @@ from app_utils import (
     flaskprint,
 )
 
-from db import (
+from matcha.db import (
     db_get_interests,
     db_set_interests,
     db_register,
@@ -39,17 +38,12 @@ from db import (
     db_count_number_image,
 )
 
-app = Flask(__name__)
-app.config["JWT_SECRET_KEY"] = environ["FLASK_JWT_SECRET_KEY"]
-app.config["UPLOAD_FOLDER"] = environ["FLASK_UPLOAD_FOLDER"]
-app.config["URL"] = environ["FLASK_URL"]
+from flask import Blueprint
 
-CORS(app, origins="http://localhost:4200")
-
-jwt = JWTManager(app)
+bp = Blueprint("appbp", __name__)
 
 
-@app.route("/api/images/<filename>")
+@bp.route("/api/images/<filename>")
 def serve_image(filename):
     if filename == "avatar.png":
         return send_from_directory("default", filename)
@@ -71,7 +65,7 @@ def interests_put(id_user, request):
     db_set_interests(id_user, json["interests"])
 
 
-@app.route("/api/interests", methods=("PUT", "GET"))
+@bp.route("/api/interests", methods=("PUT", "GET"))
 @jwt_required()
 def interests():
     id_user = get_jwt_identity()
@@ -108,7 +102,7 @@ def users_put(id_user, request):
     )
 
 
-@app.route("/api/users", methods=("PUT", "GET"))
+@bp.route("/api/users", methods=("PUT", "GET"))
 @jwt_required()
 def users():
     id_user = get_jwt_identity()
@@ -156,7 +150,7 @@ def modify_profile_picture_put(id_user, request):
         return jsonify({"error": "cannot find the profile picture"}), 401
 
 
-@app.route("/api/modify-profile-picture", methods=("PUT", "GET"))
+@bp.route("/api/modify-profile-picture", methods=("PUT", "GET"))
 @jwt_required()
 def modify_profile_picture():
     id_user = get_jwt_identity()
@@ -184,13 +178,13 @@ def picture_post(user_id, request):
     filenames = []
     for item in list_pictures:
         filename = str(user_id) + "_" + make_unique(secure_filename(item.filename))
-        item.save(path.join(app.config["UPLOAD_FOLDER"], filename))
-        filenames.append(app.config["URL"] + "/api/images/" + filename)
+        item.save(path.join(current_app.config["UPLOAD_FOLDER"], filename))
+        filenames.append(current_app.config["URL"] + "/api/images/" + filename)
 
     db_upload_pictures(user_id, filenames)
 
 
-@app.route("/api/pictures", methods=("POST", "GET"))
+@bp.route("/api/pictures", methods=("POST", "GET"))
 @jwt_required()
 def modify_pictures():
     id_user = get_jwt_identity()
@@ -220,7 +214,7 @@ def email_put(user_id, request):
     db_set_user_email(id_user, json["email"])
 
 
-@app.route("/api/email", methods=("PUT", "GET"))
+@bp.route("/api/email", methods=("PUT", "GET"))
 @jwt_required()
 def modify_email():
     id_user = get_jwt_identity()
@@ -233,7 +227,7 @@ def modify_email():
     return {"email": db_get_user_email(id_user)}, 201
 
 
-@app.route("/api/login", methods=["POST"])
+@bp.route("/api/login", methods=["POST"])
 def login_user():
     json = request.json
 
@@ -256,7 +250,7 @@ def login_user():
     return jsonify({"error": "Incorrect password"}), 401
 
 
-@app.route("/api/register", methods=["POST"])
+@bp.route("/api/register", methods=["POST"])
 def register_user():
 
     json = request.json
@@ -276,7 +270,7 @@ def register_user():
         json["firstname"],
         json["lastname"],
         json["email"],
-        app.config["URL"] + "/api/images/avatar.png",
+        current_app.config["URL"] + "/api/images/avatar.png",
     )
 
     return jsonify(response)
@@ -286,14 +280,14 @@ def wipe_user_image(id_user):
     image_filenames = db_get_user_images(id_user)
 
     for image_to_delete in image_filenames:
-        filename = image_to_delete.removeprefix(app.config["URL"] + "/api/images/")
+        filename = image_to_delete.removeprefix(current_app.config["URL"] + "/api/images/")
         if filename == "avatar.png":
 
             continue
         remove("uploads/" + filename)
 
 
-@app.route("/api/deleteme")
+@bp.route("/api/deleteme")
 @jwt_required()
 def delete_me():
     id_user = get_jwt_identity()
@@ -303,7 +297,3 @@ def delete_me():
     db = db_delete_user(id_user)
 
     return jsonify(db[0]), db[1]
-
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)

@@ -8,7 +8,7 @@ from psycopg2.extras import RealDictCursor
 from psycopg2.errors import UndefinedTable
 from werkzeug.security import generate_password_hash
 
-from app_utils import fetchall_to_array
+from matcha.app_utils import fetchall_to_array
 
 
 def db_fetchall(query, arguments):
