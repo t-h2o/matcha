@@ -373,6 +373,7 @@ def pictures():
         {"selectedPicture": 1},
     )
     check_get_token_pictures("/api/pictures", 201, {"pictures": 5})
+    check_get_token_pictures("/api/modify-profile-picture", 201, {"selectedPicture": 1})
 
 
 def email():
