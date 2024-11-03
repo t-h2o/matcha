@@ -19,3 +19,57 @@ WSGI:: https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface[Web Server Gat
 * https://flask.palletsprojects.com/en/3.0.x/quickstart/[Flask] as WSGI
 * https://www.psycopg.org/[psycopg] as adapter between Python and PostgreSQL
 * https://black.readthedocs.io/en/stable/index.html#[black] as code formatter
+
+== TODO
+
+Browser
+
+filter
+par 4 values
+
+- max age gap + and - value
+- max distance km
+- fame rating
+
+Report a user as a “fake account”.
+- create array of user I set as fake
+
+/profile
+- user
+- interest
+- email
+- pictures
+
+=> create endpoint get-user-profile with all data for profile
+
+- profile complete
+
+=> create two
+
+will never send
+- password
+- id
+
+get all user
+
+full profile
+. check id
+
+GET sans rien
+
+=> JWT -> id -> all data
+
+GET all users
+
+=> gender + sexual preference
+
+- flag button
+- like button
+
+Populate une DB
+
+https://pypi.org/project/flask-websockets/
+
+Sanitize les inputs du backend
+
+- add age to users
