@@ -12,23 +12,22 @@
     font-weight: 600;
     margin: 0;
   }
-}
+  .toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 
-.toggle-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-
-  .arrow-up {
-    transform: rotate(180deg);
-    transition: transform 0.2s ease;
+    .arrow-up {
+      transform: rotate(180deg);
+      transition: transform 0.2s ease;
+    }
   }
 }
 
@@ -57,11 +56,11 @@ form {
     justify-content: right;
     align-items: center;
     margin-bottom: 2rem;
-    border: 1px solid $pink;
 
     label {
       font-size: 1.1rem;
       font-weight: bold;
+        margin-bottom: 1rem;
     }
 
     .form-control {
@@ -71,6 +70,22 @@ form {
 
     .btn {
       width: 20%;
+    }
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-left: 2.5rem;
+
+      .checkbox-item {
+        display: flex;
+        align-items: center;
+
+        input[type="checkbox"] {
+          margin-top: 8px;
+          margin-right: 5px;
+        }
+      }
     }
   }
 }
