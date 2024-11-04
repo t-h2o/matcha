@@ -213,4 +213,18 @@ export class UserService {
         },
       });
   }
+
+  resetPassword(resetData: { username: string }) {
+    const subscription = this.userRequestsService
+      .resetPassword(resetData)
+      .pipe(finalize(() => subscription.unsubscribe()))
+      .subscribe({
+        next: (data: any) => {
+          console.log('data: ' + JSON.stringify(data));
+        },
+        error: (error: any) => {
+          console.error('error: ' + JSON.stringify(error));
+        },
+      });
+  }
 }
