@@ -89,6 +89,7 @@ export class UserService {
               selectedGender: data.selectedGender,
               sexualPreference: data.sexualPreference,
               bio: data.bio,
+              age: data.age,
             };
           });
         },

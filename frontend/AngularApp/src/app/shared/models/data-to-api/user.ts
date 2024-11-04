@@ -17,6 +17,7 @@ export type ModifiedUserGeneral = {
   selectedGender: string;
   sexualPreference: string;
   bio: string;
+  age: string;
 };
 
 export type ModifiedUserEmail = {
@@ -36,6 +37,7 @@ export type UserData = {
   username: string;
   firstName: string;
   lastName: string;
+  age: string;
   email: string;
   selectedGender: string;
   sexualPreference: string;

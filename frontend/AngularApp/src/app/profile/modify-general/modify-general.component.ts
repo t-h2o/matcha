@@ -22,6 +22,7 @@ export class ModifyGeneralComponent implements OnInit {
   selectedGender: string = '';
   sexualPreference: string = '';
   bio: string = '';
+  age: string = '';
 
   ngOnInit() {
     this.firstName = this.userProfile().firstName;
@@ -29,6 +30,7 @@ export class ModifyGeneralComponent implements OnInit {
     this.selectedGender = this.userProfile().selectedGender;
     this.sexualPreference = this.userProfile().sexualPreference;
     this.bio = this.userProfile().bio;
+    this.age = this.userProfile().age;
   }
 
   onSubmit(formData: NgForm) {
@@ -47,6 +49,7 @@ export class ModifyGeneralComponent implements OnInit {
       selectedGender: this.selectedGender,
       sexualPreference: this.sexualPreference,
       bio: this.bio,
+      age: this.age,
     };
 
     this.userService.modifyUserProfile(modifiedUserData);
