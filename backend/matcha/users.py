@@ -20,6 +20,7 @@ from matcha.db import (
     db_get_user_images,
     db_set_user_profile_data,
     db_get_user_per_id,
+    db_get_user_per_username,
 )
 
 from matcha.app_utils import check_request_json
@@ -61,20 +62,41 @@ def users():
         if error_msg:
             return error_msg
 
-    user_db = db_get_user_per_id(id_user)
+    get_username = request.args.get("username", default="", type=str)
 
-    return (
-        jsonify(
-            firstname=user_db[0],
-            lastname=user_db[1],
-            selectedGender=user_db[2],
-            sexualPreference=user_db[3],
-            bio=user_db[4],
-            age=user_db[5],
-            email_verified=user_db[6],
-        ),
-        200,
-    )
+    if get_username == "":
+        user_db = db_get_user_per_id(id_user)
+
+        return (
+            jsonify(
+                firstname=user_db[0],
+                lastname=user_db[1],
+                selectedGender=user_db[2],
+                sexualPreference=user_db[3],
+                bio=user_db[4],
+                age=user_db[5],
+                email_verified=user_db[6],
+            ),
+            200,
+        )
+    else:
+        user_db = db_get_user_per_username(get_username)
+
+        if user_db is None:
+            return (jsonify({"error": "username not found"}), 401)
+
+        return (
+            jsonify(
+                username=user_db[0],
+                firstname=user_db[1],
+                lastname=user_db[2],
+                gender=user_db[3],
+                sexualPreference=user_db[4],
+                age=user_db[5],
+                fameRating=user_db[6],
+            ),
+            200,
+        )
 
 
 def email_put(user_id, request):
