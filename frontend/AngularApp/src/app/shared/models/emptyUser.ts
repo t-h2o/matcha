@@ -12,4 +12,5 @@ export const emptyUser: UserData = {
   bio: '',
   pictures: [],
   profilePicture: '',
+  emailVerified: false,
 };

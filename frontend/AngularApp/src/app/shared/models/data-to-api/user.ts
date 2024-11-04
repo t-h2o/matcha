@@ -18,6 +18,7 @@ export type ModifiedUserGeneral = {
   sexualPreference: string;
   bio: string;
   age: string;
+  email_verified: boolean;
 };
 
 export type ModifiedUserEmail = {
@@ -45,4 +46,5 @@ export type UserData = {
   bio: string;
   pictures: string[];
   profilePicture: string;
+  emailVerified: boolean;
 };
