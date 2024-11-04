@@ -51,7 +51,12 @@ def modify_profile_picture():
 
     profile_picture_name = db_get_url_profile(id_user)
 
-    return jsonify({"selectedPicture": profile_picture_name}), 201
+    if "url" in profile_picture_name:
+        return jsonify({"selectedPicture": profile_picture_name["url"]}), 201
+    elif "error" in profile_picture_name:
+        return jsonify(profile_picture_name), 401
+    else:
+        return jsonify({"error": "error"}), 401
 
 
 def picture_post(user_id, request):
