@@ -12,6 +12,7 @@ from matcha import app as approute
 from matcha import users
 from matcha import auth
 from matcha import images
+from matcha import interests
 
 
 def create_app():
@@ -29,5 +30,6 @@ def create_app():
     app.register_blueprint(users.bp)
     app.register_blueprint(auth.bp)
     app.register_blueprint(images.bp)
+    app.register_blueprint(interests.bp)
 
     return app

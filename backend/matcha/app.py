@@ -37,36 +37,6 @@ from flask import Blueprint
 bp = Blueprint("appbp", __name__)
 
 
-def interests_put(id_user, request):
-    json = request.json
-
-    check_request = check_request_json_values(
-        request.headers.get("Content-Type"),
-        json,
-        ["interests"],
-    )
-
-    if check_request is not None:
-        return jsonify(check_request[0]), check_request[1]
-
-    db_set_interests(id_user, json["interests"])
-
-
-@bp.route("/api/interests", methods=("PUT", "GET"))
-@jwt_required()
-def interests():
-    id_user = get_jwt_identity()
-
-    if request.method == "PUT":
-        error_msg = interests_put(id_user, request)
-        if error_msg:
-            return error_msg
-
-    interests = db_get_interests(id_user)
-
-    return jsonify({"interests": interests}), 201
-
-
 def modify_profile_picture_put(id_user, request):
     json = request.json
 
