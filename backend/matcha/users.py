@@ -69,6 +69,8 @@ def users():
             selectedGender=user_db[2],
             sexualPreference=user_db[3],
             bio=user_db[4],
+            age=user_db[5],
+            email_verified=user_db[6],
         ),
         200,
     )

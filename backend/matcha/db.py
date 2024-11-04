@@ -204,7 +204,7 @@ def db_get_iduser_per_username(username):
 
 def db_get_user_per_id(id_user):
     return db_fetchone(
-        "SELECT firstname, lastname, gender, sexual_orientation, bio FROM users WHERE id = %s",
+        "SELECT firstname, lastname, gender, sexual_orientation, bio, age, email_verified FROM users WHERE id = %s",
         (id_user,),
     )
 
