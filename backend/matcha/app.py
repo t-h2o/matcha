@@ -1,6 +1,6 @@
 from os import path, remove
 
-from flask import request, jsonify, send_from_directory
+from flask import request, jsonify
 from flask import current_app
 
 from flask_jwt_extended import (
@@ -35,13 +35,6 @@ from matcha.db import (
 from flask import Blueprint
 
 bp = Blueprint("appbp", __name__)
-
-
-@bp.route("/api/images/<filename>")
-def serve_image(filename):
-    if filename == "avatar.png":
-        return send_from_directory("../default", filename)
-    return send_from_directory("../uploads", filename)
 
 
 def interests_put(id_user, request):

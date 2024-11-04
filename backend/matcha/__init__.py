@@ -11,6 +11,7 @@ from flask_jwt_extended import (
 from matcha import app as approute
 from matcha import users
 from matcha import auth
+from matcha import images
 
 
 def create_app():
@@ -27,5 +28,6 @@ def create_app():
     app.register_blueprint(approute.bp)
     app.register_blueprint(users.bp)
     app.register_blueprint(auth.bp)
+    app.register_blueprint(images.bp)
 
     return app
