@@ -73,3 +73,12 @@ https://pypi.org/project/flask-websockets/
 Sanitize les inputs du backend
 
 - add age to users
+
+=== email verified
+
+. register
+. backend send an email confirmation
+
+user confirm: he is allow to reset password when he foret
+
+user do not confirm: he can't get new password
