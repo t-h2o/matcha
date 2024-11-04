@@ -196,6 +196,8 @@ def update():
             "lastname": "lastname",
             "selectedGender": None,
             "sexualPreference": None,
+            "age": None,
+            "email_verified": False,
         },
     )
     check_put_token(
@@ -217,7 +219,9 @@ def update():
             "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
         },
         {
+            "age": None,
             "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
+            "email_verified": False,
             "firstname": "Johnny",
             "lastname": "Appleseed",
             "selectedGender": "m",
@@ -246,7 +250,9 @@ def update():
         "/api/users",
         200,
         {
+            "age": None,
             "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
+            "email_verified": False,
             "firstname": "Johnny",
             "lastname": "Appleseed",
             "selectedGender": "m",
