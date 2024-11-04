@@ -6,6 +6,12 @@ start-dev: env
 stop-dev:
 	docker compose -f docker-compose.dev.yml down
 
+clean-dev:
+	docker volume rm postgres-volume-dev
+	rm .env
+
+re: clean-dev start-dev
+
 start-prod: build-prod
 	docker compose -f docker-compose.prod.yml up
 
