@@ -1,0 +1,44 @@
+<app-card>
+  <h1>Research by</h1>
+  <form>
+    <div class="form-group">
+      <label for="ageGap">Max age gap</label>
+      <input
+        type="range"
+        id="ageGap"
+        name="ageGap"
+        min="0"
+        max="30"
+        [(ngModel)]="maxAgeGap"
+        class="form-control"
+      />
+      <span>{{ maxAgeGap() }} years</span>
+    </div>
+    <div class="form-group">
+      <label for="distance">Max distance</label>
+      <input
+        type="range"
+        id="distance"
+        name="distance"
+        min="1"
+        max="101"
+        [(ngModel)]="maxDistance"
+        class="form-control"
+      />
+      <span>{{ getDistanceLabel() }} km</span>
+    </div>
+    <div class="form-group">
+      <label for="distance">Max fame gap</label>
+      <input
+        type="range"
+        id="fameGap"
+        name="fameGap"
+        min="1"
+        max="10"
+        [(ngModel)]="maxFameGap"
+        class="form-control"
+      />
+      <span>{{ maxFameGap() }} points</span>
+    </div>
+  </form>
+</app-card>
