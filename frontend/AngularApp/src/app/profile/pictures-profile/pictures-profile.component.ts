@@ -18,4 +18,12 @@ export class PicturesProfileComponent {
   profilePicture = computed(
     () => this.userService.profileData().profilePicture,
   );
+
+  get proPicture() {
+    return this.profilePicture();
+  }
+
+  setProfilePicture(pictureUrl: string) {
+    this.userService.modifyProfilePicture(pictureUrl);
+  }
 }

@@ -12,14 +12,14 @@
           />
         </div>
       } @else {
-        @for (pic of userPictures(); track $index) {
-          <div>
+        @for (picUrl of userPictures(); track $index) {
+          <div (click)="setProfilePicture(picUrl)">
             <img
-              [src]="pic"
-              alt="{{ pic }}"
+              [src]="picUrl"
+              alt="{{ picUrl }}"
               [ngClass]="{
                 'image-resize': true,
-                'profile-picture': pic === profilePicture(),
+                'profile-picture': picUrl === proPicture,
               }"
             />
           </div>

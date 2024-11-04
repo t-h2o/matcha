@@ -23,10 +23,6 @@ export class ModifyPicturesComponent {
   maxSizePerFile = 5 * 1024 * 1024;
   localProfilePicture = '';
 
-  handleSelectProfilePicture(fileName: string) {
-    this.localProfilePicture = fileName;
-  }
-
   onDragOver(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
@@ -53,9 +49,6 @@ export class ModifyPicturesComponent {
     this.selectedPictures = this.selectedPictures.filter(
       (picture) => picture !== file,
     );
-    if (this.localProfilePicture === file.name) {
-      this.localProfilePicture = '';
-    }
   }
 
   private addFile(file: File) {
@@ -72,19 +65,13 @@ export class ModifyPicturesComponent {
     this.selectedPictures.push(file);
   }
 
-  uploadFilesAndProfilePicture() {
-    this.userService.modifyPictures(
-      this.selectedPictures,
-      this.localProfilePicture,
-    );
+  uploadFiles() {
+    this.userService.modifyPictures(this.selectedPictures);
   }
 
   onSubmit() {
-    if (
-      this.selectedPictures.length > 0 &&
-      this.localProfilePicture.trim().length > 0
-    ) {
-      this.uploadFilesAndProfilePicture();
+    if (this.selectedPictures.length > 0) {
+      this.uploadFiles();
     }
     this.onCancel();
   }

@@ -37,9 +37,7 @@
               @for (file of selectedPictures; track $index) {
                 <app-picture-preview
                   [file]="file"
-                  [profilePicture]="localProfilePicture"
                   (remove)="removeFile(file)"
-                  (selectProfilePicture)="handleSelectProfilePicture($event)"
                 />
               }
             </ul>
