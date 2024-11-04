@@ -372,15 +372,15 @@ def pictures():
         ],
         {"pictures": 5},
     )
+    pictures = check_get_token_pictures("/api/pictures", 201, {"pictures": 5})
     check_put_token_pictures(
         "/api/modify-profile-picture",
         201,
         {
-            "selectedPictures": "placeholderPic.jpg",
+            "selectedPictures": pictures[1],
         },
         {"selectedPicture": 1},
     )
-    check_get_token_pictures("/api/pictures", 201, {"pictures": 5})
     check_get_token_pictures("/api/modify-profile-picture", 201, {"selectedPicture": 1})
 
 
