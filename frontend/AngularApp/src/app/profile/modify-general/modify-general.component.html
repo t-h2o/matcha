@@ -29,6 +29,19 @@
           maxlength="15"
         />
       </div>
+      <div class="form-group">
+        <label for="age">Age</label>
+        <input
+          type="number"
+          id="age"
+          name="age"
+          class="register"
+          required
+          [(ngModel)]="age"
+          min="18"
+          max="120"
+        />
+      </div>
 
       <div class="form-group">
         <label for="gender">Gender</label>

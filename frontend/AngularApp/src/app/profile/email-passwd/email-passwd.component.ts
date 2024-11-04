@@ -14,11 +14,20 @@ export class EmailPasswdComponent {
   @Input({ required: true }) onModify!: () => void;
   private userService = inject(UserService);
   userEmail = computed(() => this.userService.profileData().email);
+  isEmailVerified = computed(
+    () => this.userService.profileData().emailVerified,
+  );
 
   get Email() {
     if (this.userEmail() === '') {
       return 'No email';
     }
     return this.userEmail();
+  }
+
+  get icon() {
+    return this.isEmailVerified()
+      ? '/icons/check-circle-1.svg'
+      : '/icons/xmark-circle.svg';
   }
 }

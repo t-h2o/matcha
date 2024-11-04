@@ -20,6 +20,13 @@ export class GeneralProfileComponent {
     this.onModify();
   }
 
+  get age() {
+    if (this.userProfile().age === '') {
+      return 'NOT SPECIFIED';
+    }
+    return this.userProfile().age;
+  }
+
   get sexualPreference() {
     if (this.userProfile().sexualPreference === 'e') {
       return 'Heterosexual';

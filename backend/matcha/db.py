@@ -97,16 +97,17 @@ def db_get_user_email(id_user):
 
 
 def db_set_user_profile_data(
-    firstname, lastname, selectedGender, sexualPreference, bio, id_user
+    firstname, lastname, selectedGender, sexualPreference, bio, age, id_user
 ):
     error_msg = db_query(
-        "UPDATE users SET (firstname, lastname, gender, sexual_orientation, bio) = (%s, %s, %s, %s, %s) where id = %s",
+        "UPDATE users SET (firstname, lastname, gender, sexual_orientation, bio, age) = (%s, %s, %s, %s, %s, %s) where id = %s",
         (
             firstname,
             lastname,
             selectedGender,
             sexualPreference,
             bio,
+            age,
             id_user,
         ),
     )
@@ -204,7 +205,7 @@ def db_get_iduser_per_username(username):
 
 def db_get_user_per_id(id_user):
     return db_fetchone(
-        "SELECT firstname, lastname, gender, sexual_orientation, bio FROM users WHERE id = %s",
+        "SELECT firstname, lastname, gender, sexual_orientation, bio, age, email_verified FROM users WHERE id = %s",
         (id_user,),
     )
 

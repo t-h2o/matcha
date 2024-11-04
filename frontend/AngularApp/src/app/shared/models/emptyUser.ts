@@ -5,10 +5,12 @@ export const emptyUser: UserData = {
   firstName: '',
   lastName: '',
   email: '',
+  age: '',
   selectedGender: '',
   sexualPreference: '',
   birthDate: '',
   bio: '',
   pictures: [],
   profilePicture: '',
+  emailVerified: false,
 };

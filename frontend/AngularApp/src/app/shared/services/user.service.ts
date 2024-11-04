@@ -66,6 +66,8 @@ export class UserService {
               selectedGender: data.selectedGender,
               sexualPreference: data.sexualPreference,
               bio: data.bio,
+              age: data.age,
+              emailVerified: data.email_verified,
             };
           });
         },
@@ -89,6 +91,8 @@ export class UserService {
               selectedGender: data.selectedGender,
               sexualPreference: data.sexualPreference,
               bio: data.bio,
+              age: data.age,
+              emailVerified: data.email_verified,
             };
           });
         },

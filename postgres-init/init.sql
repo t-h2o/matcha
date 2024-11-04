@@ -6,12 +6,22 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR NOT NULL,
     password VARCHAR NOT NULL,
     profile_complete BOOLEAN DEFAULT FALSE,
+    email_verified BOOLEAN DEFAULT FALSE,
+    age INTEGER DEFAULT NULL CHECK (
+        18 <= age AND age <= 120
+    ),
     bio TEXT,
     gender CHAR(1),
     sexual_orientation CHAR(1),
     fame_rating INTEGER DEFAULT 0 CHECK (
         fame_rating >= 0 AND fame_rating <= 10
     ),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS user_fake (
+    user_id INTEGER REFERENCES users (id) ON DELETE CASCADE,
+    fake_id INTEGER REFERENCES users (id) ON DELETE CASCADE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 

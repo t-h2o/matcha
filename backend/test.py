@@ -196,6 +196,8 @@ def update():
             "lastname": "lastname",
             "selectedGender": None,
             "sexualPreference": None,
+            "age": None,
+            "email_verified": False,
         },
     )
     check_put_token(
@@ -203,13 +205,14 @@ def update():
         400,
         {"email": "b@b.com"},
         {
-            "error": "The following fields are required and cannot be empty: firstname, lastname, selectedGender, sexualPreference, bio"
+            "error": "The following fields are required and cannot be empty: firstname, lastname, selectedGender, sexualPreference, bio, age"
         },
     )
     check_put_token(
         "/api/users",
         200,
         {
+            "age": "22",
             "firstname": "Johnny",
             "lastname": "Appleseed",
             "selectedGender": "m",
@@ -217,7 +220,9 @@ def update():
             "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
         },
         {
+            "age": 22,
             "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
+            "email_verified": False,
             "firstname": "Johnny",
             "lastname": "Appleseed",
             "selectedGender": "m",
@@ -228,6 +233,7 @@ def update():
         "/api/users",
         200,
         {
+            "age": 22,
             "firstname": "Johnny",
             "lastname": "Appleseed",
             "selectedGender": "ma",
@@ -246,7 +252,9 @@ def update():
         "/api/users",
         200,
         {
+            "age": 22,
             "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
+            "email_verified": False,
             "firstname": "Johnny",
             "lastname": "Appleseed",
             "selectedGender": "m",
