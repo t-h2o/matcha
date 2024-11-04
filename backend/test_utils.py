@@ -107,12 +107,15 @@ def check_login_token(path, json):
 
     if "access_token" not in json:
         print("error: access token not in response")
+        return
 
     print(bcolors.OKGREEN + "success: got access token" + bcolors.ENDC)
 
     global access_token
 
     access_token = json["access_token"]
+
+    return access_token
 
 
 def check_415(path):
