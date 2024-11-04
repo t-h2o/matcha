@@ -1,0 +1,51 @@
+@import "../../../styles.scss";
+
+header {
+  margin-top: 2rem;
+  border-bottom: 1px solid #e2e8f0;
+  width: 100%;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $pink;
+  }
+
+  .filter-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: #666;
+    }
+
+    select {
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: white;
+      font-size: 0.875rem;
+      cursor: pointer;
+      outline: none;
+
+      &:hover {
+        border-color: #bbb;
+      }
+
+      &:focus {
+        border-color: #666;
+      }
+    }
+  }
+}

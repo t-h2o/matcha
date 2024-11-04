@@ -1,0 +1,93 @@
+<div class="container">
+  <div class="header">
+    <h2>Research by</h2>
+    <button
+      class="toggle-btn"
+      (click)="toggleForm()"
+      [class.expanded]="isExpanded()"
+    >
+      <img
+        [ngClass]="{ 'arrow-up': !isExpanded() }"
+        src="icons/arrow-up.svg"
+        alt="arrow-up"
+      />
+    </button>
+  </div>
+
+  <div class="form-container" [class.expanded]="isExpanded()">
+    <form>
+      <div class="range">
+        <div class="form-group">
+          <label for="ageGap">Max age gap</label>
+          <input
+            type="range"
+            id="ageGap"
+            name="ageGap"
+            min="0"
+            max="30"
+            [(ngModel)]="maxAgeGap"
+            class="form-control"
+          />
+          <span>{{ maxAgeGap() }} years</span>
+        </div>
+        <div class="form-group">
+          <label for="distance">Max distance</label>
+          <input
+            type="range"
+            id="distance"
+            name="distance"
+            min="1"
+            max="101"
+            [(ngModel)]="maxDistance"
+            class="form-control"
+          />
+          <span>{{ getDistanceLabel() }} km</span>
+        </div>
+        <div class="form-group">
+          <label for="distance">Max fame gap</label>
+          <input
+            type="range"
+            id="fameGap"
+            name="fameGap"
+            min="1"
+            max="10"
+            [(ngModel)]="maxFameGap"
+            class="form-control"
+          />
+          <span>{{ maxFameGap() }} points</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="title" for="interests">Interests</label>
+        <div class="checkbox-group">
+          @for (tag of tagsList; track $index) {
+            <div class="checkbox-item">
+              <input
+                type="checkbox"
+                [id]="tag"
+                name="interests"
+                [value]="tag"
+                [checked]="selectedTags.includes(tag)"
+                (change)="onTagChange($event)"
+              />
+              <label [for]="tag">{{ tag }}</label>
+            </div>
+          }
+        </div>
+        <div class="btn-wrapper">
+          <div class="btn-container">
+            <button custom-button class="btn" (click)="onReset()">
+              Reset All
+            </button>
+          </div>
+          <div class="btn-container">
+            <button custom-button class="btn" (click)="onSearch()">
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

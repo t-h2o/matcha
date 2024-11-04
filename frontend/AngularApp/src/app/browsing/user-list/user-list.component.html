@@ -1,0 +1,28 @@
+<header>
+  <div class="container">
+    <div></div>
+    <h2>Discover Lovely People</h2>
+    <div class="filter-container">
+      <select (change)="onChangeTasksFilter(filter.value)" #filter>
+        <option value="all">All</option>
+        <option value="age">Age</option>
+        <option value="location">Location</option>
+        <option value="fame">Fame rating</option>
+        <option value="interests">Interests</option>
+      </select>
+    </div>
+  </div>
+</header>
+<div class="user-list">
+  @for (user of users; track user.username) {
+    <div class="user-card">
+      <!-- <img [src]="user.profilePic" alt="Profile Picture" /> -->
+      <h3>{{ user.name }}</h3>
+      <p>{{ user.age }} years old</p>
+      <p>{{ user.location }}</p>
+      <p>{{ user.fameRating }} fame rating</p>
+      <p>{{ user.interests }}</p>
+      <button (click)="onViewProfile(user.username)">View Profile</button>
+    </div>
+  }
+</div>
