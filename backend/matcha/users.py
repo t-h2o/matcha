@@ -34,7 +34,7 @@ def users_put(id_user, request):
     check_request = check_request_json(
         request.headers.get("Content-Type"),
         json,
-        ["firstname", "lastname", "selectedGender", "sexualPreference", "bio"],
+        ["firstname", "lastname", "selectedGender", "sexualPreference", "bio", "age"],
     )
 
     if check_request is not None:
@@ -46,6 +46,7 @@ def users_put(id_user, request):
         json["selectedGender"],
         json["sexualPreference"],
         json["bio"],
+        json["age"],
         id_user,
     )
 
