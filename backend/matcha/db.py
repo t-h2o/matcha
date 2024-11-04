@@ -4,7 +4,6 @@ from os import environ
 from contextlib import contextmanager
 
 from psycopg2 import connect
-from psycopg2.extras import RealDictCursor
 from psycopg2.errors import UndefinedTable
 from werkzeug.security import generate_password_hash
 

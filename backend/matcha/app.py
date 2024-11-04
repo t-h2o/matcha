@@ -1,12 +1,11 @@
 from os import path, remove
 
-from flask import Flask, request, jsonify, send_from_directory
+from flask import request, jsonify, send_from_directory
 from flask import current_app
 
 from flask_jwt_extended import (
     create_access_token,
     jwt_required,
-    JWTManager,
     get_jwt_identity,
 )
 
@@ -26,11 +25,9 @@ from matcha.db import (
     db_set_interests,
     db_register,
     db_get_id_password_where_username,
-    db_get_user_per_id,
     db_set_user_email,
     db_get_user_email,
     db_get_url_profile,
-    db_set_user_profile_data,
     db_delete_user,
     db_upload_pictures,
     db_get_user_images,
