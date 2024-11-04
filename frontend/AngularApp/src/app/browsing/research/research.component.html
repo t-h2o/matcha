@@ -60,7 +60,7 @@
         </div>
 
         <div class="form-group">
-          <label for="interests">Max fame gap</label>
+          <label class="title" for="interests">Interests</label>
           <div class="checkbox-group">
             @for (tag of tagsList; track $index) {
               <div class="checkbox-item">
@@ -75,6 +75,18 @@
                 <label [for]="tag">{{ tag }}</label>
               </div>
             }
+          </div>
+          <div class="btn-wrapper">
+            <div class="btn-container">
+              <button custom-button class="btn" (click)="onReset()">
+                Reset All
+              </button>
+            </div>
+            <div class="btn-container">
+              <button custom-button class="btn" (click)="onSearch()">
+                Search
+              </button>
+            </div>
           </div>
         </div>
       </form>

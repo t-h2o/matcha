@@ -57,10 +57,14 @@ form {
     align-items: center;
     margin-bottom: 2rem;
 
+    .title {
+      margin-bottom: 2rem;
+      font-weight: bold;
+    }
+
     label {
       font-size: 1.1rem;
       font-weight: bold;
-      margin-bottom: 1rem;
     }
 
     .form-control {
@@ -68,9 +72,6 @@ form {
       margin-bottom: 10px;
     }
 
-    .btn {
-      width: 20%;
-    }
     .checkbox-group {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -82,10 +83,25 @@ form {
         align-items: center;
 
         input[type="checkbox"] {
-          margin-top: 8px;
           margin-right: 5px;
         }
       }
     }
   }
+}
+
+.btn-container {
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-wrapper {
+  min-width: 30rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
 }

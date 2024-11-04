@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { UserService } from '../../shared/services/user.service';
 import { tags } from '../../shared/models/tags';
+import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-research',
   standalone: true,
-  imports: [CardComponent, FormsModule, NgClass],
+  imports: [CardComponent, FormsModule, NgClass, CustomButtonComponent],
   templateUrl: './research.component.html',
   styleUrl: './research.component.scss',
 })
@@ -48,5 +49,13 @@ export class ResearchComponent {
 
   getDistanceLabel(): string {
     return this.maxDistance() >= 101 ? '100+' : this.maxDistance().toString();
+  }
+
+  onReset() {
+    // do something
+  }
+
+  onSearch() {
+    // do something
   }
 }
