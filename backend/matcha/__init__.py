@@ -9,6 +9,7 @@ from flask_jwt_extended import (
 )
 
 from matcha import app as approute
+from matcha import users
 
 
 def create_app():
@@ -23,5 +24,6 @@ def create_app():
     jwt = JWTManager(app)
 
     app.register_blueprint(approute.bp)
+    app.register_blueprint(users.bp)
 
     return app
