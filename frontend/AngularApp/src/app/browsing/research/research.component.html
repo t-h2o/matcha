@@ -63,17 +63,17 @@
           <label for="interests">Max fame gap</label>
           <div class="checkbox-group">
             @for (tag of tagsList; track $index) {
-            <div class="checkbox-item">
-              <input
-                type="checkbox"
-                [id]="tag"
-                name="interests"
-                [value]="tag"
-                [checked]="selectedTags.includes(tag)"
-                (change)="onTagChange($event)"
-              />
-              <label [for]="tag">{{ tag }}</label>
-            </div>
+              <div class="checkbox-item">
+                <input
+                  type="checkbox"
+                  [id]="tag"
+                  name="interests"
+                  [value]="tag"
+                  [checked]="selectedTags.includes(tag)"
+                  (change)="onTagChange($event)"
+                />
+                <label [for]="tag">{{ tag }}</label>
+              </div>
             }
           </div>
         </div>
