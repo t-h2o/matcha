@@ -16,6 +16,46 @@ from test_utils import (
 HTTP_405 = b"<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
 
 
+def create_another_user():
+    check_post(
+        "/api/register",
+        200,
+        {
+            "username": "another",
+            "firstname": "Another",
+            "lastname": "User",
+            "email": "another@flask.py",
+            "password": "5678",
+        },
+        {"success": "User another was successfully added"},
+    )
+    check_login_token(
+        "/api/login",
+        {"username": "another", "password": "5678"},
+    )
+    check_put_token(
+        "/api/users",
+        200,
+        {
+            "age": "18",
+            "firstname": "Another",
+            "lastname": "User",
+            "selectedGender": "m",
+            "sexualPreference": "e",
+            "bio": "My bio is short.",
+        },
+        {
+            "age": 18,
+            "bio": "My bio is short.",
+            "email_verified": False,
+            "firstname": "Another",
+            "lastname": "User",
+            "selectedGender": "m",
+            "sexualPreference": "e",
+        },
+    )
+
+
 def register():
     check_415("/api/register")
     check_get("/api/register", 405, HTTP_405)
@@ -261,6 +301,19 @@ def update():
             "sexualPreference": "e",
         },
     )
+    check_get_token(
+        "/api/users?username=another",
+        200,
+        {
+            "age": 18,
+            "fameRating": 0,
+            "firstname": "Another",
+            "gender": "m",
+            "lastname": "User",
+            "sexualPreference": "e",
+            "username": "another",
+        },
+    )
 
 
 def interests():
@@ -398,10 +451,16 @@ def email():
 
 def deleteme():
     check_get_token("/api/deleteme", 200, {"success": "user delete"})
+    check_login_token(
+        "/api/login",
+        {"username": "another", "password": "5678"},
+    )
+    check_get_token("/api/deleteme", 200, {"success": "user delete"})
 
 
 def main():
     register()
+    create_another_user()
     login()
     update()
     interests()
