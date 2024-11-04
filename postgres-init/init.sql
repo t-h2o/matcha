@@ -7,6 +7,9 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR NOT NULL,
     profile_complete BOOLEAN DEFAULT FALSE,
     email_verified BOOLEAN DEFAULT FALSE,
+    age INTEGER DEFAULT NULL CHECK (
+        18 <= age AND age <= 120
+    ),
     bio TEXT,
     gender CHAR(1),
     sexual_orientation CHAR(1),
