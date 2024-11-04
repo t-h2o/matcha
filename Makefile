@@ -6,7 +6,7 @@ start-dev: env
 stop-dev:
 	docker compose -f docker-compose.dev.yml down
 
-clean-dev:
+clean-dev: stop-dev
 	docker volume rm postgres-volume-dev
 	rm .env
 
