@@ -4,13 +4,11 @@ from flask import request, jsonify, send_from_directory
 from flask import current_app
 
 from flask_jwt_extended import (
-    create_access_token,
     jwt_required,
     get_jwt_identity,
 )
 
 from werkzeug.utils import secure_filename
-from werkzeug.security import check_password_hash
 
 from matcha.app_utils import (
     check_request_json,
@@ -24,7 +22,6 @@ from matcha.db import (
     db_get_interests,
     db_set_interests,
     db_register,
-    db_get_id_password_where_username,
     db_set_user_email,
     db_get_user_email,
     db_get_url_profile,
@@ -176,29 +173,6 @@ def modify_email():
             return error_msg
 
     return {"email": db_get_user_email(id_user)}, 201
-
-
-@bp.route("/api/login", methods=["POST"])
-def login_user():
-    json = request.json
-
-    check_request = check_request_json(
-        request.headers.get("Content-Type"),
-        json,
-        ["username", "password"],
-    )
-
-    if check_request is not None:
-        return jsonify(check_request[0]), check_request[1]
-
-    user_db = db_get_id_password_where_username(json["username"])
-
-    if user_db is None:
-        return jsonify({"error": "Incorrect username"}), 401
-    if check_password_hash(user_db[1], json["password"]):
-        access_token = create_access_token(identity=user_db[0])
-        return jsonify(access_token=access_token)
-    return jsonify({"error": "Incorrect password"}), 401
 
 
 @bp.route("/api/register", methods=["POST"])
