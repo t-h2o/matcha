@@ -5,6 +5,7 @@ import { GuestGuard } from './guest.guard';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -26,5 +27,9 @@ export const routes: Routes = [
     path: 'browsing',
     component: BrowsingComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
   },
 ];

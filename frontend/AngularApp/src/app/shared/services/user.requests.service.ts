@@ -84,4 +84,8 @@ export class UserRequestsService {
       `${this.baseUrl}/pictures`,
     );
   }
+
+  resetPassword(resetData: { username: string }) {
+    return this.httpClient.post(`${this.baseUrl}/reset-password`, resetData);
+  }
 }
