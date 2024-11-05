@@ -266,6 +266,13 @@ def check_get_token_pictures(path, status, content):
 
     check_response_pictures(response, path, status, content)
 
+    try:
+        response_json = loads(response.content)
+        if "pictures" in response_json:
+            return response_json["pictures"]
+    except:
+        pass
+
 
 def check_put_token_pictures(path, status, json, content):
     headers = {"Authorization": f"Bearer {access_token}"}

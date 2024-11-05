@@ -156,7 +156,7 @@ export class UserService {
       });
   }
 
-  modifyPictures(pictures: File[], profilePicture: string) {
+  modifyPictures(pictures: File[]) {
     const subscription = this.userRequestsService
       .modifyPictures(pictures)
       .pipe(finalize(() => subscription.unsubscribe()))
@@ -168,7 +168,6 @@ export class UserService {
               pictures: data.pictures,
             };
           });
-          this.modifyProfilePicture(profilePicture);
         },
         error: (error: any) => {
           console.log('Error uploading pictures:', error);

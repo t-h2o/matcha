@@ -10,7 +10,7 @@ from flask_jwt_extended import (
 
 from werkzeug.utils import secure_filename
 
-from matcha.app_utils import check_request_json, make_unique, get_profile_picture_name
+from matcha.app_utils import check_request_json, make_unique
 
 from matcha.db import (
     db_upload_pictures,
@@ -36,16 +36,7 @@ def modify_profile_picture_put(id_user, request):
     if check_request is not None:
         return jsonify(check_request[0]), check_request[1]
 
-    image_filenames = db_get_user_images(id_user)
-
-    profile_picture_name = get_profile_picture_name(
-        id_user, json["selectedPictures"], image_filenames
-    )
-
-    db_set_profile_picture(id_user, profile_picture_name)
-
-    if profile_picture_name is None:
-        return jsonify({"error": "cannot find the profile picture"}), 401
+    return db_set_profile_picture(id_user, json["selectedPictures"])
 
 
 @bp.route("/api/modify-profile-picture", methods=("PUT", "GET"))
@@ -60,7 +51,12 @@ def modify_profile_picture():
 
     profile_picture_name = db_get_url_profile(id_user)
 
-    return jsonify({"selectedPicture": profile_picture_name}), 201
+    if "url" in profile_picture_name:
+        return jsonify({"selectedPicture": profile_picture_name["url"]}), 201
+    elif "error" in profile_picture_name:
+        return jsonify(profile_picture_name), 401
+    else:
+        return jsonify({"error": "error"}), 401
 
 
 def picture_post(user_id, request):

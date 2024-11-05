@@ -49,16 +49,3 @@ def check_request_json(content_type, json, required_fields):
 def make_unique(string):
     ident = uuid4().__str__()
     return f"{ident}-{string}"
-
-
-def get_profile_picture_name(id_user, selected_picture, image_filenames):
-
-    profile_picture_name = None
-
-    for image in image_filenames:
-        regex_result = search(
-            str(id_user) + "_.{36}-" + selected_picture,
-            image,
-        )
-        if regex_result is not None:
-            return regex_result.string
