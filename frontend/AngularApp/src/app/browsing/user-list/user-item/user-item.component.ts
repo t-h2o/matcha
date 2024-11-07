@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CardComponent } from '../../../UI/card/card.component';
+import { Router } from '@angular/router';
 
 type userItem = {
   username: string;
@@ -19,8 +20,9 @@ type userItem = {
 })
 export class UserItemComponent {
   @Input({ required: true }) user!: userItem;
+  private router = inject(Router);
 
-  onViewProfile(userId: string) {
-    console.log(userId);
+  onViewProfile(username: string) {
+    this.router.navigate(['/browsing', username]);
   }
 }

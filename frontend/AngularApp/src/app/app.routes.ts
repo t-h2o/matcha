@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { UserDetailComponent } from './browsing/user-detail/user-detail.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -28,6 +29,10 @@ export const routes: Routes = [
     path: 'browsing',
     component: BrowsingComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'browsing/:username',
+    component: UserDetailComponent,
   },
   {
     path: 'reset-password',
