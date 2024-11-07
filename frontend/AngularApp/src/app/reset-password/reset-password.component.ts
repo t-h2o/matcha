@@ -10,7 +10,7 @@ import { CustomButtonComponent } from '../UI/custom-button/custom-button.compone
   standalone: true,
   imports: [CardComponent, FormsModule, CustomButtonComponent],
   templateUrl: './reset-password.component.html',
-  styleUrl: './reset-password.component.scss'
+  styleUrl: './reset-password.component.scss',
 })
 export class ResetPasswordComponent {
   private userService = inject(UserService);
@@ -18,7 +18,7 @@ export class ResetPasswordComponent {
   falseCredentials = signal<boolean>(false);
 
   onSubmit(formData: NgForm) {
-    const loginData: { username: string} = {
+    const loginData: { username: string } = {
       username: formData.value.username,
     };
     this.userService.resetPassword(loginData);
