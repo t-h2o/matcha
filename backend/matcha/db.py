@@ -215,6 +215,13 @@ def db_get_user_per_id(id_user):
     )
 
 
+def db_get_user_per_username(username):
+    return db_fetchone(
+        "SELECT username, firstname, lastname, gender, sexual_orientation, age, fame_rating FROM users WHERE username = %s",
+        (username,),
+    )
+
+
 def db_register(username, password, firstname, lastname, email, default_avatar):
     error_msg = db_query(
         "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);",

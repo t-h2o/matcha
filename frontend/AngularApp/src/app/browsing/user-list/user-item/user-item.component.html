@@ -1,0 +1,10 @@
+<app-card>
+  <div class="user-item" (click)="onViewProfile(user.username)">
+    <!-- <img [src]="user.profilePic" alt="Profile Picture" /> -->
+    <h3>{{ user.name }}</h3>
+    <p>{{ user.age }} years old</p>
+    <p>{{ user.location }}</p>
+    <p>{{ user.fameRating }} fame rating</p>
+    <p>{{ user.interests }}</p>
+  </div>
+</app-card>

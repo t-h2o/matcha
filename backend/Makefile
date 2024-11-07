@@ -8,3 +8,6 @@ black:
 
 test:
 	python test.py
+
+populate:
+	python populate.py

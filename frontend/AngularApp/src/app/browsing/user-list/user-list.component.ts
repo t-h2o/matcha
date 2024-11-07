@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
+import { UserItemComponent } from './user-item/user-item.component';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  imports: [],
+  imports: [UserItemComponent],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
 })
