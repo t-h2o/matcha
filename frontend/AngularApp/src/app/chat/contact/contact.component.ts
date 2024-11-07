@@ -11,4 +11,8 @@ import { CardComponent } from '../../UI/card/card.component';
 })
 export class ContactComponent {
   @Input({ required: true }) contact!: chatContact;
+
+  onClickContact() {
+    console.log(`${this.contact.username} was clicked`)
+  }
 }
