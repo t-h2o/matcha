@@ -36,17 +36,18 @@ export type UserInterests = {
 
 export type UserData = {
   username: string;
-  firstName: string;
-  lastName: string;
-  age: string;
   email: string;
+  firstname: string;
+  lastname: string;
   selectedGender: string;
   sexualPreference: string;
-  birthDate: string;
   bio: string;
-  pictures: string[];
-  profilePicture: string;
+  age: string;
   emailVerified: boolean;
+  profile_complete: boolean;
+  fameRating: number;
+  urlProfile: string;
+  pictures: string[];
 };
 
 export type PossibleMatchesUserData = {

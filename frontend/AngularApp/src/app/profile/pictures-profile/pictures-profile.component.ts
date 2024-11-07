@@ -16,7 +16,7 @@ export class PicturesProfileComponent {
   private userService = inject(UserService);
   userPictures = computed(() => this.userService.ownProfileData().pictures);
   profilePicture = computed(
-    () => this.userService.ownProfileData().profilePicture,
+    () => this.userService.ownProfileData().urlProfile,
   );
 
   get proPicture() {

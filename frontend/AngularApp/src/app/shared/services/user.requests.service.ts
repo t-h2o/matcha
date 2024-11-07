@@ -8,6 +8,7 @@ import {
   PossibleMatchesUserData,
   UserLogin,
   UserRegister,
+  UserData,
 } from '../models/data-to-api/user';
 import { token } from '../models/token';
 
@@ -34,11 +35,11 @@ export class UserRequestsService {
   }
 
   getUser() {
-    return this.httpClient.get<ModifiedUserGeneral>(`${this.baseUrl}/users`);
+    return this.httpClient.get<UserData>(`${this.baseUrl}/users`);
   }
 
   getUserByUsername(username: string) {
-    return this.httpClient.get<ModifiedUserGeneral>(
+    return this.httpClient.get<UserData>(
       `${this.baseUrl}/users?username=${username}`,
     );
   }
@@ -81,9 +82,12 @@ export class UserRequestsService {
   }
 
   modifyProfilePicture(selectedPictures: string) {
-    return this.httpClient.put(`${this.baseUrl}/modify-profile-picture`, {
-      selectedPictures,
-    });
+    return this.httpClient.put<{ selectedPicture: string }>(
+      `${this.baseUrl}/modify-profile-picture`,
+      {
+        selectedPictures,
+      },
+    );
   }
 
   getPictures() {
