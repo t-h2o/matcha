@@ -1,0 +1,9 @@
+<div class="app-wrapper">
+    <main class="main">
+        <app-card>
+            @for (contact of contacts; track contact.username) {
+                <app-contact [contact]="contact"></app-contact>
+            }
+        </app-card>
+</main>
+</div>
