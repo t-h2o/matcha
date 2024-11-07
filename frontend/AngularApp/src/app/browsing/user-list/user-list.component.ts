@@ -1,6 +1,6 @@
-import { Component, computed, inject, signal } from '@angular/core';
-import { UserItemComponent } from './user-item/user-item.component';
+import { Component, inject, signal } from '@angular/core';
 import { UserService } from '../../shared/services/user.service';
+import { UserItemComponent } from './user-item/user-item.component';
 
 @Component({
   selector: 'app-user-list',
