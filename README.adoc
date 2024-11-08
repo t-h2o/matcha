@@ -82,3 +82,54 @@ Sanitize les inputs du backend
 user confirm: he is allow to reset password when he foret
 
 user do not confirm: he can't get new password
+
+== Python review
+
+add an underscore to say that the function is private
+
+for optimisation, avoid loop for and while
+
+vectorise the code
+
+example: filter a file.
+instead to read line by line,
+read column by column
+
+DRY
+avoid to reapeat piece of code
+to avoid to change at many places
+
+python string template
+
+----
+>>> from string import Template
+>>> t = Template('x is $x')
+>>> t.substitute({'x' : 1})
+'x is 1'
+----
+
+https://docs.pytest.org/en/stable/[pytest] VS https://docs.python.org/3/library/unittest.html[unitest]
+
+https://pytest-cov.readthedocs.io/en/latest/readme.html[pytest-co]
+
+avoid to have dead code
+test every part of code
+
+TODO:
+
+- unit test
+- create a folder test
+  in folder test, create a file with the same name of the file to test
+- type the argument type
+
+----
+def (age : int) -> int : 
+	return 12
+----
+
+- avoid to explicitly return None
+here : https://github.com/t-h2o/matcha/blob/e7239fd40aa48abfc753437d0187d9a1d318421a/backend/matcha/db.py#L191
+
+IDEA:
+
+- centralize error message
