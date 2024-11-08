@@ -13,7 +13,7 @@ export class UserListComponent {
 
   users = [
     {
-      username: 'John123',
+      username: 'roburi',
       name: 'John',
       age: 25,
       location: 'New York',

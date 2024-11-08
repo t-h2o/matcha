@@ -2,20 +2,19 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ModifiedUserGeneral } from '../../shared/models/data-to-api/user';
 import { UserService } from '../../shared/services/user.service';
-import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-modify-general',
   standalone: true,
-  imports: [CardComponent, FormsModule, CustomButtonComponent],
+  imports: [FormsModule, CustomButtonComponent],
   templateUrl: './modify-general.component.html',
   styleUrl: './modify-general.component.scss',
 })
 export class ModifyGeneralComponent implements OnInit {
   @Input({ required: true }) onCancel!: () => void;
   private userService = inject(UserService);
-  userProfile = this.userService.profileData;
+  userProfile = this.userService.ownProfileData;
 
   firstName: string = '';
   lastName: string = '';

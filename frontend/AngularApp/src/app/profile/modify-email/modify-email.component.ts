@@ -24,7 +24,7 @@ import { UserService } from '../../shared/services/user.service';
 export class ModifyEmailComponent {
   @Input({ required: true }) onCancel!: () => void;
   private userService = inject(UserService);
-  userEmail = this.userService.profileData().email;
+  userEmail = this.userService.ownProfileData().email;
 
   uEmail: string = '';
 

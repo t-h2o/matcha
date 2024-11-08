@@ -18,7 +18,8 @@ export class UserService {
   private userRequestsService = inject(UserRequestsService);
 
   interestList = signal<Interests>({ interests: [] });
-  profileData = signal<UserData>(emptyUser);
+  ownProfileData = signal<UserData>(emptyUser);
+  otherProfileData = signal<UserData>(emptyUser);
 
   getInterests() {
     const subscription = this.userRequestsService
@@ -58,7 +59,33 @@ export class UserService {
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: ModifiedUserGeneral) => {
-          this.profileData.update((prev) => {
+          this.ownProfileData.update((prev) => {
+            return {
+              ...prev,
+              firstName: data.firstname,
+              lastName: data.lastname,
+              selectedGender: data.selectedGender,
+              sexualPreference: data.sexualPreference,
+              bio: data.bio,
+              age: data.age,
+              emailVerified: data.email_verified,
+            };
+          });
+        },
+        error: (error: any) => {
+          console.log('Error getting user profile:', error);
+        },
+      });
+  }
+
+  getUserProfileByUsername(username: string) {
+    const subscription = this.userRequestsService
+      .getUserByUsername(username)
+      .pipe(finalize(() => subscription.unsubscribe()))
+      .subscribe({
+        next: (data: ModifiedUserGeneral) => {
+          console.log('data: ' + JSON.stringify(data));
+          this.otherProfileData.update((prev) => {
             return {
               ...prev,
               firstName: data.firstname,
@@ -83,7 +110,7 @@ export class UserService {
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: ModifiedUserGeneral) => {
-          this.profileData.update((prev) => {
+          this.ownProfileData.update((prev) => {
             return {
               ...prev,
               firstName: data.firstname,
@@ -110,7 +137,7 @@ export class UserService {
       .subscribe({
         next: (data: ModifiedUserEmail) => {
           console.log('data: ' + JSON.stringify(data));
-          this.profileData.update((prev) => {
+          this.ownProfileData.update((prev) => {
             return {
               ...prev,
               email: data.email,
@@ -129,7 +156,7 @@ export class UserService {
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: ModifiedUserEmail) => {
-          this.profileData.update((prev) => {
+          this.ownProfileData.update((prev) => {
             return {
               ...prev,
               email: data.email,
@@ -162,7 +189,7 @@ export class UserService {
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: any) => {
-          this.profileData.update((prev) => {
+          this.ownProfileData.update((prev) => {
             return {
               ...prev,
               pictures: data.pictures,
@@ -181,7 +208,7 @@ export class UserService {
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: any) => {
-          this.profileData.update((prev) => {
+          this.ownProfileData.update((prev) => {
             return {
               ...prev,
               profilePicture: data.selectedPicture,
@@ -200,7 +227,7 @@ export class UserService {
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: any) => {
-          this.profileData.update((prev) => {
+          this.ownProfileData.update((prev) => {
             return {
               ...prev,
               pictures: data.pictures,

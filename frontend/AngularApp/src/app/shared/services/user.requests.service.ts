@@ -36,6 +36,12 @@ export class UserRequestsService {
     return this.httpClient.get<ModifiedUserGeneral>(`${this.baseUrl}/users`);
   }
 
+  getUserByUsername(username: string) {
+    return this.httpClient.get<ModifiedUserGeneral>(
+      `${this.baseUrl}/users?username=${username}`,
+    );
+  }
+
   modifyEmail(userData: ModifiedUserEmail) {
     return this.httpClient.put<ModifiedUserEmail>(
       `${this.baseUrl}/email`,
