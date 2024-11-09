@@ -1,15 +1,14 @@
-import { Component, computed, inject, signal } from '@angular/core';
-import { CardComponent } from '../../UI/card/card.component';
-import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
-import { UserService } from '../../shared/services/user.service';
+import { Component, computed, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { tags } from '../../shared/models/tags';
+import { UserService } from '../../shared/services/user.service';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-research',
   standalone: true,
-  imports: [CardComponent, FormsModule, NgClass, CustomButtonComponent],
+  imports: [FormsModule, NgClass, CustomButtonComponent],
   templateUrl: './research.component.html',
   styleUrl: './research.component.scss',
 })
