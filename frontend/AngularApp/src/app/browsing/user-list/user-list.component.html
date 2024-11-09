@@ -14,7 +14,9 @@
   </div>
 </header>
 <div class="user-list">
-  @for (user of users; track user.username) {
-    <app-user-item [user]="user"></app-user-item>
+  @if (possibleMatches()) {
+    @for (user of possibleMatches(); track user.username) {
+      <app-user-item [user]="user"></app-user-item>
+    }
   }
 </div>

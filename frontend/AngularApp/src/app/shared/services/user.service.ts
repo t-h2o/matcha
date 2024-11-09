@@ -6,6 +6,7 @@ import {
   ModifiedUserEmail,
   ModifiedUserGeneral,
   ModifiedUserPassword,
+  PossibleMatchesUserData,
   UserData,
 } from '../models/data-to-api/user';
 
@@ -20,6 +21,7 @@ export class UserService {
   interestList = signal<Interests>({ interests: [] });
   ownProfileData = signal<UserData>(emptyUser);
   otherProfileData = signal<UserData>(emptyUser);
+  possibleMatches = signal<PossibleMatchesUserData[]>([]);
 
   getInterests() {
     const subscription = this.userRequestsService
@@ -84,7 +86,6 @@ export class UserService {
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: ModifiedUserGeneral) => {
-          console.log('data: ' + JSON.stringify(data));
           this.otherProfileData.update((prev) => {
             return {
               ...prev,
@@ -136,7 +137,6 @@ export class UserService {
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: ModifiedUserEmail) => {
-          console.log('data: ' + JSON.stringify(data));
           this.ownProfileData.update((prev) => {
             return {
               ...prev,
@@ -247,6 +247,20 @@ export class UserService {
       .subscribe({
         next: (data: any) => {
           console.log('data: ' + JSON.stringify(data));
+        },
+        error: (error: any) => {
+          console.error('error: ' + JSON.stringify(error));
+        },
+      });
+  }
+
+  getAllUsers() {
+    const subscription = this.userRequestsService
+      .getAllUsers()
+      .pipe(finalize(() => subscription.unsubscribe()))
+      .subscribe({
+        next: (data: PossibleMatchesUserData[]) => {
+          this.possibleMatches.set(data);
         },
         error: (error: any) => {
           console.error('error: ' + JSON.stringify(error));
