@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { UserItemComponent } from './user-item/user-item.component';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-user-list',
@@ -10,25 +11,8 @@ import { UserItemComponent } from './user-item/user-item.component';
 })
 export class UserListComponent {
   selectedFilter = signal<string>('all');
-
-  users = [
-    {
-      username: 'John123',
-      name: 'John',
-      age: 25,
-      location: 'New York',
-      fameRating: 4.5,
-      interests: ['Music', 'Sports', 'Travel'],
-    },
-    {
-      username: 'Jane123',
-      name: 'Jane',
-      age: 22,
-      location: 'Los Angeles',
-      fameRating: 4.0,
-      interests: ['Art', 'Reading', 'Movies'],
-    },
-  ];
+  private userServices = inject(UserService);
+  possibleMatches = this.userServices.possibleMatches;
 
   onChangeTasksFilter(filter: string) {
     this.selectedFilter.set(filter);

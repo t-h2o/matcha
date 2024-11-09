@@ -48,3 +48,13 @@ export type UserData = {
   profilePicture: string;
   emailVerified: boolean;
 };
+
+export type PossibleMatchesUserData = {
+  username: string;
+  firstname: string;
+  lastname: string;
+  age: string;
+  selectedGender: string;
+  sexualPreference: string;
+  profilePicture: string;
+};

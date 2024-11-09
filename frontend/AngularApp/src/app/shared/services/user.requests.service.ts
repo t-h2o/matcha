@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import {
-  UserLogin,
   ModifiedUserEmail,
   ModifiedUserGeneral,
   ModifiedUserPassword,
+  PossibleMatchesUserData,
+  UserLogin,
   UserRegister,
 } from '../models/data-to-api/user';
 import { token } from '../models/token';
@@ -34,6 +35,12 @@ export class UserRequestsService {
 
   getUser() {
     return this.httpClient.get<ModifiedUserGeneral>(`${this.baseUrl}/users`);
+  }
+
+  getUserByUsername(username: string) {
+    return this.httpClient.get<ModifiedUserGeneral>(
+      `${this.baseUrl}/users?username=${username}`,
+    );
   }
 
   modifyEmail(userData: ModifiedUserEmail) {
@@ -87,5 +94,11 @@ export class UserRequestsService {
 
   resetPassword(resetData: { username: string }) {
     return this.httpClient.post(`${this.baseUrl}/reset-password`, resetData);
+  }
+
+  getAllUsers() {
+    return this.httpClient.get<PossibleMatchesUserData[]>(
+      `${this.baseUrl}/browsing`,
+    );
   }
 }

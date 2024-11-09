@@ -1,14 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { PossibleMatchesUserData } from '../../../shared/models/data-to-api/user';
 import { CardComponent } from '../../../UI/card/card.component';
-
-type userItem = {
-  username: string;
-  name: string;
-  age: number;
-  location: string;
-  fameRating: number;
-  interests: string[];
-};
 
 @Component({
   selector: 'app-user-item',
@@ -18,9 +11,10 @@ type userItem = {
   styleUrl: './user-item.component.scss',
 })
 export class UserItemComponent {
-  @Input({ required: true }) user!: userItem;
+  @Input({ required: true }) user!: PossibleMatchesUserData;
+  private router = inject(Router);
 
-  onViewProfile(userId: string) {
-    console.log(userId);
+  onViewProfile(username: string) {
+    this.router.navigate(['/browsing', username]);
   }
 }

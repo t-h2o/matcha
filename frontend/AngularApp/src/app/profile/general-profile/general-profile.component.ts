@@ -14,7 +14,7 @@ import { TitleCasePipe } from '@angular/common';
 export class GeneralProfileComponent {
   @Input() onModify!: () => void;
   private userServices = inject(UserService);
-  userProfile = this.userServices.profileData;
+  userProfile = this.userServices.ownProfileData;
 
   onClickModify() {
     this.onModify();

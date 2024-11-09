@@ -15,8 +15,8 @@ export class ModifyPicturesComponent {
   @Input() onCancel!: () => void;
   private userService = inject(UserService);
 
-  userPictures = this.userService.profileData().pictures;
-  profilePicture = this.userService.profileData().profilePicture;
+  userPictures = this.userService.ownProfileData().pictures;
+  profilePicture = this.userService.ownProfileData().profilePicture;
 
   selectedPictures: File[] = [];
   maxFiles = 5;

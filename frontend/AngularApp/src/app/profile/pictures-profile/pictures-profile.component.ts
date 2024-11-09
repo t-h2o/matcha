@@ -14,9 +14,9 @@ import { UserService } from '../../shared/services/user.service';
 export class PicturesProfileComponent {
   @Input() onModify!: () => void;
   private userService = inject(UserService);
-  userPictures = computed(() => this.userService.profileData().pictures);
+  userPictures = computed(() => this.userService.ownProfileData().pictures);
   profilePicture = computed(
-    () => this.userService.profileData().profilePicture,
+    () => this.userService.ownProfileData().profilePicture,
   );
 
   get proPicture() {

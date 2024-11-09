@@ -1,7 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { UserService } from '../shared/services/user.service';
-import { CardComponent } from '../UI/card/card.component';
-import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
 import { EmailPasswdComponent } from './email-passwd/email-passwd.component';
 import { GeneralProfileComponent } from './general-profile/general-profile.component';
 import { InterestsComponent } from './interests/interests.component';
@@ -15,8 +13,6 @@ import { PicturesProfileComponent } from './pictures-profile/pictures-profile.co
   selector: 'app-profile',
   standalone: true,
   imports: [
-    CardComponent,
-    CustomButtonComponent,
     GeneralProfileComponent,
     PicturesProfileComponent,
     InterestsComponent,

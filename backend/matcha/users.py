@@ -21,6 +21,7 @@ from matcha.db import (
     db_set_user_profile_data,
     db_get_user_per_id,
     db_get_user_per_username,
+    db_browsing_gender_sexualorientation,
 )
 
 from matcha.app_utils import check_request_json
@@ -97,6 +98,48 @@ def users():
             ),
             200,
         )
+
+
+@bp.route("/api/browsing")
+@jwt_required()
+def browsing_users():
+    id_user = get_jwt_identity()
+    user_db = db_get_user_per_id(id_user)
+    gender = user_db[2]
+    sexual_orientation = user_db[3]
+
+    search = {gender: None, sexual_orientation: None}
+
+    if gender == "m" and sexual_orientation == "e":
+        search["gender"] = "f"
+        search["sexual_orientation"] = "e"
+    elif gender == "m" and sexual_orientation == "o":
+        search["gender"] = "m"
+        search["sexual_orientation"] = "o"
+    elif gender == "f" and sexual_orientation == "e":
+        search["gender"] = "m"
+        search["sexual_orientation"] = "e"
+    elif gender == "f" and sexual_orientation == "o":
+        search["gender"] = "f"
+        search["sexual_orientation"] = "o"
+
+    db_browsing_users = db_browsing_gender_sexualorientation(search)
+
+    browsing_users = []
+    for user in db_browsing_users:
+        browsing_users.append(
+            {
+                "username": user[0],
+                "firstname": user[1],
+                "lastname": user[2],
+                "gender": user[3],
+                "sexualPreference": user[4],
+                "age": user[5],
+                "fameRating": user[6],
+            }
+        )
+
+    return jsonify(browsing_users), 200
 
 
 def email_put(user_id, request):
