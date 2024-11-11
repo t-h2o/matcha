@@ -1,14 +1,9 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../shared/services/user.service';
 import { EmailPasswdComponent } from './email-passwd/email-passwd.component';
 import { GeneralProfileComponent } from './general-profile/general-profile.component';
 import { InterestsComponent } from './interests/interests.component';
-import { ModifyEmailComponent } from './modify-email/modify-email.component';
-import { ModifyGeneralComponent } from './modify-general/modify-general.component';
-import { ModifyInterestsComponent } from './modify-interests/modify-interests.component';
-import { ModifyPicturesComponent } from './modify-pictures/modify-pictures.component';
 import { PicturesProfileComponent } from './pictures-profile/pictures-profile.component';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -18,42 +13,16 @@ import { Router } from '@angular/router';
     PicturesProfileComponent,
     InterestsComponent,
     EmailPasswdComponent,
-    ModifyGeneralComponent,
-    ModifyInterestsComponent,
-    ModifyEmailComponent,
-    ModifyPicturesComponent,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
 export class ProfileComponent implements OnInit {
   private userServices = inject(UserService);
-  private router = inject(Router);
 
   ngOnInit(): void {
     this.userServices.getInterests();
     this.userServices.getUserProfile();
     this.userServices.getUserPictures();
   }
-
-  isModifyingGeneral = signal<boolean>(false);
-  isModifyingInterests = signal<boolean>(false);
-  isModifyingEmail = signal<boolean>(false);
-  isModifyingPictures = signal<boolean>(false);
-
-  toggleIsModifyingGeneral = () => {
-    this.router.navigate(['/modify-general']);
-  };
-
-  toggleIModifyInterests = () => {
-    this.isModifyingInterests.set(!this.isModifyingInterests());
-  };
-
-  toggleIModifyEmail = () => {
-    this.isModifyingEmail.set(!this.isModifyingEmail());
-  };
-
-  toggleIModifyPictures = () => {
-    this.isModifyingPictures.set(!this.isModifyingPictures());
-  };
 }

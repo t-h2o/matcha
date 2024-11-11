@@ -3,6 +3,7 @@ import { UserService } from '../../shared/services/user.service';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { TitleCasePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-general-profile',
@@ -12,13 +13,13 @@ import { TitleCasePipe } from '@angular/common';
   styleUrl: './general-profile.component.scss',
 })
 export class GeneralProfileComponent {
-  @Input() onModify!: () => void;
   private userServices = inject(UserService);
+  private router = inject(Router);
   userProfile = this.userServices.ownProfileData;
 
-  onClickModify() {
-    this.onModify();
-  }
+  goToModifyingGeneral = () => {
+    this.router.navigate(['/modify-general']);
+  };
 
   get age() {
     if (!this.userProfile().age || this.userProfile().age === '') {

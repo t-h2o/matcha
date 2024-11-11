@@ -1,5 +1,6 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { tags } from '../../shared/models/tags';
 import { UserService } from '../../shared/services/user.service';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
@@ -12,7 +13,7 @@ import { CustomButtonComponent } from '../../UI/custom-button/custom-button.comp
   styleUrl: './modify-interests.component.scss',
 })
 export class ModifyInterestsComponent implements OnInit {
-  @Input({ required: true }) onCancel!: () => void;
+  private router = inject(Router);
   private userService = inject(UserService);
 
   interestList = this.userService.interestList;
@@ -21,6 +22,10 @@ export class ModifyInterestsComponent implements OnInit {
 
   ngOnInit() {
     this.selectedTags = [...this.interestList().interests];
+  }
+
+  goBack() {
+    this.router.navigate(['/profile']);
   }
 
   onTagChange(event: any) {
@@ -38,6 +43,6 @@ export class ModifyInterestsComponent implements OnInit {
   onSubmit() {
     const selectedTagsObj = { interests: this.selectedTags };
     this.userService.modifyInterests(selectedTagsObj);
-    this.onCancel();
+    this.goBack();
   }
 }

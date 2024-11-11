@@ -1,8 +1,9 @@
-import { Component, computed, inject, Input } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { Component, computed, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from '../../shared/services/user.service';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
-import { NgClass } from '@angular/common';
-import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-pictures-profile',
@@ -12,10 +13,14 @@ import { UserService } from '../../shared/services/user.service';
   styleUrl: './pictures-profile.component.scss',
 })
 export class PicturesProfileComponent {
-  @Input() onModify!: () => void;
+  private router = inject(Router);
   private userService = inject(UserService);
   userPictures = computed(() => this.userService.ownProfileData().pictures);
   profilePicture = computed(() => this.userService.ownProfileData().urlProfile);
+
+  goToModifyPictures = () => {
+    this.router.navigate(['/modify-pictures']);
+  };
 
   get proPicture() {
     return this.profilePicture();
