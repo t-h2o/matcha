@@ -1,5 +1,5 @@
-<div class="backdrop">
-  <dialog open>
+<div class="app-wrapper">
+  <app-card>
     <form class="form" id="profile" #form="ngForm">
       <h1 class="title">Manage Pictures</h1>
       <div
@@ -47,10 +47,10 @@
 
       <div class="btn-wrapper">
         <button custom-button class="btn" (click)="onSubmit()">Save</button>
-        <button type="button" custom-button class="btn" (click)="onCancel()">
+        <button type="button" custom-button class="btn" (click)="goBack()">
           Cancel
         </button>
       </div>
     </form>
-  </dialog>
+  </app-card>
 </div>

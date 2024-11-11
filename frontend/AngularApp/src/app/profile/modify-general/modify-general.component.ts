@@ -1,19 +1,21 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ModifiedUserGeneral } from '../../shared/models/data-to-api/user';
 import { UserService } from '../../shared/services/user.service';
+import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-modify-general',
   standalone: true,
-  imports: [FormsModule, CustomButtonComponent],
+  imports: [FormsModule, CustomButtonComponent, CardComponent],
   templateUrl: './modify-general.component.html',
   styleUrl: './modify-general.component.scss',
 })
 export class ModifyGeneralComponent implements OnInit {
-  @Input({ required: true }) onCancel!: () => void;
   private userService = inject(UserService);
+  private router = inject(Router);
   userProfile = this.userService.ownProfileData;
 
   firstName: string = '';
@@ -30,6 +32,10 @@ export class ModifyGeneralComponent implements OnInit {
     this.sexualPreference = this.userProfile().sexualPreference;
     this.bio = this.userProfile().bio;
     this.age = this.userProfile().age;
+  }
+
+  goBack() {
+    this.router.navigate(['/profile']);
   }
 
   onSubmit(formData: NgForm) {
@@ -54,6 +60,6 @@ export class ModifyGeneralComponent implements OnInit {
 
     this.userService.modifyUserProfile(modifiedUserData);
     formData.form.reset();
-    this.onCancel();
+    this.goBack();
   }
 }

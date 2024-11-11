@@ -1,43 +1,12 @@
 <div class="app-wrapper">
-  @if (isModifyingGeneral()) {
-    <main class="main">
-      <app-modify-general
-        [onCancel]="toggleIsModifyingGeneral"
-      ></app-modify-general>
-    </main>
-  }
-  @if (isModifyingInterests()) {
-    <main class="main">
-      <app-modify-interests
-        [onCancel]="toggleIModifyInterests"
-      ></app-modify-interests>
-    </main>
-  }
-  @if (isModifyingEmail()) {
-    <main class="main">
-      <app-modify-email [onCancel]="toggleIModifyEmail"></app-modify-email>
-    </main>
-  }
-  @if (isModifyingPictures()) {
-    <main class="main">
-      <app-modify-pictures
-        [onCancel]="toggleIModifyPictures"
-      ></app-modify-pictures>
-    </main>
-  } @else {
-    <main class="profile-container">
-      <div class="left">
-        <app-general-profile
-          [onModify]="toggleIsModifyingGeneral"
-        ></app-general-profile>
-        <app-interests [onModify]="toggleIModifyInterests"></app-interests>
-        <app-email-passwd [onModify]="toggleIModifyEmail"></app-email-passwd>
-      </div>
-      <div class="right">
-        <app-pictures-profile
-          [onModify]="toggleIModifyPictures"
-        ></app-pictures-profile>
-      </div>
-    </main>
-  }
+  <main class="profile-container">
+    <div class="column">
+      <app-general-profile></app-general-profile>
+      <app-interests></app-interests>
+    </div>
+    <div class="column">
+      <app-pictures-profile></app-pictures-profile>
+      <app-email-passwd></app-email-passwd>
+    </div>
+  </main>
 </div>

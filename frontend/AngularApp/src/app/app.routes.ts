@@ -9,6 +9,10 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { UserDetailComponent } from './browsing/user-detail/user-detail.component';
 import { ChatComponent } from './chat/chat.component';
+import { ModifyEmailComponent } from './profile/modify-email/modify-email.component';
+import { ModifyGeneralComponent } from './profile/modify-general/modify-general.component';
+import { ModifyInterestsComponent } from './profile/modify-interests/modify-interests.component';
+import { ModifyPicturesComponent } from './profile/modify-pictures/modify-pictures.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -20,6 +24,26 @@ export const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'modify-general',
+    component: ModifyGeneralComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'modify-interests',
+    component: ModifyInterestsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'modify-email',
+    component: ModifyEmailComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'modify-pictures',
+    component: ModifyPicturesComponent,
     canActivate: [AuthGuard],
   },
   {

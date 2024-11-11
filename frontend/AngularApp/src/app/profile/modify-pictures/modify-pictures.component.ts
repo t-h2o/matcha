@@ -1,18 +1,25 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { PicturePreviewComponent } from './picture-preview/picture-preview.component';
+import { CardComponent } from '../../UI/card/card.component';
 
 @Component({
   selector: 'app-modify-pictures',
   standalone: true,
-  imports: [FormsModule, CustomButtonComponent, PicturePreviewComponent],
+  imports: [
+    FormsModule,
+    CustomButtonComponent,
+    PicturePreviewComponent,
+    CardComponent,
+  ],
   templateUrl: './modify-pictures.component.html',
   styleUrl: './modify-pictures.component.scss',
 })
 export class ModifyPicturesComponent {
-  @Input() onCancel!: () => void;
+  private router = inject(Router);
   private userService = inject(UserService);
 
   userPictures = this.userService.ownProfileData().pictures;
@@ -22,6 +29,10 @@ export class ModifyPicturesComponent {
   maxFiles = 5;
   maxSizePerFile = 5 * 1024 * 1024;
   localProfilePicture = '';
+
+  goBack() {
+    this.router.navigate(['/profile']);
+  }
 
   onDragOver(event: DragEvent) {
     event.preventDefault();
@@ -73,6 +84,6 @@ export class ModifyPicturesComponent {
     if (this.selectedPictures.length > 0) {
       this.uploadFiles();
     }
-    this.onCancel();
+    this.goBack();
   }
 }

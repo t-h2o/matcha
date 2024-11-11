@@ -1,5 +1,6 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { PasswordConfirmValidatorDirective } from '../../shared/directives/password-confirm-validator.directive';
@@ -22,11 +23,15 @@ import { UserService } from '../../shared/services/user.service';
   styleUrl: './modify-email.component.scss',
 })
 export class ModifyEmailComponent {
-  @Input({ required: true }) onCancel!: () => void;
+  private router = inject(Router);
   private userService = inject(UserService);
   userEmail = this.userService.ownProfileData().email;
 
   uEmail: string = '';
+
+  goBack() {
+    this.router.navigate(['/profile']);
+  }
 
   onSubmitEmail(form: NgForm) {
     if (form.invalid) {
@@ -37,7 +42,7 @@ export class ModifyEmailComponent {
     };
     this.userService.modifyEmail(modifiedUserData);
     form.form.reset();
-    this.onCancel();
+    this.goBack();
   }
 
   onSubmitPassword(form: NgForm) {
@@ -50,6 +55,6 @@ export class ModifyEmailComponent {
     };
     this.userService.modifyPassword(modifiedUserData);
     form.form.reset();
-    this.onCancel();
+    this.goBack();
   }
 }

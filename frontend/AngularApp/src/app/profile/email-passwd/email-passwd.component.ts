@@ -1,4 +1,5 @@
-import { Component, computed, inject, Input } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { UserService } from '../../shared/services/user.service';
@@ -11,12 +12,16 @@ import { UserService } from '../../shared/services/user.service';
   styleUrl: './email-passwd.component.scss',
 })
 export class EmailPasswdComponent {
-  @Input({ required: true }) onModify!: () => void;
+  private router = inject(Router);
   private userService = inject(UserService);
   userEmail = computed(() => this.userService.ownProfileData().email);
   isEmailVerified = computed(
     () => this.userService.ownProfileData().emailVerified,
   );
+
+  goToModifyEmail = () => {
+    this.router.navigate(['/modify-email']);
+  };
 
   get Email() {
     if (this.userEmail() === '') {

@@ -1,5 +1,5 @@
-<div class="backdrop">
-  <dialog open>
+<div class="app-wrapper">
+  <app-card>
     <form class="form" id="profile" #form1="ngForm">
       <h1 class="title">Email or Password</h1>
 
@@ -96,10 +96,10 @@
       </app-card>
 
       <div class="btn-wrapper">
-        <button type="button" custom-button class="btn" (click)="onCancel()">
+        <button type="button" custom-button class="btn" (click)="goBack()">
           Cancel
         </button>
       </div>
     </form>
-  </dialog>
+  </app-card>
 </div>
