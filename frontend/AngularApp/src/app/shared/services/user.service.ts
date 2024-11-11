@@ -60,17 +60,22 @@ export class UserService {
       .getUser()
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
-        next: (data: ModifiedUserGeneral) => {
+        next: (data: UserData) => {
           this.ownProfileData.update((prev) => {
             return {
               ...prev,
-              firstName: data.firstname,
-              lastName: data.lastname,
+              username: data.username,
+              firstname: data.firstname,
+              lastname: data.lastname,
+              email: data.email,
               selectedGender: data.selectedGender,
               sexualPreference: data.sexualPreference,
               bio: data.bio,
               age: data.age,
-              emailVerified: data.email_verified,
+              emailVerified: data.emailVerified,
+              profile_complete: data.profile_complete,
+              fameRating: data.fameRating,
+              urlProfile: data.urlProfile,
             };
           });
         },
@@ -85,17 +90,22 @@ export class UserService {
       .getUserByUsername(username)
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
-        next: (data: ModifiedUserGeneral) => {
+        next: (data: UserData) => {
           this.otherProfileData.update((prev) => {
             return {
               ...prev,
-              firstName: data.firstname,
-              lastName: data.lastname,
+              username: data.username,
+              firstname: data.firstname,
+              lastname: data.lastname,
+              email: data.email,
               selectedGender: data.selectedGender,
               sexualPreference: data.sexualPreference,
               bio: data.bio,
               age: data.age,
-              emailVerified: data.email_verified,
+              emailVerified: data.emailVerified,
+              profile_complete: data.profile_complete,
+              fameRating: data.fameRating,
+              urlProfile: data.urlProfile,
             };
           });
         },
@@ -131,7 +141,6 @@ export class UserService {
   }
 
   modifyEmail(userData: ModifiedUserEmail) {
-    console.log('userData: ' + JSON.stringify(userData));
     const subscription = this.userRequestsService
       .modifyEmail(userData)
       .pipe(finalize(() => subscription.unsubscribe()))
@@ -211,7 +220,7 @@ export class UserService {
           this.ownProfileData.update((prev) => {
             return {
               ...prev,
-              profilePicture: data.selectedPicture,
+              urlProfile: data.selectedPicture,
             };
           });
         },

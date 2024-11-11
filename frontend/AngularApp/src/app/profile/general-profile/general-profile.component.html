@@ -3,13 +3,13 @@
     <div class="detail-group">
       <p>
         <span class="list-title">First Name:</span
-        >{{ userProfile().firstName | titlecase }}
+        >{{ userProfile().firstname | titlecase }}
       </p>
     </div>
     <div class="detail-group">
       <p>
         <span class="list-title">Last Name:</span
-        >{{ userProfile().lastName | titlecase }}
+        >{{ userProfile().lastname | titlecase }}
       </p>
     </div>
     <div class="detail-group">
@@ -25,7 +25,7 @@
       </p>
     </div>
     <div class="detail-group">
-      <p><span class="list-title">Bio:</span>{{ userProfile().bio }}</p>
+      <p><span class="list-title">Bio:</span>{{ bio }}</p>
     </div>
     <div class="btn-container">
       <button custom-button class="btn" (click)="onClickModify()">

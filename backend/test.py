@@ -231,13 +231,17 @@ def update():
         "/api/users",
         200,
         {
+            "age": None,
             "bio": None,
+            "email": "email@email.com",
+            "email_verified": False,
+            "fameRating": 0,
             "firstname": "firstname",
             "lastname": "lastname",
+            "profile_complete": False,
             "selectedGender": None,
             "sexualPreference": None,
-            "age": None,
-            "email_verified": False,
+            "username": "user",
         },
     )
     check_put_token(
@@ -262,11 +266,15 @@ def update():
         {
             "age": 22,
             "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
+            "email": "email@email.com",
             "email_verified": False,
+            "fameRating": 0,
             "firstname": "Johnny",
             "lastname": "Appleseed",
+            "profile_complete": False,
             "selectedGender": "m",
             "sexualPreference": "e",
+            "username": "user",
         },
     )
     check_put_token(
@@ -294,11 +302,15 @@ def update():
         {
             "age": 22,
             "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
+            "email": "email@email.com",
             "email_verified": False,
+            "fameRating": 0,
             "firstname": "Johnny",
             "lastname": "Appleseed",
+            "profile_complete": False,
             "selectedGender": "m",
             "sexualPreference": "e",
+            "username": "user",
         },
     )
     check_get_token(

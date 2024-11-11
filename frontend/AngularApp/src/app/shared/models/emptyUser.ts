@@ -2,15 +2,16 @@ import { UserData } from './data-to-api/user';
 
 export const emptyUser: UserData = {
   username: '',
-  firstName: '',
-  lastName: '',
+  firstname: '',
+  lastname: '',
   email: '',
   age: '',
   selectedGender: '',
   sexualPreference: '',
-  birthDate: '',
   bio: '',
   pictures: [],
-  profilePicture: '',
+  urlProfile: '',
   emailVerified: false,
+  profile_complete: false,
+  fameRating: 0,
 };

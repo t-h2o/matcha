@@ -22,6 +22,7 @@ from matcha.db import (
     db_get_user_per_id,
     db_get_user_per_username,
     db_browsing_gender_sexualorientation,
+    db_get_url_profile,
 )
 
 from matcha.app_utils import check_request_json
@@ -67,16 +68,27 @@ def users():
 
     if get_username == "":
         user_db = db_get_user_per_id(id_user)
+        profile_picture = db_get_url_profile(id_user)
+
+        if "url" in profile_picture:
+            profile_url = url = profile_picture["url"]
+        elif "error" in profile_picture:
+            profile_url = url = profile_picture["error"]
 
         return (
             jsonify(
-                firstname=user_db[0],
-                lastname=user_db[1],
-                selectedGender=user_db[2],
-                sexualPreference=user_db[3],
-                bio=user_db[4],
-                age=user_db[5],
-                email_verified=user_db[6],
+                username=user_db[0],
+                email=user_db[1],
+                firstname=user_db[2],
+                lastname=user_db[3],
+                selectedGender=user_db[4],
+                sexualPreference=user_db[5],
+                bio=user_db[6],
+                age=user_db[7],
+                email_verified=user_db[8],
+                profile_complete=user_db[9],
+                fameRating=user_db[10],
+                urlProfile=profile_url,
             ),
             200,
         )

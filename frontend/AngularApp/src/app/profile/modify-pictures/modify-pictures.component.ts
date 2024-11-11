@@ -16,7 +16,7 @@ export class ModifyPicturesComponent {
   private userService = inject(UserService);
 
   userPictures = this.userService.ownProfileData().pictures;
-  profilePicture = this.userService.ownProfileData().profilePicture;
+  profilePicture = this.userService.ownProfileData().urlProfile;
 
   selectedPictures: File[] = [];
   maxFiles = 5;
