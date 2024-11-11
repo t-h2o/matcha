@@ -1,11 +1,4 @@
 <div class="app-wrapper">
-  @if (isModifyingGeneral()) {
-    <main class="main">
-      <app-modify-general
-        [onCancel]="toggleIsModifyingGeneral"
-      ></app-modify-general>
-    </main>
-  }
   @if (isModifyingInterests()) {
     <main class="main">
       <app-modify-interests
@@ -26,17 +19,17 @@
     </main>
   } @else {
     <main class="profile-container">
-      <div class="left">
+      <div class="column">
         <app-general-profile
           [onModify]="toggleIsModifyingGeneral"
         ></app-general-profile>
         <app-interests [onModify]="toggleIModifyInterests"></app-interests>
-        <app-email-passwd [onModify]="toggleIModifyEmail"></app-email-passwd>
       </div>
-      <div class="right">
+      <div class="column">
         <app-pictures-profile
           [onModify]="toggleIModifyPictures"
         ></app-pictures-profile>
+        <app-email-passwd [onModify]="toggleIModifyEmail"></app-email-passwd>
       </div>
     </main>
   }

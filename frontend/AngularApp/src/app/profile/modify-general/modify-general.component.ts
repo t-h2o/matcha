@@ -3,11 +3,12 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { ModifiedUserGeneral } from '../../shared/models/data-to-api/user';
 import { UserService } from '../../shared/services/user.service';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
+import { CardComponent } from '../../UI/card/card.component';
 
 @Component({
   selector: 'app-modify-general',
   standalone: true,
-  imports: [FormsModule, CustomButtonComponent],
+  imports: [FormsModule, CustomButtonComponent, CardComponent],
   templateUrl: './modify-general.component.html',
   styleUrl: './modify-general.component.scss',
 })

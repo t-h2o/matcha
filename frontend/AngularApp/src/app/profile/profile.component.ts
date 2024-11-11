@@ -8,6 +8,7 @@ import { ModifyGeneralComponent } from './modify-general/modify-general.componen
 import { ModifyInterestsComponent } from './modify-interests/modify-interests.component';
 import { ModifyPicturesComponent } from './modify-pictures/modify-pictures.component';
 import { PicturesProfileComponent } from './pictures-profile/pictures-profile.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -27,6 +28,7 @@ import { PicturesProfileComponent } from './pictures-profile/pictures-profile.co
 })
 export class ProfileComponent implements OnInit {
   private userServices = inject(UserService);
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.userServices.getInterests();
@@ -40,7 +42,7 @@ export class ProfileComponent implements OnInit {
   isModifyingPictures = signal<boolean>(false);
 
   toggleIsModifyingGeneral = () => {
-    this.isModifyingGeneral.set(!this.isModifyingGeneral());
+    this.router.navigate(['/profile/modify-general']);
   };
 
   toggleIModifyInterests = () => {
