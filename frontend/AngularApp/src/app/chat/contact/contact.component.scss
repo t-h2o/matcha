@@ -1,8 +1,21 @@
 @import "../../../styles.scss";
 
-.container {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
+.contact-card {
+  background-color: $green;
+  border-radius: 8px;
+  padding: 1rem;
+  border-width: 2px;
+  border-color: $pink;
+  border-style: solid;
+  overflow: hidden;
+  width: 100%;
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
 
   img {
     height: 4rem;
@@ -10,14 +23,30 @@
     object-fit: fill;
     border-radius: 50%;
   }
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  // visibility: hidden;
+
+  img {
+    height: 2rem;
+    width: 2rem;
+    object-fit: fill;
+    border-radius: 50%;
+    margin: 0 0.5rem;
+  }
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-around;
+  color: $pink;
 
   .info {
-    margin-left: 1rem;
+    margin: 0 0.5rem;
     text-align: center;
-    color: $pink;
-
-    h3 {
-      margin-bottom: 0.5rem;
-    }
   }
 }

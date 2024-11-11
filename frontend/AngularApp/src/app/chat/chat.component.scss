@@ -8,6 +8,10 @@
 
 .contact-list {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem;
+
+  @media screen and (max-width: $mobile-max-width) {
+    grid-template-columns: 1fr;
+  }
 }

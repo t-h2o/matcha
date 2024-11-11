@@ -1,12 +1,20 @@
-<app-card class="contact-card">
-  <div class="container" (click)="onClickContact()">
+<div class="contact-card" (click)="onClickContact()">
+  <div class="top">
     <div class="image">
       <img src="{{ contact.profilePicture }}" alt="{{ contact.username }}" />
     </div>
+    <div class="icon"><img src="icons/chat-with-msg.svg" alt="chat" /></div>
+  </div>
+
+  <div class="bottom" (click)="onClickContact()">
     <div class="info">
       <h3>{{ contact.username }}</h3>
+    </div>
+    <div class="info">
       <p>{{ contact.firstName }}</p>
+    </div>
+    <div class="info">
       <p>{{ contact.lastName }}</p>
     </div>
   </div>
-</app-card>
+</div>
