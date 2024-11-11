@@ -61,11 +61,12 @@ export class UserService {
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: UserData) => {
+          console.log('data: ' + JSON.stringify(data));
           this.ownProfileData.update((prev) => {
             return {
               ...prev,
-              firstName: data.firstname,
-              lastName: data.lastname,
+              firstname: data.firstname,
+              lastname: data.lastname,
               selectedGender: data.selectedGender,
               sexualPreference: data.sexualPreference,
               bio: data.bio,

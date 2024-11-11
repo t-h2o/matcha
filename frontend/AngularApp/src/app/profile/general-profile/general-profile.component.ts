@@ -21,7 +21,7 @@ export class GeneralProfileComponent {
   }
 
   get age() {
-    if (this.userProfile().age === '') {
+    if (!this.userProfile().age || this.userProfile().age === '') {
       return 'NOT SPECIFIED';
     }
     return this.userProfile().age;
@@ -51,7 +51,7 @@ export class GeneralProfileComponent {
   }
 
   get bio() {
-    if (this.userProfile().bio === '') {
+    if (!this.userProfile().bio || this.userProfile().bio === '') {
       return 'EMPTY';
     }
     return this.userProfile().bio;
