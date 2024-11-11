@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
     this.userServices.getUserProfile();
     this.userServices.getUserPictures();
   }
-  
+
   isModifyingGeneral = signal<boolean>(false);
   isModifyingInterests = signal<boolean>(false);
   isModifyingEmail = signal<boolean>(false);

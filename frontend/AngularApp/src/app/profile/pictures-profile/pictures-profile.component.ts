@@ -15,9 +15,7 @@ export class PicturesProfileComponent {
   @Input() onModify!: () => void;
   private userService = inject(UserService);
   userPictures = computed(() => this.userService.ownProfileData().pictures);
-  profilePicture = computed(
-    () => this.userService.ownProfileData().urlProfile,
-  );
+  profilePicture = computed(() => this.userService.ownProfileData().urlProfile);
 
   get proPicture() {
     return this.profilePicture();
