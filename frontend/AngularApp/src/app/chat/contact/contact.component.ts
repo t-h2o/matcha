@@ -1,11 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { chatContact } from '../../shared/models/data-to-api/user';
-import { CardComponent } from '../../UI/card/card.component';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CardComponent],
+  imports: [],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
 })
