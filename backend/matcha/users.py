@@ -117,8 +117,8 @@ def users():
 def browsing_users():
     id_user = get_jwt_identity()
     user_db = db_get_user_per_id(id_user)
-    gender = user_db[2]
-    sexual_orientation = user_db[3]
+    gender = user_db[4]
+    sexual_orientation = user_db[5]
 
     search = {gender: None, sexual_orientation: None}
 

@@ -478,6 +478,7 @@ def main():
     interests()
     pictures()
     email()
+    check_get_token("/api/browsing", 200, {"success": "user delete"})
     deleteme()
 
 
