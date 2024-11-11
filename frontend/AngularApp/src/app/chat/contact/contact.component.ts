@@ -13,6 +13,6 @@ export class ContactComponent {
   @Input({ required: true }) contact!: chatContact;
 
   onClickContact() {
-    console.log(`${this.contact.username} was clicked`)
+    console.log(`${this.contact.username} was clicked`);
   }
 }
