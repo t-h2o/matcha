@@ -1,0 +1,12 @@
+<app-card class="contact-card">
+  <div class="container" (click)="onClickContact()">
+    <div class="image">
+      <img src="{{ contact.profilePicture }}" alt="{{ contact.username }}" />
+    </div>
+    <div class="info">
+      <h3>{{ contact.username }}</h3>
+      <p>{{ contact.firstName }}</p>
+      <p>{{ contact.lastName }}</p>
+    </div>
+  </div>
+</app-card>

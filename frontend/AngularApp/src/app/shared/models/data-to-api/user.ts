@@ -56,5 +56,11 @@ export type PossibleMatchesUserData = {
   age: string;
   selectedGender: string;
   sexualPreference: string;
+};
+
+export type chatContact = {
+  username: string;
+  firstName: string;
+  lastName: string;
   profilePicture: string;
 };

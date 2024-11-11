@@ -1,0 +1,23 @@
+@import "../../../styles.scss";
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+
+  img {
+    height: 4rem;
+    width: 4rem;
+    object-fit: fill;
+    border-radius: 50%;
+  }
+
+  .info {
+    margin-left: 1rem;
+    text-align: center;
+    color: $pink;
+
+    h3 {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
