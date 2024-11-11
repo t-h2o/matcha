@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { tags } from '../../shared/models/tags';
 import { UserService } from '../../shared/services/user.service';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
+import { CardComponent } from '../../UI/card/card.component';
 
 @Component({
   selector: 'app-modify-interests',
   standalone: true,
-  imports: [FormsModule, CustomButtonComponent],
+  imports: [FormsModule, CustomButtonComponent, CardComponent],
   templateUrl: './modify-interests.component.html',
   styleUrl: './modify-interests.component.scss',
 })
