@@ -1,10 +1,10 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ModifiedUserGeneral } from '../../shared/models/data-to-api/user';
 import { UserService } from '../../shared/services/user.service';
-import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { CardComponent } from '../../UI/card/card.component';
-import { Router } from '@angular/router';
+import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-modify-general',

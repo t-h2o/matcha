@@ -1,8 +1,8 @@
-import { Component, computed, inject, Input } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { UserService } from '../../shared/services/user.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-interests',

@@ -1,9 +1,9 @@
-import { Component, inject, Input } from '@angular/core';
+import { TitleCasePipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
-import { TitleCasePipe } from '@angular/common';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-general-profile',
