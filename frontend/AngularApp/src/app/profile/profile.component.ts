@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
   isModifyingPictures = signal<boolean>(false);
 
   toggleIsModifyingGeneral = () => {
-    this.router.navigate(['/profile/modify-general']);
+    this.router.navigate(['/modify-general']);
   };
 
   toggleIModifyInterests = () => {
