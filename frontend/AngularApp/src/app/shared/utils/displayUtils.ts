@@ -1,7 +1,7 @@
 import { PossibleMatchesUserData, UserData } from '../models/data-to-api/user';
 
 export function getSexualPreference(
-  user: PossibleMatchesUserData | UserData
+  user: PossibleMatchesUserData | UserData,
 ): string {
   if (user.sexualPreference === 'e') {
     return 'Heterosexual';

@@ -4,7 +4,12 @@ import { Router } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
-import { getAge, getBio, getGender, getSexualPreference } from '../../shared/utils/displayUtils';
+import {
+  getAge,
+  getBio,
+  getGender,
+  getSexualPreference,
+} from '../../shared/utils/displayUtils';
 
 @Component({
   selector: 'app-general-profile',
