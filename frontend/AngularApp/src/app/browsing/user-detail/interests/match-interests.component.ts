@@ -3,13 +3,13 @@ import { PotentialMatchService } from '../../../shared/services/potentialMatch.s
 import { CardComponent } from '../../../UI/card/card.component';
 
 @Component({
-  selector: 'app-interests',
+  selector: 'app-match-interests',
   standalone: true,
   imports: [CardComponent],
-  templateUrl: './interests.component.html',
-  styleUrl: './interests.component.scss',
+  templateUrl: './match-interests.component.html',
+  styleUrl: './match-interests.component.scss',
 })
-export class InterestsComponent {
+export class MatchInterestsComponent {
   private matchService = inject(PotentialMatchService);
 
   user = this.matchService.otherProfileData;
