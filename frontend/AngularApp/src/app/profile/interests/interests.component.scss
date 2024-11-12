@@ -13,10 +13,11 @@
     align-items: center;
 
     .list-title {
-      font-size: 20px;
+      font-size: $title-font-size;
       font-weight: bold;
       margin-right: 1rem;
       text-align: center;
+      color: $pink;
     }
 
     .interests-grid {

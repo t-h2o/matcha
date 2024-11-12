@@ -2,6 +2,13 @@ import { TitleCasePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
+import {
+  getAge,
+  getBio,
+  getFameRatingStars,
+  getGender,
+  getSexualPreference,
+} from '../../shared/utils/displayUtils';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 
@@ -22,39 +29,23 @@ export class GeneralProfileComponent {
   };
 
   get age() {
-    if (!this.userProfile().age || this.userProfile().age === '') {
-      return 'NOT SPECIFIED';
-    }
-    return this.userProfile().age;
+    return getAge(this.userProfile().age);
   }
 
   get sexualPreference() {
-    if (this.userProfile().sexualPreference === 'e') {
-      return 'Heterosexual';
-    }
-    if (this.userProfile().sexualPreference === 'o') {
-      return 'Homosexual';
-    }
-    if (this.userProfile().sexualPreference === 'b') {
-      return 'Bisexual';
-    }
-    return 'NOT SPECIFIED';
+    return getSexualPreference(this.userProfile());
   }
 
   get gender() {
-    if (this.userProfile().selectedGender === 'm') {
-      return 'Male';
-    }
-    if (this.userProfile().selectedGender === 'f') {
-      return 'Female';
-    }
-    return 'NOT SPECIFIED';
+    return getGender(this.userProfile());
   }
 
   get bio() {
-    if (!this.userProfile().bio || this.userProfile().bio === '') {
-      return 'EMPTY';
-    }
-    return this.userProfile().bio;
+    return getBio(this.userProfile().bio);
+  }
+
+  get FameRatingStars(): string {
+    // return getFameRatingStars(this.user.fameRating);
+    return getFameRatingStars(3);
   }
 }

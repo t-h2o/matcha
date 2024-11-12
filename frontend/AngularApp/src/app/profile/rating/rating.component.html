@@ -1,0 +1,29 @@
+<app-card>
+  <div class="container">
+    <div class="container">
+      <p class="rating-item-p">Person who liked you</p>
+      <div class="person-grid">
+        <div class="person-list">
+          @for (person of personWhoLikedYou; track person.username) {
+            <div class="person-item" (click)="onClickHandler(person.username)">
+              <p>{{ person.username }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <p class="rating-item-p">Person who visited your profile</p>
+      <div class="person-grid">
+        <div class="person-list">
+          @for (person of personWhoVisitedYou; track person.username) {
+            <div class="person-item" (click)="onClickHandler(person.username)">
+              <p>{{ person.username }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</app-card>
