@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
+import { getAge, getBio, getGender, getSexualPreference } from '../../shared/utils/displayUtils';
 
 @Component({
   selector: 'app-general-profile',
@@ -22,39 +23,18 @@ export class GeneralProfileComponent {
   };
 
   get age() {
-    if (!this.userProfile().age || this.userProfile().age === '') {
-      return 'NOT SPECIFIED';
-    }
-    return this.userProfile().age;
+    return getAge(this.userProfile().age);
   }
 
   get sexualPreference() {
-    if (this.userProfile().sexualPreference === 'e') {
-      return 'Heterosexual';
-    }
-    if (this.userProfile().sexualPreference === 'o') {
-      return 'Homosexual';
-    }
-    if (this.userProfile().sexualPreference === 'b') {
-      return 'Bisexual';
-    }
-    return 'NOT SPECIFIED';
+    return getSexualPreference(this.userProfile());
   }
 
   get gender() {
-    if (this.userProfile().selectedGender === 'm') {
-      return 'Male';
-    }
-    if (this.userProfile().selectedGender === 'f') {
-      return 'Female';
-    }
-    return 'NOT SPECIFIED';
+    return getGender(this.userProfile());
   }
 
   get bio() {
-    if (!this.userProfile().bio || this.userProfile().bio === '') {
-      return 'EMPTY';
-    }
-    return this.userProfile().bio;
+    return getBio(this.userProfile().bio);
   }
 }
