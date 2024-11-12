@@ -11,8 +11,9 @@ import { UserService } from '../shared/services/user.service';
   styleUrl: './browsing.component.scss',
 })
 export class BrowsingComponent implements OnInit {
+  private userServices = inject(UserService);
+
   ngOnInit(): void {
     this.userServices.getAllUsers();
   }
-  private userServices = inject(UserService);
 }

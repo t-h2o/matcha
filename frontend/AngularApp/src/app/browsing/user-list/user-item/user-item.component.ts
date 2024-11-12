@@ -17,4 +17,27 @@ export class UserItemComponent {
   onViewProfile(username: string) {
     this.router.navigate(['/browsing', username]);
   }
+
+  get sexualPreference() {
+    if (this.user.sexualPreference === 'e') {
+      return 'Heterosexual';
+    }
+    if (this.user.sexualPreference === 'o') {
+      return 'Homosexual';
+    }
+    if (this.user.sexualPreference === 'b') {
+      return 'Bisexual';
+    }
+    return 'NOT SPECIFIED';
+  }
+
+  get gender() {
+    if (this.user.gender === 'm') {
+      return 'Male';
+    }
+    if (this.user.gender === 'f') {
+      return 'Female';
+    }
+    return 'NOT SPECIFIED';
+  }
 }

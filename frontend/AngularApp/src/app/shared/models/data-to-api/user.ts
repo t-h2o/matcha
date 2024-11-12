@@ -55,8 +55,9 @@ export type PossibleMatchesUserData = {
   firstname: string;
   lastname: string;
   age: string;
-  selectedGender: string;
+  gender: string;
   sexualPreference: string;
+  fameRating: number;
 };
 
 export type chatContact = {
