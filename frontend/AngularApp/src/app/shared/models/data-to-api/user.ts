@@ -61,6 +61,7 @@ export type OtherUserData = {
   fameRating: number;
   urlProfile: string;
   pictures: string[];
+  interests: string[];
 };
 
 export type PossibleMatchesUserData = {
