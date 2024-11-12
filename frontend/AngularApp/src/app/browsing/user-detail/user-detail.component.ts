@@ -3,11 +3,17 @@ import { PotentialMatchService } from '../../shared/services/potentialMatch.serv
 import { GeneralComponent } from './general/general.component';
 import { MatchInterestsComponent } from './interests/match-interests.component';
 import { PicturesComponent } from './pictures/pictures.component';
+import { CardComponent } from '../../UI/card/card.component';
 
 @Component({
   selector: 'app-user-detail',
   standalone: true,
-  imports: [MatchInterestsComponent, GeneralComponent, PicturesComponent],
+  imports: [
+    MatchInterestsComponent,
+    GeneralComponent,
+    PicturesComponent,
+    CardComponent,
+  ],
   templateUrl: './user-detail.component.html',
   styleUrl: './user-detail.component.scss',
 })

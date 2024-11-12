@@ -1,12 +1,11 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { PotentialMatchService } from '../../../shared/services/potentialMatch.service';
-import { CardComponent } from '../../../UI/card/card.component';
 
 @Component({
   selector: 'app-general',
   standalone: true,
-  imports: [CardComponent, TitleCasePipe],
+  imports: [TitleCasePipe],
   templateUrl: './general.component.html',
   styleUrl: './general.component.scss',
 })

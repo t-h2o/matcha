@@ -1,11 +1,10 @@
 import { Component, computed, inject } from '@angular/core';
 import { PotentialMatchService } from '../../../shared/services/potentialMatch.service';
-import { CardComponent } from '../../../UI/card/card.component';
 
 @Component({
   selector: 'app-match-interests',
   standalone: true,
-  imports: [CardComponent],
+  imports: [],
   templateUrl: './match-interests.component.html',
   styleUrl: './match-interests.component.scss',
 })

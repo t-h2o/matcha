@@ -1,3 +1,10 @@
-<app-general></app-general>
-<app-match-interests></app-match-interests>
-<app-pictures></app-pictures>
+<div class="app-wrapper">
+  <main>
+    <app-card>
+      <h2 class="username">{{ user().username }}</h2>
+      <app-pictures></app-pictures>
+      <app-general></app-general>
+      <app-match-interests></app-match-interests>
+    </app-card>
+  </main>
+</div>

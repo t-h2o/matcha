@@ -1,29 +1,19 @@
-<app-card>
-  <div class="container">
-    <div class="grid">
-      @if (userPictures().length === 0) {
+<div class="container">
+  <div class="grid">
+    @if (userPictures().length === 0) {
+      <div>
+        <img
+          [src]="'/dummy-pics/placeholderPic.jpg'"
+          alt="{{ 'placeholderPic' }}"
+          class="image"
+        />
+      </div>
+    } @else {
+      @for (picUrl of userPictures(); track $index) {
         <div>
-          <img
-            [src]="'/dummy-pics/placeholderPic.jpg'"
-            alt="{{ 'placeholderPic' }}"
-            [ngClass]="{
-              'image-resize': true,
-            }"
-          />
+          <img [src]="picUrl" alt="{{ picUrl }}" class="image" />
         </div>
-      } @else {
-        @for (picUrl of userPictures(); track $index) {
-          <div>
-            <img
-              [src]="picUrl"
-              alt="{{ picUrl }}"
-              [ngClass]="{
-                'image-resize': true,
-              }"
-            />
-          </div>
-        }
       }
-    </div>
+    }
   </div>
-</app-card>
+</div>

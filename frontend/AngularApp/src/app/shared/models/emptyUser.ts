@@ -1,4 +1,4 @@
-import { UserData } from './data-to-api/user';
+import { OtherUserData, UserData } from './data-to-api/user';
 
 export const emptyUser: UserData = {
   username: '',
@@ -16,7 +16,7 @@ export const emptyUser: UserData = {
   fameRating: 0,
 };
 
-export const emptyOtherUser = {
+export const emptyOtherUser: OtherUserData = {
   username: '',
   firstname: '',
   lastname: '',
