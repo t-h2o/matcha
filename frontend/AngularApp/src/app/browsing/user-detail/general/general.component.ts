@@ -1,8 +1,7 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { UserService } from '../../../shared/services/user.service';
-import { CardComponent } from '../../../UI/card/card.component';
 import { PotentialMatchService } from '../../../shared/services/potentialMatch.service';
+import { CardComponent } from '../../../UI/card/card.component';
 
 @Component({
   selector: 'app-general',
