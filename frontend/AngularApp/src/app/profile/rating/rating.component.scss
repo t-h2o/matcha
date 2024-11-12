@@ -1,0 +1,51 @@
+@import "../../../styles.scss";
+
+.title {
+  font-size: $title-font-size;
+  font-weight: bold;
+  margin-right: 1rem;
+  text-align: center;
+  color: $pink;
+}
+
+.rating-item {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 2rem;
+
+  div {
+    margin-bottom: 2rem;
+  }
+}
+
+.rating-item-p {
+  font-size: $title-font-size;
+  color: $pink;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.container {
+  margin: 1rem;
+
+  .person-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 2rem;
+  }
+
+  .person-item {
+    padding: 1rem;
+    background-color: lighten($color: $pink, $amount: 40);
+    border-radius: 10px;
+    border: 1px solid $pink;
+
+    p {
+      text-align: center;
+      font-weight: bold;
+      color: black;
+    }
+  }
+}

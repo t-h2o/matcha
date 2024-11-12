@@ -13,7 +13,7 @@ export const emptyUser: UserData = {
   urlProfile: '',
   emailVerified: false,
   profile_complete: false,
-  fameRating: 0,
+  fameRating: 4,
 };
 
 export const emptyOtherUser: OtherUserData = {
