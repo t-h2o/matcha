@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CardComponent } from '../../UI/card/card.component';
 import { UserService } from '../../shared/services/user.service';
+import { Router } from '@angular/router';
 
 const personWhoLikedYou: { username: string }[] = [
   {
@@ -53,6 +54,7 @@ const personWhoVisitedYou: { username: string }[] = [
 })
 export class RatingComponent {
   private userService = inject(UserService);
+  private router = inject(Router);
   user = this.userService.ownProfileData();
 
   get personWhoLikedYou(): { username: string }[] {
@@ -61,5 +63,10 @@ export class RatingComponent {
 
   get personWhoVisitedYou(): { username: string }[] {
     return personWhoVisitedYou;
+  }
+
+  onClickHandler(username: string) {
+    console.log('Clicked');
+    this.router.navigate(['search', username]);
   }
 }
