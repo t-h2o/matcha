@@ -21,7 +21,6 @@ export class UserService {
   interestList = signal<Interests>({ interests: [] });
   ownProfileData = signal<UserData>(emptyUser);
   otherProfileData = signal<UserData>(emptyUser);
-  possibleMatches = signal<PossibleMatchesUserData[]>([]);
 
   getInterests() {
     const subscription = this.userRequestsService
@@ -256,21 +255,6 @@ export class UserService {
       .subscribe({
         next: (data: any) => {
           console.log('data: ' + JSON.stringify(data));
-        },
-        error: (error: any) => {
-          console.error('error: ' + JSON.stringify(error));
-        },
-      });
-  }
-
-  getAllUsers() {
-    const subscription = this.userRequestsService
-      .getAllUsers()
-      .pipe(finalize(() => subscription.unsubscribe()))
-      .subscribe({
-        next: (data: PossibleMatchesUserData[]) => {
-          console.log('data: ' + JSON.stringify(data));
-          this.possibleMatches.set(data);
         },
         error: (error: any) => {
           console.error('error: ' + JSON.stringify(error));

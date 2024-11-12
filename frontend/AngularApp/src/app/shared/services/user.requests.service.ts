@@ -100,7 +100,7 @@ export class UserRequestsService {
     return this.httpClient.post(`${this.baseUrl}/reset-password`, resetData);
   }
 
-  getAllUsers() {
+  getPotentialMatches() {
     return this.httpClient.get<PossibleMatchesUserData[]>(
       `${this.baseUrl}/browsing`,
     );

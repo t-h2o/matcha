@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { PotentialMatchService } from '../shared/services/potentialMatch.service';
 import { ResearchComponent } from './research/research.component';
 import { UserListComponent } from './user-list/user-list.component';
-import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: 'app-browsing',
@@ -11,9 +11,9 @@ import { UserService } from '../shared/services/user.service';
   styleUrl: './browsing.component.scss',
 })
 export class BrowsingComponent implements OnInit {
-  private userServices = inject(UserService);
+  private potentialMatchService = inject(PotentialMatchService);
 
   ngOnInit(): void {
-    this.userServices.getAllUsers();
+    this.potentialMatchService.getAllPotentialMatches();
   }
 }
