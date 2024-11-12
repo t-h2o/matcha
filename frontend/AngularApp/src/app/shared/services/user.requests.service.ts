@@ -5,10 +5,11 @@ import {
   ModifiedUserEmail,
   ModifiedUserGeneral,
   ModifiedUserPassword,
+  OtherUserData,
   PossibleMatchesUserData,
+  UserData,
   UserLogin,
   UserRegister,
-  UserData,
 } from '../models/data-to-api/user';
 import { token } from '../models/token';
 
@@ -39,7 +40,7 @@ export class UserRequestsService {
   }
 
   getUserByUsername(username: string) {
-    return this.httpClient.get<UserData>(
+    return this.httpClient.get<OtherUserData>(
       `${this.baseUrl}/users?username=${username}`,
     );
   }

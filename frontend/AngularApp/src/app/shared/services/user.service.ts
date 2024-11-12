@@ -1,14 +1,13 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { finalize } from 'rxjs';
-import { UserRequestsService } from './user.requests.service';
-import { emptyUser } from '../models/emptyUser';
 import {
   ModifiedUserEmail,
   ModifiedUserGeneral,
   ModifiedUserPassword,
-  PossibleMatchesUserData,
-  UserData,
+  UserData
 } from '../models/data-to-api/user';
+import { emptyUser } from '../models/emptyUser';
+import { UserRequestsService } from './user.requests.service';
 
 type Interests = { interests: string[] };
 
@@ -20,7 +19,6 @@ export class UserService {
 
   interestList = signal<Interests>({ interests: [] });
   ownProfileData = signal<UserData>(emptyUser);
-  otherProfileData = signal<UserData>(emptyUser);
 
   getInterests() {
     const subscription = this.userRequestsService
@@ -61,36 +59,6 @@ export class UserService {
       .subscribe({
         next: (data: UserData) => {
           this.ownProfileData.update((prev) => {
-            return {
-              ...prev,
-              username: data.username,
-              firstname: data.firstname,
-              lastname: data.lastname,
-              email: data.email,
-              selectedGender: data.selectedGender,
-              sexualPreference: data.sexualPreference,
-              bio: data.bio,
-              age: data.age,
-              emailVerified: data.emailVerified,
-              profile_complete: data.profile_complete,
-              fameRating: data.fameRating,
-              urlProfile: data.urlProfile,
-            };
-          });
-        },
-        error: (error: any) => {
-          console.log('Error getting user profile:', error);
-        },
-      });
-  }
-
-  getUserProfileByUsername(username: string) {
-    const subscription = this.userRequestsService
-      .getUserByUsername(username)
-      .pipe(finalize(() => subscription.unsubscribe()))
-      .subscribe({
-        next: (data: UserData) => {
-          this.otherProfileData.update((prev) => {
             return {
               ...prev,
               username: data.username,

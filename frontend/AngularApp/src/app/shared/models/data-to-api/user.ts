@@ -50,6 +50,19 @@ export type UserData = {
   pictures: string[];
 };
 
+export type OtherUserData = {
+  username: string;
+  firstname: string;
+  lastname: string;
+  selectedGender: string;
+  sexualPreference: string;
+  bio: string;
+  age: string;
+  fameRating: number;
+  urlProfile: string;
+  pictures: string[];
+};
+
 export type PossibleMatchesUserData = {
   username: string;
   firstname: string;
@@ -58,6 +71,7 @@ export type PossibleMatchesUserData = {
   gender: string;
   sexualPreference: string;
   fameRating: number;
+  urlProfile: string;
 };
 
 export type chatContact = {
