@@ -1,10 +1,19 @@
 import { Component, inject, input, OnInit } from '@angular/core';
 import { PotentialMatchService } from '../../shared/services/potentialMatch.service';
+import { GeneralComponent } from './general/general.component';
+import { MatchInterestsComponent } from './interests/match-interests.component';
+import { PicturesComponent } from './pictures/pictures.component';
+import { CardComponent } from '../../UI/card/card.component';
 
 @Component({
   selector: 'app-user-detail',
   standalone: true,
-  imports: [],
+  imports: [
+    MatchInterestsComponent,
+    GeneralComponent,
+    PicturesComponent,
+    CardComponent,
+  ],
   templateUrl: './user-detail.component.html',
   styleUrl: './user-detail.component.scss',
 })

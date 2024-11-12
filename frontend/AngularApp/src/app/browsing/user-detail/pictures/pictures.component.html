@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="grid">
+    @if (userPictures().length === 0) {
+      <div>
+        <img
+          [src]="'/dummy-pics/placeholderPic.jpg'"
+          alt="{{ 'placeholderPic' }}"
+          class="image"
+        />
+      </div>
+    } @else {
+      @for (picUrl of userPictures(); track $index) {
+        <div>
+          <img [src]="picUrl" alt="{{ picUrl }}" class="image" />
+        </div>
+      }
+    }
+  </div>
+</div>

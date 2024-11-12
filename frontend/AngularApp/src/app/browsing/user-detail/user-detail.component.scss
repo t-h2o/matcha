@@ -1,3 +1,9 @@
-p {
-  color: white;
+@import "../../../styles.scss";
+
+.username {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: $pink;
+  text-align: center;
+  margin-bottom: 2rem;
 }
