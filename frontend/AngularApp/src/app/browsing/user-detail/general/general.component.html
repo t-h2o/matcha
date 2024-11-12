@@ -1,1 +1,31 @@
-<p>general works!</p>
+<app-card>
+  <div class="container">
+    <div class="detail-group">
+      <p>
+        <span class="list-title">First Name:</span
+        >{{ userProfile().firstname | titlecase }}
+      </p>
+    </div>
+    <div class="detail-group">
+      <p>
+        <span class="list-title">Last Name:</span
+        >{{ userProfile().lastname | titlecase }}
+      </p>
+    </div>
+    <div class="detail-group">
+      <p><span class="list-title">Age:</span>{{ age }}</p>
+    </div>
+    <div class="detail-group">
+      <p><span class="list-title">Gender:</span>{{ gender }}</p>
+    </div>
+    <div class="detail-group">
+      <p>
+        <span class="list-title">Sexual Preferences:</span
+        >{{ sexualPreference }}
+      </p>
+    </div>
+    <div class="detail-group">
+      <p><span class="list-title">Bio:</span>{{ bio }}</p>
+    </div>
+  </div>
+</app-card>
