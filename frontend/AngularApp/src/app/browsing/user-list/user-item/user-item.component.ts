@@ -40,4 +40,16 @@ export class UserItemComponent {
     }
     return 'NOT SPECIFIED';
   }
+
+  get FameRatingStars(): string {
+    // const fullStars = Math.floor(this.user.fameRating);
+    // to test the stars
+    const fullStars = 5;
+
+    let starsString = '';
+    for (let i = 0; i < fullStars; i++) {
+      starsString += `<img src="/icons/star-fat.svg" alt="Star" />`;
+    }
+    return starsString;
+  }
 }
