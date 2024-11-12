@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
-import { BrowsingComponent } from './browsing/browsing.component';
+import { SearchComponent } from './search/search.component';
 import { GuestGuard } from './guest.guard';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import { UserDetailComponent } from './browsing/user-detail/user-detail.component';
+import { UserDetailComponent } from './search/user-detail/user-detail.component';
 import { ChatComponent } from './chat/chat.component';
 import { ModifyEmailComponent } from './profile/modify-email/modify-email.component';
 import { ModifyGeneralComponent } from './profile/modify-general/modify-general.component';
@@ -51,12 +51,12 @@ export const routes: Routes = [
     component: RegisterComponent,
   },
   {
-    path: 'browsing',
-    component: BrowsingComponent,
+    path: 'search',
+    component: SearchComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: 'browsing/:username',
+    path: 'search/:username',
     component: UserDetailComponent,
   },
   {

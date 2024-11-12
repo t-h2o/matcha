@@ -15,7 +15,7 @@ export class UserItemComponent {
   private router = inject(Router);
 
   onViewProfile(username: string) {
-    this.router.navigate(['/browsing', username]);
+    this.router.navigate(['/search', username]);
   }
 
   get sexualPreference() {
