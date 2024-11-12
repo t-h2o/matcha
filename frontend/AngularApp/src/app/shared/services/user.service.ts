@@ -4,7 +4,7 @@ import {
   ModifiedUserEmail,
   ModifiedUserGeneral,
   ModifiedUserPassword,
-  UserData
+  UserData,
 } from '../models/data-to-api/user';
 import { emptyUser } from '../models/emptyUser';
 import { UserRequestsService } from './user.requests.service';

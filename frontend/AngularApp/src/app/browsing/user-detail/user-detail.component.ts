@@ -1,5 +1,5 @@
 import { Component, inject, input, OnInit } from '@angular/core';
-import { UserService } from '../../shared/services/user.service';
+import { PotentialMatchService } from '../../shared/services/potentialMatch.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -9,11 +9,11 @@ import { UserService } from '../../shared/services/user.service';
   styleUrl: './user-detail.component.scss',
 })
 export class UserDetailComponent implements OnInit {
-  private userService = inject(UserService);
+  private PotentialMatchService = inject(PotentialMatchService);
   username = input.required<string>();
-  user = this.userService.otherProfileData();
+  user = this.PotentialMatchService.otherProfileData;
 
   ngOnInit(): void {
-    this.userService.getUserProfileByUsername(this.username());
+    this.PotentialMatchService.getUserProfileByUsername(this.username());
   }
 }

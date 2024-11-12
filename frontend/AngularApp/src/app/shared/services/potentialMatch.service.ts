@@ -1,7 +1,10 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { finalize } from 'rxjs';
-import { OtherUserData, PossibleMatchesUserData, UserData } from '../models/data-to-api/user';
-import { emptyUser } from '../models/emptyUser';
+import {
+  OtherUserData,
+  PossibleMatchesUserData,
+} from '../models/data-to-api/user';
+import { emptyOtherUser } from '../models/emptyUser';
 import { UserRequestsService } from './user.requests.service';
 
 @Injectable({
@@ -11,8 +14,7 @@ export class PotentialMatchService {
   private userRequestsService = inject(UserRequestsService);
 
   potentialMatches = signal<PossibleMatchesUserData[]>([]);
-  otherProfileData = signal<UserData>(emptyUser);
-
+  otherProfileData = signal<OtherUserData>(emptyOtherUser);
 
   getAllPotentialMatches() {
     const subscription = this.userRequestsService
@@ -35,20 +37,8 @@ export class PotentialMatchService {
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: OtherUserData) => {
-          this.otherProfileData.update((prev) => {
-            return {
-              ...prev,
-              username: data.username,
-              firstname: data.firstname,
-              lastname: data.lastname,
-              selectedGender: data.selectedGender,
-              sexualPreference: data.sexualPreference,
-              bio: data.bio,
-              age: data.age,
-              fameRating: data.fameRating,
-              urlProfile: data.urlProfile,
-            };
-          });
+          console.log('data: ' + JSON.stringify(data));
+          this.otherProfileData.set(data);
         },
         error: (error: any) => {
           console.log('Error getting user profile:', error);

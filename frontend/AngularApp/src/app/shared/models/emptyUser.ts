@@ -15,3 +15,16 @@ export const emptyUser: UserData = {
   profile_complete: false,
   fameRating: 0,
 };
+
+export const emptyOtherUser = {
+  username: '',
+  firstname: '',
+  lastname: '',
+  age: '',
+  selectedGender: '',
+  sexualPreference: '',
+  bio: '',
+  pictures: [],
+  urlProfile: '',
+  fameRating: 0,
+};
