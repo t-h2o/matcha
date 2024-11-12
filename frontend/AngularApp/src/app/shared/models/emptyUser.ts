@@ -27,4 +27,5 @@ export const emptyOtherUser = {
   pictures: [],
   urlProfile: '',
   fameRating: 0,
+  interests: [],
 };
