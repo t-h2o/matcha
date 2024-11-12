@@ -269,6 +269,7 @@ export class UserService {
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: PossibleMatchesUserData[]) => {
+          console.log('data: ' + JSON.stringify(data));
           this.possibleMatches.set(data);
         },
         error: (error: any) => {

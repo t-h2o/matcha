@@ -1,10 +1,26 @@
 <app-card>
   <div class="user-item" (click)="onViewProfile(user.username)">
-    <!-- <img [src]="user.profilePic" alt="Profile Picture" /> -->
-    <h3>{{ user.username }}</h3>
-    <p>{{ user.firstname }} years old</p>
-    <p>{{ user.lastname }}</p>
-    <p>{{ user.age }} fame rating</p>
-    <p>{{ user.selectedGender }}</p>
+    <div class="top">
+      <img
+        class="profile-pic"
+        [src]="'/dummy-pics/placeholderPic.jpg'"
+        alt="Profile Picture"
+      />
+      <h3 class="username">{{ user.username }}</h3>
+    </div>
+
+    <div class="bottom">
+      <div class="info-block">
+        <p>{{ user.firstname }}</p>
+        <p>{{ user.lastname }}</p>
+        <p>{{ user.age }} years old</p>
+      </div>
+
+      <div class="info-block">
+        <p>{{ gender }}</p>
+        <p>{{ sexualPreference }}</p>
+        <div [innerHTML]="FameRatingStars"></div>
+      </div>
+    </div>
   </div>
 </app-card>
