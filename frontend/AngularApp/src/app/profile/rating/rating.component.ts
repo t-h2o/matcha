@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { CardComponent } from '../../UI/card/card.component';
-import { getFameRatingStars } from '../../shared/utils/displayUtils';
 import { UserService } from '../../shared/services/user.service';
 
 const personWhoLikedYou: { username: string }[] = [
@@ -62,10 +61,5 @@ export class RatingComponent {
 
   get personWhoVisitedYou(): { username: string }[] {
     return personWhoVisitedYou;
-  }
-
-  get FameRatingStars(): string {
-    // return getFameRatingStars(this.user.fameRating);
-    return getFameRatingStars(3);
   }
 }

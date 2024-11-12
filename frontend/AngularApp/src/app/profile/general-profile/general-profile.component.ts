@@ -2,14 +2,15 @@ import { TitleCasePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
-import { CardComponent } from '../../UI/card/card.component';
-import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import {
   getAge,
   getBio,
+  getFameRatingStars,
   getGender,
   getSexualPreference,
 } from '../../shared/utils/displayUtils';
+import { CardComponent } from '../../UI/card/card.component';
+import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-general-profile',
@@ -41,5 +42,10 @@ export class GeneralProfileComponent {
 
   get bio() {
     return getBio(this.userProfile().bio);
+  }
+
+  get FameRatingStars(): string {
+    // return getFameRatingStars(this.user.fameRating);
+    return getFameRatingStars(3);
   }
 }
