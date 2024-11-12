@@ -135,7 +135,7 @@ def browsing_users():
         search["gender"] = "f"
         search["sexual_orientation"] = "o"
 
-    db_browsing_users = db_browsing_gender_sexualorientation(search)
+    db_browsing_users = db_browsing_gender_sexualorientation(id_user, search)
 
     browsing_users = []
     for user in db_browsing_users:
