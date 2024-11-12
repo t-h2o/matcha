@@ -201,13 +201,10 @@ def db_get_user_images(id_user):
     return filenames
 
 
-def db_browsing_gender_sexualorientation(search):
+def db_browsing_gender_sexualorientation(id_user, search):
     return db_fetchall(
-        "SELECT username, firstname, lastname, gender, sexual_orientation, age, fame_rating FROM users WHERE sexual_orientation = %s AND gender = %s",
-        (
-            search["sexual_orientation"],
-            search["gender"],
-        ),
+        "SELECT username, firstname, lastname, gender, sexual_orientation, age, fame_rating FROM users WHERE sexual_orientation = %s AND gender = %s AND id != %s",
+        (search["sexual_orientation"], search["gender"], id_user),
     )
 
 
