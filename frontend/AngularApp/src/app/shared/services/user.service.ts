@@ -7,6 +7,7 @@ import {
   UserData,
 } from '../models/data-to-api/user';
 import { emptyUser } from '../models/emptyUser';
+import { ErrorService } from './error.service';
 import { UserRequestsService } from './user.requests.service';
 
 type Interests = { interests: string[] };
@@ -16,6 +17,7 @@ type Interests = { interests: string[] };
 })
 export class UserService {
   private userRequestsService = inject(UserRequestsService);
+  private errorService = inject(ErrorService);
 
   interestList = signal<Interests>({ interests: [] });
   ownProfileData = signal<UserData>(emptyUser);
@@ -29,7 +31,8 @@ export class UserService {
           this.interestList.set(data);
         },
         error: (error: any) => {
-          console.log('Error getting interests:', error);
+          const errorMessage = error?.message || 'An unknown error occurred';
+          this.errorService.showError(errorMessage);
         },
       });
   }
@@ -47,7 +50,8 @@ export class UserService {
           this.interestList.set(data);
         },
         error: (error: any) => {
-          console.log('Error updating interests:', error);
+          const errorMessage = error?.message || 'An unknown error occurred';
+          this.errorService.showError(errorMessage);
         },
       });
   }
@@ -77,7 +81,8 @@ export class UserService {
           });
         },
         error: (error: any) => {
-          console.log('Error getting user profile:', error);
+          const errorMessage = error?.message || 'An unknown error occurred';
+          this.errorService.showError(errorMessage);
         },
       });
   }
@@ -102,7 +107,8 @@ export class UserService {
           });
         },
         error: (error: any) => {
-          console.log('Error getting user profile:', error);
+          const errorMessage = error?.message || 'An unknown error occurred';
+          this.errorService.showError(errorMessage);
         },
       });
   }
@@ -121,7 +127,8 @@ export class UserService {
           });
         },
         error: (error: any) => {
-          console.error('error: ' + JSON.stringify(error));
+          const errorMessage = error?.message || 'An unknown error occurred';
+          this.errorService.showError(errorMessage);
         },
       });
   }
@@ -140,7 +147,8 @@ export class UserService {
           });
         },
         error: (error: any) => {
-          console.error('error: ' + JSON.stringify(error));
+          const errorMessage = error?.message || 'An unknown error occurred';
+          this.errorService.showError(errorMessage);
         },
       });
   }
@@ -154,7 +162,8 @@ export class UserService {
           console.log('data: ' + JSON.stringify(data));
         },
         error: (error: any) => {
-          console.error('error: ' + JSON.stringify(error));
+          const errorMessage = error?.message || 'An unknown error occurred';
+          this.errorService.showError(errorMessage);
         },
       });
   }
@@ -173,7 +182,10 @@ export class UserService {
           });
         },
         error: (error: any) => {
-          console.log('Error uploading pictures:', error);
+          console.log('error:', error);
+          const errorMessage =
+            error?.error?.message || 'An unknown error occurred';
+          this.errorService.showError(errorMessage);
         },
       });
   }
@@ -192,7 +204,8 @@ export class UserService {
           });
         },
         error: (error: any) => {
-          console.log('Error changing profile pictures:', error);
+          const errorMessage = error?.message || 'An unknown error occurred';
+          this.errorService.showError(errorMessage);
         },
       });
   }
@@ -211,7 +224,8 @@ export class UserService {
           });
         },
         error: (error: any) => {
-          console.log('Error uploading pictures:', error);
+          const errorMessage = error?.message || 'An unknown error occurred';
+          this.errorService.showError(errorMessage);
         },
       });
   }
@@ -225,7 +239,8 @@ export class UserService {
           console.log('data: ' + JSON.stringify(data));
         },
         error: (error: any) => {
-          console.error('error: ' + JSON.stringify(error));
+          const errorMessage = error?.message || 'An unknown error occurred';
+          this.errorService.showError(errorMessage);
         },
       });
   }
