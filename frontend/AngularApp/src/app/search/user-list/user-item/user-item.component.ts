@@ -7,6 +7,7 @@ import {
   getGender,
   getSexualPreference,
 } from '../../../shared/utils/displayUtils';
+import { PotentialMatchService } from '../../../shared/services/potentialMatch.service';
 
 @Component({
   selector: 'app-user-item',
@@ -17,10 +18,12 @@ import {
 })
 export class UserItemComponent {
   @Input({ required: true }) user!: PossibleMatchesUserData;
+  private matchService = inject(PotentialMatchService);
   private router = inject(Router);
 
   onViewProfile(username: string) {
     this.router.navigate(['/search', username]);
+    // this.matchService.viewProfile(username);
   }
 
   get sexualPreference() {

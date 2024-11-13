@@ -44,4 +44,16 @@ export class PotentialMatchService {
         },
       });
   }
+
+  viewProfile(username: string) {
+    const subscription = this.userRequestsService
+      .visitProfile(username)
+      .pipe(finalize(() => subscription.unsubscribe()))
+      .subscribe({
+        next: () => {},
+        error: (error: any) => {
+          console.log('Error getting user profile:', error);
+        },
+      });
+  }
 }
