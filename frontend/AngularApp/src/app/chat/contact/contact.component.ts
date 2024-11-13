@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { chatContact } from '../../shared/models/data-to-api/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact',
@@ -10,8 +11,9 @@ import { chatContact } from '../../shared/models/data-to-api/user';
 })
 export class ContactComponent {
   @Input({ required: true }) contact!: chatContact;
+  private router = inject(Router);
 
   onClickContact() {
-    console.log(`${this.contact.username} was clicked`);
+    this.router.navigate(['/chat', this.contact.username]);
   }
 }

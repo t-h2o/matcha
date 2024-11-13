@@ -13,6 +13,7 @@ import { ModifyEmailComponent } from './profile/modify-email/modify-email.compon
 import { ModifyGeneralComponent } from './profile/modify-general/modify-general.component';
 import { ModifyInterestsComponent } from './profile/modify-interests/modify-interests.component';
 import { ModifyPicturesComponent } from './profile/modify-pictures/modify-pictures.component';
+import { ChatroomComponent } from './chat/chatroom/chatroom.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -66,6 +67,10 @@ export const routes: Routes = [
   {
     path: 'chat',
     component: ChatComponent,
+  },
+  {
+    path: 'chat/:username',
+    component: ChatroomComponent,
   },
   {
     path: '**',
