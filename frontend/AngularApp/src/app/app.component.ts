@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
   error = this.errorService.error;
 
   ngOnInit() {
-    const token = localStorage.getItem('access_token');
+    const token = sessionStorage.getItem('access_token');
     if (token) {
       this.authService.tokenSignal.set({ access_token: token });
     }
@@ -33,6 +33,6 @@ export class AppComponent implements OnInit {
 
   logoutHandler() {
     this.authService.tokenSignal.set(null);
-    localStorage.removeItem('access_token');
+    sessionStorage.removeItem('access_token');
   }
 }

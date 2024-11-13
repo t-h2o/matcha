@@ -35,7 +35,7 @@ export class LoginComponent {
     this.falseCredentials.set(false);
     const subscription = this.userService.login(loginData).subscribe({
       next: (data) => {
-        localStorage.setItem('access_token', data.access_token);
+        sessionStorage.setItem('access_token', data.access_token);
         this.authService.tokenSignal.set(data);
         this.router.navigate(['/profile']);
       },

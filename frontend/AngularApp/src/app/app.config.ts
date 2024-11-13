@@ -13,7 +13,7 @@ const tokenInterceptor = (
   request: HttpRequest<unknown>,
   next: HttpHandlerFn,
 ) => {
-  const token = localStorage.getItem('access_token');
+  const token = sessionStorage.getItem('access_token');
   if (!token) {
     console.log('Request:', request);
     return next(request);
