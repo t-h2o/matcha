@@ -108,8 +108,11 @@ export class UserRequestsService {
   }
 
   visitProfile(username: string) {
-    return this.httpClient.post<{username: string}>(`${this.baseUrl}/visit-profile`, {
-      username,
-    });
+    return this.httpClient.post<{ username: string }>(
+      `${this.baseUrl}/visit-profile`,
+      {
+        username,
+      },
+    );
   }
 }
