@@ -4,6 +4,7 @@ import {
   ModifiedUserEmail,
   ModifiedUserGeneral,
   ModifiedUserPassword,
+  ModifyGeneralData,
   UserData,
 } from '../models/data-to-api/user';
 import { emptyUser } from '../models/emptyUser';
@@ -79,7 +80,6 @@ export class UserService {
               urlProfile: data.urlProfile,
             };
           });
-          console.log('user: ', this.ownProfileData());
         },
         error: (error: any) => {
           const errorMessage = error?.message || 'An unknown error occurred';
@@ -88,7 +88,7 @@ export class UserService {
       });
   }
 
-  modifyUserProfile(userData: ModifiedUserGeneral) {
+  modifyUserProfile(userData: ModifyGeneralData) {
     const subscription = this.userRequestsService
       .modifyUser(userData)
       .pipe(finalize(() => subscription.unsubscribe()))
@@ -97,13 +97,16 @@ export class UserService {
           this.ownProfileData.update((prev) => {
             return {
               ...prev,
+              age: data.age,
+              bio: data.bio,
+              email: data.email,
               firstName: data.firstname,
               lastName: data.lastname,
               selectedGender: data.selectedGender,
               sexualPreference: data.sexualPreference,
-              bio: data.bio,
-              age: data.age,
               emailVerified: data.email_verified,
+              fameRating: data.fameRating,
+              profile_complete: data.profile_complete,
             };
           });
         },

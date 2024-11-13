@@ -1,4 +1,9 @@
 <div class="app-wrapper">
+  @if (!ProfileComplete) {
+    <div class="alert">
+      <p>Complete your profile before you can search for a match</p>
+    </div>
+  }
   <main class="profile-container">
     <div class="column">
       <app-general-profile></app-general-profile>

@@ -27,4 +27,8 @@ export class ProfileComponent implements OnInit {
     this.userServices.getUserProfile();
     this.userServices.getUserPictures();
   }
+
+  get ProfileComplete(): boolean {
+    return this.userServices.ownProfileData().profile_complete;
+  }
 }

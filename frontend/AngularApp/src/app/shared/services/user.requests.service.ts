@@ -5,6 +5,7 @@ import {
   ModifiedUserEmail,
   ModifiedUserGeneral,
   ModifiedUserPassword,
+  ModifyGeneralData,
   OtherUserData,
   PossibleMatchesUserData,
   UserData,
@@ -28,7 +29,7 @@ export class UserRequestsService {
     return this.httpClient.post(`${this.baseUrl}/register`, userData);
   }
 
-  modifyUser(userData: ModifiedUserGeneral) {
+  modifyUser(userData: ModifyGeneralData) {
     return this.httpClient.put<ModifiedUserGeneral>(
       `${this.baseUrl}/users`,
       userData,
