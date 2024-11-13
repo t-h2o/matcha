@@ -79,6 +79,7 @@ export class UserService {
               urlProfile: data.urlProfile,
             };
           });
+          console.log('user: ', this.ownProfileData());
         },
         error: (error: any) => {
           const errorMessage = error?.message || 'An unknown error occurred';
