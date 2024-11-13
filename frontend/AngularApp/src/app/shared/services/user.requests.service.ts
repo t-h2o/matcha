@@ -106,4 +106,13 @@ export class UserRequestsService {
       `${this.baseUrl}/browsing`,
     );
   }
+
+  visitProfile(username: string) {
+    return this.httpClient.post<{ username: string }>(
+      `${this.baseUrl}/visit-profile`,
+      {
+        username,
+      },
+    );
+  }
 }

@@ -22,7 +22,6 @@ export class PotentialMatchService {
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: PossibleMatchesUserData[]) => {
-          console.log('data: ' + JSON.stringify(data));
           this.potentialMatches.set(data);
         },
         error: (error: any) => {
@@ -40,6 +39,18 @@ export class PotentialMatchService {
           console.log('data: ' + JSON.stringify(data));
           this.otherProfileData.set(data);
         },
+        error: (error: any) => {
+          console.log('Error getting user profile:', error);
+        },
+      });
+  }
+
+  viewProfile(username: string) {
+    const subscription = this.userRequestsService
+      .visitProfile(username)
+      .pipe(finalize(() => subscription.unsubscribe()))
+      .subscribe({
+        next: () => {},
         error: (error: any) => {
           console.log('Error getting user profile:', error);
         },

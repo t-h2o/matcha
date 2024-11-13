@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
-import { UserService } from '../../shared/services/user.service';
-import { UserItemComponent } from './user-item/user-item.component';
 import { PotentialMatchService } from '../../shared/services/potentialMatch.service';
+import { UserItemComponent } from './user-item/user-item.component';
 
 @Component({
   selector: 'app-user-list',
@@ -17,9 +16,5 @@ export class UserListComponent {
 
   onChangeTasksFilter(filter: string) {
     this.selectedFilter.set(filter);
-  }
-
-  onViewProfile(userId: string) {
-    console.log(userId);
   }
 }
