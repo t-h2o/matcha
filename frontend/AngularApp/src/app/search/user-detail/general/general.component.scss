@@ -6,14 +6,17 @@
   flex-direction: column;
 
   .list-title {
-    font-size: 20px;
-    font-weight: bold;
+    font-size: $title-font-size;
     margin-right: 1rem;
+    color: $pink;
+  }
+
+  .list-detail {
+    font-size: 18px;
   }
 
   .detail-group {
     display: inline;
-    margin: 0.5rem;
     @media screen and (max-width: $mobile-max-width) {
       margin: 0.5rem 0.5rem 0 0.5rem;
     }
