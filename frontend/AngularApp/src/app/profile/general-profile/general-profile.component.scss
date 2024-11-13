@@ -17,7 +17,6 @@
 
   .detail-group {
     display: inline;
-    margin: 0.5rem;
     @media screen and (max-width: $mobile-max-width) {
       margin: 0.5rem 0.5rem 0 0.5rem;
     }
@@ -25,14 +24,14 @@
 
   .btn-container {
     width: 100%;
-    margin-top: 2rem;
+    margin-top: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
   .stars-group {
-    margin: 0.5rem;
     display: flex;
+    align-items: center;
   }
 }

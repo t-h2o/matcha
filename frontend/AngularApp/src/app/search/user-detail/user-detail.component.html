@@ -1,7 +1,17 @@
 <div class="app-wrapper">
   <main>
     <app-card>
-      <h2 class="username">{{ user().username }}</h2>
+      <div class="stars-group">
+        <h2 class="title">{{ username() }}</h2>
+        <div [innerHTML]="FameRatingStars"></div>
+        <div class="heart" (click)="toggleLike()">
+          <img src="{{ heartIcon }}" alt="Heart" />
+        </div>
+
+        <div class="fake" (click)="reportAsFake(username())">
+          <img src="/icons/ban.svg" alt="Ban" />
+        </div>
+      </div>
       <app-pictures></app-pictures>
       <app-general></app-general>
       <app-match-interests></app-match-interests>
