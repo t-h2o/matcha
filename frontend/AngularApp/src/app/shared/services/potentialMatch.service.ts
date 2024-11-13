@@ -22,7 +22,6 @@ export class PotentialMatchService {
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
         next: (data: PossibleMatchesUserData[]) => {
-          console.log('data: ' + JSON.stringify(data));
           this.potentialMatches.set(data);
         },
         error: (error: any) => {

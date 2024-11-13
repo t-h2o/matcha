@@ -1,39 +1,43 @@
 @import "../../../../styles.scss";
 
-.top {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-bottom: 10px;
+.user-item {
+  cursor: pointer;
 
-  .profile-pic {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-  }
-
-  .username {
-    font-size: 30px;
-    margin-left: 3rem;
-    color: $pink;
-  }
-}
-
-.bottom {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-top: 1rem;
-
-  .info-block {
+  .top {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 10px;
 
-    p {
-      font-size: 20px;
-      margin: 0.3rem;
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+    }
+
+    .username {
+      font-size: 30px;
+      margin-left: 3rem;
       color: $pink;
+    }
+  }
+
+  .bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 1rem;
+
+    .info-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      p {
+        font-size: 20px;
+        margin: 0.3rem;
+        color: $pink;
+      }
     }
   }
 }
