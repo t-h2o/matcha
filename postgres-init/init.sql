@@ -77,9 +77,8 @@ BEGIN
        NEW.password IS NOT NULL AND
        NEW.bio IS NOT NULL AND
        NEW.gender IS NOT NULL AND
-       NEW.sexual_orientation IS NOT NULL AND
-       NEW.profile_picture_id IS NOT NULL THEN
-        NEW.profile_complete = TRUE;
+       NEW.sexual_orientation IS NOT NULL THEN
+       NEW.profile_complete = TRUE;
     ELSE
         NEW.profile_complete = FALSE;
     END IF;

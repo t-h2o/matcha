@@ -7,7 +7,7 @@
         </a>
       </div>
       <div class="links-container">
-        @if (!authService.tokenSignal()) {
+        @if (!token) {
           @if (!isLoginRoute()) {
             <a routerLink="/login" routerLinkActive="active">Login</a>
           }
@@ -15,22 +15,25 @@
             <a routerLink="/register" routerLinkActive="active">Register</a>
           }
         }
-        @if (authService.tokenSignal()) {
-          <a routerLink="/search" routerLinkActive="active"
-            ><img src="icons/search.svg" alt="Search Matches"
-          /></a>
+        @if (token) {
           <a routerLink="/profile" routerLinkActive="active">
             <img src="icons/account-icon.svg" alt="My Profile"
           /></a>
-          @if (hasNewNotifications()) {
-            <a routerLink="/chat" routerLinkActive="active"
-              ><img src="icons/chat-with-msg.svg" alt="chat"
+          @if (profileComplete) {
+            <a routerLink="/search" routerLinkActive="active"
+              ><img src="icons/search.svg" alt="Search Matches"
             /></a>
-          }
-          @if (!hasNewNotifications()) {
-            <a routerLink="/chat" routerLinkActive="active"
-              ><img src="icons/chat-without-msg.svg" alt="chat"
-            /></a>
+
+            @if (hasNewNotifications()) {
+              <a routerLink="/chat" routerLinkActive="active"
+                ><img src="icons/chat-with-msg.svg" alt="chat"
+              /></a>
+            }
+            @if (!hasNewNotifications()) {
+              <a routerLink="/chat" routerLinkActive="active"
+                ><img src="icons/chat-without-msg.svg" alt="chat"
+              /></a>
+            }
           }
           <a routerLink="/login" routerLinkActive="active" (click)="onLogout()"
             ><img src="icons/logout-icon.svg" alt="Logout"

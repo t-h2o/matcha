@@ -1,6 +1,8 @@
 import { Component, inject, Input, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
+import { token } from '../../shared/models/token';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,8 +13,9 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class NavbarComponent {
   @Input() onLogout!: () => void;
-  authService = inject(AuthService);
-  router = inject(Router);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private usersService = inject(UserService);
 
   hasNewNotifications = signal<boolean>(true);
 
@@ -22,5 +25,13 @@ export class NavbarComponent {
 
   isRegisterRoute(): boolean {
     return this.router.url === '/register';
+  }
+
+  get token(): token | null | undefined {
+    return this.authService.tokenSignal();
+  }
+
+  get profileComplete(): boolean {
+    return this.usersService.ownProfileData().profile_complete;
   }
 }

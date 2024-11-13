@@ -11,7 +11,7 @@ export type UserLogin = {
   password: string;
 };
 
-export type ModifiedUserGeneral = {
+export type ModifyGeneralData = {
   firstname: string;
   lastname: string;
   selectedGender: string;
@@ -19,6 +19,19 @@ export type ModifiedUserGeneral = {
   bio: string;
   age: string;
   email_verified: boolean;
+};
+
+export type ModifiedUserGeneral = {
+  firstname: string;
+  lastname: string;
+  selectedGender: string;
+  sexualPreference: string;
+  bio: string;
+  age: string;
+  email: string;
+  email_verified: boolean;
+  fameRating: number;
+  profile_complete: boolean;
 };
 
 export type ModifiedUserEmail = {

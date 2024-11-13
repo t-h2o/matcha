@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModifiedUserGeneral } from '../../shared/models/data-to-api/user';
+import { ModifyGeneralData } from '../../shared/models/data-to-api/user';
 import { UserService } from '../../shared/services/user.service';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
@@ -48,7 +48,7 @@ export class ModifyGeneralComponent implements OnInit {
       });
       return;
     }
-    const modifiedUserData: ModifiedUserGeneral = {
+    const modifiedUserData: ModifyGeneralData = {
       firstname: this.firstName,
       lastname: this.lastName,
       selectedGender: this.selectedGender,

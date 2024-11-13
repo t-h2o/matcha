@@ -1,5 +1,14 @@
 @import "../../styles.scss";
 
+.alert {
+  background-color: $invalid-red;
+  padding: 1rem;
+  color: $white;
+  text-align: center;
+  border-radius: 0.25rem;
+  margin: 0.8rem;
+}
+
 .profile-container {
   width: 100%;
   display: grid;
