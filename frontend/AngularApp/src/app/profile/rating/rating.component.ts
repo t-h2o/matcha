@@ -5,31 +5,31 @@ import { Router } from '@angular/router';
 
 const personWhoLikedYou: { username: string }[] = [
   {
-    username: 'Tony',
+    username: 'cassandra',
   },
   {
-    username: 'Stark',
+    username: 'brando',
   },
   {
-    username: 'Iron',
+    username: 'candace',
   },
   {
-    username: 'Mike',
+    username: 'alexandro',
   },
 ];
 
 const personWhoVisitedYou: { username: string }[] = [
   {
-    username: 'Tony',
+    username: 'cassandra',
   },
   {
-    username: 'Stark',
+    username: 'brando',
   },
   {
-    username: 'Iron',
+    username: 'candace',
   },
   {
-    username: 'Mike',
+    username: 'alexandro',
   },
   {
     username: 'John',

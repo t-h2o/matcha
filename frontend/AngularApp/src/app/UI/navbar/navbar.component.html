@@ -19,7 +19,7 @@
           <a routerLink="/profile" routerLinkActive="active">
             <img src="icons/account-icon.svg" alt="My Profile"
           /></a>
-          @if (profileComplete) {
+          @if (profileComplete || !isProfileRoute()) {
             <a routerLink="/search" routerLinkActive="active"
               ><img src="icons/search.svg" alt="Search Matches"
             /></a>

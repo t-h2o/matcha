@@ -27,6 +27,10 @@ export class NavbarComponent {
     return this.router.url === '/register';
   }
 
+  isProfileRoute(): boolean {
+    return this.router.url === '/profile';
+  }
+
   get token(): token | null | undefined {
     return this.authService.tokenSignal();
   }
