@@ -5,6 +5,7 @@ import {
   PossibleMatchesUserData,
 } from '../models/data-to-api/user';
 import { emptyOtherUser } from '../models/emptyUser';
+import { ErrorService } from './error.service';
 import { UserRequestsService } from './user.requests.service';
 
 @Injectable({
@@ -12,6 +13,7 @@ import { UserRequestsService } from './user.requests.service';
 })
 export class PotentialMatchService {
   private userRequestsService = inject(UserRequestsService);
+  private errorService = inject(ErrorService);
 
   potentialMatches = signal<PossibleMatchesUserData[]>([]);
   otherProfileData = signal<OtherUserData>(emptyOtherUser);
@@ -25,7 +27,8 @@ export class PotentialMatchService {
           this.potentialMatches.set(data);
         },
         error: (error: any) => {
-          console.log('Error getting potential matches:', error);
+          const errorMessage = error?.message || 'An unknown error occurred';
+          this.errorService.showError(errorMessage);
         },
       });
   }
@@ -40,7 +43,8 @@ export class PotentialMatchService {
           this.otherProfileData.set(data);
         },
         error: (error: any) => {
-          console.log('Error getting user profile:', error);
+          const errorMessage = error?.message || 'An unknown error occurred';
+          this.errorService.showError(errorMessage);
         },
       });
   }
@@ -52,7 +56,8 @@ export class PotentialMatchService {
       .subscribe({
         next: () => {},
         error: (error: any) => {
-          console.log('Error getting user profile:', error);
+          const errorMessage = error?.message || 'An unknown error occurred';
+          this.errorService.showError(errorMessage);
         },
       });
   }

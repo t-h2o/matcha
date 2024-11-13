@@ -1,3 +1,10 @@
+@if (error()) {
+  <app-error-modal
+    title="Something went wrong."
+    [message]="error()"
+  ></app-error-modal>
+}
+
 <div class="page-container">
   <app-navbar [onLogout]="logoutHandler"></app-navbar>
   <div class="main">
