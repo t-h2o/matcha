@@ -1,4 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
+import { LocalizationService } from '../shared/services/localization.service';
 import { UserService } from '../shared/services/user.service';
 import { EmailPasswdComponent } from './email-passwd/email-passwd.component';
 import { GeneralProfileComponent } from './general-profile/general-profile.component';
@@ -21,11 +22,32 @@ import { RatingComponent } from './rating/rating.component';
 })
 export class ProfileComponent implements OnInit {
   private userServices = inject(UserService);
+  private localizationService = inject(LocalizationService);
+  location = this.localizationService.location;
+
+  constructor() {
+    effect(() => {
+      console.log('Location changed:', this.location());
+    });
+  }
+
+  getLocation() {
+    this.localizationService.getCurrentPosition().subscribe({
+      error: (error) => {
+        console.error('Error getting location:', error);
+      },
+    });
+  }
 
   ngOnInit(): void {
     this.userServices.getInterests();
     this.userServices.getUserProfile();
     this.userServices.getUserPictures();
+    if (!this.ProfileComplete && this.location().latitude === 999) {
+      console.log('getting location...');
+      this.getLocation();
+      console.log('Location:', this.location());
+    }
   }
 
   get ProfileComplete(): boolean {
