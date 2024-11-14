@@ -2,12 +2,8 @@
 
 json_file = "fakedata/faker.json"
 
-from test_utils import (
-    check_login_token,
-    check_post,
-    check_put_token,
-)
-
+from werkzeug.security import generate_password_hash
+from string import Template
 from json import load
 
 
@@ -18,6 +14,14 @@ def short_sex(sexe):
         return "m"
 
 
+def fame(random):
+    return random % 6
+
+
+def age(random):
+    return (random % (120 - 18)) + 18
+
+
 def sexualpreference(sexe):
     if sexe == True:
         return "o"
@@ -25,68 +29,70 @@ def sexualpreference(sexe):
         return "e"
 
 
-def create_another_user(
-    username, firstname, lastname, email, password, age, bio, sexe, sexual_preference
-):
-
-    check_post(
-        "/api/register",
-        200,
-        {
-            "username": username,
-            "firstname": firstname,
-            "lastname": lastname,
-            "email": email,
-            "password": password,
-        },
-        {"success": f"User {username} was successfully added"},
-    )
-    access_token = check_login_token(
-        "/api/login",
-        {"username": username, "password": password},
-    )
-    print(access_token)
-    if access_token is None:
-        return
-    check_put_token(
-        "/api/users",
-        200,
-        {
-            "age": age,
-            "firstname": firstname,
-            "lastname": lastname,
-            "selectedGender": sexe,
-            "sexualPreference": sexual_preference,
-            "bio": bio,
-        },
-        {
-            "age": 18,
-            "bio": bio,
-            "email_verified": False,
-            "firstname": firstname,
-            "lastname": lastname,
-            "selectedGender": sexe,
-            "sexualPreference": sexual_preference,
-        },
-    )
+def _check_double_value(array_object, key_to_check, value):
+    return [x for x in array_object if x[key_to_check] == value]
 
 
-def main():
+def sanitize(value):
+    if type(value) == str:
+        return value.replace("'", "''")
+    return value
+
+
+def _generate_sql(all_users):
+    print(
+        "INSERT INTO users (username, firstname, lastname, email, password, bio, gender, sexual_orientation, age, fame_rating) VALUES"
+    )
+
+    t_line_user = Template(
+        "('$username', '$firstName', '$lastName', '$email', '$password', '$bio', '$gender', '$sexualPreference', $age, $fame)"
+    )
+
+    length = len(all_users) - 1
+    for index, user in enumerate(all_users):
+        for value in user:
+            user[value] = sanitize(user[value])
+        if index < length:
+            print(t_line_user.substitute(user) + ",")
+        else:
+            print(t_line_user.substitute(user) + ";")
+
+
+def generate_all_users():
+    all_users = []
     with open(json_file) as f:
         d = load(f)
         for item in d:
-            print(item)
-            create_another_user(
-                item["firstName"].lower(),
-                item["firstName"],
-                item["lastName"],
-                item["email"],
-                item["password"],
-                18,
-                item["bio"],
-                short_sex(item["sex"]),
-                sexualpreference(item["boolean"]),
+            if all_users != []:
+                if _check_double_value(
+                    all_users, "username", item["firstName"].lower()
+                ):
+                    continue
+                if _check_double_value(all_users, "email", item["email"]):
+                    continue
+
+            all_users.append(
+                {
+                    "username": item["firstName"].lower(),
+                    "firstName": item["firstName"],
+                    "lastName": item["lastName"],
+                    "email": item["email"],
+                    "password": generate_password_hash(item["password"]),
+                    "password": "1234",
+                    "age": age(item["int"]),
+                    "bio": item["bio"],
+                    "gender": short_sex(item["sex"]),
+                    "sexualPreference": sexualpreference(item["boolean"]),
+                    "fame": fame(item["int.2"]),
+                }
             )
+
+    return all_users
+
+
+def main():
+    all_users = generate_all_users()
+    _generate_sql(all_users)
 
 
 if __name__ == "__main__":
