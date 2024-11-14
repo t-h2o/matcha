@@ -19,3 +19,22 @@ WSGI:: https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface[Web Server Gat
 * https://flask.palletsprojects.com/en/3.0.x/quickstart/[Flask] as WSGI
 * https://www.psycopg.org/[psycopg] as adapter between Python and PostgreSQL
 * https://black.readthedocs.io/en/stable/index.html#[black] as code formatter
+
+== Backend
+
+=== Viewed profile
+
+[plantuml, target=profil_viewed, format=svg, width=100%]
+....
+@startuml
+participant Alice
+participant Bob
+participant backend
+participant db
+
+Bob -> backend: GET /user?username=alice
+Bob <- backend: json
+Alice <- backend: websocket notification
+backend -> db : insert profil viewed
+@enduml
+....
