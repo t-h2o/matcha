@@ -47,11 +47,16 @@ def create_another_user():
         {
             "age": 18,
             "bio": "My bio is short.",
+            "email": "another@flask.py",
             "email_verified": False,
+            "fameRating": 0,
             "firstname": "Another",
             "lastname": "User",
+            "profile_complete": True,
             "selectedGender": "m",
             "sexualPreference": "e",
+            "urlProfile": "http://localhost:5001/api/images/avatar.png",
+            "username": "another",
         },
     )
 
@@ -241,6 +246,7 @@ def update():
             "profile_complete": False,
             "selectedGender": None,
             "sexualPreference": None,
+            "urlProfile": "http://localhost:5001/api/images/avatar.png",
             "username": "user",
         },
     )
@@ -271,9 +277,10 @@ def update():
             "fameRating": 0,
             "firstname": "Johnny",
             "lastname": "Appleseed",
-            "profile_complete": False,
+            "profile_complete": True,
             "selectedGender": "m",
             "sexualPreference": "e",
+            "urlProfile": "http://localhost:5001/api/images/avatar.png",
             "username": "user",
         },
     )
@@ -307,9 +314,10 @@ def update():
             "fameRating": 0,
             "firstname": "Johnny",
             "lastname": "Appleseed",
-            "profile_complete": False,
+            "profile_complete": True,
             "selectedGender": "m",
             "sexualPreference": "e",
+            "urlProfile": "http://localhost:5001/api/images/avatar.png",
             "username": "user",
         },
     )
@@ -318,11 +326,15 @@ def update():
         200,
         {
             "age": 18,
+            "bio": "My bio is short.",
             "fameRating": 0,
             "firstname": "Another",
             "gender": "m",
+            "interests": [],
             "lastname": "User",
+            "pictures": ["http://localhost:5001/api/images/avatar.png"],
             "sexualPreference": "e",
+            "urlProfile": "http://localhost:5001/api/images/avatar.png",
             "username": "another",
         },
     )
@@ -333,43 +345,13 @@ def interests():
     check_put_token(
         "/api/interests",
         201,
-        {
-            "interests": [
-                "movies",
-                "cooking",
-                "hiking",
-                "technology",
-                "fashion",
-                "nature",
-                "meditation",
-            ]
-        },
-        {
-            "interests": [
-                "technology",
-                "movies",
-                "nature",
-                "hiking",
-                "cooking",
-                "meditation",
-                "fashion",
-            ]
-        },
+        {"interests": ["hiking", "technology", "fashion", "nature", "meditation"]},
+        {"interests": ["technology", "nature", "hiking", "meditation", "fashion"]},
     )
     check_get_token(
         "/api/interests",
         201,
-        {
-            "interests": [
-                "technology",
-                "movies",
-                "nature",
-                "hiking",
-                "cooking",
-                "meditation",
-                "fashion",
-            ]
-        },
+        {"interests": ["technology", "nature", "hiking", "meditation", "fashion"]},
     )
     check_put_token(
         "/api/interests",
