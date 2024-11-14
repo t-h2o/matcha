@@ -105,8 +105,9 @@ def users():
                 lastname=user_db[2],
                 gender=user_db[3],
                 sexualPreference=user_db[4],
-                age=user_db[5],
-                fameRating=user_db[6],
+                bio=user_db[5],
+                age=user_db[6],
+                fameRating=user_db[7],
             ),
             200,
         )
