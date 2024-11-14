@@ -224,7 +224,7 @@ def db_get_user_per_id(id_user):
 
 def db_get_user_per_username(username):
     return db_fetchone(
-        "SELECT username, firstname, lastname, gender, sexual_orientation, age, fame_rating FROM users WHERE username = %s",
+        "SELECT id, username, firstname, lastname, gender, sexual_orientation, bio, age, fame_rating FROM users WHERE username = %s",
         (username,),
     )
 
@@ -255,7 +255,7 @@ def db_register(username, password, firstname, lastname, email, default_avatar):
     )
 
     error_msg = db_query(
-        "UPDATE users SET profile_picture_id = subquery.id FROM (SELECT id FROM user_images WHERE user_id = %s) AS subquery WHERE id = %s",
+        "UPDATE users SET profile_picture_id = subquery.id FROM (SELECT user_images.id FROM user_images WHERE user_id = %s) AS subquery WHERE users.id = %s",
         (
             id_user,
             id_user,

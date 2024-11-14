@@ -16,6 +16,7 @@ from matcha.db import (
     db_register,
     db_set_user_email,
     db_get_user_email,
+    db_get_interests,
     db_delete_user,
     db_get_user_images,
     db_set_user_profile_data,
@@ -94,19 +95,31 @@ def users():
         )
     else:
         user_db = db_get_user_per_username(get_username)
+        interests = db_get_interests(user_db[0])
+        pictures = db_get_user_images(user_db[0])
+        profile_picture = db_get_url_profile(user_db[0])
+
+        if "url" in profile_picture:
+            profile_url = url = profile_picture["url"]
+        elif "error" in profile_picture:
+            profile_url = url = profile_picture["error"]
 
         if user_db is None:
             return (jsonify({"error": "username not found"}), 401)
 
         return (
             jsonify(
-                username=user_db[0],
-                firstname=user_db[1],
-                lastname=user_db[2],
-                gender=user_db[3],
-                sexualPreference=user_db[4],
-                age=user_db[5],
-                fameRating=user_db[6],
+                username=user_db[1],
+                firstname=user_db[2],
+                lastname=user_db[3],
+                gender=user_db[4],
+                sexualPreference=user_db[5],
+                bio=user_db[6],
+                age=user_db[7],
+                fameRating=user_db[8],
+                interests=interests,
+                pictures=pictures,
+                urlProfile=profile_url,
             ),
             200,
         )
