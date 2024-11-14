@@ -20,7 +20,7 @@ def short_sex(sexe):
 
 def sexualpreference(sexe):
     if sexe == True:
-        return "h"
+        return "o"
     if sexe == False:
         return "e"
 
