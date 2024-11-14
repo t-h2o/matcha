@@ -152,15 +152,23 @@ def browsing_users():
 
     browsing_users = []
     for user in db_browsing_users:
+        profile_picture = db_get_url_profile(user[0])
+
+        if "url" in profile_picture:
+            profile_url = url = profile_picture["url"]
+        elif "error" in profile_picture:
+            profile_url = url = profile_picture["error"]
+
         browsing_users.append(
             {
-                "username": user[0],
-                "firstname": user[1],
-                "lastname": user[2],
-                "gender": user[3],
-                "sexualPreference": user[4],
-                "age": user[5],
-                "fameRating": user[6],
+                "username": user[1],
+                "firstname": user[2],
+                "lastname": user[3],
+                "gender": user[4],
+                "sexualPreference": user[5],
+                "age": user[6],
+                "fameRating": user[7],
+                "urlProfile": profile_url,
             }
         )
 
