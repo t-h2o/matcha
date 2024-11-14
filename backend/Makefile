@@ -10,4 +10,4 @@ test:
 	python test.py
 
 populate:
-	python populate.py
+	@python populate.py
