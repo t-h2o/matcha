@@ -42,6 +42,8 @@ create_the_environment_file () {
 	FLASK_UPLOAD_FOLDER="uploads"
 	FLASK_URL="http://localhost:5001"
 
+	GEOCODING_API=6735ffef1ed44529635672wcs876b87
+
 	environment_file
 }
 
