@@ -38,3 +38,17 @@ Alice <- backend: websocket notification
 backend -> db : insert profil viewed
 @enduml
 ....
+
+=== Geolocalisation
+
+Three different ways to obtain the geolocalisation:
+
+* browser ask to the user to accept geolocalisation and then the browser send us the geolocalisation
+* we ask to whois with the IP address
+* the user send us the country and the city where he is
+
+The data is saved with three floats:
+
+* longitude
+* latitude
+* precision
