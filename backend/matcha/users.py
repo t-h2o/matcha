@@ -96,6 +96,7 @@ def users():
     else:
         user_db = db_get_user_per_username(get_username)
         interests = db_get_interests(user_db[0])
+        pictures = db_get_user_images(user_db[0])
 
         if user_db is None:
             return (jsonify({"error": "username not found"}), 401)
@@ -111,6 +112,7 @@ def users():
                 age=user_db[7],
                 fameRating=user_db[8],
                 interests=interests,
+                pictures=pictures,
             ),
             200,
         )
