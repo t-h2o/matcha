@@ -33,4 +33,9 @@ cmd-dev:
 cmd-prod:
 	docker exec -it $(CONTAINER_FRONT)-prod sh
 
+
+dump:
+	docker exec postgres-dev pg_dump --dbname=$(shell grep DATABASE_URL= .env | sed 's/DATABASE_URL=//') > postgres-init/dump.sql
+
+
 .PHONY: env start-dev stop-dev start-prod stop-prod build-prod cmd-dev cmd-prod
