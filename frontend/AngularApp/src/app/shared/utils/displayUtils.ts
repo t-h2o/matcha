@@ -37,7 +37,10 @@ export function getGender(user: PossibleMatchesUserData | UserData): string {
 export function getFameRatingStars(fullStars: number = 5): string {
   let starsString = '';
   for (let i = 0; i < fullStars; i++) {
-    starsString += `<img src="/icons/star-fat.svg" alt="Star" />`;
+    starsString += `<img src="/icons/star_full.svg" alt="Star-full" />`;
+  }
+  for (let i = 0; i < 5 - fullStars; i++) {
+    starsString += `<img src="/icons/star_border.svg" alt="Star-empty" />`;
   }
   return starsString;
 }
