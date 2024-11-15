@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { io, Socket } from 'socket.io-client';
+import { Socket, io } from 'socket.io-client';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -7,17 +8,44 @@ import { environment } from '../../../environments/environment';
 })
 export class SocketService {
   private socket: Socket;
-  private baseUrl = environment.apiUrl;
 
   constructor() {
-    this.socket = io(this.baseUrl);
+    this.socket = io(environment.apiUrl, {
+      withCredentials: true,
+      transports: ['websocket'],
+      autoConnect: true
+    });
 
-    this.socket.on('response', (data) => {
-      console.log('Server response:', data);
+    // Connection event handlers
+    this.socket.on('connect', () => {
+      console.log('Connected to WebSocket server');
+    });
+
+    this.socket.on('connect_error', (error) => {
+      console.error('WebSocket connection error:', error);
+    });
+
+    this.socket.on('disconnect', (reason) => {
+      console.log('Disconnected from WebSocket server:', reason);
     });
   }
 
-  sendMessage(message: string) {
+  sendMessage(message: string): void {
+    console.log("Sending message:", message);
     this.socket.emit('message', message);
+  }
+
+  getResponse(): Observable<any> {
+    return new Observable((observer) => {
+      this.socket.on('response', (data) => {
+        observer.next(data);
+      });
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.socket) {
+      this.socket.disconnect();
+    }
   }
 }
