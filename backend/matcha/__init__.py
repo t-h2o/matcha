@@ -1,12 +1,23 @@
 from flask import Flask
 from flask_socketio import SocketIO, emit
 
+from flask_cors import CORS
+
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "secret!"
-socketio = SocketIO(app)
+CORS(app, origins="http://localhost:4200")
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 
-@app.route("/")
+from sys import stderr
+
+
+def flaskprint(message):
+    print(message, file=stderr)
+
+
+@app.route("/asdf")
 def index():
     return "index.html"
 
@@ -23,6 +34,7 @@ def test_message(message):
 
 @socketio.on("connect")
 def test_connect():
+    flaskprint("connnect")
     emit("my response", {"data": "Connected"})
 
 
@@ -32,4 +44,4 @@ def test_disconnect():
 
 
 if __name__ == "__main__":
-    socketio.run(app)
+    socketio.run(app, allow_unsafe_werkzeug=True)
