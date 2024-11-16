@@ -10,10 +10,10 @@ export class SocketService {
   private socket: Socket;
 
   constructor() {
-    this.socket = io(environment.apiUrl, {
+    this.socket = io(environment.websocketUrl, {
       withCredentials: true,
-      transports: ['websocket'],
-      autoConnect: true
+      transports: ['websocket', 'polling'],
+      autoConnect: true,
     });
 
     // Connection event handlers
@@ -31,7 +31,7 @@ export class SocketService {
   }
 
   sendMessage(message: string): void {
-    console.log("Sending message:", message);
+    console.log('Sending message:', message);
     this.socket.emit('message', message);
   }
 
