@@ -12,7 +12,6 @@ def create_app():
     app.config["URL"] = environ["FLASK_URL"]
     app.config['SECRET_KEY'] = 'your_secret_key'
 
-    # Update CORS configuration
     CORS(app,
     resources={
         r"/*": {
@@ -55,7 +54,6 @@ def create_app():
 
     return app, socketio
 
-# Make sure to run the app with:
 if __name__ == '__main__':
     app, socketio = create_app()
     socketio.run(app, host='0.0.0.0', port=5000, debug=True, allow_unsafe_werkzeug=True)
