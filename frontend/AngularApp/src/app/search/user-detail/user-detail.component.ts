@@ -1,10 +1,10 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { CardComponent } from '../../UI/card/card.component';
 import { PotentialMatchService } from '../../shared/services/potentialMatch.service';
+import { getFameRatingStars } from '../../shared/utils/displayUtils';
 import { GeneralComponent } from './general/general.component';
 import { MatchInterestsComponent } from './interests/match-interests.component';
 import { PicturesComponent } from './pictures/pictures.component';
-import { CardComponent } from '../../UI/card/card.component';
-import { getFameRatingStars } from '../../shared/utils/displayUtils';
 
 @Component({
   selector: 'app-user-detail',
@@ -30,13 +30,12 @@ export class UserDetailComponent implements OnInit {
 
   get heartIcon(): string {
     return this.isLikedByUser()
-      ? '/icons/heart_minus.svg'
-      : '/icons/heart_plus.svg';
+      ? '/icons/heart_full.svg'
+      : '/icons/heart_empty.svg';
   }
 
   get FameRatingStars(): string {
-    // return getFameRatingStars(this.user.fameRating);
-    return getFameRatingStars(3);
+    return getFameRatingStars(this.user().fameRating);
   }
 
   toggleLike(): void {
