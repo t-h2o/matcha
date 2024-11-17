@@ -1,16 +1,18 @@
 @import "../../../styles.scss";
 
+.title {
+  font-size: 2em;
+  font-weight: bold;
+  color: $pink;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
 .stars-group {
   display: flex;
   align-items: center;
   justify-content: space-around;
-
-  .title {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: $pink;
-    margin-bottom: 2rem;
-  }
+  margin-bottom: 2rem;
 
   .heart,
   .fake {
