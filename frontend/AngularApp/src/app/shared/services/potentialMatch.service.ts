@@ -1,10 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { finalize } from 'rxjs';
-import {
-  OtherUserData,
-  PossibleMatchesUserData,
-} from '../models/data-to-api/user';
-import { emptyOtherUser } from '../models/emptyUser';
+import { PossibleMatchesUserData, UserData } from '../models/data-to-api/user';
+import { emptyUser } from '../models/emptyUser';
 import { ErrorService } from './error.service';
 import { UserRequestsService } from './user.requests.service';
 
@@ -16,7 +13,7 @@ export class PotentialMatchService {
   private errorService = inject(ErrorService);
 
   potentialMatches = signal<PossibleMatchesUserData[]>([]);
-  otherProfileData = signal<OtherUserData>(emptyOtherUser);
+  otherProfileData = signal<UserData>(emptyUser);
 
   getAllPotentialMatches() {
     const subscription = this.userRequestsService
@@ -38,7 +35,7 @@ export class PotentialMatchService {
       .getUserByUsername(username)
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
-        next: (data: OtherUserData) => {
+        next: (data: UserData) => {
           console.log('data: ' + JSON.stringify(data));
           this.otherProfileData.set(data);
         },

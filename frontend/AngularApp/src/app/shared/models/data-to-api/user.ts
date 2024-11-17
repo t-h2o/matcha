@@ -49,7 +49,7 @@ export type UserInterests = {
 
 export type UserData = {
   username: string;
-  email: string;
+  email?: string;
   firstname: string;
   lastname: string;
   selectedGender: string;
@@ -61,20 +61,7 @@ export type UserData = {
   fameRating: number;
   urlProfile: string;
   pictures: string[];
-};
-
-export type OtherUserData = {
-  username: string;
-  firstname: string;
-  lastname: string;
-  selectedGender: string;
-  sexualPreference: string;
-  bio: string;
-  age: string;
-  fameRating: number;
-  urlProfile: string;
-  pictures: string[];
-  interests: string[];
+  interests?: string[];
 };
 
 export type PossibleMatchesUserData = {
