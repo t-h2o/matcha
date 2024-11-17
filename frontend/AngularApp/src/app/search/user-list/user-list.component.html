@@ -15,8 +15,13 @@
 </header>
 <div class="user-list">
   @if (potentialMatches()) {
-    @for (user of potentialMatches(); track user.username) {
-      <app-user-item [user]="user"></app-user-item>
+    <!-- someValue | pipeName:argument1:argument2:argument3 -->
+    @for (
+      match of potentialMatches()
+        | filterMatches: selectedFilter() : currentUser();
+      track match.username
+    ) {
+      <app-user-item [user]="match"></app-user-item>
     }
   }
 </div>

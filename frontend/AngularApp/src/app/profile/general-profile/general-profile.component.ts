@@ -45,7 +45,6 @@ export class GeneralProfileComponent {
   }
 
   get FameRatingStars(): string {
-    // return getFameRatingStars(this.user.fameRating);
-    return getFameRatingStars(3);
+    return getFameRatingStars(this.userProfile().fameRating);
   }
 }
