@@ -6,7 +6,6 @@ import {
   ModifiedUserGeneral,
   ModifiedUserPassword,
   ModifyGeneralData,
-  OtherUserData,
   PossibleMatchesUserData,
   UserData,
   UserLogin,
@@ -41,7 +40,7 @@ export class UserRequestsService {
   }
 
   getUserByUsername(username: string) {
-    return this.httpClient.get<OtherUserData>(
+    return this.httpClient.get<UserData>(
       `${this.baseUrl}/users?username=${username}`,
     );
   }
