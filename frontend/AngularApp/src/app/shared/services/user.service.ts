@@ -249,4 +249,19 @@ export class UserService {
       },
     });
   }
+
+  sendUserPosition(position: { latitude: number; longitude: number }) {
+    const subscription = this.httpService
+      .sendPosition(position)
+      .pipe(finalize(() => subscription.unsubscribe()))
+      .subscribe({
+        next: (data: any) => {
+          console.log('data: ' + JSON.stringify(data));
+        },
+        error: (error: any) => {
+          const errorMessage = error?.message || 'An unknown error occurred';
+          this.errorService.showError(errorMessage);
+        },
+      });
+  }
 }
