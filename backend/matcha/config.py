@@ -1,12 +1,12 @@
 # https://fastapi.tiangolo.com/advanced/settings/#the-config-file
 
+from os import environ
+
 from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    app_name: str = "Awesome API"
-    admin_email: str
-    items_per_user: int = 50
+    url: str = environ["FLASK_URL"]
 
 
 settings = Settings()
