@@ -2,8 +2,9 @@ from fastapi import APIRouter
 
 from pydantic import BaseModel
 
-
 from matcha.db import db_register
+
+from ..config import settings
 
 
 class Register(BaseModel):
@@ -40,8 +41,7 @@ def service_register_user(newUser: Register):
         newUser.firstname,
         newUser.lastname,
         newUser.email,
-        "http://a" + "/api/images/avatar.png",
-        # current_app.config["URL"] + "/api/images/avatar.png",
+        settings.url + "/api/images/avatar.png",
     )
 
 
