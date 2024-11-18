@@ -13,25 +13,28 @@ class Register(BaseModel):
     lastname: str
     email: str
 
+    def check(self):
+        if len(self.username) <= 4:
+            return {"error": "length"}
+        if len(self.password) <= 4:
+            return {"error": "length"}
+        if len(self.firstname) <= 4:
+            return {"error": "length"}
+        if len(self.lastname) <= 4:
+            return {"error": "length"}
+        if len(self.email) <= 4:  # TODO regex email
+            return {"error": "length"}
+
 
 router = APIRouter()
 
 
-@router.post("/api/register")
-async def register_user(newUser: Register):
+def service_register_user(newUser: Register):
+    check = newUser.check()
+    if check is not None:
+        return check
 
-    #     json = request.json
-    #
-    #     check_request = check_request_json(
-    #         request.headers.get("Content-Type"),
-    #         json,
-    #         ["username", "password", "firstname", "lastname", "email"],
-    #     )
-    #
-    #     if check_request is not None:
-    #         return jsonify(check_request[0]), check_request[1]
-    #
-    response = db_register(
+    return db_register(
         newUser.username,
         newUser.password,
         newUser.firstname,
@@ -41,12 +44,8 @@ async def register_user(newUser: Register):
         # current_app.config["URL"] + "/api/images/avatar.png",
     )
 
-    print(newUser.email)
 
-    return newUser
+@router.post("/api/register")
+async def register_user(newUser: Register):
 
-
-# @router.post("/users/me/")
-# async def read_users_me(authorization: str = Header(None)):
-#     print(authorization)
-#     return {"authorization": authorization}
+    return service_register_user(newUser)
