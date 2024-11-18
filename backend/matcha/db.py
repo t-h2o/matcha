@@ -5,9 +5,12 @@ from contextlib import contextmanager
 
 from psycopg2 import connect
 from psycopg2.errors import UndefinedTable
-from werkzeug.security import generate_password_hash
+from passlib.context import CryptContext
 
 from matcha.app_utils import fetchall_to_array
+
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def db_fetchall(query, arguments):
@@ -234,7 +237,7 @@ def db_register(username, password, firstname, lastname, email, default_avatar):
         "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);",
         (
             username,
-            generate_password_hash(password),
+            pwd_context.hash(password),
             firstname,
             lastname,
             email,
