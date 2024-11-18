@@ -23,14 +23,14 @@ services:
     volumes:
       - ./backend:/app
     ports:
-      - '5001:5000'
+      - '5001:8000'
     environment:
       - FLASK_APP=matcha
       - FLASK_ENV=development
       - CHOKIDAR_USEPOLLING=true
     env_file:
       - .env
-    command: /usr/local/bin/flask run --host=0.0.0.0 --debug --reload
+    command: /usr/local/bin/fastapi dev /app/matcha/__init__.py
     depends_on:
       - postgres
     networks:
