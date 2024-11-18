@@ -4,6 +4,10 @@ import jwt
 
 router = APIRouter()
 
+# openssl rand -hex 32
+SECRET_KEY = "5c49f5d9c7206c0204487fefb88fa32b0aa46006ec93a29e962a3ca38ff94a95"
+ALGORITHM = "HS256"
+
 
 # def create_access_token(data: dict, expires_delta: timedelta | None = None):
 def create_access_token(data: dict, expires_delta: timedelta):
