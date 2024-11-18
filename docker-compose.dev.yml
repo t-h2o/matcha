@@ -15,11 +15,11 @@ services:
       - CHOKIDAR_USEPOLLING=true
     env_file:
       - .env
-    command: /usr/local/bin/fastapi dev /app/matcha/__init__.py
+    command: uvicorn matcha:app --host 0.0.0.0 --port 8000 --reload
     depends_on:
       - postgres
     networks:
-            - appnet
+      - appnet
 
   postgres:
         container_name: postgres-dev
