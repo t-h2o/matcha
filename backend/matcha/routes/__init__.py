@@ -1,10 +1,10 @@
 from flask import Blueprint
 
-import matcha.routers.users
-import matcha.routers.auth
-import matcha.routers.images
-import matcha.routers.interests
-import matcha.routers.pictures
+import matcha.routes.users
+import matcha.routes.auth
+import matcha.routes.images
+import matcha.routes.interests
+import matcha.routes.pictures
 
 
 def init_routes(app):
