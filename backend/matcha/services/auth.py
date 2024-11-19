@@ -11,15 +11,6 @@ from matcha.db import db_get_id_password_where_username
 from matcha.app_utils import check_request_json
 
 
-class Login:
-    username: str
-    password: str
-
-    def __init__(self, username, password):
-        self.username = username
-        self.password = password
-
-
 def service_login_user(request):
     json = request.json
 
