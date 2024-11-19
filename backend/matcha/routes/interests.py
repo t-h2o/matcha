@@ -8,7 +8,6 @@ from flask_jwt_extended import (
 from matcha.db import db_set_interests
 
 from matcha.services.interests import services_interests
-from matcha.services.interests import services_put_interests
 
 bp = Blueprint("interests", __name__)
 
@@ -17,10 +16,4 @@ bp = Blueprint("interests", __name__)
 @jwt_required()
 def interests():
     id_user = get_jwt_identity()
-
-    if request.method == "PUT":
-        error_msg = services_put_interests(id_user, request)
-        if error_msg:
-            return error_msg
-
-    return services_interests(id_user)
+    return services_interests(id_user, request)
