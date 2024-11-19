@@ -4,7 +4,7 @@ from flask_cors import CORS
 from os import environ
 from flask_jwt_extended import JWTManager
 
-import matcha.users
+from matcha.routers import users
 
 
 def create_app():
