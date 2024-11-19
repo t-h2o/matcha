@@ -6,30 +6,28 @@ from flask_jwt_extended import JWTManager
 
 def create_app():
     app = Flask(__name__)
-
     app.config["JWT_SECRET_KEY"] = environ["FLASK_JWT_SECRET_KEY"]
     app.config["UPLOAD_FOLDER"] = environ["FLASK_UPLOAD_FOLDER"]
     app.config["URL"] = environ["FLASK_URL"]
     app.config['SECRET_KEY'] = 'your_secret_key'
-
-    CORS(app,
-    resources={
+    
+    CORS(app, resources={
         r"/*": {
             "origins": ["http://localhost:4200"],
             "allow_credentials": True,
-            "methods": ["GET", "POST", "DELETE", "PUT" "OPTIONS"]
+            "methods": ["GET", "POST", "DELETE", "PUT", "OPTIONS"]
         }
     })
-
+    
     socketio = SocketIO(
-        app,
-        cors_allowed_origins="http://localhost:4200",
-        async_mode='threading',
-        ping_timeout=60000,
-        logger=True,
+        app, 
+        cors_allowed_origins="http://localhost:4200", 
+        async_mode='threading', 
+        ping_timeout=60000, 
+        logger=True, 
         engineio_logger=True
     )
-
+    
     jwt = JWTManager(app)
 
     @socketio.on('connect')
@@ -51,9 +49,8 @@ def create_app():
             socketio.emit('response', 'Server received your message: ' + str(data))
         except Exception as e:
             print('Error handling message:', str(e))
+            print('Error handling message:', str(e))
 
-    return app, socketio
+    return app
 
-if __name__ == '__main__':
-    app, socketio = create_app()
-    socketio.run(app, host='0.0.0.0', port=5000, debug=True, allow_unsafe_werkzeug=True)
+# Create a separate run file, say run.py in the backend directory

@@ -30,7 +30,7 @@ services:
       - CHOKIDAR_USEPOLLING=true
     env_file:
       - .env
-    command: python app.py
+    command: flask --debug run --host=0.0.0.0 --port=5000
     depends_on:
       - postgres
     networks:
