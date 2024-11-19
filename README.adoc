@@ -20,7 +20,95 @@ WSGI:: https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface[Web Server Gat
 * https://www.psycopg.org/[psycopg] as adapter between Python and PostgreSQL
 * https://black.readthedocs.io/en/stable/index.html#[black] as code formatter
 
-=== Debug
+== Backend
+
+=== Structure
+
+To structure your Flask REST API with `app.py` as the main entry point and separate files for endpoints and services, you can follow a modular design. Here's an example structure:
+
+==== Directory Structure
+
+----
+project/
+│
+├── app.py                # Main entry point
+├── routes/
+│   ├── __init__.py       # Initializes Blueprint
+│   ├── home_routes.py    # Example routes file
+│   └── user_routes.py    # Example routes file
+├── services/
+│   ├── __init__.py       # Optional, for package initialization
+│   ├── home_service.py   # Example service file
+│   └── user_service.py   # Example service file
+└── requirements.txt      # Dependencies
+----
+
+==== Code Implementation
+
+===== `app.py`
+----
+from flask import Flask
+from routes import init_routes
+
+app = Flask(__name__)
+
+# Initialize routes
+init_routes(app)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+----
+
+===== `routes/__init__.py`
+----
+from flask import Blueprint
+from .home_routes import home_bp
+from .user_routes import user_bp
+
+def init_routes(app):
+    app.register_blueprint(home_bp)
+    app.register_blueprint(user_bp)
+----
+
+===== `routes/home_routes.py`
+----
+from flask import Blueprint
+from services.home_service import get_welcome_message
+
+home_bp = Blueprint('home', __name__)
+
+@home_bp.route("/")
+def home():
+    return get_welcome_message()
+----
+
+===== `routes/user_routes.py`
+----
+from flask import Blueprint, jsonify
+from services.user_service import get_user
+
+user_bp = Blueprint('user', __name__, url_prefix='/users')
+
+@user_bp.route("/<int:user_id>")
+def user(user_id):
+    return jsonify(get_user(user_id))
+----
+
+===== `services/home_service.py`
+
+----
+def get_welcome_message():
+    return {"message": "Welcome to the API"}
+----
+
+===== `services/user_service.py`
+----
+def get_user(user_id):
+    # Simulated user retrieval
+    return {"user_id": user_id, "name": "User Name"}
+----
+
+== Debug
 
 === JWT Error: Subject must be a string!
 
