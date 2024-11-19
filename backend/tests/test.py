@@ -390,15 +390,15 @@ def test_pictures():
     check_post_token_pictures(
         "/api/pictures",
         200,
-        "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
+        "../../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
         {"pictures": 2},
     )
     check_post_token_pictures(
         "/api/pictures",
         201,
         [
-            "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
-            "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
+            "../../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
+            "../../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
         ],
         {"pictures": 4},
     )
@@ -406,8 +406,8 @@ def test_pictures():
         "/api/pictures",
         401,
         [
-            "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
-            "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
+            "../../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
+            "../../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
         ],
         {"error": "too many pictures"},
     )
@@ -415,7 +415,7 @@ def test_pictures():
         "/api/pictures",
         201,
         [
-            "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
+            "../../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
         ],
         {"pictures": 5},
     )
