@@ -31,3 +31,20 @@ def service_login_user(request):
         access_token = create_access_token(identity=user_db[0])
         return jsonify(access_token=access_token)
     return jsonify({"error": "Incorrect password"}), 401
+
+
+def services_reset_password(request):
+    json = request.json
+
+    check_request = check_request_json(
+        request.headers.get("Content-Type"),
+        json,
+        ["username"],
+    )
+
+    if check_request is not None:
+        return jsonify(check_request[0]), check_request[1]
+
+    # TODO sent email recovery password
+
+    return jsonify({"success": "email with password reset link sent"}), 201
