@@ -60,6 +60,3 @@ def create_app():
             print("Error handling message:", str(e))
 
     return app
-
-
-# Create a separate run file, say run.py in the backend directory
