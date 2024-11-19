@@ -16,7 +16,7 @@ from test_utils import (
 HTTP_405 = b"<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
 
 
-def create_another_user():
+def test_create_another_user():
     check_post(
         "/api/register",
         200,
@@ -61,7 +61,7 @@ def create_another_user():
     )
 
 
-def register():
+def test_register():
     check_415("/api/register")
     check_get("/api/register", 405, HTTP_405)
     check_post(
@@ -180,7 +180,7 @@ def register():
     )
 
 
-def login():
+def test_login():
     check_login_token(
         "/api/login",
         {"username": "user", "password": "1234"},
@@ -231,7 +231,7 @@ def login():
     )
 
 
-def update():
+def test_update():
     check_get_token(
         "/api/users",
         200,
@@ -340,7 +340,7 @@ def update():
     )
 
 
-def interests():
+def test_interests():
     check_get_token("/api/interests", 201, {"interests": []})
     check_put_token(
         "/api/interests",
@@ -385,7 +385,7 @@ def interests():
     )
 
 
-def pictures():
+def test_pictures():
     check_get_token_pictures("/api/pictures", 201, {"pictures": 1})
     check_post_token_pictures(
         "/api/pictures",
@@ -431,7 +431,7 @@ def pictures():
     check_get_token_pictures("/api/modify-profile-picture", 201, {"selectedPicture": 1})
 
 
-def email():
+def test_email():
     check_put_token(
         "/api/email",
         201,
@@ -443,7 +443,7 @@ def email():
     check_get_token("/api/email", 201, {"email": "test@python.py"})
 
 
-def deleteme():
+def test_deleteme():
     check_get_token("/api/deleteme", 200, {"success": "user delete"})
     check_login_token(
         "/api/login",
@@ -452,7 +452,7 @@ def deleteme():
     check_get_token("/api/deleteme", 200, {"success": "user delete"})
 
 
-def reset_password():
+def test_reset_password():
     check_post(
         "/api/reset-password",
         201,
@@ -461,7 +461,7 @@ def reset_password():
     )
 
 
-def browsing():
+def test_browsing():
     check_get_token(
         "/api/browsing",
         200,
@@ -781,16 +781,16 @@ def browsing():
 
 
 def main():
-    register()
-    create_another_user()
-    login()
-    update()
-    interests()
-    pictures()
-    email()
-    reset_password()
-    browsing()
-    deleteme()
+    test_register()
+    test_create_another_user()
+    test_login()
+    test_update()
+    test_interests()
+    test_pictures()
+    test_email()
+    test_reset_password()
+    test_browsing()
+    test_deleteme()
 
 
 if __name__ == "__main__":
