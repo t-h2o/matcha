@@ -13,6 +13,8 @@ from test_utils import (
     check_put_token_pictures,
 )
 
+from websocket import WebSocket
+
 HTTP_405 = b"<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
 
 
@@ -470,7 +472,22 @@ def deleteme():
     check_get_token("/api/deleteme", 200, {"success": "user delete"})
 
 
+def ws_test():
+    ws = WebSocket()
+    # ws.connect("ws://localhost:5002")
+    # ws.connect("http://localhost:5001")
+
+    ws.connect("ws://localhost:5001")
+    ws.send("Hello, Server")
+    print(ws.recv())
+    ws.close()
+    ws.send("Hello, Server")
+    print(ws.recv())
+    ws.close()
+
+
 def main():
+    ws_test()
     register()
     create_another_user()
     login()
