@@ -43,9 +43,8 @@ project/
 └── requirements.txt      # Dependencies
 ----
 
-==== Code Implementation
+==== app.py
 
-===== `app.py`
 ----
 from flask import Flask
 from routes import init_routes
@@ -59,7 +58,7 @@ if __name__ == "__main__":
     app.run(debug=True)
 ----
 
-===== `routes/__init__.py`
+==== routes/__init__.py
 ----
 from flask import Blueprint
 from .home_routes import home_bp
@@ -70,7 +69,7 @@ def init_routes(app):
     app.register_blueprint(user_bp)
 ----
 
-===== `routes/home_routes.py`
+==== routes/home_routes.py
 ----
 from flask import Blueprint
 from services.home_service import get_welcome_message
@@ -82,7 +81,7 @@ def home():
     return get_welcome_message()
 ----
 
-===== `routes/user_routes.py`
+==== routes/user_routes.py
 ----
 from flask import Blueprint, jsonify
 from services.user_service import get_user
@@ -94,14 +93,15 @@ def user(user_id):
     return jsonify(get_user(user_id))
 ----
 
-===== `services/home_service.py`
+==== services/home_service.py
 
 ----
 def get_welcome_message():
     return {"message": "Welcome to the API"}
 ----
 
-===== `services/user_service.py`
+==== services/user_service.py
+
 ----
 def get_user(user_id):
     # Simulated user retrieval
