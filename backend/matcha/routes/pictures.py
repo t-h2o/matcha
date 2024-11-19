@@ -17,7 +17,6 @@ bp = Blueprint("pictures", __name__)
 @jwt_required()
 def modify_profile_picture():
     id_user = get_jwt_identity()
-
     return services_modify_profile_picture(id_user, request)
 
 
@@ -25,5 +24,4 @@ def modify_profile_picture():
 @jwt_required()
 def modify_pictures():
     id_user = get_jwt_identity()
-
     return services_modify_pictures(id_user, request)
