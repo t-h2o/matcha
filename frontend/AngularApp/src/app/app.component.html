@@ -7,6 +7,7 @@
 
 <div class="page-container">
   <app-navbar [onLogout]="logoutHandler"></app-navbar>
+  <button (click)="sendMessage()">Send Message</button>
   <div class="main">
     <router-outlet />
   </div>

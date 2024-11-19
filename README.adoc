@@ -19,3 +19,17 @@ WSGI:: https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface[Web Server Gat
 * https://flask.palletsprojects.com/en/3.0.x/quickstart/[Flask] as WSGI
 * https://www.psycopg.org/[psycopg] as adapter between Python and PostgreSQL
 * https://black.readthedocs.io/en/stable/index.html#[black] as code formatter
+
+=== Debug
+
+=== JWT Error: Subject must be a string!
+
+https://github.com/vimalloc/flask-jwt-extended/issues/557[Issue]
+
+Fix with this https://github.com/vimalloc/flask-jwt-extended/issues/557#issuecomment-2483530464[comment]
+
+____
+So quickfix is to add
+PyJWT==2.9.0
+at the top of your requirements.txt file
+____

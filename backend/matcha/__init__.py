@@ -1,35 +1,73 @@
-from os import environ
-
 from flask import Flask
-
+from flask_socketio import SocketIO
 from flask_cors import CORS
+from os import environ
+from flask_jwt_extended import JWTManager
 
-from flask_jwt_extended import (
-    JWTManager,
-)
-
-from matcha import users
-from matcha import auth
-from matcha import images
-from matcha import interests
-from matcha import pictures
+from matcha.routers import users
+from matcha.routers import auth
+from matcha.routers import interests
+from matcha.routers import pictures
+from matcha.routers import images
 
 
 def create_app():
     app = Flask(__name__)
-
     app.config["JWT_SECRET_KEY"] = environ["FLASK_JWT_SECRET_KEY"]
     app.config["UPLOAD_FOLDER"] = environ["FLASK_UPLOAD_FOLDER"]
     app.config["URL"] = environ["FLASK_URL"]
-
-    CORS(app, origins="http://localhost:4200")
-
-    jwt = JWTManager(app)
+    app.config["SECRET_KEY"] = "your_secret_key"
 
     app.register_blueprint(users.bp)
     app.register_blueprint(auth.bp)
-    app.register_blueprint(images.bp)
     app.register_blueprint(interests.bp)
     app.register_blueprint(pictures.bp)
+    app.register_blueprint(images.bp)
+
+    CORS(
+        app,
+        resources={
+            r"/*": {
+                "origins": ["http://localhost:4200"],
+                "allow_credentials": True,
+                "methods": ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
+            }
+        },
+    )
+
+    socketio = SocketIO(
+        app,
+        cors_allowed_origins="http://localhost:4200",
+        async_mode="threading",
+        ping_timeout=60000,
+        logger=True,
+        engineio_logger=True,
+    )
+
+    jwt = JWTManager(app)
+
+    @socketio.on("connect")
+    def handle_connect():
+        print("Client connected")
+
+    @socketio.on("disconnect")
+    def handle_disconnect():
+        print("Client disconnected")
+
+    @socketio.on_error()
+    def error_handler(e):
+        print("SocketIO error:", str(e))
+
+    @socketio.on("message")
+    def handle_message(data):
+        try:
+            print("Received message:", data)
+            socketio.emit("response", "Server received your message: " + str(data))
+        except Exception as e:
+            print("Error handling message:", str(e))
+            print("Error handling message:", str(e))
 
     return app
+
+
+# Create a separate run file, say run.py in the backend directory
