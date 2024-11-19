@@ -452,6 +452,15 @@ def deleteme():
     check_get_token("/api/deleteme", 200, {"success": "user delete"})
 
 
+def reset_password():
+    check_post(
+        "/api/reset-password",
+        201,
+        {"username": "user"},
+        {"success": "email with password reset link sent"},
+    )
+
+
 def main():
     register()
     create_another_user()
@@ -776,6 +785,7 @@ def main():
             },
         ],
     )
+    reset_password()
     deleteme()
 
 
