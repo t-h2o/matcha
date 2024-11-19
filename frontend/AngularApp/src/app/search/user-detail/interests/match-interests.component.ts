@@ -12,5 +12,7 @@ export class MatchInterestsComponent {
   private matchService = inject(PotentialMatchService);
 
   user = this.matchService.otherProfileData;
-  interests = computed(() => this.user().interests);
+  interests = computed(() => {
+    return this.user().interests || [];
+  });
 }
