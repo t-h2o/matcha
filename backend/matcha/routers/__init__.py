@@ -1,6 +1,5 @@
 from flask import Blueprint
 
-# import routers.users
 import matcha.routers.users
 import matcha.routers.auth
 import matcha.routers.images
