@@ -461,14 +461,7 @@ def reset_password():
     )
 
 
-def main():
-    register()
-    create_another_user()
-    login()
-    update()
-    interests()
-    pictures()
-    email()
+def browsing():
     check_get_token(
         "/api/browsing",
         200,
@@ -785,7 +778,18 @@ def main():
             },
         ],
     )
+
+
+def main():
+    register()
+    create_another_user()
+    login()
+    update()
+    interests()
+    pictures()
+    email()
     reset_password()
+    browsing()
     deleteme()
 
 
