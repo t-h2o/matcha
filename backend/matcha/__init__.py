@@ -5,6 +5,9 @@ from os import environ
 from flask_jwt_extended import JWTManager
 
 from matcha.routers import users
+from matcha.routers import auth
+from matcha.routers import interests
+from matcha.routers import pictures
 
 
 def create_app():
@@ -15,6 +18,9 @@ def create_app():
     app.config["SECRET_KEY"] = "your_secret_key"
 
     app.register_blueprint(users.bp)
+    app.register_blueprint(auth.bp)
+    app.register_blueprint(interests.bp)
+    app.register_blueprint(pictures.bp)
 
     CORS(
         app,
