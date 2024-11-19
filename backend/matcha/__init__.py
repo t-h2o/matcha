@@ -8,6 +8,7 @@ from matcha.routers import users
 from matcha.routers import auth
 from matcha.routers import interests
 from matcha.routers import pictures
+from matcha.routers import images
 
 
 def create_app():
@@ -21,6 +22,7 @@ def create_app():
     app.register_blueprint(auth.bp)
     app.register_blueprint(interests.bp)
     app.register_blueprint(pictures.bp)
+    app.register_blueprint(images.bp)
 
     CORS(
         app,
