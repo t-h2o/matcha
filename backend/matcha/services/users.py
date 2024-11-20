@@ -29,10 +29,7 @@ from matcha.db import (
 from matcha.app_utils import check_request_json
 
 
-bp = Blueprint("users", __name__)
-
-
-def users_put(id_user, request):
+def _users_put(id_user, request):
     json = request.json
 
     check_request = check_request_json(
@@ -55,13 +52,11 @@ def users_put(id_user, request):
     )
 
 
-@bp.route("/api/users", methods=("PUT", "GET"))
-@jwt_required()
-def users():
+def services_users(id_user, request):
     id_user = get_jwt_identity()
 
     if request.method == "PUT":
-        error_msg = users_put(id_user, request)
+        error_msg = _users_put(id_user, request)
         if error_msg:
             return error_msg
 
@@ -125,10 +120,7 @@ def users():
         )
 
 
-@bp.route("/api/browsing")
-@jwt_required()
-def browsing_users():
-    id_user = get_jwt_identity()
+def services_browsing(id_user):
     user_db = db_get_user_per_id(id_user)
     gender = user_db[4]
     sexual_orientation = user_db[5]
@@ -175,7 +167,7 @@ def browsing_users():
     return jsonify(browsing_users), 200
 
 
-def email_put(user_id, request):
+def _email_put(user_id, request):
     id_user = get_jwt_identity()
 
     json = request.json
@@ -192,22 +184,16 @@ def email_put(user_id, request):
     db_set_user_email(id_user, json["email"])
 
 
-@bp.route("/api/email", methods=("PUT", "GET"))
-@jwt_required()
-def modify_email():
-    id_user = get_jwt_identity()
-
+def services_modify_email(id_user, request):
     if request.method == "PUT":
-        error_msg = email_put(id_user, request)
+        error_msg = _email_put(id_user, request)
         if error_msg:
             return error_msg
 
     return {"email": db_get_user_email(id_user)}, 201
 
 
-@bp.route("/api/register", methods=["POST"])
-def register_user():
-
+def services_register(request):
     json = request.json
 
     check_request = check_request_json(
@@ -231,7 +217,7 @@ def register_user():
     return jsonify(response)
 
 
-def wipe_user_image(id_user):
+def _wipe_user_image(id_user):
     image_filenames = db_get_user_images(id_user)
 
     for image_to_delete in image_filenames:
@@ -244,12 +230,8 @@ def wipe_user_image(id_user):
         remove("uploads/" + filename)
 
 
-@bp.route("/api/deleteme")
-@jwt_required()
-def delete_me():
-    id_user = get_jwt_identity()
-
-    wipe_user_image(id_user)
+def services_delete_me(id_user):
+    _wipe_user_image(id_user)
 
     db = db_delete_user(id_user)
 

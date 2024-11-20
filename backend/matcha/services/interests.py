@@ -1,18 +1,12 @@
-from flask import Blueprint, request, jsonify
+from flask import jsonify
 
-from flask_jwt_extended import (
-    jwt_required,
-    get_jwt_identity,
-)
+from matcha.db import db_get_interests
+from matcha.db import db_set_interests
 
 from matcha.app_utils import check_request_json_values
 
-from matcha.db import db_get_interests, db_set_interests
 
-bp = Blueprint("interests", __name__)
-
-
-def interests_put(id_user, request):
+def _services_put_interests(id_user, request):
     json = request.json
 
     check_request = check_request_json_values(
@@ -27,13 +21,9 @@ def interests_put(id_user, request):
     db_set_interests(id_user, json["interests"])
 
 
-@bp.route("/api/interests", methods=("PUT", "GET"))
-@jwt_required()
-def interests():
-    id_user = get_jwt_identity()
-
+def services_interests(id_user, request):
     if request.method == "PUT":
-        error_msg = interests_put(id_user, request)
+        error_msg = _services_put_interests(id_user, request)
         if error_msg:
             return error_msg
 

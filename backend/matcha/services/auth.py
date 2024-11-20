@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import jsonify
 
 from flask_jwt_extended import (
     create_access_token,
@@ -6,17 +6,12 @@ from flask_jwt_extended import (
 
 from werkzeug.security import check_password_hash
 
+from matcha.db import db_get_id_password_where_username
+
 from matcha.app_utils import check_request_json
 
-from matcha.db import (
-    db_get_id_password_where_username,
-)
 
-bp = Blueprint("auth", __name__)
-
-
-@bp.route("/api/login", methods=["POST"])
-def login_user():
+def service_login_user(request):
     json = request.json
 
     check_request = check_request_json(
@@ -38,8 +33,7 @@ def login_user():
     return jsonify({"error": "Incorrect password"}), 401
 
 
-@bp.route("/api/reset-password", methods=["POST"])
-def reset_password():
+def services_reset_password(request):
     json = request.json
 
     check_request = check_request_json(

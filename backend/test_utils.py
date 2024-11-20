@@ -85,14 +85,7 @@ def check_content_code(
         )
         return
 
-    print(
-        bcolors.OKGREEN
-        + "success: "
-        + bcolors.ENDC
-        + path
-        + " "
-        + str(content_expected)
-    )
+    print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path)
 
 
 def check_login_token(path, json):

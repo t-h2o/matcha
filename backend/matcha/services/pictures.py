@@ -1,12 +1,7 @@
-from os import path, remove
-from flask import Blueprint, request, jsonify
+from os import path
+from flask import jsonify
 
 from flask import current_app
-
-from flask_jwt_extended import (
-    jwt_required,
-    get_jwt_identity,
-)
 
 from werkzeug.utils import secure_filename
 
@@ -17,14 +12,11 @@ from matcha.db import (
     db_get_user_images,
     db_set_profile_picture,
     db_get_url_profile,
-    db_get_user_images,
     db_count_number_image,
 )
 
-bp = Blueprint("pictures", __name__)
 
-
-def modify_profile_picture_put(id_user, request):
+def _modify_profile_picture_put(id_user, request):
     json = request.json
 
     check_request = check_request_json(
@@ -39,13 +31,9 @@ def modify_profile_picture_put(id_user, request):
     return db_set_profile_picture(id_user, json["selectedPictures"])
 
 
-@bp.route("/api/modify-profile-picture", methods=("PUT", "GET"))
-@jwt_required()
-def modify_profile_picture():
-    id_user = get_jwt_identity()
-
+def services_modify_profile_picture(id_user, request):
     if request.method == "PUT":
-        error_msg = modify_profile_picture_put(id_user, request)
+        error_msg = _modify_profile_picture_put(id_user, request)
         if error_msg:
             return error_msg
 
@@ -78,11 +66,7 @@ def picture_post(user_id, request):
     db_upload_pictures(user_id, filenames)
 
 
-@bp.route("/api/pictures", methods=("POST", "GET"))
-@jwt_required()
-def modify_pictures():
-    id_user = get_jwt_identity()
-
+def services_modify_pictures(id_user, request):
     if request.method == "POST":
         error_msg = picture_post(id_user, request)
         if error_msg:

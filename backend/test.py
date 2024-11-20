@@ -16,7 +16,7 @@ from test_utils import (
 HTTP_405 = b"<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
 
 
-def create_another_user():
+def test_create_another_user():
     check_post(
         "/api/register",
         200,
@@ -47,16 +47,21 @@ def create_another_user():
         {
             "age": 18,
             "bio": "My bio is short.",
+            "email": "another@flask.py",
             "email_verified": False,
+            "fameRating": 0,
             "firstname": "Another",
             "lastname": "User",
+            "profile_complete": True,
             "selectedGender": "m",
             "sexualPreference": "e",
+            "urlProfile": "http://localhost:5001/api/images/avatar.png",
+            "username": "another",
         },
     )
 
 
-def register():
+def test_register():
     check_415("/api/register")
     check_get("/api/register", 405, HTTP_405)
     check_post(
@@ -175,7 +180,7 @@ def register():
     )
 
 
-def login():
+def test_login():
     check_login_token(
         "/api/login",
         {"username": "user", "password": "1234"},
@@ -226,7 +231,7 @@ def login():
     )
 
 
-def update():
+def test_update():
     check_get_token(
         "/api/users",
         200,
@@ -241,6 +246,7 @@ def update():
             "profile_complete": False,
             "selectedGender": None,
             "sexualPreference": None,
+            "urlProfile": "http://localhost:5001/api/images/avatar.png",
             "username": "user",
         },
     )
@@ -271,9 +277,10 @@ def update():
             "fameRating": 0,
             "firstname": "Johnny",
             "lastname": "Appleseed",
-            "profile_complete": False,
+            "profile_complete": True,
             "selectedGender": "m",
             "sexualPreference": "e",
+            "urlProfile": "http://localhost:5001/api/images/avatar.png",
             "username": "user",
         },
     )
@@ -307,9 +314,10 @@ def update():
             "fameRating": 0,
             "firstname": "Johnny",
             "lastname": "Appleseed",
-            "profile_complete": False,
+            "profile_complete": True,
             "selectedGender": "m",
             "sexualPreference": "e",
+            "urlProfile": "http://localhost:5001/api/images/avatar.png",
             "username": "user",
         },
     )
@@ -318,58 +326,32 @@ def update():
         200,
         {
             "age": 18,
+            "bio": "My bio is short.",
             "fameRating": 0,
             "firstname": "Another",
             "gender": "m",
+            "interests": [],
             "lastname": "User",
+            "pictures": ["http://localhost:5001/api/images/avatar.png"],
             "sexualPreference": "e",
+            "urlProfile": "http://localhost:5001/api/images/avatar.png",
             "username": "another",
         },
     )
 
 
-def interests():
+def test_interests():
     check_get_token("/api/interests", 201, {"interests": []})
     check_put_token(
         "/api/interests",
         201,
-        {
-            "interests": [
-                "movies",
-                "cooking",
-                "hiking",
-                "technology",
-                "fashion",
-                "nature",
-                "meditation",
-            ]
-        },
-        {
-            "interests": [
-                "technology",
-                "movies",
-                "nature",
-                "hiking",
-                "cooking",
-                "meditation",
-                "fashion",
-            ]
-        },
+        {"interests": ["hiking", "technology", "fashion", "nature", "meditation"]},
+        {"interests": ["technology", "nature", "hiking", "meditation", "fashion"]},
     )
     check_get_token(
         "/api/interests",
         201,
-        {
-            "interests": [
-                "technology",
-                "movies",
-                "nature",
-                "hiking",
-                "cooking",
-                "meditation",
-                "fashion",
-            ]
-        },
+        {"interests": ["technology", "nature", "hiking", "meditation", "fashion"]},
     )
     check_put_token(
         "/api/interests",
@@ -403,7 +385,7 @@ def interests():
     )
 
 
-def pictures():
+def test_pictures():
     check_get_token_pictures("/api/pictures", 201, {"pictures": 1})
     check_post_token_pictures(
         "/api/pictures",
@@ -449,7 +431,7 @@ def pictures():
     check_get_token_pictures("/api/modify-profile-picture", 201, {"selectedPicture": 1})
 
 
-def email():
+def test_email():
     check_put_token(
         "/api/email",
         201,
@@ -461,7 +443,7 @@ def email():
     check_get_token("/api/email", 201, {"email": "test@python.py"})
 
 
-def deleteme():
+def test_deleteme():
     check_get_token("/api/deleteme", 200, {"success": "user delete"})
     check_login_token(
         "/api/login",
@@ -470,16 +452,345 @@ def deleteme():
     check_get_token("/api/deleteme", 200, {"success": "user delete"})
 
 
+def test_reset_password():
+    check_post(
+        "/api/reset-password",
+        201,
+        {"username": "user"},
+        {"success": "email with password reset link sent"},
+    )
+
+
+def test_browsing():
+    check_get_token(
+        "/api/browsing",
+        200,
+        [
+            {
+                "age": 70,
+                "fameRating": 2,
+                "firstname": "Foster",
+                "gender": "f",
+                "lastname": "Marquardt",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "foster",
+            },
+            {
+                "age": 110,
+                "fameRating": 4,
+                "firstname": "Marquise",
+                "gender": "f",
+                "lastname": "Kautzer",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "marquise",
+            },
+            {
+                "age": 82,
+                "fameRating": 0,
+                "firstname": "Doris",
+                "gender": "f",
+                "lastname": "Altenwerth",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "doris",
+            },
+            {
+                "age": 54,
+                "fameRating": 2,
+                "firstname": "Peyton",
+                "gender": "f",
+                "lastname": "King",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "peyton",
+            },
+            {
+                "age": 54,
+                "fameRating": 2,
+                "firstname": "Asa",
+                "gender": "f",
+                "lastname": "Zboncak",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "asa",
+            },
+            {
+                "age": 60,
+                "fameRating": 0,
+                "firstname": "Jazmin",
+                "gender": "f",
+                "lastname": "O'Conner",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "jazmin",
+            },
+            {
+                "age": 76,
+                "fameRating": 2,
+                "firstname": "Sasha",
+                "gender": "f",
+                "lastname": "Hermiston",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "sasha",
+            },
+            {
+                "age": 96,
+                "fameRating": 4,
+                "firstname": "Bernita",
+                "gender": "f",
+                "lastname": "Padberg",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "bernita",
+            },
+            {
+                "age": 58,
+                "fameRating": 0,
+                "firstname": "Marquis",
+                "gender": "f",
+                "lastname": "Waelchi",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "marquis",
+            },
+            {
+                "age": 18,
+                "fameRating": 2,
+                "firstname": "Mitchel",
+                "gender": "f",
+                "lastname": "Legros",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "mitchel",
+            },
+            {
+                "age": 52,
+                "fameRating": 4,
+                "firstname": "Josh",
+                "gender": "f",
+                "lastname": "Dickinson",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "josh",
+            },
+            {
+                "age": 78,
+                "fameRating": 4,
+                "firstname": "Timothy",
+                "gender": "f",
+                "lastname": "Tremblay",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "timothy",
+            },
+            {
+                "age": 22,
+                "fameRating": 4,
+                "firstname": "Abel",
+                "gender": "f",
+                "lastname": "Will",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "abel",
+            },
+            {
+                "age": 46,
+                "fameRating": 0,
+                "firstname": "Philip",
+                "gender": "f",
+                "lastname": "Dicki",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "philip",
+            },
+            {
+                "age": 38,
+                "fameRating": 2,
+                "firstname": "Antoinette",
+                "gender": "f",
+                "lastname": "Krajcik",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "antoinette",
+            },
+            {
+                "age": 62,
+                "fameRating": 0,
+                "firstname": "Ardella",
+                "gender": "f",
+                "lastname": "Swift",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "ardella",
+            },
+            {
+                "age": 84,
+                "fameRating": 2,
+                "firstname": "Houston",
+                "gender": "f",
+                "lastname": "Feil",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "houston",
+            },
+            {
+                "age": 46,
+                "fameRating": 4,
+                "firstname": "Elwyn",
+                "gender": "f",
+                "lastname": "Rohan",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "elwyn",
+            },
+            {
+                "age": 112,
+                "fameRating": 4,
+                "firstname": "Lacy",
+                "gender": "f",
+                "lastname": "Gislason",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "lacy",
+            },
+            {
+                "age": 18,
+                "fameRating": 4,
+                "firstname": "Bonnie",
+                "gender": "f",
+                "lastname": "Wuckert",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "bonnie",
+            },
+            {
+                "age": 112,
+                "fameRating": 0,
+                "firstname": "Eve",
+                "gender": "f",
+                "lastname": "Schowalter",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "eve",
+            },
+            {
+                "age": 68,
+                "fameRating": 0,
+                "firstname": "Luella",
+                "gender": "f",
+                "lastname": "Brown",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "luella",
+            },
+            {
+                "age": 98,
+                "fameRating": 0,
+                "firstname": "Leta",
+                "gender": "f",
+                "lastname": "Hyatt",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "leta",
+            },
+            {
+                "age": 30,
+                "fameRating": 2,
+                "firstname": "Antwon",
+                "gender": "f",
+                "lastname": "O'Hara",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "antwon",
+            },
+            {
+                "age": 46,
+                "fameRating": 4,
+                "firstname": "Ben",
+                "gender": "f",
+                "lastname": "D'Amore",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "ben",
+            },
+            {
+                "age": 18,
+                "fameRating": 4,
+                "firstname": "Josiane",
+                "gender": "f",
+                "lastname": "Fisher",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "josiane",
+            },
+            {
+                "age": 82,
+                "fameRating": 2,
+                "firstname": "Aida",
+                "gender": "f",
+                "lastname": "Marvin",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "aida",
+            },
+            {
+                "age": 60,
+                "fameRating": 4,
+                "firstname": "Benedict",
+                "gender": "f",
+                "lastname": "Luettgen",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "benedict",
+            },
+            {
+                "age": 52,
+                "fameRating": 0,
+                "firstname": "Glenna",
+                "gender": "f",
+                "lastname": "Lehner",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "glenna",
+            },
+            {
+                "age": 18,
+                "fameRating": 0,
+                "firstname": "Bethany",
+                "gender": "f",
+                "lastname": "Hintz",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "bethany",
+            },
+            {
+                "age": 18,
+                "fameRating": 2,
+                "firstname": "Camren",
+                "gender": "f",
+                "lastname": "Bechtelar",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "camren",
+            },
+        ],
+    )
+
+
 def main():
-    register()
-    create_another_user()
-    login()
-    update()
-    interests()
-    pictures()
-    email()
-    check_get_token("/api/browsing", 200, {"success": "user delete"})
-    deleteme()
+    test_register()
+    test_create_another_user()
+    test_login()
+    test_update()
+    test_interests()
+    test_pictures()
+    test_email()
+    test_reset_password()
+    test_browsing()
+    test_deleteme()
 
 
 if __name__ == "__main__":

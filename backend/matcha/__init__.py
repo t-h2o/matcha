@@ -4,11 +4,7 @@ from flask_cors import CORS
 from os import environ
 from flask_jwt_extended import JWTManager
 
-from matcha.routers import users
-from matcha.routers import auth
-from matcha.routers import interests
-from matcha.routers import pictures
-from matcha.routers import images
+from matcha.routes import init_routes
 
 
 def create_app():
@@ -18,11 +14,7 @@ def create_app():
     app.config["URL"] = environ["FLASK_URL"]
     app.config["SECRET_KEY"] = "your_secret_key"
 
-    app.register_blueprint(users.bp)
-    app.register_blueprint(auth.bp)
-    app.register_blueprint(interests.bp)
-    app.register_blueprint(pictures.bp)
-    app.register_blueprint(images.bp)
+    init_routes(app)
 
     CORS(
         app,
@@ -68,6 +60,3 @@ def create_app():
             print("Error handling message:", str(e))
 
     return app
-
-
-# Create a separate run file, say run.py in the backend directory
