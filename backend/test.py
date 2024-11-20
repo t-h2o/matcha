@@ -1242,6 +1242,7 @@ def test_like_user():
     )
 
 
+<<<<<<< HEAD
 def _test_delete_notification():
     check_login_token(
         "/api/login",
@@ -1293,6 +1294,15 @@ def test_notification():
     _test_delete_notification()
 
 
+def test_position():
+    check_post_token(
+        "/api/position",
+        201,
+        {"latitude": 999, "longitude": 999},
+        {"latitude": 999, "longitude": 999},
+    )
+
+
 def main():
     test_register()
     test_create_another_user()
@@ -1302,6 +1312,7 @@ def main():
     test_pictures()
     test_email()
     test_reset_password()
+    test_position()
     test_browsing()
     test_like_user()
     test_notification()
