@@ -112,7 +112,7 @@ describe('DisplayUtils', () => {
         expect(getGender(userWithPossibleMatchesDataType)).toEqual('Female');
       });
 
-      it('should return NOT SPECIFIED when username is not m or f', () => {
+      it('should return NOT SPECIFIED when gender is not m or f', () => {
         userWithPossibleMatchesDataType.gender = 'a';
         expect(getGender(userWithUserDataType)).toEqual('NOT SPECIFIED');
       });
