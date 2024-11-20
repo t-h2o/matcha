@@ -9,6 +9,7 @@ WSGI:: https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface[Web Server Gat
 === Frontend
 
 * https://angular.dev/[Angular]
+* https://jestjs.io/[Jest] as JavaScript Testing Framework
 
 === Database
 
