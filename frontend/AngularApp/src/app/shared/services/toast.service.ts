@@ -14,6 +14,9 @@ export class ToastService {
   toast$ = this.toastSubject.asObservable();
 
   show(message: string, type: ToastMessage['type'] = 'info') {
+    if (message.length > 30) {
+      message = message.slice(0, 30) + '...';
+    }
     this.toastSubject.next({ message, type });
 
     setTimeout(() => {

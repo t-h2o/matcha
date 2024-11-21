@@ -12,6 +12,7 @@ import {
 import { emptyUser } from '../models/emptyUser';
 import { ErrorService } from './error.service';
 import { HttpRequestsService } from './http.requests.service';
+import { ToastService } from './toast.service';
 
 type Interests = { interests: string[] };
 
@@ -20,7 +21,7 @@ type Interests = { interests: string[] };
 })
 export class UserService {
   private httpService = inject(HttpRequestsService);
-  private errorService = inject(ErrorService);
+  private toastService = inject(ToastService);
   private router = inject(Router);
 
   interestList = signal<Interests>({ interests: [] });
@@ -36,7 +37,7 @@ export class UserService {
         },
         error: (error: any) => {
           const errorMessage = error?.message || 'An unknown error occurred';
-          this.errorService.showError(errorMessage);
+          this.toastService.show(errorMessage, 'error');
         },
       });
   }
@@ -55,7 +56,7 @@ export class UserService {
         },
         error: (error: any) => {
           const errorMessage = error?.message || 'An unknown error occurred';
-          this.errorService.showError(errorMessage);
+          this.toastService.show(errorMessage, 'error');
         },
       });
   }
@@ -86,7 +87,7 @@ export class UserService {
         },
         error: (error: any) => {
           const errorMessage = error?.message || 'An unknown error occurred';
-          this.errorService.showError(errorMessage);
+          this.toastService.show(errorMessage, 'error');
         },
       });
   }
@@ -115,7 +116,7 @@ export class UserService {
         },
         error: (error: any) => {
           const errorMessage = error?.message || 'An unknown error occurred';
-          this.errorService.showError(errorMessage);
+          this.toastService.show(errorMessage, 'error');
         },
       });
   }
@@ -135,7 +136,7 @@ export class UserService {
         },
         error: (error: any) => {
           const errorMessage = error?.message || 'An unknown error occurred';
-          this.errorService.showError(errorMessage);
+          this.toastService.show(errorMessage, 'error');
         },
       });
   }
@@ -155,7 +156,7 @@ export class UserService {
         },
         error: (error: any) => {
           const errorMessage = error?.message || 'An unknown error occurred';
-          this.errorService.showError(errorMessage);
+          this.toastService.show(errorMessage, 'error');
         },
       });
   }
@@ -170,7 +171,7 @@ export class UserService {
         },
         error: (error: any) => {
           const errorMessage = error?.message || 'An unknown error occurred';
-          this.errorService.showError(errorMessage);
+          this.toastService.show(errorMessage, 'error');
         },
       });
   }
@@ -192,7 +193,7 @@ export class UserService {
           console.log('error:', error);
           const errorMessage =
             error?.error?.message || 'An unknown error occurred';
-          this.errorService.showError(errorMessage);
+          this.toastService.show(errorMessage, 'error');
         },
       });
   }
@@ -212,7 +213,7 @@ export class UserService {
         },
         error: (error: any) => {
           const errorMessage = error?.message || 'An unknown error occurred';
-          this.errorService.showError(errorMessage);
+          this.toastService.show(errorMessage, 'error');
         },
       });
   }
@@ -232,7 +233,7 @@ export class UserService {
         },
         error: (error: any) => {
           const errorMessage = error?.message || 'An unknown error occurred';
-          this.errorService.showError(errorMessage);
+          this.toastService.show(errorMessage, 'error');
         },
       });
   }
@@ -247,7 +248,7 @@ export class UserService {
         },
         error: (error: any) => {
           const errorMessage = error?.message || 'An unknown error occurred';
-          this.errorService.showError(errorMessage);
+          this.toastService.show(errorMessage, 'error');
         },
       });
   }
@@ -259,7 +260,7 @@ export class UserService {
       },
       error: (error) => {
         const errorMessage = error?.message || 'An unknown error occurred';
-        this.errorService.showError(errorMessage);
+        this.toastService.show(errorMessage, 'error');
       },
       complete: () => {
         subscription.unsubscribe();

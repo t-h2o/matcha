@@ -2,15 +2,15 @@ import { inject, Injectable, signal } from '@angular/core';
 import { finalize } from 'rxjs';
 import { PossibleMatchesUserData, UserData } from '../models/data-to-api/user';
 import { emptyUser } from '../models/emptyUser';
-import { ErrorService } from './error.service';
 import { HttpRequestsService } from './http.requests.service';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PotentialMatchService {
   private httpService = inject(HttpRequestsService);
-  private errorService = inject(ErrorService);
+  private toastService = inject(ToastService);
 
   potentialMatches = signal<PossibleMatchesUserData[]>([]);
   otherProfileData = signal<UserData>(emptyUser);
@@ -25,7 +25,7 @@ export class PotentialMatchService {
         },
         error: (error: any) => {
           const errorMessage = error?.message || 'An unknown error occurred';
-          this.errorService.showError(errorMessage);
+          this.toastService.show(errorMessage, 'error');
         },
       });
   }
@@ -41,7 +41,7 @@ export class PotentialMatchService {
         },
         error: (error: any) => {
           const errorMessage = error?.message || 'An unknown error occurred';
-          this.errorService.showError(errorMessage);
+          this.toastService.show(errorMessage, 'error');
         },
       });
   }
@@ -54,7 +54,7 @@ export class PotentialMatchService {
         next: () => {},
         error: (error: any) => {
           const errorMessage = error?.message || 'An unknown error occurred';
-          this.errorService.showError(errorMessage);
+          this.toastService.show(errorMessage, 'error');
         },
       });
   }
