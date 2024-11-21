@@ -19,7 +19,7 @@ type Interests = { interests: string[] };
   providedIn: 'root',
 })
 export class UserService {
-  private userRequestsService = inject(HttpRequestsService);
+  private httpService = inject(HttpRequestsService);
   private errorService = inject(ErrorService);
   private router = inject(Router);
 
@@ -27,7 +27,7 @@ export class UserService {
   ownProfileData = signal<UserData>(emptyUser);
 
   getInterests() {
-    const subscription = this.userRequestsService
+    const subscription = this.httpService
       .getInterests()
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
@@ -42,7 +42,7 @@ export class UserService {
   }
 
   modifyInterests(selectedTagsObj: Interests) {
-    const subscription = this.userRequestsService
+    const subscription = this.httpService
       .modifyInterestsRequest(selectedTagsObj)
       .pipe(
         finalize(() => {
@@ -61,7 +61,7 @@ export class UserService {
   }
 
   getUserProfile() {
-    const subscription = this.userRequestsService
+    const subscription = this.httpService
       .getUser()
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
@@ -92,7 +92,7 @@ export class UserService {
   }
 
   modifyUserProfile(userData: ModifyGeneralData) {
-    const subscription = this.userRequestsService
+    const subscription = this.httpService
       .modifyUser(userData)
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
@@ -121,7 +121,7 @@ export class UserService {
   }
 
   modifyEmail(userData: ModifiedUserEmail) {
-    const subscription = this.userRequestsService
+    const subscription = this.httpService
       .modifyEmail(userData)
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
@@ -141,7 +141,7 @@ export class UserService {
   }
 
   getUserEmail() {
-    const subscription = this.userRequestsService
+    const subscription = this.httpService
       .getEmail()
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
@@ -161,7 +161,7 @@ export class UserService {
   }
 
   modifyPassword(userData: ModifiedUserPassword) {
-    const subscription = this.userRequestsService
+    const subscription = this.httpService
       .modifyPassword(userData)
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
@@ -176,7 +176,7 @@ export class UserService {
   }
 
   modifyPictures(pictures: File[]) {
-    const subscription = this.userRequestsService
+    const subscription = this.httpService
       .modifyPictures(pictures)
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
@@ -198,7 +198,7 @@ export class UserService {
   }
 
   modifyProfilePicture(pictureName: string) {
-    const subscription = this.userRequestsService
+    const subscription = this.httpService
       .modifyProfilePicture(pictureName)
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
@@ -218,7 +218,7 @@ export class UserService {
   }
 
   getUserPictures() {
-    const subscription = this.userRequestsService
+    const subscription = this.httpService
       .getPictures()
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
@@ -238,7 +238,7 @@ export class UserService {
   }
 
   resetPassword(resetData: { username: string }) {
-    const subscription = this.userRequestsService
+    const subscription = this.httpService
       .resetPassword(resetData)
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
@@ -253,7 +253,7 @@ export class UserService {
   }
 
   sendUserRegisterData(userData: UserRegister) {
-    const subscription = this.userRequestsService.register(userData).subscribe({
+    const subscription = this.httpService.register(userData).subscribe({
       next: (_data) => {
         this.router.navigate(['/login']);
       },
