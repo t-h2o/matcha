@@ -260,7 +260,7 @@ export class UserService {
         },
         error: (error: any) => {
           const errorMessage = error?.message || 'An unknown error occurred';
-          this.errorService.showError(errorMessage);
+          this.toastService.show(errorMessage, 'error');
         },
       });
   }
