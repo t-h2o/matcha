@@ -1,18 +1,20 @@
 <div class="app-wrapper">
-  @if (!ProfileComplete) {
-    <div class="alert">
-      <p>Complete your profile before you can search for a match</p>
-    </div>
-  }
-  <main class="profile-container">
-    <div class="column">
-      <app-general-profile></app-general-profile>
-      <app-interests></app-interests>
-      <app-email-passwd></app-email-passwd>
-    </div>
-    <div class="column">
-      <app-pictures-profile></app-pictures-profile>
-      <app-rating></app-rating>
-    </div>
-  </main>
+  <div class="container">
+    @if (!ProfileComplete) {
+      <div class="alert">
+        <p>Complete your profile before you can search for a match</p>
+      </div>
+    }
+    <main class="profile-container">
+      <div class="column">
+        <app-general-profile></app-general-profile>
+        <app-interests></app-interests>
+        <app-email-passwd></app-email-passwd>
+      </div>
+      <div class="column">
+        <app-pictures-profile></app-pictures-profile>
+        <app-rating></app-rating>
+      </div>
+    </main>
+  </div>
 </div>
