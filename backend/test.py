@@ -7,6 +7,7 @@ from test_utils import (
     check_post,
     check_put,
     check_put_token,
+    check_post_token,
     check_get_token,
     check_get_token_pictures,
     check_post_token_pictures,
@@ -780,6 +781,19 @@ def test_browsing():
     )
 
 
+def test_like_user():
+    check_post_token(
+        "/api/like-user",
+        200,
+        {
+            "username": "another",
+        },
+        {
+            "username": "another",
+        },
+    )
+
+
 def main():
     test_register()
     test_create_another_user()
@@ -790,6 +804,7 @@ def main():
     test_email()
     test_reset_password()
     test_browsing()
+    test_like_user()
     test_deleteme()
 
 
