@@ -3,7 +3,7 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { UserRequestsService } from './user.requests.service';
+import { UserRequestsService } from './http.requests.service';
 import { HttpErrorResponse, provideHttpClient } from '@angular/common/http';
 
 describe('UserRequestsService', () => {

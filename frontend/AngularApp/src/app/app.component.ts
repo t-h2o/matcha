@@ -2,10 +2,10 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from './UI/footer/footer.component';
 import { NavbarComponent } from './UI/navbar/navbar.component';
-import { AuthService } from './auth/auth.service';
-import { ErrorService } from './shared/services/error.service';
+
 import { ErrorModalComponent } from './shared/modal/error-modal/error-modal.component';
-import { SocketService } from './shared/services/socket.service';
+import { AuthService } from './shared/services/auth.service';
+import { ErrorService } from './shared/services/error.service';
 
 @Component({
   selector: 'app-root',
@@ -22,13 +22,6 @@ import { SocketService } from './shared/services/socket.service';
 export class AppComponent implements OnInit {
   private authService = inject(AuthService);
   private errorService = inject(ErrorService);
-
-  // For testing purposes (next 4 lines)
-  constructor(private socketService: SocketService) {}
-  sendMessage() {
-    console.log('clicked');
-    this.socketService.sendMessage('Hello from Angular!');
-  }
 
   error = this.errorService.error;
 

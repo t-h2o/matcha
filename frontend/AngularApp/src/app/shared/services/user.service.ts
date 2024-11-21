@@ -1,4 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import {
   ModifiedUserEmail,
@@ -6,10 +7,11 @@ import {
   ModifiedUserPassword,
   ModifyGeneralData,
   UserData,
+  UserRegister,
 } from '../models/data-to-api/user';
 import { emptyUser } from '../models/emptyUser';
 import { ErrorService } from './error.service';
-import { UserRequestsService } from './user.requests.service';
+import { HttpRequestsService } from './http.requests.service';
 
 type Interests = { interests: string[] };
 
@@ -17,8 +19,9 @@ type Interests = { interests: string[] };
   providedIn: 'root',
 })
 export class UserService {
-  private userRequestsService = inject(UserRequestsService);
+  private userRequestsService = inject(HttpRequestsService);
   private errorService = inject(ErrorService);
+  private router = inject(Router);
 
   interestList = signal<Interests>({ interests: [] });
   ownProfileData = signal<UserData>(emptyUser);
@@ -247,5 +250,20 @@ export class UserService {
           this.errorService.showError(errorMessage);
         },
       });
+  }
+
+  sendUserRegisterData(userData: UserRegister) {
+    const subscription = this.userRequestsService.register(userData).subscribe({
+      next: (_data) => {
+        this.router.navigate(['/login']);
+      },
+      error: (error) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.errorService.showError(errorMessage);
+      },
+      complete: () => {
+        subscription.unsubscribe();
+      },
+    });
   }
 }

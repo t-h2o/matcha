@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { PasswordConfirmValidatorDirective } from '../shared/directives/password-confirm-validator.directive';
 import { UserRegister } from '../shared/models/data-to-api/user';
-import { UserRequestsService } from '../shared/services/user.requests.service';
+import { UserService } from '../shared/services/user.service';
 import { CardComponent } from '../UI/card/card.component';
 import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
 
@@ -21,8 +21,7 @@ import { CustomButtonComponent } from '../UI/custom-button/custom-button.compone
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
-  private userService = inject(UserRequestsService);
-  private router = inject(Router);
+  private userService = inject(UserService);
 
   onSubmit(formData: NgForm) {
     if (formData.invalid) {
@@ -42,22 +41,7 @@ export class RegisterComponent {
       password: formData.value.password,
     };
     console.log(userData);
-    this.sendUserDataToAPI(userData);
+    this.userService.sendUserRegisterData(userData);
     formData.form.reset();
-  }
-
-  private sendUserDataToAPI(userData: UserRegister) {
-    const subscription = this.userService.register(userData).subscribe({
-      next: (data) => {
-        console.log('data: ' + JSON.stringify(data));
-        this.router.navigate(['/login']);
-      },
-      error: (error) => {
-        console.error('error: ' + JSON.stringify(error));
-      },
-      complete: () => {
-        subscription.unsubscribe();
-      },
-    });
   }
 }
