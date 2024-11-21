@@ -8,6 +8,7 @@ import {
   provideHttpClient,
   withInterceptors,
 } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 const tokenInterceptor = (
   request: HttpRequest<unknown>,
@@ -30,5 +31,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(withInterceptors([tokenInterceptor])),
+    provideAnimations(),
   ],
 };
