@@ -115,4 +115,13 @@ export class HttpRequestsService {
       },
     );
   }
+
+  likeUser(username: string) {
+    return this.httpClient.post<{ username: string }>(
+      `${this.baseUrl}/like-user`,
+      {
+        username,
+      },
+    );
+  }
 }

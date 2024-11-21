@@ -41,6 +41,7 @@ export class UserDetailComponent implements OnInit {
 
   toggleLike(): void {
     this.isLikedByUser.set(!this.isLikedByUser());
+    this.PotentialMatchService.likeUser(this.user().username);
   }
 
   reportAsFake(username: string): void {

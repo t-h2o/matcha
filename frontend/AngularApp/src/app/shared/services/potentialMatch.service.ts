@@ -48,4 +48,17 @@ export class PotentialMatchService {
       },
     });
   }
+
+  likeUser(username: string) {
+    const subscription = this.httpService
+      .likeUser(username)
+      .pipe(finalize(() => subscription.unsubscribe()))
+      .subscribe({
+        next: () => {},
+        error: (error: any) => {
+          const errorMessage = error?.message || 'An unknown error occurred';
+          this.toastService.show(errorMessage, 'error');
+        },
+      });
+  }
 }
