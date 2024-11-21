@@ -9,7 +9,7 @@ import {
 } from '../models/data-to-api/user';
 import { emptyUser } from '../models/emptyUser';
 import { ErrorService } from './error.service';
-import { UserRequestsService } from './user.requests.service';
+import { UserRequestsService } from './http.requests.service';
 
 type Interests = { interests: string[] };
 
