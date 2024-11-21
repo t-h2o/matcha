@@ -11,6 +11,7 @@ import {
 import { emptyUser } from '../models/emptyUser';
 import { ErrorService } from './error.service';
 import { UserRequestsService } from './http.requests.service';
+import { Router } from '@angular/router';
 
 type Interests = { interests: string[] };
 
@@ -20,6 +21,7 @@ type Interests = { interests: string[] };
 export class UserService {
   private userRequestsService = inject(UserRequestsService);
   private errorService = inject(ErrorService);
+  private router = inject(Router);
 
   interestList = signal<Interests>({ interests: [] });
   ownProfileData = signal<UserData>(emptyUser);
@@ -252,7 +254,9 @@ export class UserService {
 
   sendUserRegisterData(userData: UserRegister) {
     const subscription = this.userRequestsService.register(userData).subscribe({
-      next: (data) => {},
+      next: (_data) => {
+        this.router.navigate(['/login']);
+      },
       error: (error) => {
         const errorMessage = error?.message || 'An unknown error occurred';
         this.errorService.showError(errorMessage);

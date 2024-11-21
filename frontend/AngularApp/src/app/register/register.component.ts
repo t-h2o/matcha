@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { PasswordConfirmValidatorDirective } from '../shared/directives/password-confirm-validator.directive';
 import { UserRegister } from '../shared/models/data-to-api/user';
 import { UserService } from '../shared/services/user.service';
@@ -22,7 +22,6 @@ import { CustomButtonComponent } from '../UI/custom-button/custom-button.compone
 })
 export class RegisterComponent {
   private userService = inject(UserService);
-  private router = inject(Router);
 
   onSubmit(formData: NgForm) {
     if (formData.invalid) {
@@ -43,7 +42,6 @@ export class RegisterComponent {
     };
     console.log(userData);
     this.userService.sendUserRegisterData(userData);
-    this.router.navigate(['/login']);
     formData.form.reset();
   }
 }
