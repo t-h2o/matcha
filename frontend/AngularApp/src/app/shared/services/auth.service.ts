@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { token } from '../shared/models/token';
+import { token } from '../models/token';
 
 @Injectable({
   providedIn: 'root',

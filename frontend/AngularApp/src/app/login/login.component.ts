@@ -1,10 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
-import { UserRequestsService } from '../shared/services/user.requests.service';
+
 import { CardComponent } from '../UI/card/card.component';
 import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
+import { AuthService } from '../shared/services/auth.service';
+import { UserRequestsService } from '../shared/services/http.requests.service';
 
 @Component({
   selector: 'app-login',
