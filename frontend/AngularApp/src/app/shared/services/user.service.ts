@@ -6,6 +6,7 @@ import {
   ModifiedUserPassword,
   ModifyGeneralData,
   UserData,
+  UserRegister,
 } from '../models/data-to-api/user';
 import { emptyUser } from '../models/emptyUser';
 import { ErrorService } from './error.service';
@@ -247,5 +248,18 @@ export class UserService {
           this.errorService.showError(errorMessage);
         },
       });
+  }
+
+  sendUserRegisterData(userData: UserRegister) {
+    const subscription = this.userRequestsService.register(userData).subscribe({
+      next: (data) => {},
+      error: (error) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.errorService.showError(errorMessage);
+      },
+      complete: () => {
+        subscription.unsubscribe();
+      },
+    });
   }
 }
