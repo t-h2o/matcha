@@ -7,6 +7,11 @@
   border-width: 2px;
   border-color: $pink;
   border-style: solid;
-  overflow: hidden;
+  // overflow: hidden;
   width: 100%;
+  margin: auto;
+
+  @media screen and (max-width: $mobile-max-width) {
+    width: 80%;
+  }
 }

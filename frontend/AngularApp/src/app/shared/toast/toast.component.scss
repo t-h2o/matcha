@@ -1,3 +1,5 @@
+@import "../../../styles.scss";
+
 .toast {
   position: fixed;
   top: 120px;
@@ -11,6 +13,10 @@
   max-width: 90%;
   width: auto;
   text-align: center;
+
+  @media screen and (max-width: $mobile-max-width) {
+    left: 15%;
+  }
 }
 .toast-success {
   background-color: #28a745;
