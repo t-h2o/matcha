@@ -1,11 +1,13 @@
 <div class="app-wrapper">
   <main class="main">
     <app-card>
-      <h3 class="title">Your contacts</h3>
-      <div class="contact-list">
-        @for (contact of contacts; track contact.username) {
-          <app-contact [contact]="contact"></app-contact>
-        }
+      <div class="inside-card">
+        <h3 class="title">Your contacts</h3>
+        <div class="contact-list">
+          @for (contact of contacts; track contact.username) {
+            <app-contact [contact]="contact"></app-contact>
+          }
+        </div>
       </div>
     </app-card>
   </main>

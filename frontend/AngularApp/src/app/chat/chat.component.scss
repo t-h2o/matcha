@@ -1,12 +1,22 @@
 @import "../../styles.scss";
 
-.title {
-  text-align: center;
-  color: $pink;
-  margin-bottom: 3rem;
+.inside-card {
+  min-width: 375px;
+
+  .title {
+    text-align: center;
+    color: $pink;
+    margin-bottom: 3rem;
+
+    @media screen and (max-width: $mobile-max-width) {
+      text-align: left;
+      margin-left: 20%;
+    }
+  }
 }
 
 .contact-list {
+  width: 75%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem;
