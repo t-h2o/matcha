@@ -3,20 +3,20 @@ import { finalize } from 'rxjs';
 import { PossibleMatchesUserData, UserData } from '../models/data-to-api/user';
 import { emptyUser } from '../models/emptyUser';
 import { ErrorService } from './error.service';
-import { UserRequestsService } from './http.requests.service';
+import { HttpRequestsService } from './http.requests.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PotentialMatchService {
-  private userRequestsService = inject(UserRequestsService);
+  private httpService = inject(HttpRequestsService);
   private errorService = inject(ErrorService);
 
   potentialMatches = signal<PossibleMatchesUserData[]>([]);
   otherProfileData = signal<UserData>(emptyUser);
 
   getAllPotentialMatches() {
-    const subscription = this.userRequestsService
+    const subscription = this.httpService
       .getPotentialMatches()
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
@@ -31,7 +31,7 @@ export class PotentialMatchService {
   }
 
   getUserProfileByUsername(username: string) {
-    const subscription = this.userRequestsService
+    const subscription = this.httpService
       .getUserByUsername(username)
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
@@ -47,7 +47,7 @@ export class PotentialMatchService {
   }
 
   viewProfile(username: string) {
-    const subscription = this.userRequestsService
+    const subscription = this.httpService
       .visitProfile(username)
       .pipe(finalize(() => subscription.unsubscribe()))
       .subscribe({
