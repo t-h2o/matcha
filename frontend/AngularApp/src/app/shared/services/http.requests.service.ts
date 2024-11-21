@@ -16,7 +16,7 @@ import { token } from '../models/token';
 @Injectable({
   providedIn: 'root',
 })
-export class UserRequestsService {
+export class HttpRequestsService {
   private httpClient = inject(HttpClient);
   private baseUrl = environment.apiUrl;
 

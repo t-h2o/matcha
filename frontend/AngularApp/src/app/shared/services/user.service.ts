@@ -1,4 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import {
   ModifiedUserEmail,
@@ -10,8 +11,7 @@ import {
 } from '../models/data-to-api/user';
 import { emptyUser } from '../models/emptyUser';
 import { ErrorService } from './error.service';
-import { UserRequestsService } from './http.requests.service';
-import { Router } from '@angular/router';
+import { HttpRequestsService } from './http.requests.service';
 
 type Interests = { interests: string[] };
 
@@ -19,7 +19,7 @@ type Interests = { interests: string[] };
   providedIn: 'root',
 })
 export class UserService {
-  private userRequestsService = inject(UserRequestsService);
+  private userRequestsService = inject(HttpRequestsService);
   private errorService = inject(ErrorService);
   private router = inject(Router);
 
