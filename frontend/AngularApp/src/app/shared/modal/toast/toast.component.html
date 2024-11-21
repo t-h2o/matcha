@@ -1,0 +1,14 @@
+@if (toast) {
+  <div
+    [@toastAnimation]="'visible'"
+    class="toast"
+    [ngClass]="{
+      'toast-success': toast.type === 'success',
+      'toast-error': toast.type === 'error',
+      'toast-warning': toast.type === 'warning',
+      'toast-info': toast.type === 'info',
+    }"
+  >
+    {{ toast.message }}
+  </div>
+}

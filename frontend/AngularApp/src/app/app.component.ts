@@ -6,6 +6,7 @@ import { NavbarComponent } from './UI/navbar/navbar.component';
 import { ErrorModalComponent } from './shared/modal/error-modal/error-modal.component';
 import { AuthService } from './shared/services/auth.service';
 import { ErrorService } from './shared/services/error.service';
+import { ToastComponent } from './shared/modal/toast/toast.component';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ import { ErrorService } from './shared/services/error.service';
     NavbarComponent,
     FooterComponent,
     ErrorModalComponent,
+    ToastComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
