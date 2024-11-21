@@ -1,15 +1,7 @@
-@if (error()) {
-  <app-error-modal
-    title="Something went wrong."
-    [message]="error()"
-  ></app-error-modal>
-}
-
-<app-toast></app-toast>
-
 <div class="page-container">
   <app-navbar [onLogout]="logoutHandler"></app-navbar>
   <div class="main">
+    <app-toast></app-toast>
     <router-outlet />
   </div>
 

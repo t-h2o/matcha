@@ -5,9 +5,9 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
-import { ToastMessage, ToastService } from '../../services/toast.service';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ToastMessage, ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-toast',

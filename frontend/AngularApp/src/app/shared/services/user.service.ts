@@ -10,7 +10,6 @@ import {
   UserRegister,
 } from '../models/data-to-api/user';
 import { emptyUser } from '../models/emptyUser';
-import { ErrorService } from './error.service';
 import { HttpRequestsService } from './http.requests.service';
 import { ToastService } from './toast.service';
 
