@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserItemComponent } from './user-item.component';
 import { PossibleMatchesUserData } from '../../../shared/models/data-to-api/user';
+import { By } from '@angular/platform-browser';
 
 describe('TestComponent', () => {
   let component: UserItemComponent;
@@ -39,6 +40,13 @@ describe('TestComponent', () => {
 
     it('should have a username', () => {
       expect(component.user.username).toBe('test');
+    });
+  });
+
+  describe('renders user detail in the template', () => {
+    it('should render username in the component', () => {
+      const compiled = fixture.debugElement.query(By.css('[data-testid="username]'));
+      expect(compiled.nativeElement.textContent.toContain('test'));
     });
   });
 });
