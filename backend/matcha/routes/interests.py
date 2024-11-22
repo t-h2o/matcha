@@ -5,7 +5,7 @@ from flask_jwt_extended import (
     get_jwt_identity,
 )
 
-from matcha.db import db_set_interests
+from matcha.db.db import db_set_interests
 
 from matcha.services.interests import services_interests
 

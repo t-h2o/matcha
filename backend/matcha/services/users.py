@@ -12,7 +12,7 @@ from matcha.app_utils import (
     flaskprint,
 )
 
-from matcha.db import (
+from matcha.db.db import (
     db_register,
     db_set_user_email,
     db_get_user_email,
