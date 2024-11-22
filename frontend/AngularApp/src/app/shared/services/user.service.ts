@@ -1,6 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
 import {
   ModifiedUserEmail,
   ModifiedUserGeneral,

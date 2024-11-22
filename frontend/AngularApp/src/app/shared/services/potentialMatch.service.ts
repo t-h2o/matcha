@@ -1,5 +1,4 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { finalize, Observable } from 'rxjs';
 import { PossibleMatchesUserData, UserData } from '../models/data-to-api/user';
 import { emptyUser } from '../models/emptyUser';
 import { HttpRequestsService } from './http.requests.service';

@@ -4,17 +4,14 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { emptyUser } from '../models/emptyUser';
 import { HttpRequestsService } from './http.requests.service';
 import { PotentialMatchService } from './potentialMatch.service';
 import { ToastService } from './toast.service';
-import { emptyUser } from '../models/emptyUser';
-import { UserData } from '../models/data-to-api/user';
 
 describe('PotentialMatchService', () => {
   let potentialMatchService: PotentialMatchService;
   let httpTestingController: HttpTestingController;
-  let httpRequestsService: HttpRequestsService;
-  let toastService: ToastService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -27,8 +24,6 @@ describe('PotentialMatchService', () => {
       ],
     });
     potentialMatchService = TestBed.inject(PotentialMatchService);
-    httpRequestsService = TestBed.inject(HttpRequestsService);
-    toastService = TestBed.inject(ToastService);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 
