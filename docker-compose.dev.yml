@@ -37,19 +37,19 @@ services:
             - appnet
 
   postgres:
-        container_name: postgres-dev
-        image: postgres:latest
-        ports:
-            - '5432:5432'
-        volumes:
-            - data:/var/lib/postgresql/data
-            - ./postgres-init:/docker-entrypoint-initdb.d
-        environment:
-            - POSTGRES_USER=${POSTGRES_USER}
-            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-            - POSTGRES_DB=${POSTGRES_NAME}
-        networks:
-            - appnet
+    container_name: postgres-dev
+    image: postgres:latest
+    ports:
+        - '5432:5432'
+    volumes:
+        - data:/var/lib/postgresql/data
+        - ./postgres-init:/docker-entrypoint-initdb.d
+    environment:
+        - POSTGRES_USER=${POSTGRES_USER}
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+        - POSTGRES_DB=${POSTGRES_NAME}
+    networks:
+        - appnet
 
 volumes:
     data:
