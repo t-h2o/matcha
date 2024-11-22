@@ -2,7 +2,11 @@ from flask import jsonify
 
 from matcha.app_utils import check_request_json_values
 
-from matcha.db.like import db_put_like_user
+from matcha.db.like import db_put_like_user, db_get_liker_username
+
+
+def services_like_user_get(id_user):
+    return db_get_liker_username(id_user)
 
 
 def services_like_user(id_user, request):
@@ -17,6 +21,11 @@ def services_like_user(id_user, request):
     if check_request is not None:
         return jsonify(check_request[0]), check_request[1]
 
-    db_put_like_user(id_user, json["username"])
+    error = db_put_like_user(id_user, json["username"])
 
-    return jsonify({"username": json["username"]}), 201
+    if error is not None:
+        return error
+
+    likers = services_like_user_get(id_user)
+
+    return jsonify({"likers": likers}), 201
