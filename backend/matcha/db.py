@@ -188,17 +188,11 @@ def db_set_profile_picture(id_user, image_url):
 
 
 def db_get_user_images(id_user):
-    filenames = None
+    filenames = db_fetchall(
+        "SELECT image_url FROM user_images WHERE user_id = %s", (id_user,)
+    )
 
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute(
-                "SELECT image_url FROM user_images WHERE user_id = %s", (id_user,)
-            )
-            filenames = cur.fetchall()
-            return fetchall_to_array(filenames)
-
-    return filenames
+    return fetchall_to_array(filenames)
 
 
 def db_browsing_gender_sexualorientation(id_user, search):
