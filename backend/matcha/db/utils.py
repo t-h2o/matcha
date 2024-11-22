@@ -58,3 +58,10 @@ def db_query_for(query, argument, loopme):
                     ),
                 )
             conn.commit()
+
+
+def fetchall_to_array(fetchall):
+    array = []
+    for item in fetchall:
+        array.append(item[0])
+    return array

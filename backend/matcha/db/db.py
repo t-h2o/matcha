@@ -2,13 +2,12 @@
 
 from psycopg2.errors import UndefinedTable
 
-from matcha.app_utils import fetchall_to_array
-
 from matcha.db.utils import (
     db_query,
     db_query_for,
     db_fetchone,
     db_fetchall,
+    fetchall_to_array,
 )
 
 
