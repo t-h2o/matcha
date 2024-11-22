@@ -31,7 +31,7 @@ def db_put_like_user(id_user, username):
     )
     VALUES
     (
-      id_user,
+      %s,
       (SELECT users.id FROM users WHERE username = %s)
     );
     """
