@@ -1,67 +1,15 @@
 """Flask, psycopg2, os.environ, contextmanager"""
 
-from os import environ
-from contextlib import contextmanager
-
-from psycopg2 import connect
 from psycopg2.errors import UndefinedTable
 
 from matcha.app_utils import fetchall_to_array
 
-
-def db_fetchall(query, arguments):
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute(query, arguments)
-            conn.commit()
-            return cur.fetchall()
-
-
-def db_fetchone(query, arguments):
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute(query, arguments)
-            conn.commit()
-            return cur.fetchone()
-
-
-def db_query(query, arguments):
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            try:
-                cur.execute(query, arguments)
-                conn.commit()
-            except conn.IntegrityError as e:
-                return str(e)
-            except Exception as e:
-                return {"error": str(e)}
-
-    return
-
-
-def db_query_for(query, argument, loopme):
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            for item in loopme:
-                cur.execute(
-                    query,
-                    (
-                        argument,
-                        item,
-                    ),
-                )
-            conn.commit()
-
-
-@contextmanager
-def get_db_connection():
-    """Generator of database connection"""
-
-    conn = connect(environ["DATABASE_URL"])
-    try:
-        yield conn
-    finally:
-        conn.close()
+from matcha.db.utils import (
+    db_query,
+    db_query_for,
+    db_fetchone,
+    db_fetchall,
+)
 
 
 def db_get_id_password_where_username(username):
