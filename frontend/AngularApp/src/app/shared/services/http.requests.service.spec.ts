@@ -3,22 +3,22 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { UserRequestsService } from './http.requests.service';
+import { HttpRequestsService } from './http.requests.service';
 import { HttpErrorResponse, provideHttpClient } from '@angular/common/http';
 
 describe('UserRequestsService', () => {
-  let userRequestsService: UserRequestsService;
+  let userRequestsService: HttpRequestsService;
   let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        UserRequestsService,
+        HttpRequestsService,
         provideHttpClient(),
         provideHttpClientTesting(),
       ],
     });
-    userRequestsService = TestBed.inject(UserRequestsService);
+    userRequestsService = TestBed.inject(HttpRequestsService);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 

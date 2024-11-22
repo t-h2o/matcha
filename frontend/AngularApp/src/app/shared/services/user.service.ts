@@ -1,6 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
 import {
   ModifiedUserEmail,
   ModifiedUserGeneral,
@@ -27,74 +26,61 @@ export class UserService {
   ownProfileData = signal<UserData>(emptyUser);
 
   getInterests() {
-    const subscription = this.httpService
-      .getInterests()
-      .pipe(finalize(() => subscription.unsubscribe()))
-      .subscribe({
-        next: (data: Interests) => {
-          this.interestList.set(data);
-        },
-        error: (error: any) => {
-          const errorMessage = error?.message || 'An unknown error occurred';
-          this.toastService.show(errorMessage, 'error');
-        },
-      });
+    this.httpService.getInterests().subscribe({
+      next: (data: Interests) => {
+        this.interestList.set(data);
+      },
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
   }
 
   modifyInterests(selectedTagsObj: Interests) {
-    const subscription = this.httpService
-      .modifyInterestsRequest(selectedTagsObj)
-      .pipe(
-        finalize(() => {
-          subscription.unsubscribe();
-        }),
-      )
-      .subscribe({
-        next: (data: Interests) => {
-          this.interestList.set(data);
-        },
-        error: (error: any) => {
-          const errorMessage = error?.message || 'An unknown error occurred';
-          this.toastService.show(errorMessage, 'error');
-        },
-      });
+    this.httpService.modifyInterestsRequest(selectedTagsObj).subscribe({
+      next: (data: Interests) => {
+        this.interestList.set(data);
+      },
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
   }
 
   getUserProfile() {
-    const subscription = this.httpService
-      .getUser()
-      .pipe(finalize(() => subscription.unsubscribe()))
-      .subscribe({
-        next: (data: UserData) => {
-          this.ownProfileData.update((prev) => {
-            return {
-              ...prev,
-              username: data.username,
-              firstname: data.firstname,
-              lastname: data.lastname,
-              email: data.email,
-              selectedGender: data.selectedGender,
-              sexualPreference: data.sexualPreference,
-              bio: data.bio,
-              age: data.age,
-              emailVerified: data.emailVerified,
-              profile_complete: data.profile_complete,
-              fameRating: data.fameRating,
-              urlProfile: data.urlProfile,
-            };
-          });
-        },
-        error: (error: any) => {
-          const errorMessage = error?.message || 'An unknown error occurred';
-          this.toastService.show(errorMessage, 'error');
-        },
-      });
+    this.httpService.getUser().subscribe({
+      next: (data: UserData) => {
+        this.ownProfileData.update((prev) => {
+          return {
+            ...prev,
+            username: data.username,
+            firstname: data.firstname,
+            lastname: data.lastname,
+            email: data.email,
+            selectedGender: data.selectedGender,
+            sexualPreference: data.sexualPreference,
+            bio: data.bio,
+            age: data.age,
+            emailVerified: data.emailVerified,
+            profile_complete: data.profile_complete,
+            fameRating: data.fameRating,
+            urlProfile: data.urlProfile,
+          };
+        });
+      },
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
   }
 
   modifyUserProfile(userData: ModifyGeneralData) {
-    const subscription = this.httpService
+    this.httpService
       .modifyUser(userData)
-      .pipe(finalize(() => subscription.unsubscribe()))
+
       .subscribe({
         next: (data: ModifiedUserGeneral) => {
           this.ownProfileData.update((prev) => {
@@ -121,9 +107,9 @@ export class UserService {
   }
 
   modifyEmail(userData: ModifiedUserEmail) {
-    const subscription = this.httpService
+    this.httpService
       .modifyEmail(userData)
-      .pipe(finalize(() => subscription.unsubscribe()))
+
       .subscribe({
         next: (data: ModifiedUserEmail) => {
           this.ownProfileData.update((prev) => {
@@ -141,9 +127,9 @@ export class UserService {
   }
 
   getUserEmail() {
-    const subscription = this.httpService
+    this.httpService
       .getEmail()
-      .pipe(finalize(() => subscription.unsubscribe()))
+
       .subscribe({
         next: (data: ModifiedUserEmail) => {
           this.ownProfileData.update((prev) => {
@@ -161,9 +147,9 @@ export class UserService {
   }
 
   modifyPassword(userData: ModifiedUserPassword) {
-    const subscription = this.httpService
+    this.httpService
       .modifyPassword(userData)
-      .pipe(finalize(() => subscription.unsubscribe()))
+
       .subscribe({
         next: (data: any) => {
           console.log('data: ' + JSON.stringify(data));
@@ -176,9 +162,9 @@ export class UserService {
   }
 
   modifyPictures(pictures: File[]) {
-    const subscription = this.httpService
+    this.httpService
       .modifyPictures(pictures)
-      .pipe(finalize(() => subscription.unsubscribe()))
+
       .subscribe({
         next: (data: any) => {
           this.ownProfileData.update((prev) => {
@@ -198,9 +184,9 @@ export class UserService {
   }
 
   modifyProfilePicture(pictureName: string) {
-    const subscription = this.httpService
+    this.httpService
       .modifyProfilePicture(pictureName)
-      .pipe(finalize(() => subscription.unsubscribe()))
+
       .subscribe({
         next: (data: any) => {
           this.ownProfileData.update((prev) => {
@@ -218,9 +204,9 @@ export class UserService {
   }
 
   getUserPictures() {
-    const subscription = this.httpService
+    this.httpService
       .getPictures()
-      .pipe(finalize(() => subscription.unsubscribe()))
+
       .subscribe({
         next: (data: any) => {
           this.ownProfileData.update((prev) => {
@@ -238,9 +224,9 @@ export class UserService {
   }
 
   resetPassword(resetData: { username: string }) {
-    const subscription = this.httpService
+    this.httpService
       .resetPassword(resetData)
-      .pipe(finalize(() => subscription.unsubscribe()))
+
       .subscribe({
         next: (data: any) => {
           console.log('data: ' + JSON.stringify(data));
@@ -253,16 +239,13 @@ export class UserService {
   }
 
   sendUserRegisterData(userData: UserRegister) {
-    const subscription = this.httpService.register(userData).subscribe({
+    this.httpService.register(userData).subscribe({
       next: (_data) => {
         this.router.navigate(['/login']);
       },
       error: (error) => {
         const errorMessage = error?.message || 'An unknown error occurred';
         this.toastService.show(errorMessage, 'error');
-      },
-      complete: () => {
-        subscription.unsubscribe();
       },
     });
   }
