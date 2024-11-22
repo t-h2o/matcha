@@ -5,7 +5,6 @@ from contextlib import contextmanager
 
 from psycopg2 import connect
 from psycopg2.errors import UndefinedTable
-from werkzeug.security import generate_password_hash
 
 from matcha.app_utils import fetchall_to_array
 
@@ -221,42 +220,6 @@ def db_get_user_per_username(username):
         "SELECT id, username, firstname, lastname, gender, sexual_orientation, bio, age, fame_rating FROM users WHERE username = %s",
         (username,),
     )
-
-
-def db_register(username, password, firstname, lastname, email, default_avatar):
-    error_msg = db_query(
-        "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);",
-        (
-            username,
-            generate_password_hash(password),
-            firstname,
-            lastname,
-            email,
-        ),
-    )
-
-    if error_msg:
-        return {"error": f"User {username} is already registered."}
-
-    id_user = db_get_iduser_per_username(username)
-
-    db_query(
-        "INSERT INTO user_images (user_id, image_url) VALUES (%s,%s);",
-        (
-            id_user,
-            default_avatar,
-        ),
-    )
-
-    error_msg = db_query(
-        "UPDATE users SET profile_picture_id = subquery.id FROM (SELECT user_images.id FROM user_images WHERE user_id = %s) AS subquery WHERE users.id = %s",
-        (
-            id_user,
-            id_user,
-        ),
-    )
-
-    return {"success": f"User {username} was successfully added"}
 
 
 def db_delete_user(id_user):
