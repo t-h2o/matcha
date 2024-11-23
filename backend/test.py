@@ -445,6 +445,10 @@ def test_email():
 
 
 def test_deleteme():
+    check_login_token(
+        "/api/login",
+        {"username": "user", "password": "1234"},
+    )
     check_get_token("/api/deleteme", 200, {"success": "user delete"})
     check_login_token(
         "/api/login",
@@ -782,6 +786,10 @@ def test_browsing():
 
 
 def test_like_user():
+    check_login_token(
+        "/api/login",
+        {"username": "user", "password": "1234"},
+    )
     check_post_token(
         "/api/like-user",
         200,
@@ -789,7 +797,21 @@ def test_like_user():
             "username": "another",
         },
         {
-            "username": "another",
+            "likers": [],
+        },
+    )
+    check_login_token(
+        "/api/login",
+        {"username": "another", "password": "5678"},
+    )
+    check_post_token(
+        "/api/like-user",
+        200,
+        {
+            "username": "user",
+        },
+        {
+            "likers": ["user"],
         },
     )
 
