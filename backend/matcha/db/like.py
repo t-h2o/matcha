@@ -44,5 +44,10 @@ def db_put_like_user(id_user, username):
         ),
     )
 
-    if error_msg:
-        return error_msg
+    if (
+        error_msg
+        and "error" in error_msg
+        and error_msg["error"].startswith("UniqueViolation")
+    ):
+        return
+    return error_msg
