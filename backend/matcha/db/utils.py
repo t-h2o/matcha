@@ -2,6 +2,8 @@ from os import environ
 
 from psycopg2 import connect
 
+from psycopg2.errors import UniqueViolation
+
 from contextlib import contextmanager
 
 
@@ -38,8 +40,10 @@ def db_query(query, arguments):
             try:
                 cur.execute(query, arguments)
                 conn.commit()
+            except UniqueViolation as e:
+                return {"error": "UniqueViolation " + str(e)}
             except conn.IntegrityError as e:
-                return str(e)
+                return {"error": "IntegrityError " + str(e)}
             except Exception as e:
                 return {"error": str(e)}
 
