@@ -59,9 +59,7 @@ def create_app():
                 query = environ.get("QUERY_STRING", "")
                 if "token=" in query:
                     token = query.split("token=")[1].split("&")[0]
-                    token = token.replace("Bearer%20", "").replace(
-                        "Bearer ", ""
-                    )
+                    token = token.replace("Bearer%20", "").replace("Bearer ", "")
 
             if not token:
                 print(f"No token found for connection {sid}")
@@ -69,9 +67,7 @@ def create_app():
 
             # Decode and verify the JWT token
             decoded_token = decode_token(token)
-            return decoded_token[
-                "sub"
-            ]  # or however you store user ID in your JWT
+            return decoded_token["sub"]  # or however you store user ID in your JWT
 
         except Exception as e:
             print(f"Token verification error for {sid}: {str(e)}")
@@ -81,14 +77,14 @@ def create_app():
     def handle_connect():
         sid = socketio.server.eio.sid
         user_id = verify_token(sid)
-        
+
         if not user_id:
             print(f"Authentication failed for connection {sid}")
             return False
-        
+
         connected_users[sid] = user_id
         print(f"Client connected with ID: {sid}, User ID: {user_id}")
-        socketio.emit('users_updated', list(connected_users.values()))
+        socketio.emit("users_updated", list(connected_users.values()))
         return True
 
     @socketio.on("disconnect")
@@ -97,7 +93,7 @@ def create_app():
         if sid in connected_users:
             user_id = connected_users.pop(sid)
             print(f"Client disconnected with ID: {sid}, User ID: {user_id}")
-            socketio.emit('users_updated', list(connected_users.values()))
+            socketio.emit("users_updated", list(connected_users.values()))
 
     @socketio.on_error()
     def error_handler(e):
@@ -111,12 +107,15 @@ def create_app():
             if not user_id:
                 print(f"No authenticated user found for message from {sid}")
                 return
-            
+
             print(f"Received message from {user_id}:", data)
-            socketio.emit("response", {
-                "message": f"Server received your message: {str(data)}",
-                "user_id": user_id
-            })
+            socketio.emit(
+                "response",
+                {
+                    "message": f"Server received your message: {str(data)}",
+                    "user_id": user_id,
+                },
+            )
         except Exception as e:
             print("Error handling message:", str(e))
 
