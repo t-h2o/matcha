@@ -34,7 +34,7 @@ export class LoginComponent {
 
   sendLoginDataToAPI(loginData: { username: string; password: string }) {
     this.falseCredentials.set(false);
-    const subscription = this.httpService.login(loginData).subscribe({
+    this.httpService.login(loginData).subscribe({
       next: (data) => {
         sessionStorage.setItem('access_token', data.access_token);
         this.authService.tokenSignal.set(data);
@@ -45,9 +45,6 @@ export class LoginComponent {
           this.falseCredentials.set(true);
         }
         console.error(error.status);
-      },
-      complete: () => {
-        subscription.unsubscribe();
       },
     });
   }
