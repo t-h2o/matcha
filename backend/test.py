@@ -792,7 +792,7 @@ def test_like_user():
     )
     check_post_token(
         "/api/like-user",
-        200,
+        201,
         {
             "username": "another",
         },
@@ -806,7 +806,7 @@ def test_like_user():
     )
     check_post_token(
         "/api/like-user",
-        200,
+        201,
         {
             "username": "user",
         },
