@@ -80,7 +80,7 @@ def check_content_code(
             code_expected,
             code_received,
             content_expected,
-            content_received,
+            loads(content_received),
             json,
         )
         return
