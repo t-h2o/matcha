@@ -1,0 +1,38 @@
+@import "../../../../styles.scss";
+
+.chat-container {
+  background-color: $black;
+  border-radius: 3%;
+
+  .messages {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    max-width: 100%;
+    word-wrap: break-word;
+
+    .message {
+      background-color: $pink;
+      color: $black;
+      padding: 10px;
+      margin: 5px;
+      border-radius: 10px;
+      max-width: 100%;
+      word-wrap: break-word;
+    }
+
+    .myText {
+      background-color: $violet;
+      color: $white;
+      align-self: flex-end;
+    }
+
+    .otherText {
+      background-color: $pink;
+      color: $white;
+      align-self: flex-start;
+    }
+  }
+}
