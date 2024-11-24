@@ -5,6 +5,7 @@ import { NavbarComponent } from './UI/navbar/navbar.component';
 
 import { AuthService } from './shared/services/auth.service';
 import { ToastComponent } from './shared/toast/toast.component';
+import { UserService } from './shared/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -15,11 +16,13 @@ import { ToastComponent } from './shared/toast/toast.component';
 })
 export class AppComponent implements OnInit {
   private authService = inject(AuthService);
+  private userServices = inject(UserService);
 
   ngOnInit() {
     const token = sessionStorage.getItem('access_token');
     if (token) {
       this.authService.tokenSignal.set({ access_token: token });
+      this.userServices.getUserProfile();
     }
   }
 
