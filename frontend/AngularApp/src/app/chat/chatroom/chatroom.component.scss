@@ -1,0 +1,29 @@
+@import "../../../styles.scss";
+.container {
+  min-width: 375px;
+
+  input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // margin-top: 10px;
+    // margin-bottom: 10px;
+  }
+
+  input {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 10px;
+    border: none;
+    background-color: $black;
+    color: $white;
+  }
+
+  .btn {
+    width: 100%;
+    color: $white;
+  }
+}

@@ -1,0 +1,15 @@
+<div class="chat-container">
+  <div class="messages">
+    @for (msg of messages; track msg.id) {
+      <div
+        class="message"
+        [ngClass]="{
+          myText: msg.senderUsername === username,
+          otherText: msg.senderUsername !== username,
+        }"
+      >
+        {{ msg.text }}
+      </div>
+    }
+  </div>
+</div>
