@@ -1,7 +1,10 @@
 <div class="app-wrapper">
   <main>
     <app-card>
-      <h2 class="title">{{ username() }}</h2>
+      <h2 class="title">
+        {{ username() }}
+        <span class="status-dot" [class.online]="isOnline()"></span>
+      </h2>
       <div class="stars-group">
         <div class="heart tooltip" (click)="toggleLike()">
           <img src="{{ heartIcon }}" alt="Heart" />
