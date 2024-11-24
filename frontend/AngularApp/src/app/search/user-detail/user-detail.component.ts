@@ -23,6 +23,7 @@ export class UserDetailComponent implements OnInit {
   username = input.required<string>();
   user = this.PotentialMatchService.otherProfileData;
   isLikedByUser = signal<boolean>(true);
+  isOnline = signal<boolean>(true);
 
   ngOnInit(): void {
     this.PotentialMatchService.getUserProfileByUsername(this.username());
