@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_socketio import SocketIO, disconnect
 from flask_cors import CORS
 from os import environ
@@ -75,7 +75,7 @@ def create_app():
 
     @socketio.on("connect")
     def handle_connect():
-        sid = socketio.server.eio.sid
+        sid = request.sid
         user_id = verify_token(sid)
 
         if not user_id:
@@ -89,7 +89,7 @@ def create_app():
 
     @socketio.on("disconnect")
     def handle_disconnect():
-        sid = socketio.server.eio.sid
+        sid = request.sid
         if sid in connected_users:
             user_id = connected_users.pop(sid)
             print(f"Client disconnected with ID: {sid}, User ID: {user_id}")
@@ -102,7 +102,7 @@ def create_app():
     @socketio.on("message")
     def handle_message(data):
         try:
-            sid = socketio.server.eio.sid
+            sid = request.sid
             user_id = connected_users.get(sid)
             if not user_id:
                 print(f"No authenticated user found for message from {sid}")
