@@ -6,7 +6,7 @@ from flask_jwt_extended import (
 
 from werkzeug.security import check_password_hash
 
-from matcha.db.db import db_update_position
+from matcha.db.db import db_update_position, db_get_position
 
 from matcha.app_utils import check_request_json
 
@@ -30,4 +30,6 @@ def service_position(id_user, request):
             return jsonify({"error": "bad input"}), 422
         return jsonify(error_msg), 400
 
-    return jsonify(json), 201
+    position = db_get_position(id_user)
+
+    return jsonify({"latitude": position[0], "longitude": position[1]}), 201
