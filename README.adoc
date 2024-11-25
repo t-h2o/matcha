@@ -115,6 +115,10 @@ SID:: Session ID
 
 We use https://flask-socketio.readthedocs.io/en/latest/getting_started.html[Flask-SocketIO].
 
+____
+Flask-SocketIO use https://github.com/miguelgrinberg/python-socketio[Python SocketIO]
+____
+
 The goal of webSocket it to push notification to connected users, for example:
 
 * a user has liked his profile
