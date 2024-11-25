@@ -1,16 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DisplayMessagesComponent } from './display-messages.component';
-import { UserService } from '../../../shared/services/user.service';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { testUser } from '../../../shared/models/emptyUser';
 import { By } from '@angular/platform-browser';
+import { UserService } from '../../../shared/services/user.service';
+import { DisplayMessagesComponent } from './display-messages.component';
 
 describe('DisplayMessagesComponent', () => {
   let component: DisplayMessagesComponent;
   let fixture: ComponentFixture<DisplayMessagesComponent>;
-  let mockUserService: UserService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -52,6 +50,18 @@ describe('DisplayMessagesComponent', () => {
         By.css('[data-testid="message"]'),
       );
       expect(message[0].nativeElement.textContent).toContain('Hello Robin!');
+    });
+
+    it('should apply correct CSS classes based on username', () => {
+      const messages = fixture.debugElement.queryAll(
+        By.css('[data-testid="message"]'),
+      );
+      expect(
+        messages[0].nativeElement.classList.contains('otherText'),
+      ).toBeTruthy();
+      expect(
+        messages[0].nativeElement.classList.contains('myText'),
+      ).toBeFalsy();
     });
   });
 });
