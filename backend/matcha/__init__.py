@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_socketio import SocketIO, disconnect
 from flask_cors import CORS
 from os import environ
@@ -77,9 +77,12 @@ def create_app():
 
         flaskprint("-cccccccccc")
         flaskprint(request)
+        sid = request.sid
+        flaskprint(sid)
+        sid = socketio.server.eio.sid
+        flaskprint(sid)
         flaskprint("-----cccc--")
 
-        sid = socketio.server.eio.sid
         user_id = verify_token(sid)
 
         if not user_id:
@@ -93,7 +96,7 @@ def create_app():
 
     @socketio.on("disconnect")
     def handle_disconnect():
-        sid = socketio.server.eio.sid
+        sid = request.sid
         if sid in connected_users:
             user_id = connected_users.pop(sid)
             print(f"Client disconnected with ID: {sid}, User ID: {user_id}")
