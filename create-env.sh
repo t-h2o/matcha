@@ -2,6 +2,10 @@
 
 ENVIRONMENT_FILE=".env"
 
+FLASK_UPLOAD_FOLDER="uploads"
+
+BACKEND_DIRECTORY="backend"
+
 alias pwgen="docker run \
 	--rm \
 	--interactive \
@@ -39,7 +43,7 @@ create_the_environment_file () {
 
 	DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_NAME}
 	FLASK_JWT_SECRET_KEY=$(pwgen)
-	FLASK_UPLOAD_FOLDER="uploads"
+	FLASK_UPLOAD_FOLDER="${FLASK_UPLOAD_FOLDER}"
 	FLASK_URL="http://localhost:5001"
 
 	environment_file
@@ -49,6 +53,7 @@ main () {
 	is_environement_file_already_exist
 	generate_all_variables
 	create_the_environment_file
+	mkdir -p "${BACKEND_DIRECTORY}"/"${FLASK_UPLOAD_FOLDER}"
 }
 
 main
