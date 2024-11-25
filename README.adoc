@@ -109,6 +109,35 @@ def get_user(user_id):
     return {"user_id": user_id, "name": "User Name"}
 ----
 
+=== https://en.wikipedia.org/wiki/WebSocket[WebSocket]
+
+SID:: Session ID
+
+We use https://flask-socketio.readthedocs.io/en/latest/getting_started.html[Flask-SocketIO].
+
+The goal of webSocket it to push notification to connected users, for example:
+
+* a user has liked his profile
+* he received a message
+
+When a user log in, the frontend will connect to the backend through a webSocket.
+The backend will add the new connection into a array of connected user and create a session ID.
+
+==== TMP documentation
+
+branch whoami-socket.
+The socket is initialized only after we get a token.
+You click on the button in the navbar.
+then it uses the token in socket connection -> look at socket.service.ts
+You can see the token in the flask logs.
+
+It works but the code is shitty, can't be used like that but the idea is there.
+with the token you can keep the data of everyone connected to the server via socket.
+(add on connection, remove on deconnection)
+It will be useful as we need to know who's online anyway.
+
+Then when someone like a user, check if the user liked is online with id and emit some event to him. Other wise only update the DB.
+
 == Debug
 
 === JWT Error: Subject must be a string!
