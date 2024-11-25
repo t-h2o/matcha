@@ -74,6 +74,11 @@ def create_app():
 
     @socketio.on("connect")
     def handle_connect():
+
+        flaskprint("-cccccccccc")
+        flaskprint(request)
+        flaskprint("-----cccc--")
+
         sid = socketio.server.eio.sid
         user_id = verify_token(sid)
 
