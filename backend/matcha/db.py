@@ -35,7 +35,7 @@ def db_query(query, arguments):
             except conn.IntegrityError as e:
                 return str(e)
             except Exception as e:
-                return {"error": str(e)}
+                return {"error": str(e.__class__.__name__)}
 
     return
 
