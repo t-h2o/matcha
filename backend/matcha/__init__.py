@@ -5,6 +5,8 @@ from os import environ
 from flask_jwt_extended import JWTManager, decode_token
 from matcha.routes import init_routes
 
+from matcha.websocket import socketio_init
+
 
 def create_app():
     app = Flask(__name__)
@@ -26,14 +28,7 @@ def create_app():
         },
     )
 
-    socketio = SocketIO(
-        app,
-        cors_allowed_origins="http://localhost:4200",
-        async_mode="threading",
-        ping_timeout=60000,
-        logger=True,
-        engineio_logger=True,
-    )
+    socketio = socketio_init(app)
 
     jwt = JWTManager(app)
 
