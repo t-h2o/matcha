@@ -1234,7 +1234,6 @@ def test_like_user():
     )
 
 
-<<<<<<< HEAD
 def _test_delete_notification():
     check_login_token(
         "/api/login",
@@ -1292,6 +1291,12 @@ def test_position():
         201,
         {"latitude": 999, "longitude": 999},
         {"latitude": 999, "longitude": 999},
+    )
+    check_post_token(
+        "/api/position",
+        422,
+        {"latitude": "no a float", "longitude": 999},
+        {"error": "bad input"},
     )
 
 
