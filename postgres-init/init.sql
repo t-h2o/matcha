@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS users (
     fame_rating INTEGER DEFAULT 0 CHECK (
         fame_rating >= 0 AND fame_rating <= 10
     ),
+    latitude DOUBLE PRECISION DEFAULT NULL,
+    longitude DOUBLE PRECISION DEFAULT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 
