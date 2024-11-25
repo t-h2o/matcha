@@ -23,6 +23,10 @@ def db_get_id_password_where_username(username):
     return db_fetchone("SELECT id,password FROM users WHERE username = %s", (username,))
 
 
+def db_get_position(id_user):
+    return db_fetchone("SELECT latitude,longitude FROM users WHERE id = %s", (id_user,))
+
+
 def db_update_position(id_user: int, latitude: float, longitude: float):
     error_msg = db_query(
         "UPDATE users SET (latitude, longitude) = (%s, %s) WHERE id = %s",
