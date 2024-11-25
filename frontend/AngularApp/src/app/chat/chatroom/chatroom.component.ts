@@ -1,9 +1,10 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Message } from '../../shared/models/message';
 import { CardComponent } from '../../UI/card/card.component';
-import { DisplayMessagesComponent } from './display-messages/display-messages.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
+import { DisplayMessagesComponent } from './display-messages/display-messages.component';
+import { MessageService } from '../../shared/services/messsage.service';
 
 const DummyChat = [
   {
@@ -40,25 +41,25 @@ const DummyChat = [
   templateUrl: './chatroom.component.html',
   styleUrl: './chatroom.component.scss',
 })
-export class ChatroomComponent implements OnInit {
+export class ChatroomComponent {
+  messageService = inject(MessageService);
   username = input.required<string>();
   messages: Message[] = DummyChat;
   messageText = '';
 
-  ngOnInit(): void {
-    console.log(
-      'ChatroomComponent, loading chatroom for user:',
-      this.username(),
-    );
-  }
-
   sendMessage(): void {
-    console.log('ChatroomComponent, sending message:', this.messageText);
-    this.messages.push({
-      id: this.messages.length + 1,
-      senderUsername: this.username(),
-      text: this.messageText,
-    });
-    this.messageText = '';
+    if (this.messageText !== '') {
+      const newMessage: Message = {
+        senderUsername: this.username(),
+        text: this.messageText,
+      };
+      this.messages.push({
+        id: this.messages.length + 1,
+        senderUsername: this.username(),
+        text: this.messageText,
+      });
+      this.messageService.add(newMessage);
+      this.messageText = '';
+    }
   }
 }

@@ -14,5 +14,7 @@ export class DisplayMessagesComponent {
   @Input() messages: Message[] = [];
   private userService = inject(UserService);
 
-  username = this.userService.ownProfileData().username;
+  get username(): string {
+    return this.userService.ownProfileData().username;
+  }
 }
