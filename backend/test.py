@@ -884,6 +884,12 @@ def test_position():
         {"latitude": 999, "longitude": 999},
         {"latitude": 999, "longitude": 999},
     )
+    check_post_token(
+        "/api/position",
+        422,
+        {"latitude": "no a float", "longitude": 999},
+        {"error": "bad input"},
+    )
 
 
 def main():
