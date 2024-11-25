@@ -3,6 +3,7 @@
     @for (msg of messages; track msg.id) {
       <div
         class="message"
+        data-testid="message"
         [ngClass]="{
           myText: msg.senderUsername === username,
           otherText: msg.senderUsername !== username,
