@@ -74,7 +74,7 @@ def create_app():
 
     @socketio.on("connect")
     def handle_connect():
-        sid = request.sid
+        sid = socketio.server.eio.sid
         user_id = verify_token(sid)
 
         if not user_id:
