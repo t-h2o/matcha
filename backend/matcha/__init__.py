@@ -5,6 +5,7 @@ from os import environ
 from flask_jwt_extended import JWTManager, decode_token
 from matcha.routes import init_routes
 
+from matcha.app_utils import flaskprint
 from matcha.websocket import socketio_init
 
 
@@ -40,6 +41,9 @@ def create_app():
         try:
             # Get environment for this connection
             environ = socketio.server.environ.get(sid, {})
+            flaskprint("-aaaaaaaaaa")
+            flaskprint(environ)
+            flaskprint("-aaaaaaaaaa")
 
             # Try to get token from different possible locations
             token = None
