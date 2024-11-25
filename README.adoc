@@ -156,7 +156,6 @@ PyJWT==2.9.0
 at the top of your requirements.txt file
 ____
 
-
 === Werkzeug: assert status_set
 
 Them error messages are normal in development mode (comment from https://github.com/miguelgrinberg/flask-sock/issues/27#issuecomment-1121972991[@miguelgrinberg])
@@ -171,4 +170,12 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.9/site-packages/werkzeug/serving.py", line 261, in write
     assert status_set is not None, "write() before start_response"
 AssertionError: write() before start_response
+----
+
+=== SocketIO
+
+Copy from the container the flask_socketio package into my current folder to explore it
+
+----
+docker exec flask-dev cp -R /usr/local/lib/python3.9/site-packages/flask_socketio /app
 ----
