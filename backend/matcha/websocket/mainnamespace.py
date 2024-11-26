@@ -2,6 +2,7 @@ from flask import request
 from flask_jwt_extended import decode_token
 from flask_socketio import Namespace
 
+from matcha.app_utils import flaskprint
 
 
 class ConnectedUser:
@@ -28,15 +29,18 @@ class MainNamespace(Namespace):
                 self.sid_userid.update({request.sid: user_id})
                 return True
             except Exception as e:
+                flaskprint(f"--- Connection error: {str(e)}")
                 return False
 
         except Exception as e:
+            flaskprint(f"--- Connection error: {str(e)}")
             return False
 
     def on_disconnect(self):
         pass
 
     def on_error(self, e):
+        flaskprint("--- SocketIO error:", str(e))
         pass
 
     def on_message(self, data):
