@@ -6,14 +6,31 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class SocketService {
-  private socket: Socket;
+  private socket: Socket | null = null;
 
-  constructor() {
+  initializeSocket(token: string): void {
+    if (this.socket) {
+      this.socket.disconnect();
+      this.socket = null;
+    }
+
     this.socket = io(environment.websocketUrl, {
       withCredentials: true,
-      transports: ['websocket', 'polling'],
-      autoConnect: true,
+      transports: ['websocket'],
+      auth: {
+        token: `Bearer ${token}`,
+      },
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
     });
+
+    this.setupSocketListeners();
+    console.log('Socket initialized with token:', token);
+  }
+
+  private setupSocketListeners(): void {
+    if (!this.socket) return;
 
     this.socket.on('connect', () => {
       console.log('Connected to WebSocket server');
@@ -26,6 +43,22 @@ export class SocketService {
     this.socket.on('disconnect', (reason) => {
       console.log('Disconnected from WebSocket server:', reason);
     });
+
+    this.socket.on('response', (message: string) => {
+      console.log('Received message:', message);
+    });
+  }
+
+  sendMessage(message: any): void {
+    if (this.socket?.connected) {
+      this.socket.emit('message', message);
+    } else {
+      console.error('Socket not connected');
+    }
+  }
+
+  isConnected(): boolean {
+    return this.socket?.connected || false;
   }
 
   ngOnDestroy() {
