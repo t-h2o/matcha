@@ -41,23 +41,23 @@ def create_app():
     @socketio.on("connect")
     def handle_connect(auth):
         try:
-            if not auth or 'token' not in auth:
+            if not auth or "token" not in auth:
                 print("No auth token provided")
                 return False
-            
-            token = auth['token']
-            if token.startswith('Bearer '):
+
+            token = auth["token"]
+            if token.startswith("Bearer "):
                 token = token[7:]
-                
+
             try:
                 decoded_token = decode_token(token)
-                user_id = decoded_token.get('sub')
+                user_id = decoded_token.get("sub")
                 print(f"Client connected - User ID: {user_id}")
                 return True
             except Exception as e:
                 print(f"Token verification failed: {str(e)}")
                 return False
-                
+
         except Exception as e:
             print(f"Connection error: {str(e)}")
             return False
