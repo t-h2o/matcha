@@ -1,8 +1,10 @@
-from flask import Flask, request
+from flask import Flask
 from flask_socketio import SocketIO
 from flask_cors import CORS
 from os import environ
 from flask_jwt_extended import JWTManager, decode_token
+
+from matcha.websocket.mainnamespace import MainNamespace
 
 from matcha.routes import init_routes
 
@@ -38,48 +40,6 @@ def create_app():
 
     jwt = JWTManager(app)
 
-    sid_userid = {}
-
-    @socketio.on("connect")
-    def handle_connect(auth):
-        try:
-            if not auth or "token" not in auth:
-                print("No auth token provided")
-                return False
-
-            token = auth["token"]
-            if token.startswith("Bearer "):
-                token = token[7:]
-
-            try:
-                decoded_token = decode_token(token)
-                user_id = decoded_token.get("sub")
-                print(f"Client connected - User ID: {user_id}")
-                sid_userid.update({request.sid: user_id})
-                return True
-            except Exception as e:
-                print(f"Token verification failed: {str(e)}")
-                return False
-
-        except Exception as e:
-            print(f"Connection error: {str(e)}")
-            return False
-
-    @socketio.on("disconnect")
-    def handle_disconnect():
-        print("Client disconnected")
-
-    @socketio.on_error()
-    def error_handler(e):
-        print("SocketIO error:", str(e))
-
-    @socketio.on("message")
-    def handle_message(data):
-        try:
-            print("Received message:", data)
-            socketio.emit("response", "Server received your message: " + str(data))
-        except Exception as e:
-            print("Error handling message:", str(e))
-            print("Error handling message:", str(e))
+    socketio.on_namespace(MainNamespace("/"))
 
     return app
