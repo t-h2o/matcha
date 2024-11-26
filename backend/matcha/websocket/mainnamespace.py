@@ -3,9 +3,16 @@ from flask_jwt_extended import decode_token
 from flask_socketio import Namespace
 
 
-class MainNamespace(Namespace):
-    sid_userid = {}
 
+class ConnectedUser:
+    def __init__(self):
+        self.sid_userid = {}
+
+    def insert(self, sid: str, user_id: int):
+        self.sid_userid.update({sid: user_id})
+
+
+class MainNamespace(Namespace):
     def on_connect(self, auth):
         try:
             if not auth or "token" not in auth:
