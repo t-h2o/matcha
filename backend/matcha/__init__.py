@@ -38,6 +38,8 @@ def create_app():
 
     jwt = JWTManager(app)
 
+    sid_userid = {}
+
     @socketio.on("connect")
     def handle_connect(auth):
         try:
@@ -53,6 +55,7 @@ def create_app():
                 decoded_token = decode_token(token)
                 user_id = decoded_token.get("sub")
                 print(f"Client connected - User ID: {user_id}")
+                sid_userid.update({request.sid: user_id})
                 return True
             except Exception as e:
                 print(f"Token verification failed: {str(e)}")
