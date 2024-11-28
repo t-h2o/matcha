@@ -46,4 +46,12 @@ describe('NavbarComponent', () => {
     jest.spyOn(router, 'url', 'get').mockReturnValue('/login');
     expect(component.isLoginRoute()).toBe(true);
   });
+  it('should return true if the current route is /register', () => {
+    jest.spyOn(router, 'url', 'get').mockReturnValue('/register');
+    expect(component.isRegisterRoute()).toBe(true);
+  });
+  it('should return true if the current route is /profile', () => {
+    jest.spyOn(router, 'url', 'get').mockReturnValue('/profile');
+    expect(component.isProfileRoute()).toBe(true);
+  });
 });
