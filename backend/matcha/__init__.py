@@ -4,7 +4,7 @@ from flask_cors import CORS
 from os import environ
 from flask_jwt_extended import JWTManager, decode_token
 
-from matcha.websocket.mainnamespace import MainNamespace
+from matcha.websocket.main_namespace import MainNamespace
 
 from matcha.routes import init_routes
 
