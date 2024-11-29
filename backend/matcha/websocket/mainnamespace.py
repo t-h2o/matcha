@@ -1,8 +1,10 @@
 from flask import request
 from flask_jwt_extended import decode_token
-from flask_socketio import Namespace
+from flask_socketio import Namespace, emit
 
 from matcha.app_utils import flaskprint
+
+from matcha.websocket.socket_manager import SocketManager
 
 
 class ConnectedUser:
@@ -15,6 +17,7 @@ class ConnectedUser:
 
 class MainNamespace(Namespace):
     def on_connect(self, auth):
+        flaskprint(SocketManager())
         try:
             if not auth or "token" not in auth:
                 return False
@@ -26,7 +29,7 @@ class MainNamespace(Namespace):
             try:
                 decoded_token = decode_token(token)
                 user_id = decoded_token.get("sub")
-                self.sid_userid.update({request.sid: user_id})
+                SocketManager().add_session(request.sid, user_id)
                 return True
             except Exception as e:
                 flaskprint(f"--- Connection error: {str(e)}")
@@ -37,15 +40,21 @@ class MainNamespace(Namespace):
             return False
 
     def on_disconnect(self):
-        pass
+        try:
+            SocketManager.remove_session(request.sid)
+        except Exception as e:
+            flaskprint("Error handling message:" + str(e))
 
     def on_error(self, e):
         flaskprint("--- SocketIO error:", str(e))
-        pass
 
     def on_message(self, data):
         try:
-            print("Received message:", data)
-            socketio.emit("response", "Server received your message: " + str(data))
+            flaskprint(SocketManager())
+            user_id = SocketManager().get_user_id(request.sid)
+            emit(
+                "response",
+                f"Server received from user id {user_id} your message: {data}",
+            )
         except Exception as e:
-            print("Error handling message:", str(e))
+            flaskprint("Error handling message:" + str(e))
