@@ -40,8 +40,15 @@ export class UserDetailComponent implements OnInit {
   }
 
   toggleLike(): void {
+    if (this.isLikedByUser()) {
+      let payload = { like: this.user().username };
+      this.PotentialMatchService.toggleLike(payload);
+    } else {
+      let payload = { dislike: this.user().username };
+      this.PotentialMatchService.toggleLike(payload);
+    }
+
     this.isLikedByUser.set(!this.isLikedByUser());
-    this.PotentialMatchService.likeUser(this.user().username);
   }
 
   reportAsFake(username: string): void {

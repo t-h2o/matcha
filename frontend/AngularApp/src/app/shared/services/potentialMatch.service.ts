@@ -49,15 +49,24 @@ export class PotentialMatchService {
     });
   }
 
-  likeUser(username: string) {
-    const subscription = this.httpService
-      .likeUser(username)
-      .subscribe({
-        next: (data) => { console.log('data: ' + JSON.stringify(data)); },
-        error: (error: any) => {
-          const errorMessage = error?.message || 'An unknown error occurred';
-          this.toastService.show(errorMessage, 'error');
+  toggleLike(
+    payload:
+      | {
+          dislike: string;
+        }
+      | {
+          like: string;
         },
-      });
+  ) {
+    console.log('payload: ' + JSON.stringify(payload));
+    this.httpService.toggleLike(payload).subscribe({
+      next: (data) => {
+        console.log('data: ' + JSON.stringify(data));
+      },
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
   }
 }
