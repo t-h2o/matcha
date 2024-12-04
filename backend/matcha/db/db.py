@@ -157,6 +157,7 @@ def db_browsing_gender_sexualorientation(id_user, search):
         WHERE sexual_orientation = %s
           AND gender = %s
           AND age BETWEEN %s AND %s
+          AND fame_rating BETWEEN %s AND %s
           AND id != %s
             """,
         (
@@ -164,6 +165,8 @@ def db_browsing_gender_sexualorientation(id_user, search):
             search["gender"],
             search["min_age"],
             search["max_age"],
+            search["min_fame"],
+            search["max_fame"],
             id_user,
         ),
     )
