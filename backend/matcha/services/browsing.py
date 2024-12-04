@@ -6,13 +6,48 @@ from matcha.db import (
     db_get_url_profile,
 )
 
+from matcha.app_utils import check_request_json, flaskprint
 
-def services_browsing(id_user):
+
+def _browsing_put(id_user, request, search):
+    json = request.json
+
+    # * Max age gap 0 - 30 years
+    # * Max distance 0 - 100 km
+    # * Max fame gap 0 - 10 points
+    # * Interests: array of strings
+
+    if "age_gap" in json:
+        search["min_age"] = -json["age_gap"]
+        search["max_age"] = json["age_gap"]
+
+
+def services_browsing(id_user, request):
+    search = {
+        "gender": None,
+        "sexual_orientation": None,
+        "min_age": None,
+        "max_age": None,
+    }
+
+    if request.method == "PUT":
+        error_msg = _browsing_put(id_user, request, search)
+        if error_msg:
+            return error_msg
+
     user_db = db_get_user_per_id(id_user)
     gender = user_db[4]
+    age = user_db[7]
     sexual_orientation = user_db[5]
 
-    search = {gender: None, sexual_orientation: None}
+    if search["min_age"] is not None:
+        search["min_age"] = search["min_age"] + age
+        search["max_age"] = search["max_age"] + age
+    else:
+        search["min_age"] = age - 30
+        search["max_age"] = age + 30
+
+    flaskprint(search)
 
     if gender == "m" and sexual_orientation == "e":
         search["gender"] = "f"
@@ -26,6 +61,8 @@ def services_browsing(id_user):
     elif gender == "f" and sexual_orientation == "o":
         search["gender"] = "f"
         search["sexual_orientation"] = "o"
+
+    flaskprint(search)
 
     db_browsing_users = db_browsing_gender_sexualorientation(id_user, search)
 
