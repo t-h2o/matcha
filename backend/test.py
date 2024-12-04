@@ -692,6 +692,95 @@ def test_browsing():
             },
         ],
     )
+    check_put_token(
+        "/api/browsing",
+        200,
+        {
+            "age_gap": 15,
+            "fame_gap": 3,
+        },
+        [
+            {
+                "age": 18,
+                "fameRating": 2,
+                "firstname": "Mitchel",
+                "gender": "f",
+                "lastname": "Legros",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "mitchel",
+            },
+            {
+                "age": 30,
+                "fameRating": 2,
+                "firstname": "Antwon",
+                "gender": "f",
+                "lastname": "O'Hara",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "antwon",
+            },
+            {
+                "age": 18,
+                "fameRating": 0,
+                "firstname": "Bethany",
+                "gender": "f",
+                "lastname": "Hintz",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "bethany",
+            },
+            {
+                "age": 18,
+                "fameRating": 2,
+                "firstname": "Camren",
+                "gender": "f",
+                "lastname": "Bechtelar",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "camren",
+            },
+        ],
+    )
+    check_put_token(
+        "/api/browsing",
+        200,
+        {
+            "fame_gap": 1,
+        },
+        [
+            {
+                "age": 46,
+                "fameRating": 0,
+                "firstname": "Philip",
+                "gender": "f",
+                "lastname": "Dicki",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "philip",
+            },
+            {
+                "age": 52,
+                "fameRating": 0,
+                "firstname": "Glenna",
+                "gender": "f",
+                "lastname": "Lehner",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "glenna",
+            },
+            {
+                "age": 18,
+                "fameRating": 0,
+                "firstname": "Bethany",
+                "gender": "f",
+                "lastname": "Hintz",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "bethany",
+            },
+        ],
+    )
 
 
 def test_like_user():
