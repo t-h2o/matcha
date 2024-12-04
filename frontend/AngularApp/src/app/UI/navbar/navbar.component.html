@@ -6,6 +6,7 @@
           <h1 class="logo">MATCHA</h1>
         </a>
       </div>
+      <div><button (click)="onMessage()">Socket Message</button></div>
       <div class="links-container">
         @if (!token) {
           @if (!isLoginRoute()) {

@@ -3,6 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { token } from '../../shared/models/token';
 import { UserService } from '../../shared/services/user.service';
 import { AuthService } from '../../shared/services/auth.service';
+import { SocketService } from '../../shared/services/socket.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +17,7 @@ export class NavbarComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
   private usersService = inject(UserService);
+  private socketService = inject(SocketService);
 
   hasNewNotifications = signal<boolean>(true);
 
@@ -37,5 +39,9 @@ export class NavbarComponent {
 
   get profileComplete(): boolean {
     return this.usersService.ownProfileData().profile_complete;
+  }
+
+  onMessage(): void {
+    this.socketService.sendMessage('Navbar say hi!');
   }
 }

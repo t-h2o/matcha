@@ -109,6 +109,22 @@ def get_user(user_id):
     return {"user_id": user_id, "name": "User Name"}
 ----
 
+=== https://en.wikipedia.org/wiki/WebSocket[WebSocket]
+
+SID:: Session ID
+
+We use https://flask-socketio.readthedocs.io/en/latest/getting_started.html[Flask-SocketIO].
+
+NOTE: https://flask-socketio.readthedocs.io/en/latest/api.html[API Reference]
+
+The goal of webSocket it to push notification to connected users, for example:
+
+* a user has liked his profile
+* he received a message
+
+When a user log in, the frontend will connect to the backend through a webSocket.
+The backend will add the new connection into a array of connected user and create a session ID.
+
 == Debug
 
 === JWT Error: Subject must be a string!
