@@ -21,6 +21,10 @@ def _browsing_put(id_user, request, search):
         search["min_age"] = -json["age_gap"]
         search["max_age"] = json["age_gap"]
 
+    if "fame_gap" in json:
+        search["min_fame"] = -json["fame_gap"]
+        search["max_fame"] = json["fame_gap"]
+
 
 def services_browsing(id_user, request):
     search = {
@@ -28,6 +32,8 @@ def services_browsing(id_user, request):
         "sexual_orientation": None,
         "min_age": None,
         "max_age": None,
+        "min_fame": None,
+        "max_fame": None,
     }
 
     if request.method == "PUT":
@@ -38,6 +44,7 @@ def services_browsing(id_user, request):
     user_db = db_get_user_per_id(id_user)
     gender = user_db[4]
     age = user_db[7]
+    fame_rating = user_db[10]
     sexual_orientation = user_db[5]
 
     if search["min_age"] is not None:
@@ -47,7 +54,12 @@ def services_browsing(id_user, request):
         search["min_age"] = age - 30
         search["max_age"] = age + 30
 
-    flaskprint(search)
+    if search["min_fame"] is not None:
+        search["min_fame"] = search["min_fame"] + fame_rating
+        search["max_fame"] = search["max_fame"] + fame_rating
+    else:
+        search["min_fame"] = fame_rating - 10
+        search["max_fame"] = fame_rating + 10
 
     if gender == "m" and sexual_orientation == "e":
         search["gender"] = "f"
