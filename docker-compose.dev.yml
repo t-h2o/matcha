@@ -1,4 +1,19 @@
 services:
+  angular:
+    container_name: angular-dev
+    image: matcha/dev-angular
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend/AngularApp:/app
+    ports:
+      - '4200:4200'
+    stdin_open: true
+    tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
   flask:
     container_name: flask-dev
     image: matcha/dev-flask
