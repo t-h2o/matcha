@@ -148,6 +148,13 @@ and for a dislike
 }
 ----
 
+=== Browsing
+
+* Max age gap 0 - 30 years
+* Max distance 0 - 100 km
+* Max fame gap 0 - 10 points
+* Interests: array of strings
+
 == Debug
 
 === JWT Error: Subject must be a string!
