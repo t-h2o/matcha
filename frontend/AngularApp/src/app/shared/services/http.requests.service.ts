@@ -116,9 +116,7 @@ export class HttpRequestsService {
     );
   }
 
-  toggleLike( data: {  dislike: string } | { like: string  }) {
-    return this.httpClient.post(`${this.baseUrl}/like-user`, 
-      data,
-    );
+  toggleLike(data: { dislike: string } | { like: string }) {
+    return this.httpClient.post(`${this.baseUrl}/like-user`, data);
   }
 }
