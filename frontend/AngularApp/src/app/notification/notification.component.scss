@@ -1,0 +1,9 @@
+@import "../../styles.scss";
+
+.message-card {
+  border-radius: 8px;
+  padding: 1rem;
+  border-width: 2px;
+  border-color: $pink;
+  width: 100%;
+}
