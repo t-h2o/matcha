@@ -804,12 +804,19 @@ def test_like_user():
             "like": "another",
         },
         {
-            "likers": [],
+            "isLiked": True,
         },
     )
     check_login_token(
         "/api/login",
         {"username": "another", "password": "5678"},
+    )
+    check_get_token(
+        "/api/like-user",
+        201,
+        {
+            "likers": ["user"],
+        },
     )
     check_post_token(
         "/api/like-user",
@@ -818,7 +825,7 @@ def test_like_user():
             "like": "user",
         },
         {
-            "likers": ["user"],
+            "isLiked": True,
         },
     )
 
@@ -833,7 +840,7 @@ def test_like_user():
             "dislike": "another",
         },
         {
-            "likers": ["another"],
+            "isLiked": False,
         },
     )
     check_login_token(
@@ -854,7 +861,7 @@ def test_like_user():
             "dislike": "user",
         },
         {
-            "likers": [],
+            "isLiked": False,
         },
     )
     check_login_token(
