@@ -1,9 +1,9 @@
-import { Component, inject, Input, signal } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { token } from '../../shared/models/token';
-import { UserService } from '../../shared/services/user.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { SocketService } from '../../shared/services/socket.service';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -18,8 +18,6 @@ export class NavbarComponent {
   private router = inject(Router);
   private usersService = inject(UserService);
   private socketService = inject(SocketService);
-
-  hasNewNotifications = signal<boolean>(true);
 
   isLoginRoute(): boolean {
     return this.router.url === '/login';
