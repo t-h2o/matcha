@@ -27,6 +27,8 @@ from matcha.db.db import (
     db_get_url_profile,
 )
 
+from matcha.db.like import db_get_is_liked
+
 from matcha.app_utils import check_request_json
 
 
@@ -94,6 +96,7 @@ def services_users(id_user, request):
         interests = db_get_interests(user_db[0])
         pictures = db_get_user_images(user_db[0])
         profile_picture = db_get_url_profile(user_db[0])
+        is_liked = db_get_is_liked(id_user, get_username)
 
         if "url" in profile_picture:
             profile_url = url = profile_picture["url"]
@@ -116,6 +119,7 @@ def services_users(id_user, request):
                 interests=interests,
                 pictures=pictures,
                 urlProfile=profile_url,
+                isLiked=is_liked,
             ),
             200,
         )
