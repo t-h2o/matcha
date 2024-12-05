@@ -10,7 +10,7 @@ from matcha.services.like import services_like_user
 bp = Blueprint("like", __name__)
 
 
-@bp.route("/api/like-user", methods=["POST"])
+@bp.route("/api/like-user", methods=("POST", "GET"))
 @jwt_required()
 def interests():
     id_user = get_jwt_identity()
