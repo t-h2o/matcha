@@ -22,6 +22,32 @@ def db_get_liker_username(id_user):
     return fetchall_to_array(liker_username)
 
 
+def db_get_is_liked(id_user: int, username: str) -> bool:
+    bool_answer = db_fetchone(
+        """
+        SELECT
+        CASE WHEN EXISTS
+        (
+          SELECT * FROM user_likes
+            WHERE liker_id = %s
+            AND liked_id = (SELECT users.id FROM users WHERE username = %s)
+        )
+        THEN 'TRUE'
+        ELSE 'FALSE'
+        END;
+    """,
+        (
+            id_user,
+            username,
+        ),
+    )
+
+    if bool_answer[0] == "TRUE":
+        return True
+    else:
+        return False
+
+
 def db_put_like_user(id_user, username):
     query = """
     INSERT INTO user_likes
