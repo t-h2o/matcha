@@ -51,3 +51,27 @@ def db_put_like_user(id_user, username):
     ):
         return
     return error_msg
+
+
+def db_put_dislike_user(id_user, username):
+    query = """
+    DELETE FROM user_likes
+    WHERE liker_id = %s
+    AND liked_id = (SELECT users.id FROM users WHERE username = %s);
+    """
+
+    error_msg = db_query(
+        query,
+        (
+            id_user,
+            username,
+        ),
+    )
+
+    if (
+        error_msg
+        and "error" in error_msg
+        and error_msg["error"].startswith("UniqueViolation")
+    ):
+        return
+    return error_msg
