@@ -14,6 +14,7 @@ import { ModifyGeneralComponent } from './profile/modify-general/modify-general.
 import { ModifyInterestsComponent } from './profile/modify-interests/modify-interests.component';
 import { ModifyPicturesComponent } from './profile/modify-pictures/modify-pictures.component';
 import { ChatroomComponent } from './chat/chatroom/chatroom.component';
+import { NotificationComponent } from './notification/notification.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -59,6 +60,7 @@ export const routes: Routes = [
   {
     path: 'search/:username',
     component: UserDetailComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'reset-password',
@@ -67,10 +69,17 @@ export const routes: Routes = [
   {
     path: 'chat',
     component: ChatComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'chat/:username',
     component: ChatroomComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'notifications',
+    component: NotificationComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: '**',
