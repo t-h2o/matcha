@@ -49,16 +49,7 @@ export class PotentialMatchService {
     });
   }
 
-  toggleLike(
-    payload:
-      | {
-          dislike: string;
-        }
-      | {
-          like: string;
-        },
-  ) {
-    console.log('payload: ' + JSON.stringify(payload));
+  toggleLike(payload: { dislike: string } | { like: string }) {
     this.httpService.toggleLike(payload).subscribe({
       next: (data) => {
         console.log('data: ' + JSON.stringify(data));
