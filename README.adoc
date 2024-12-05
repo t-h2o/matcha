@@ -129,6 +129,24 @@ The backend will add the new connection into a array of connected user and creat
 
 When Alice like Bob, Bob receive a toast notifiation through the web socket
 
+Payload example for a like
+
+[source,json]
+----
+{
+  "like": "user",
+}
+----
+
+and for a dislike
+
+[source,json]
+----
+{
+  "dislike": "user",
+}
+----
+
 == Debug
 
 === JWT Error: Subject must be a string!
