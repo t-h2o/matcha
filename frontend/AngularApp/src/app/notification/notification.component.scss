@@ -1,0 +1,19 @@
+@import "../../styles.scss";
+
+.message-card {
+  margin: 1rem 0;
+  border-radius: 8px;
+  padding: 0.2rem 1rem;
+  border: 1px solid $pink;
+  width: 100%;
+
+  .title {
+    font-weight: bold;
+    color: $pink;
+    text-align: center;
+  }
+  .date {
+    font-size: 0.8rem;
+    text-align: right;
+  }
+}

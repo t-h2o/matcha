@@ -24,17 +24,13 @@
             <a routerLink="/search" routerLinkActive="active"
               ><img src="icons/search.svg" alt="Search Matches"
             /></a>
+            <a routerLink="/chat" routerLinkActive="active"
+              ><img src="icons/chat-with-msg.svg" alt="chat"
+            /></a>
 
-            @if (hasNewNotifications()) {
-              <a routerLink="/chat" routerLinkActive="active"
-                ><img src="icons/chat-with-msg.svg" alt="chat"
-              /></a>
-            }
-            @if (!hasNewNotifications()) {
-              <a routerLink="/chat" routerLinkActive="active"
-                ><img src="icons/chat-without-msg.svg" alt="chat"
-              /></a>
-            }
+            <a routerLink="/notifications" routerLinkActive="active"
+              ><img src="icons/notifications.svg" alt="notifications"
+            /></a>
           }
           <a routerLink="/login" routerLinkActive="active" (click)="onLogout()"
             ><img src="icons/logout-icon.svg" alt="Logout"
