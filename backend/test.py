@@ -7,6 +7,7 @@ from test_utils import (
     check_post,
     check_put,
     check_put_token,
+    check_post_token,
     check_get_token,
     check_get_token_pictures,
     check_post_token_pictures,
@@ -780,6 +781,21 @@ def test_browsing():
     )
 
 
+def test_position():
+    check_post_token(
+        "/api/position",
+        201,
+        {"latitude": 999, "longitude": 999},
+        {"latitude": 999, "longitude": 999},
+    )
+    check_post_token(
+        "/api/position",
+        422,
+        {"latitude": "no a float", "longitude": 999},
+        {"error": "bad input"},
+    )
+
+
 def main():
     test_register()
     test_create_another_user()
@@ -789,6 +805,7 @@ def main():
     test_pictures()
     test_email()
     test_reset_password()
+    test_position()
     test_browsing()
     test_deleteme()
 

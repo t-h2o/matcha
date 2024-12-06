@@ -35,7 +35,7 @@ def db_query(query, arguments):
             except conn.IntegrityError as e:
                 return str(e)
             except Exception as e:
-                return {"error": str(e)}
+                return {"error": str(e.__class__.__name__)}
 
     return
 
@@ -67,6 +67,20 @@ def get_db_connection():
 
 def db_get_id_password_where_username(username):
     return db_fetchone("SELECT id,password FROM users WHERE username = %s", (username,))
+
+
+def db_get_position(id_user):
+    return db_fetchone("SELECT latitude,longitude FROM users WHERE id = %s", (id_user,))
+
+
+def db_update_position(id_user: int, latitude: float, longitude: float):
+    error_msg = db_query(
+        "UPDATE users SET (latitude, longitude) = (%s, %s) WHERE id = %s",
+        (latitude, longitude, id_user),
+    )
+
+    if error_msg:
+        return error_msg
 
 
 def db_set_user_email(id_user, email):

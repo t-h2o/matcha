@@ -35,21 +35,8 @@ export class LocalizationService {
           observer.next(coordinates);
           observer.complete();
         },
-        (error) => {
-          switch (error.code) {
-            case error.PERMISSION_DENIED:
-              observer.error('User denied the request for Geolocation');
-              break;
-            case error.POSITION_UNAVAILABLE:
-              observer.error('Location information is unavailable');
-              break;
-            case error.TIMEOUT:
-              observer.error('The request to get user location timed out');
-              break;
-            default:
-              observer.error('An unknown error occurred');
-              break;
-          }
+        (error: GeolocationPositionError) => {
+          observer.error(error);
         },
         {
           enableHighAccuracy: true,

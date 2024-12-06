@@ -33,8 +33,14 @@ export class ProfileComponent implements OnInit {
 
   getLocation() {
     this.localizationService.getCurrentPosition().subscribe({
-      error: (error) => {
-        console.error('Error getting location:', error);
+      next: (coordinates) => {
+        const { latitude, longitude } = coordinates;
+        this.userServices.sendUserPosition({ latitude, longitude });
+      },
+      error: (error: GeolocationPositionError) => {
+        const latitude = 999;
+        const longitude = 999;
+        this.userServices.sendUserPosition({ latitude, longitude });
       },
     });
   }

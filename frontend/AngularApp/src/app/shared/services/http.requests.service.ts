@@ -115,4 +115,8 @@ export class HttpRequestsService {
       },
     );
   }
+
+  sendPosition(position: { latitude: number; longitude: number }) {
+    return this.httpClient.post(`${this.baseUrl}/position`, position);
+  }
 }
