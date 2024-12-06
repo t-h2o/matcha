@@ -3,3 +3,9 @@ export type Message = {
   senderUsername: string;
   text: string;
 };
+
+export type Notification = {
+  title: string;
+  content: string;
+  date: string;
+};

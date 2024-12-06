@@ -3,6 +3,7 @@ import { Socket, io } from 'socket.io-client';
 import { environment } from '../../../environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from './auth.service';
+import { Notification } from '../models/message';
 
 @Injectable({
   providedIn: 'root',
@@ -67,6 +68,26 @@ export class SocketService {
 
     this.socket.on('response', (message: string) => {
       console.log('Received message:', message);
+    });
+
+    this.socket.on('like', (notification: Notification) => {
+      console.log('Received message:', notification.content);
+    });
+
+    this.socket.on('unlike', (notification: Notification) => {
+      console.log('Received message:', notification.content);
+    });
+
+    this.socket.on('match', (notification: Notification) => {
+      console.log('Received message:', notification.content);
+    });
+
+    this.socket.on('view', (notification: Notification) => {
+      console.log('Received message:', notification.content);
+    });
+
+    this.socket.on('message', (notification: Notification) => {
+      console.log('Received message:', notification.content);
     });
   }
 
