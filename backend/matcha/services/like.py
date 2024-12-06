@@ -44,13 +44,13 @@ def services_like_user(id_user, request):
 
         title = "like"
         content = f"{liker_username} like you"
-        notification_message = { "title": title, "content":  content}
+        notification_message = {"title": title, "content": content}
 
         db_put_notification(id_user, title, content)
 
         sid = SocketManager().get_sid(id_to_notify[0])
         if sid is not None:
-            emit('like', notification_message, to=sid, namespace="/")
+            emit("like", notification_message, to=sid, namespace="/")
 
     elif "dislike" in json:
         username = json["dislike"]
