@@ -11,6 +11,10 @@ from matcha.db.utils import (
 )
 
 
+def db_get_id_where_username(username):
+    return db_fetchone("SELECT id FROM users WHERE username = %s", (username,))
+
+
 def db_get_id_password_where_username(username):
     return db_fetchone("SELECT id,password FROM users WHERE username = %s", (username,))
 
