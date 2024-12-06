@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Notification } from '../models/message';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,7 @@ import { Notification } from '../models/message';
 export class SocketService {
   private socket: Socket | null = null;
   private authService = inject(AuthService);
+  private toastService = inject(ToastService);
   private connectedUsers = new BehaviorSubject<string[]>([]);
 
   constructor() {
@@ -71,23 +73,23 @@ export class SocketService {
     });
 
     this.socket.on('like', (notification: Notification) => {
-      console.log('Received message:', notification.content);
+      this.toastService.show(notification.content, 'success');
     });
 
     this.socket.on('unlike', (notification: Notification) => {
-      console.log('Received message:', notification.content);
+      this.toastService.show(notification.content, 'success');
     });
 
     this.socket.on('match', (notification: Notification) => {
-      console.log('Received message:', notification.content);
+      this.toastService.show(notification.content, 'success');
     });
 
     this.socket.on('view', (notification: Notification) => {
-      console.log('Received message:', notification.content);
+      this.toastService.show(notification.content, 'success');
     });
 
     this.socket.on('message', (notification: Notification) => {
-      console.log('Received message:', notification.content);
+      this.toastService.show(notification.content, 'success');
     });
   }
 
