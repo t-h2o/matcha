@@ -50,7 +50,7 @@ def services_like_user(id_user, request):
             "title": title,
         }
 
-        db_put_notification(id_user, title, content)
+        db_put_notification(id_to_notify, title, content)
 
         sid = SocketManager().get_sid(id_to_notify[0])
         if sid is not None:
