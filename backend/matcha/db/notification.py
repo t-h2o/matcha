@@ -23,7 +23,7 @@ def db_get_notification(id_user):
                 "id": id_notification,
                 "title": title,
                 "content": content,
-                "timestamp": timestamp,
+                "timestamp": timestamp.timestamp(),
             }
         )
 
