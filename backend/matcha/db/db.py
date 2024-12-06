@@ -16,7 +16,7 @@ def db_get_id_where_username(username):
 
 
 def db_get_username_where_id(id_user: int) -> str:
-    return db_fetchone("SELECT username FROM users WHERE id = %s", (id_user,))
+    return db_fetchone("SELECT username FROM users WHERE id = %s", (id_user,))[0]
 
 
 def db_get_id_password_where_username(username):
