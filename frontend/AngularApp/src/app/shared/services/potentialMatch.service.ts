@@ -51,8 +51,13 @@ export class PotentialMatchService {
 
   toggleLike(payload: { dislike: string } | { like: string }) {
     this.httpService.toggleLike(payload).subscribe({
-      next: (data) => {
-        console.log('data: ' + JSON.stringify(data));
+      next: (data: { isLiked: boolean }) => {
+        this.otherProfileData.update((prev) => {
+          return {
+            ...prev,
+            isLiked: data.isLiked,
+          };
+        });
       },
       error: (error: any) => {
         const errorMessage = error?.message || 'An unknown error occurred';
