@@ -925,6 +925,34 @@ def test_like_user():
     )
 
 
+def test_notification():
+    check_login_token(
+        "/api/login",
+        {"username": "another", "password": "5678"},
+    )
+    check_post_token(
+        "/api/like-user",
+        201,
+        {
+            "like": "user",
+        },
+        {
+            "isLiked": True,
+        },
+    )
+    check_login_token(
+        "/api/login",
+        {"username": "user", "password": "1234"},
+    )
+    check_get_token(
+        "/api/notification",
+        201,
+        {
+            "notifications": [],
+        },
+    )
+
+
 def main():
     test_register()
     test_create_another_user()
@@ -936,6 +964,7 @@ def main():
     test_reset_password()
     test_browsing()
     test_like_user()
+    test_notification()
     test_deleteme()
 
 
