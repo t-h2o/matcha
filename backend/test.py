@@ -7,6 +7,7 @@ from test_utils import (
     check_post,
     check_put,
     check_put_token,
+    check_post_token,
     check_get_token,
     check_get_token_pictures,
     check_post_token_pictures,
@@ -444,6 +445,10 @@ def test_email():
 
 
 def test_deleteme():
+    check_login_token(
+        "/api/login",
+        {"username": "user", "password": "1234"},
+    )
     check_get_token("/api/deleteme", 200, {"success": "user delete"})
     check_login_token(
         "/api/login",
@@ -780,6 +785,98 @@ def test_browsing():
     )
 
 
+def test_like_user():
+    check_login_token(
+        "/api/login",
+        {"username": "user", "password": "1234"},
+    )
+    check_get_token(
+        "/api/like-user",
+        201,
+        {
+            "likers": [],
+        },
+    )
+    check_post_token(
+        "/api/like-user",
+        201,
+        {
+            "like": "another",
+        },
+        {
+            "isLiked": True,
+        },
+    )
+    check_login_token(
+        "/api/login",
+        {"username": "another", "password": "5678"},
+    )
+    check_get_token(
+        "/api/like-user",
+        201,
+        {
+            "likers": ["user"],
+        },
+    )
+    check_post_token(
+        "/api/like-user",
+        201,
+        {
+            "like": "user",
+        },
+        {
+            "isLiked": True,
+        },
+    )
+
+    check_login_token(
+        "/api/login",
+        {"username": "user", "password": "1234"},
+    )
+    check_post_token(
+        "/api/like-user",
+        201,
+        {
+            "dislike": "another",
+        },
+        {
+            "isLiked": False,
+        },
+    )
+    check_login_token(
+        "/api/login",
+        {"username": "another", "password": "5678"},
+    )
+    check_get_token(
+        "/api/like-user",
+        201,
+        {
+            "likers": [],
+        },
+    )
+    check_post_token(
+        "/api/like-user",
+        201,
+        {
+            "dislike": "user",
+        },
+        {
+            "isLiked": False,
+        },
+    )
+    check_login_token(
+        "/api/login",
+        {"username": "user", "password": "1234"},
+    )
+    check_get_token(
+        "/api/like-user",
+        201,
+        {
+            "likers": [],
+        },
+    )
+
+
 def main():
     test_register()
     test_create_another_user()
@@ -790,6 +887,7 @@ def main():
     test_email()
     test_reset_password()
     test_browsing()
+    test_like_user()
     test_deleteme()
 
 

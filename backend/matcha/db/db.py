@@ -1,68 +1,22 @@
 """Flask, psycopg2, os.environ, contextmanager"""
 
-from os import environ
-from contextlib import contextmanager
-
-from psycopg2 import connect
 from psycopg2.errors import UndefinedTable
-from werkzeug.security import generate_password_hash
 
-from matcha.app_utils import fetchall_to_array
-
-
-def db_fetchall(query, arguments):
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute(query, arguments)
-            conn.commit()
-            return cur.fetchall()
+from matcha.db.utils import (
+    db_query,
+    db_query_for,
+    db_fetchone,
+    db_fetchall,
+    fetchall_to_array,
+)
 
 
-def db_fetchone(query, arguments):
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute(query, arguments)
-            conn.commit()
-            return cur.fetchone()
+def db_get_id_where_username(username):
+    return db_fetchone("SELECT id FROM users WHERE username = %s", (username,))
 
 
-def db_query(query, arguments):
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            try:
-                cur.execute(query, arguments)
-                conn.commit()
-            except conn.IntegrityError as e:
-                return str(e)
-            except Exception as e:
-                return {"error": str(e)}
-
-    return
-
-
-def db_query_for(query, argument, loopme):
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            for item in loopme:
-                cur.execute(
-                    query,
-                    (
-                        argument,
-                        item,
-                    ),
-                )
-            conn.commit()
-
-
-@contextmanager
-def get_db_connection():
-    """Generator of database connection"""
-
-    conn = connect(environ["DATABASE_URL"])
-    try:
-        yield conn
-    finally:
-        conn.close()
+def db_get_username_where_id(id_user: int) -> str:
+    return db_fetchone("SELECT username FROM users WHERE id = %s", (id_user,))[0]
 
 
 def db_get_id_password_where_username(username):
@@ -188,17 +142,11 @@ def db_set_profile_picture(id_user, image_url):
 
 
 def db_get_user_images(id_user):
-    filenames = None
+    filenames = db_fetchall(
+        "SELECT image_url FROM user_images WHERE user_id = %s", (id_user,)
+    )
 
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute(
-                "SELECT image_url FROM user_images WHERE user_id = %s", (id_user,)
-            )
-            filenames = cur.fetchall()
-            return fetchall_to_array(filenames)
-
-    return filenames
+    return fetchall_to_array(filenames)
 
 
 def db_browsing_gender_sexualorientation(id_user, search):
@@ -227,42 +175,6 @@ def db_get_user_per_username(username):
         "SELECT id, username, firstname, lastname, gender, sexual_orientation, bio, age, fame_rating FROM users WHERE username = %s",
         (username,),
     )
-
-
-def db_register(username, password, firstname, lastname, email, default_avatar):
-    error_msg = db_query(
-        "INSERT INTO users (username, password, firstname, lastname, email) VALUES (%s,%s,%s,%s,%s);",
-        (
-            username,
-            generate_password_hash(password),
-            firstname,
-            lastname,
-            email,
-        ),
-    )
-
-    if error_msg:
-        return {"error": f"User {username} is already registered."}
-
-    id_user = db_get_iduser_per_username(username)
-
-    db_query(
-        "INSERT INTO user_images (user_id, image_url) VALUES (%s,%s);",
-        (
-            id_user,
-            default_avatar,
-        ),
-    )
-
-    error_msg = db_query(
-        "UPDATE users SET profile_picture_id = subquery.id FROM (SELECT user_images.id FROM user_images WHERE user_id = %s) AS subquery WHERE users.id = %s",
-        (
-            id_user,
-            id_user,
-        ),
-    )
-
-    return {"success": f"User {username} was successfully added"}
 
 
 def db_delete_user(id_user):

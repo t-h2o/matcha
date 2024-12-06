@@ -125,6 +125,28 @@ The goal of webSocket it to push notification to connected users, for example:
 When a user log in, the frontend will connect to the backend through a webSocket.
 The backend will add the new connection into a array of connected user and create a session ID.
 
+=== Like
+
+When Alice like Bob, Bob receive a toast notifiation through the web socket
+
+Payload example for a like
+
+[source,json]
+----
+{
+  "like": "user",
+}
+----
+
+and for a dislike
+
+[source,json]
+----
+{
+  "dislike": "user",
+}
+----
+
 == Debug
 
 === JWT Error: Subject must be a string!

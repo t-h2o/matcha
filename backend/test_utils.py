@@ -80,7 +80,7 @@ def check_content_code(
             code_expected,
             code_received,
             content_expected,
-            content_received,
+            loads(content_received),
             json,
         )
         return
@@ -165,6 +165,16 @@ def check_get_token(path, status, content):
 
     check_content_code(
         URL, path, status, response.status_code, content, response.content
+    )
+
+
+def check_post_token(path, status, json, content):
+    headers = {"Authorization": f"Bearer {access_token}"}
+
+    response = post(URL + path, headers=headers, json=json)
+
+    check_content_code(
+        URL, path, status, response.status_code, content, response.content, json
     )
 
 

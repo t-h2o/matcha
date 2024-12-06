@@ -2,8 +2,8 @@ from flask import jsonify
 
 from flask_socketio import send  # TODO remove me
 
-from matcha.db import db_get_interests
-from matcha.db import db_set_interests
+from matcha.db.db import db_get_interests
+from matcha.db.db import db_set_interests
 
 from matcha.app_utils import check_request_json_values
 

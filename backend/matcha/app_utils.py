@@ -5,13 +5,6 @@ from uuid import uuid4
 from re import search
 
 
-def fetchall_to_array(fetchall):
-    array = []
-    for item in fetchall:
-        array.append(item[0])
-    return array
-
-
 def flaskprint(message):
     print(message, file=stderr)
 

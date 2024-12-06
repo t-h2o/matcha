@@ -1,4 +1,11 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { CardComponent } from '../../UI/card/card.component';
 import { PotentialMatchService } from '../../shared/services/potentialMatch.service';
 import { getFameRatingStars } from '../../shared/utils/displayUtils';
@@ -22,7 +29,7 @@ export class UserDetailComponent implements OnInit {
   private PotentialMatchService = inject(PotentialMatchService);
   username = input.required<string>();
   user = this.PotentialMatchService.otherProfileData;
-  isLikedByUser = signal<boolean>(true);
+  isLikedByUser = computed(() => this.user().isLiked);
   isOnline = signal<boolean>(true);
 
   ngOnInit(): void {
@@ -40,7 +47,13 @@ export class UserDetailComponent implements OnInit {
   }
 
   toggleLike(): void {
-    this.isLikedByUser.set(!this.isLikedByUser());
+    if (!this.isLikedByUser()) {
+      let payload = { like: this.user().username };
+      this.PotentialMatchService.toggleLike(payload);
+    } else {
+      let payload = { dislike: this.user().username };
+      this.PotentialMatchService.toggleLike(payload);
+    }
   }
 
   reportAsFake(username: string): void {
