@@ -9,7 +9,7 @@ from matcha.db.utils import (
 # def db_get_notification(id_user) -> list:
 def db_get_notification(id_user):
     query = """
-    SELECT title,content,created_at
+    SELECT id,title,content,created_at
     FROM notification
     WHERE user_id = %s ;
     """
@@ -17,8 +17,15 @@ def db_get_notification(id_user):
     notifications = db_fetchall(query, (id_user,))
 
     array = []
-    for title, content, timestamp in notifications:
-        array.append({"title": title, "content": content, "timestamp": timestamp})
+    for id_notification, title, content, timestamp in notifications:
+        array.append(
+            {
+                "id": id_notification,
+                "title": title,
+                "content": content,
+                "timestamp": timestamp,
+            }
+        )
 
     return array
 
