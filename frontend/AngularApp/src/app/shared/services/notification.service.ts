@@ -24,4 +24,19 @@ export class NotificationService {
       },
     });
   }
+
+  deleteNotification(notificationId: number) {
+    this.httpService.deleteNotification(notificationId).subscribe({
+      next: () => {
+        this.notificationList.update((prev) => {
+          return prev.filter((notification) => notification.id !== notificationId);
+        });
+        this.toastService.show('Notification deleted successfully', 'success');
+      },
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
+  }
 }

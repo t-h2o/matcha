@@ -5,6 +5,7 @@
         <div class="contact-list">
           @for (notif of notificationList(); track notif.date) {
             <div class="message-card">
+              <div class="delete" (click)="onDeleteNotification(notif.id)">X</div>
               <div class="title">
                 <h3>{{ notif.title }}</h3>
               </div>

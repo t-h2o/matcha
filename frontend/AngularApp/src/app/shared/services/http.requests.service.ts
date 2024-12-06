@@ -131,4 +131,8 @@ export class HttpRequestsService {
       `${this.baseUrl}/notification`,
     );
   }
+
+  deleteNotification(notificationId: number) {
+    return this.httpClient.delete(`${this.baseUrl}/notification/${notificationId}`);
+  }
 }
