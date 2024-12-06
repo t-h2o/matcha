@@ -16,4 +16,9 @@ export class NotificationComponent implements OnInit {
   ngOnInit(): void {
     this.notificationService.getNotifications();
   }
+
+  onDeleteNotification(notificationId: number) {
+    console.log('Deleting notification with id: ' + notificationId);
+    this.notificationService.deleteNotification(notificationId);
+  }
 }
