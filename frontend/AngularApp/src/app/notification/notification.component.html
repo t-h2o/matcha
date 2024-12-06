@@ -4,14 +4,19 @@
       <div class="inside-card">
         <div class="contact-list">
           @for (notif of notificationList(); track notif.id) {
-            <app-card class="message-card">
+            <div class="message-card">
               <div class="title">
                 <h3>{{ notif.title }}</h3>
               </div>
               <div class="content">
                 <p>{{ notif.text }}</p>
               </div>
-            </app-card>
+              <div class="footer">
+                <div class="date">
+                  <p>{{ notif.date }}</p>
+                </div>
+              </div>
+            </div>
           }
         </div>
       </div>
