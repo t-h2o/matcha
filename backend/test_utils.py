@@ -183,6 +183,12 @@ def check_get_token(path, status, content):
         URL, path, status, response.status_code, content, response.content
     )
 
+    try:
+        content = loads(response.content)
+        return content
+    except:
+        pass
+
 
 def check_post_token(path, status, json, content):
     headers = {"Authorization": f"Bearer {access_token}"}
