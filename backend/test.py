@@ -332,6 +332,7 @@ def test_update():
             "firstname": "Another",
             "gender": "m",
             "interests": [],
+            "isLiked": False,
             "lastname": "User",
             "pictures": ["http://localhost:5001/api/images/avatar.png"],
             "sexualPreference": "e",
