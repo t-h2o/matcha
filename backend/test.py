@@ -925,6 +925,28 @@ def test_like_user():
     )
 
 
+def _test_delete_notification():
+    check_login_token(
+        "/api/login",
+        {"username": "user", "password": "1234"},
+    )
+    notifications = check_get_token(
+        "/api/notification",
+        201,
+        {
+            "notifications": [],
+        },
+    )
+    for notification in notifications:
+        check_get_token(
+            f"/api/notification/{notification['id']}",
+            201,
+            {
+                "delete": notification["id"],
+            },
+        )
+
+
 def test_notification():
     check_login_token(
         "/api/login",
@@ -940,17 +962,7 @@ def test_notification():
             "isLiked": True,
         },
     )
-    check_login_token(
-        "/api/login",
-        {"username": "user", "password": "1234"},
-    )
-    check_get_token(
-        "/api/notification",
-        201,
-        {
-            "notifications": [],
-        },
-    )
+    _test_delete_notification()
 
 
 def main():
