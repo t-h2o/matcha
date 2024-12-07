@@ -5,6 +5,7 @@ export type Message = {
 };
 
 export type Notification = {
+  id: number;
   title: string;
   content: string;
   date: string;

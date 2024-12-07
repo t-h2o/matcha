@@ -12,6 +12,7 @@ import {
   UserRegister,
 } from '../models/data-to-api/user';
 import { token } from '../models/token';
+import { Notification } from '../models/message';
 
 @Injectable({
   providedIn: 'root',
@@ -121,5 +122,15 @@ export class HttpRequestsService {
       `${this.baseUrl}/like-user`,
       data,
     );
+  }
+
+  getNotifications() {
+    return this.httpClient.get<Notification[]>(
+      `${this.baseUrl}/notification`,
+    );
+  }
+
+  deleteNotification(notificationId: number) {
+    return this.httpClient.delete(`${this.baseUrl}/notification/${notificationId}`);
   }
 }
