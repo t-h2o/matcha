@@ -50,3 +50,23 @@ def db_put_notification(id_user, title: str, content: str):
 
     if error_msg:
         return error_msg
+
+
+def db_destroy_notification(id_user: int, id_notification: int):
+    query = """
+    DELETE
+    FROM notification
+    WHERE user_id = %s
+    AND id = %s;
+    """
+
+    error_msg = db_query(
+        query,
+        (
+            id_user,
+            id_notification,
+        ),
+    )
+
+    if error_msg:
+        return error_msg
