@@ -7,7 +7,7 @@ from matcha.db.db import (
 
 from matcha.db.browsing import db_browsing_gender_sexualorientation
 
-from matcha.app_utils import check_request_json, flaskprint
+from matcha.app_utils import check_request_json
 
 
 def _browsing_put(id_user, request, search):
@@ -27,41 +27,7 @@ def _browsing_put(id_user, request, search):
         search["max_fame"] = json["fame_gap"]
 
 
-def services_browsing(id_user, request):
-    search = {
-        "gender": None,
-        "sexual_orientation": None,
-        "min_age": None,
-        "max_age": None,
-        "min_fame": None,
-        "max_fame": None,
-    }
-
-    if request.method == "PUT":
-        error_msg = _browsing_put(id_user, request, search)
-        if error_msg:
-            return error_msg
-
-    user_db = db_get_user_per_id(id_user)
-    gender = user_db[4]
-    age = user_db[7]
-    fame_rating = user_db[10]
-    sexual_orientation = user_db[5]
-
-    if search["min_age"] is not None:
-        search["min_age"] = search["min_age"] + age
-        search["max_age"] = search["max_age"] + age
-    else:
-        search["min_age"] = age - 30
-        search["max_age"] = age + 30
-
-    if search["min_fame"] is not None:
-        search["min_fame"] = search["min_fame"] + fame_rating
-        search["max_fame"] = search["max_fame"] + fame_rating
-    else:
-        search["min_fame"] = fame_rating - 10
-        search["max_fame"] = fame_rating + 10
-
+def _search_gender_sexual_orientation(search, gender, sexual_orientation):
     if gender == "m" and sexual_orientation == "e":
         search["gender"] = "f"
         search["sexual_orientation"] = "e"
@@ -75,7 +41,40 @@ def services_browsing(id_user, request):
         search["gender"] = "f"
         search["sexual_orientation"] = "o"
 
-    flaskprint(search)
+
+def _search_age(search, age, age_gap):
+    search["max_age"] = age + age_gap
+    search["min_age"] = age - age_gap
+
+
+def _search_fame(search, fame, fame_gap):
+    search["max_fame"] = fame + fame_gap
+    search["min_fame"] = fame - fame_gap
+
+
+def services_browsing(id_user, request):
+    search = {
+        "gender": None,
+        "sexual_orientation": None,
+        "min_age": None,
+        "max_age": None,
+        "min_fame": None,
+        "max_fame": None,
+    }
+
+    user_db = db_get_user_per_id(id_user)
+    gender = user_db[4]
+    age = user_db[7]
+    fame = user_db[10]
+    sexual_orientation = user_db[5]
+
+    if request.method == "PUT":
+        if "age_gap" in request.json:
+            _search_age(search, age, request.json["age_gap"])
+        if "fame_gap" in request.json:
+            _search_fame(search, fame, request.json["fame_gap"])
+
+    _search_gender_sexual_orientation(search, gender, sexual_orientation)
 
     db_browsing_users = db_browsing_gender_sexualorientation(id_user, search)
 
