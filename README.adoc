@@ -155,6 +155,16 @@ and for a dislike
 * Max fame gap 0 - 10 points
 * Interests: array of strings
 
+example of payload
+
+[source,json]
+----
+{
+  "age_gap": 20,
+  "fame_gap": 3,
+}
+----
+
 == Debug
 
 === JWT Error: Subject must be a string!
