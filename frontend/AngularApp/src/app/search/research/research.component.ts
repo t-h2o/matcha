@@ -56,6 +56,10 @@ export class ResearchComponent {
     return this.maxAgeGap() >= 31 ? '30+' : this.maxAgeGap().toString();
   }
 
+  getFameGapLabel(): string {
+    return this.maxFameGap() >= 5 ? '5+' : this.maxFameGap().toString();
+  }
+
   onReset() {
     this.maxAgeGap.set(0);
     this.maxDistance.set(0);
