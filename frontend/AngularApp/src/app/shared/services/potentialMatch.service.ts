@@ -1,5 +1,9 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { PossibleMatchesUserData, UserData } from '../models/data-to-api/user';
+import {
+  FilterPotentialMatch,
+  PossibleMatchesUserData,
+  UserData,
+} from '../models/data-to-api/user';
 import { emptyUser } from '../models/emptyUser';
 import { HttpRequestsService } from './http.requests.service';
 import { ToastService } from './toast.service';
@@ -58,6 +62,19 @@ export class PotentialMatchService {
             isLiked: data.isLiked,
           };
         });
+      },
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
+  }
+
+  filterPotentialMatches(filterPotentialMatch: FilterPotentialMatch) {
+    console.log('postFilter: ' + JSON.stringify(filterPotentialMatch));
+    this.httpService.filterPotentialMatches(filterPotentialMatch).subscribe({
+      next: (data: PossibleMatchesUserData[]) => {
+        this.potentialMatches.set(data);
       },
       error: (error: any) => {
         const errorMessage = error?.message || 'An unknown error occurred';
