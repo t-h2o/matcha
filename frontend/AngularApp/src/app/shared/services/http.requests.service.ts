@@ -111,9 +111,7 @@ export class HttpRequestsService {
   filterPotentialMatches(filterPotentialMatch: FilterPotentialMatch) {
     return this.httpClient.post<PossibleMatchesUserData[]>(
       `${this.baseUrl}/browsing`,
-      {
-        filterPotentialMatch,
-      },
+      filterPotentialMatch,
     );
   }
 
