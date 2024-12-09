@@ -788,6 +788,17 @@ def test_browsing():
         "/api/browsing",
         200,
         {
+            "ageGap": 0,
+            "fameGap": 0,
+            "distance": 0,
+            "interests": [],
+        },
+        [],
+    )
+    check_post_token(
+        "/api/browsing",
+        200,
+        {
             "ageGap": 20,
             "fameGap": -1,
             "distance": 101,
