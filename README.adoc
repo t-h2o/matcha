@@ -160,8 +160,10 @@ example of payload
 [source,json]
 ----
 {
-  "age_gap": 20,
-  "fame_gap": 3,
+  "ageGap": 27,
+  "fameGap": 0,
+  "distance": 0,
+  "interests": []
 }
 ----
 
