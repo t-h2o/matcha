@@ -1,17 +1,14 @@
 @import "../../../../styles.scss";
 
 .chat-container {
-  background-color: $black;
-  border-radius: 3%;
-
   .messages {
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    margin: 10px;
     border-radius: 10px;
+    margin-bottom: 2rem;
     max-width: 100%;
     word-wrap: break-word;
+    padding: 5px;
 
     .message {
       background-color: $pink;
@@ -19,8 +16,12 @@
       padding: 10px;
       margin: 5px;
       border-radius: 10px;
-      max-width: 100%;
+      max-width: 355px;
       word-wrap: break-word;
+
+      @media screen and (max-width: $mobile-max-width) {
+        max-width: 300px;
+      }
     }
 
     .myText {

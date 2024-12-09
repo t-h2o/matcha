@@ -1,10 +1,16 @@
-import { Component, inject, input } from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  inject,
+  input,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Message } from '../../shared/models/message';
-import { CardComponent } from '../../UI/card/card.component';
+import { MessageService } from '../../shared/services/messsage.service';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { DisplayMessagesComponent } from './display-messages/display-messages.component';
-import { MessageService } from '../../shared/services/messsage.service';
 
 const DummyChat = [
   {
@@ -32,20 +38,27 @@ const DummyChat = [
 @Component({
   selector: 'app-chatroom',
   standalone: true,
-  imports: [
-    CardComponent,
-    FormsModule,
-    DisplayMessagesComponent,
-    CustomButtonComponent,
-  ],
+  imports: [FormsModule, DisplayMessagesComponent, CustomButtonComponent],
   templateUrl: './chatroom.component.html',
   styleUrl: './chatroom.component.scss',
 })
-export class ChatroomComponent {
+export class ChatroomComponent implements AfterViewChecked {
+  @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
   messageService = inject(MessageService);
   username = input.required<string>();
   messages: Message[] = DummyChat;
   messageText = '';
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  private scrollToBottom(): void {
+    if (this.messagesContainer) {
+      const container = this.messagesContainer.nativeElement;
+      container.scrollTop = container.scrollHeight;
+    }
+  }
 
   sendMessage(): void {
     if (this.messageText !== '') {
