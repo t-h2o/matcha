@@ -800,7 +800,7 @@ def test_browsing():
         200,
         {
             "ageGap": 20,
-            "fameGap": -1,
+            "fameGap": 5,
             "distance": 101,
             "interests": [],
         },
