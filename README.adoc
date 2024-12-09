@@ -208,3 +208,8 @@ install.packages("remotes")
 > plot(1:10)
 > dev.off()
 ----
+
+----
+> readRenviron(".env")
+> Sys.getenv("POSTGRES_PASSWORD")
+----
