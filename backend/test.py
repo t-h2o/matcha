@@ -1051,6 +1051,28 @@ def test_browsing():
             },
         ],
     )
+    check_post_token(
+        "/api/browsing",
+        200,
+        {
+            "ageGap": 31,
+            "fameGap": 1,
+            "distance": 101,
+            "interests": ["fitness", "music", "yoga"],
+        },
+        [
+            {
+                "age": 82,
+                "fameRating": 0,
+                "firstname": "Doris",
+                "gender": "f",
+                "lastname": "Altenwerth",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "doris",
+            }
+        ],
+    )
 
 
 def test_like_user():
