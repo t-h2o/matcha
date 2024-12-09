@@ -1073,6 +1073,48 @@ def test_browsing():
             }
         ],
     )
+    check_post_token(
+        "/api/browsing",
+        200,
+        {
+            "ageGap": 31,
+            "fameGap": 5,
+            "distance": 101,
+            "interests": ["travel", "reading"],
+        },
+        [
+            {
+                "age": 38,
+                "fameRating": 2,
+                "firstname": "Antoinette",
+                "gender": "f",
+                "lastname": "Krajcik",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "antoinette",
+            },
+            {
+                "age": 62,
+                "fameRating": 0,
+                "firstname": "Ardella",
+                "gender": "f",
+                "lastname": "Swift",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "ardella",
+            },
+            {
+                "age": 98,
+                "fameRating": 0,
+                "firstname": "Leta",
+                "gender": "f",
+                "lastname": "Hyatt",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "leta",
+            },
+        ],
+    )
 
 
 def test_like_user():
