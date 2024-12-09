@@ -784,11 +784,14 @@ def test_browsing():
             },
         ],
     )
-    check_put_token(
+    check_post_token(
         "/api/browsing",
         200,
         {
-            "age_gap": 20,
+            "ageGap": 20,
+            "fameGap": -1,
+            "distance": 101,
+            "interests": [],
         },
         [
             {
@@ -873,12 +876,14 @@ def test_browsing():
             },
         ],
     )
-    check_put_token(
+    check_post_token(
         "/api/browsing",
         200,
         {
-            "age_gap": 15,
-            "fame_gap": 3,
+            "ageGap": 15,
+            "fameGap": 3,
+            "distance": 101,
+            "interests": [],
         },
         [
             {
@@ -923,11 +928,14 @@ def test_browsing():
             },
         ],
     )
-    check_put_token(
+    check_post_token(
         "/api/browsing",
         200,
         {
-            "fame_gap": 1,
+            "ageGap": 31,
+            "fameGap": 1,
+            "distance": 101,
+            "interests": [],
         },
         [
             {
