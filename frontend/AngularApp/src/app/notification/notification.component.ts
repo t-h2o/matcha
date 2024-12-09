@@ -1,45 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CardComponent } from '../UI/card/card.component';
-
-const DUMMY_NOTIFICATIONS = [
-  {
-    id: 1,
-    title: 'like',
-    text: 'username has liked your profile',
-    date: '2021-09-01',
-  },
-  {
-    id: 2,
-    title: 'view',
-    text: 'username has viewed your profile',
-    date: '2021-09-01',
-  },
-  {
-    id: 3,
-    title: 'message',
-    text: 'username has send you a message',
-    date: '2021-09-01',
-  },
-  {
-    id: 4,
-    title: 'unlike',
-    text: 'username has unlike your profile',
-    date: '2021-09-01',
-  },
-  {
-    id: 5,
-    title: 'match',
-    text: 'you and username are a match',
-    date: '2021-09-01',
-  },
-];
-
-type Notification = {
-  id: number;
-  title: string;
-  text: string;
-  date: string;
-};
+import { NotificationService } from '../shared/services/notification.service';
 
 @Component({
   selector: 'app-notification',
@@ -48,6 +9,16 @@ type Notification = {
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.scss',
 })
-export class NotificationComponent {
-  notificationList = signal<Notification[]>(DUMMY_NOTIFICATIONS);
+export class NotificationComponent implements OnInit {
+  private notificationService = inject(NotificationService);
+  notificationList = this.notificationService.notificationList;
+
+  ngOnInit(): void {
+    this.notificationService.getNotifications();
+  }
+
+  onDeleteNotification(notificationId: number) {
+    console.log('Deleting notification with id: ' + notificationId);
+    this.notificationService.deleteNotification(notificationId);
+  }
 }

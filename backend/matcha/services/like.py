@@ -7,6 +7,8 @@ from matcha.app_utils import check_request_json_values
 from matcha.db.db import db_get_id_where_username
 from matcha.db.db import db_get_username_where_id
 
+from matcha.db.notification import db_put_notification
+
 from matcha.db.like import (
     db_put_dislike_user,
     db_put_like_user,
@@ -40,11 +42,15 @@ def services_like_user(id_user, request):
 
         liker_username = db_get_username_where_id(id_user)
 
-        notification_message = { "content":  f"{liker_username} like you", "date": "hier", "title": "Awesome title"}
+        title = "like"
+        content = f"{liker_username} like you"
+        notification_message = {"title": title, "content": content}
+
+        db_put_notification(id_to_notify, title, content)
 
         sid = SocketManager().get_sid(id_to_notify[0])
         if sid is not None:
-            emit('like', notification_message, to=sid, namespace="/")
+            emit("like", notification_message, to=sid, namespace="/")
 
     elif "dislike" in json:
         username = json["dislike"]
