@@ -7,6 +7,10 @@ from string import Template
 from json import load
 
 
+RANGE_LATITUDE = [45.907168, 47.68394]
+RANGE_LONGITUDE = [5.963634, 10.35195]
+
+
 def short_sex(sexe):
     if sexe == "female":
         return "f"
@@ -20,6 +24,20 @@ def fame(random):
 
 def age(random):
     return (random % (120 - 18)) + 18
+
+
+def latitude(random):
+    while random >= 1.0:
+        random /= 10
+
+    return RANGE_LATITUDE[0] + random * (RANGE_LATITUDE[1] - RANGE_LATITUDE[0])
+
+
+def longitude(random):
+    while random >= 1.0:
+        random /= 10
+
+    return RANGE_LONGITUDE[0] + random * (RANGE_LONGITUDE[1] - RANGE_LONGITUDE[0])
 
 
 def sexualpreference(sexe):
@@ -39,13 +57,14 @@ def sanitize(value):
     return value
 
 
+
 def _generate_sql(all_users):
     print(
-        "INSERT INTO users (username, firstname, lastname, email, password, bio, gender, sexual_orientation, age, fame_rating) VALUES"
+        "INSERT INTO users (username, firstname, lastname, email, password, bio, gender, sexual_orientation, age, fame_rating, latitude, longitude) VALUES"
     )
 
     t_line_user = Template(
-        "('$username', '$firstName', '$lastName', '$email', '$password', '$bio', '$gender', '$sexualPreference', $age, $fame)"
+        "('$username', '$firstName', '$lastName', '$email', '$password', '$bio', '$gender', '$sexualPreference', $age, $fame, $latitude, $longitude)"
     )
 
     length = len(all_users) - 1
@@ -84,6 +103,8 @@ def generate_all_users():
                     "gender": short_sex(item["sex"]),
                     "sexualPreference": sexualpreference(item["boolean"]),
                     "fame": fame(item["int.2"]),
+                    "latitude": latitude(item["int.2"]),
+                    "longitude": longitude(item["int.2"]),
                 }
             )
 
