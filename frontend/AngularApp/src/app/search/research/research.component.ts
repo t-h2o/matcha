@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { tags } from '../../shared/models/tags';
 import { UserService } from '../../shared/services/user.service';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
+import { PotentialMatchService } from '../../shared/services/potentialMatch.service';
 
 @Component({
   selector: 'app-research',
@@ -14,6 +15,7 @@ import { CustomButtonComponent } from '../../UI/custom-button/custom-button.comp
 })
 export class ResearchComponent {
   private userService = inject(UserService);
+  private potentialMatchService = inject(PotentialMatchService);
 
   interestList = this.userService.interestList;
   tagsList = tags;
@@ -54,6 +56,10 @@ export class ResearchComponent {
     return this.maxAgeGap() >= 31 ? '30+' : this.maxAgeGap().toString();
   }
 
+  getFameGapLabel(): string {
+    return this.maxFameGap() >= 5 ? '5+' : this.maxFameGap().toString();
+  }
+
   onReset() {
     this.maxAgeGap.set(0);
     this.maxDistance.set(0);
@@ -69,6 +75,6 @@ export class ResearchComponent {
       interests: this.selectedTags,
     };
 
-    console.log(postFilter);
+    this.potentialMatchService.filterPotentialMatches(postFilter);
   }
 }

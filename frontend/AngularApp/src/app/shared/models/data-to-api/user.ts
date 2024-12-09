@@ -83,3 +83,10 @@ export type chatContact = {
   lastName: string;
   profilePicture: string;
 };
+
+export type FilterPotentialMatch = {
+  ageGap: number;
+  fameGap: number;
+  distance: number;
+  interests: string[];
+};

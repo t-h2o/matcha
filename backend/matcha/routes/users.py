@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request
 
 from flask_jwt_extended import (
     jwt_required,
@@ -9,7 +9,6 @@ from matcha.services.users import (
     services_register,
     services_delete_me,
     services_modify_email,
-    services_browsing,
     services_users,
 )
 
@@ -22,13 +21,6 @@ bp = Blueprint("users", __name__)
 def users():
     id_user = get_jwt_identity()
     return services_users(id_user, request)
-
-
-@bp.route("/api/browsing")
-@jwt_required()
-def browsing_users():
-    id_user = get_jwt_identity()
-    return services_browsing(id_user)
 
 
 @bp.route("/api/email", methods=("PUT", "GET"))
