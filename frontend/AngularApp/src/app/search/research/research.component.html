@@ -24,11 +24,11 @@
             id="ageGap"
             name="ageGap"
             min="0"
-            max="30"
+            max="31"
             [(ngModel)]="maxAgeGap"
             class="form-control"
           />
-          <span>{{ maxAgeGap() }} years</span>
+          <span>{{ getAgeGapLabel() }} years</span>
         </div>
         <div class="form-group">
           <label for="distance">Max distance</label>
@@ -49,8 +49,8 @@
             type="range"
             id="fameGap"
             name="fameGap"
-            min="1"
-            max="10"
+            min="0"
+            max="5"
             [(ngModel)]="maxFameGap"
             class="form-control"
           />
