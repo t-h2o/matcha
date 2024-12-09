@@ -8,6 +8,7 @@ from matcha.db.db import (
 from matcha.db.browsing import db_browsing_gender_sexualorientation
 
 from matcha.app_utils import check_request_json
+from matcha.app_utils import flaskprint
 
 MAX_AGE_GAP = 31
 MAX_FAME_GAP = 5
@@ -44,10 +45,20 @@ def _search_fame(search, fame, fame_gap):
     search["min_fame"] = fame - fame_gap
 
 
+def _search_interests(search, interests):
+    flaskprint(interests)
+    if interests == []:
+        flaskprint("returned ------")
+        return
+
+    search["interests"] = interests
+
+
 def services_browsing(id_user, request):
     search = {
         "gender": None,
         "sexual_orientation": None,
+        "interests": None,
         "min_age": None,
         "max_age": None,
         "min_fame": None,
@@ -72,8 +83,12 @@ def services_browsing(id_user, request):
         if check_request is not None:
             return jsonify(check_request[0]), check_request[1]
 
+        if "interests" not in request.json:
+            return jsonify({"error": "no intererests in payload"}), 400
+
         _search_age(search, age, request.json["ageGap"])
         _search_fame(search, fame, request.json["fameGap"])
+        _search_interests(search, request.json["interests"])
 
     db_browsing_users = db_browsing_gender_sexualorientation(id_user, search)
 
