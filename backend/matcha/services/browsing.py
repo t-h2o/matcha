@@ -12,23 +12,6 @@ from matcha.app_utils import check_request_json
 MAX_AGE_GAP = 31
 
 
-def _browsing_put(id_user, request, search):
-    json = request.json
-
-    # * Max age gap 0 - 30 years
-    # * Max distance 0 - 100 km
-    # * Max fame gap 0 - 10 points
-    # * Interests: array of strings
-
-    if "age_gap" in json:
-        search["min_age"] = -json["age_gap"]
-        search["max_age"] = json["age_gap"]
-
-    if "fame_gap" in json:
-        search["min_fame"] = -json["fame_gap"]
-        search["max_fame"] = json["fame_gap"]
-
-
 def _search_gender_sexual_orientation(search, gender, sexual_orientation):
     if gender == "m" and sexual_orientation == "e":
         search["gender"] = "f"
