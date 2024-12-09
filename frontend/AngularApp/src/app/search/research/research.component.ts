@@ -50,11 +50,25 @@ export class ResearchComponent {
     return this.maxDistance() >= 101 ? '100+' : this.maxDistance().toString();
   }
 
+  getAgeGapLabel(): string {
+    return this.maxAgeGap() >= 31 ? '30+' : this.maxAgeGap().toString();
+  }
+
   onReset() {
-    // do something
+    this.maxAgeGap.set(0);
+    this.maxDistance.set(0);
+    this.maxFameGap.set(0);
+    this.selectedTags = [...this.interestList().interests];
   }
 
   onSearch() {
-    // do something
+    const postFilter = {
+      ageGap: this.maxAgeGap(),
+      fameGap: this.maxFameGap(),
+      distance: this.maxDistance(),
+      interests: this.selectedTags,
+    };
+
+    console.log(postFilter);
   }
 }
