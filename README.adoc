@@ -180,3 +180,31 @@ So quickfix is to add
 PyJWT==2.9.0
 at the top of your requirements.txt file
 ____
+
+== R
+
+real doc
+
+https://cran.r-project.org/doc/manuals/r-release/R-intro.html
+
+change postgresql 5432 port to 6543:
+
+https://stackoverflow.com/a/55259785
+
+https://jtr13.github.io/cc21fall2/how-to-integrate-r-with-postgresql.html
+
+----
+sudo pacman -S r
+sudo pacman -S postgresql-libs
+sudo R
+install.packages("RPostgres")
+install.packages("devtools")
+install.packages("DBI")
+install.packages("remotes")
+----
+
+----
+> svg("my_plot.svg")
+> plot(1:10)
+> dev.off()
+----
