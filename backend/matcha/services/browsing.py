@@ -28,7 +28,7 @@ def _search_gender_sexual_orientation(search, gender, sexual_orientation):
 
 
 def _search_age(search, age, age_gap):
-    if age == MAX_AGE_GAP:
+    if age_gap == MAX_AGE_GAP:
         return
 
     search["max_age"] = age + age_gap
@@ -36,7 +36,7 @@ def _search_age(search, age, age_gap):
 
 
 def _search_fame(search, fame, fame_gap):
-    if fame == -1:
+    if fame_gap == -1:
         return
 
     search["max_fame"] = fame + fame_gap
