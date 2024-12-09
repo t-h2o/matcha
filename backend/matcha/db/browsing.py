@@ -36,7 +36,7 @@ def _get_query(search) -> str:
     """
 
     if search["interests"] is not None:
-        query += " HAVING COUNT(DISTINCT i.id) = 3"
+        query += f" HAVING COUNT(DISTINCT i.id) = {len(search['interests'])}"
 
     query += " ORDER BY u.id;"
 
