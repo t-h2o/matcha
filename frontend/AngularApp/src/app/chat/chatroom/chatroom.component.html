@@ -1,21 +1,21 @@
 <div class="app-wrapper">
   <main class="main">
-    <app-card>
-      <div class="container">
-        <div class="header">
-          <h2>{{ username() }}</h2>
-        </div>
+    <div class="header">
+      <h2>{{ username() }}</h2>
+    </div>
+    <div class="container">
+      <div #messagesContainer class="messages-container">
         <app-display-messages [messages]="messages"></app-display-messages>
-        <div class="input-container">
-          <input
-            type="text"
-            [(ngModel)]="messageText"
-            placeholder="Type a message..."
-            (keydown.enter)="sendMessage()"
-          />
-        </div>
-        <button custom-button class="btn" (click)="sendMessage()">Send</button>
       </div>
-    </app-card>
+    </div>
+    <div class="input-container">
+      <input
+        type="text"
+        [(ngModel)]="messageText"
+        placeholder="Type a message..."
+        (keydown.enter)="sendMessage()"
+      />
+      <button custom-button class="btn" (click)="sendMessage()">Send</button>
+    </div>
   </main>
 </div>
