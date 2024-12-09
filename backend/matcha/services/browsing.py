@@ -10,6 +10,7 @@ from matcha.db.browsing import db_browsing_gender_sexualorientation
 from matcha.app_utils import check_request_json
 
 MAX_AGE_GAP = 31
+MAX_FAME_GAP = 5
 
 
 def _search_gender_sexual_orientation(search, gender, sexual_orientation):
@@ -36,7 +37,7 @@ def _search_age(search, age, age_gap):
 
 
 def _search_fame(search, fame, fame_gap):
-    if fame_gap == -1:
+    if fame_gap == MAX_FAME_GAP:
         return
 
     search["max_fame"] = fame + fame_gap
