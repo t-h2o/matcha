@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import {
+  FilterPotentialMatch,
   ModifiedUserEmail,
   ModifiedUserGeneral,
   ModifiedUserPassword,
@@ -104,6 +105,15 @@ export class HttpRequestsService {
   getPotentialMatches() {
     return this.httpClient.get<PossibleMatchesUserData[]>(
       `${this.baseUrl}/browsing`,
+    );
+  }
+
+  filterPotentialMatches(filterPotentialMatch: FilterPotentialMatch) {
+    return this.httpClient.post<PossibleMatchesUserData[]>(
+      `${this.baseUrl}/browsing`,
+      {
+        filterPotentialMatch,
+      },
     );
   }
 
