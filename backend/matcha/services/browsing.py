@@ -91,26 +91,24 @@ def services_browsing(id_user, request):
     search["longitude"] = user_db[12]
     sexual_orientation = user_db[5]
 
+    check_request = check_request_json(
+        request.headers.get("Content-Type"),
+        request.json,
+        ["ageGap", "fameGap", "distance"],
+    )
+
+    if check_request is not None:
+        return jsonify(check_request[0]), check_request[1]
+
+    if "interests" not in request.json:
+        return jsonify({"error": "no intererests in payload"}), 400
+
     _search_gender_sexual_orientation(search, gender, sexual_orientation)
-
-    if request.method == "POST":
-        check_request = check_request_json(
-            request.headers.get("Content-Type"),
-            request.json,
-            ["ageGap", "fameGap", "distance"],
-        )
-
-        if check_request is not None:
-            return jsonify(check_request[0]), check_request[1]
-
-        if "interests" not in request.json:
-            return jsonify({"error": "no intererests in payload"}), 400
-
-        _search_age(search, age, request.json["ageGap"])
-        _search_fame(search, fame, request.json["fameGap"])
-        _search_interests(search, request.json["interests"])
-        if search["latitude"] is not None and search["longitude"] is not None:
-            _search_distance(search, request.json["distance"])
+    _search_age(search, age, request.json["ageGap"])
+    _search_fame(search, fame, request.json["fameGap"])
+    _search_interests(search, request.json["interests"])
+    if search["latitude"] is not None and search["longitude"] is not None:
+        _search_distance(search, request.json["distance"])
 
     db_browsing_users = db_browsing_gender_sexualorientation(id_user, search)
 
