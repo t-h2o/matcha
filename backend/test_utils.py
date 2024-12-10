@@ -61,7 +61,11 @@ def check_content_code(
         return
 
     if isinstance(received_loaded, list):
-        if len(received_loaded) > 0 and "timestamp" in received_loaded[0]:
+        if (
+            len(received_loaded) > 0
+            and isinstance(received_loaded[0], dict)
+            and "timestamp" in received_loaded[0]
+        ):
             if len(received_loaded) != len(content_expected):
                 print("--- bad content ---")
                 print_error(
