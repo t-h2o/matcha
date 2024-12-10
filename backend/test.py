@@ -1318,6 +1318,66 @@ def test_position():
     )
 
 
+def test_chat():
+    check_login_token(
+        "/api/login",
+        {"username": "user", "password": "1234"},
+    )
+    check_get_token(
+        "/api/chat/another",
+        200,
+        [],
+    )
+    check_post_token(
+        "/api/chat",
+        201,
+        {
+            "to": "another",
+            "message": "Hi another",
+        },
+        {
+            "ok": "",
+        },
+    )
+    check_get_token(
+        "/api/chat/another",
+        200,
+        [{"my": "Hi another", "timestamp": 1733863065.403688}],
+    )
+    check_login_token(
+        "/api/login",
+        {"username": "another", "password": "5678"},
+    )
+    check_get_token(
+        "/api/chat/user",
+        200,
+        [{"his": "Hi another", "timestamp": 1733863065.403688}],
+    )
+    check_post_token(
+        "/api/chat",
+        201,
+        {
+            "to": "user",
+            "message": "Hi user",
+        },
+        {
+            "ok": "",
+        },
+    )
+    check_login_token(
+        "/api/login",
+        {"username": "user", "password": "1234"},
+    )
+    check_get_token(
+        "/api/chat/another",
+        200,
+        [
+            {"my": "Hi another", "timestamp": 1733863272.913283},
+            {"his": "Hi user", "timestamp": 1733863273.087238},
+        ],
+    )
+
+
 def main():
     test_register()
     test_create_another_user()
@@ -1331,6 +1391,7 @@ def main():
     test_browsing()
     test_like_user()
     test_notification()
+    test_chat()
     test_deleteme()
 
 
