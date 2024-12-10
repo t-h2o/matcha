@@ -76,6 +76,39 @@ def check_content_code(
             )
             return
 
+    if isinstance(received_loaded, list):
+        if len(received_loaded) > 0 and "timestamp" in received_loaded[0]:
+            if len(received_loaded) != len(content_expected):
+                print("--- bad content ---")
+                print_error(
+                    url,
+                    path,
+                    code_expected,
+                    code_received,
+                    content_expected,
+                    received_loaded,
+                    json,
+                )
+                return
+            for index, notification in enumerate(received_loaded):
+                for key in notification:
+                    if key == "timestamp" or key == "id":
+                        continue
+                    if notification[key] != content_expected[index][key]:
+                        print("--- bad content ---")
+                        print_error(
+                            url,
+                            path,
+                            code_expected,
+                            code_received,
+                            content_expected,
+                            received_loaded,
+                            json,
+                        )
+                        return
+            print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path)
+            return
+
     if received_loaded != content_expected:
         print("--- bad content ---")
         print_error(
