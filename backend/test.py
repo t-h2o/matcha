@@ -1277,6 +1277,41 @@ def test_notification():
     _test_delete_notification()
 
 
+def test_confirm():
+    check_login_token(
+        "/api/login",
+        {"username": "another", "password": "5678"},
+    )
+    check_get_token(
+        "/api/confirm",
+        201,
+        {
+            "token": "asdf",
+        },
+    )
+    check_get_token(
+        "/api/confirm/eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoyNjUsImVtYWlsIjoiZW1haWwifQ.wcMsNi2aafLInc_8NcUjh0Ldzq5zKm7CvwAi4RpD1rtm91hFQVfLEl09txwJT0u85poWe-TJjbIopMchuJQhhQ",
+        201,
+        {
+            "ok": "ok",
+        },
+    )
+    check_get_token(
+        "/api/confirm/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.eyJpZF91c2VyIjoyNjUsImVtYWlsIjoiZW1haWwifQ.wcMsNi2aafLInc_8NcUjh0Ldzq5zKm7CvwAi4RpD1rtm91hFQVfLEl09txwJT0u85poWe-TJjbIopMchuJQhhQ",
+        201,
+        {
+            "ok": "bad token",
+        },
+    )
+    check_get_token(
+        "/api/confirm/dummy",
+        201,
+        {
+            "ok": "bad token",
+        },
+    )
+
+
 def main():
     test_register()
     test_create_another_user()
@@ -1289,6 +1324,7 @@ def main():
     test_browsing()
     test_like_user()
     test_notification()
+    test_confirm()
     test_deleteme()
 
 

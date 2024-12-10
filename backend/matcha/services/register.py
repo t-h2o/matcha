@@ -1,5 +1,7 @@
 from flask import request, jsonify, current_app
 
+from jwt import encode
+
 from matcha.app_utils import check_request_json
 
 from matcha.db.register import db_register
