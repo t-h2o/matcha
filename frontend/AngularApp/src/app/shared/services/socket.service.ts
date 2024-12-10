@@ -19,10 +19,8 @@ export class SocketService {
     effect(() => {
       const currentToken = this.authService.tokenSignal();
       if (currentToken?.access_token) {
-        console.log('Initializing socket with token');
         this.initializeSocket(currentToken.access_token);
       } else if (this.socket) {
-        console.log('No token, disconnecting socket');
         this.socket.disconnect();
         this.socket = null;
       }

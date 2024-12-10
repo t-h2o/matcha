@@ -1,5 +1,5 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component, effect, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
 import {
@@ -23,12 +23,6 @@ export class GeneralProfileComponent {
   private userServices = inject(UserService);
   private router = inject(Router);
   userProfile = this.userServices.ownProfileData;
-
-  constructor() {
-    effect(() => {
-      console.log('userProfile changed:', this.userProfile());
-    });
-  }
 
   goToModifyingGeneral = () => {
     this.router.navigate(['/modify-general']);
