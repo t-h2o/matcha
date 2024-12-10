@@ -58,10 +58,17 @@ export class ResearchComponent {
   }
 
   onReset() {
-    this.maxAgeGap.set(0);
-    this.maxDistance.set(0);
-    this.maxFameGap.set(0);
+    this.maxAgeGap.set(31);
+    this.maxDistance.set(101);
+    this.maxFameGap.set(6);
     this.selectedTags = [];
+    const postFilter = {
+      ageGap: 31,
+      fameGap: 5,
+      distance: 101,
+      interests: [],
+    };
+    this.potentialMatchService.potentialMatchFilter.set(postFilter);
   }
 
   onSearch() {
