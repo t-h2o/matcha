@@ -12,6 +12,17 @@ from matcha.app_utils import flaskprint
 
 MAX_AGE_GAP = 31
 MAX_FAME_GAP = 5
+MAX_DISTANCE = 101
+
+# Converter: 180[°] = 20'015.09 [km]
+# example: 10 km = (10 * 180 / 20015.09)[°]
+
+# To avoid complex geometric calculation,
+# we search distance in a square box instead of a circle.
+
+# In the worst case, the max error length is ~41% greater than the distance asked.
+# ~41% is found with the Pythagorean theorem
+# 100 * (math.sqrt(pow(distance,2) + pow(distance,2)) / distance - 1)
 
 
 def _search_gender_sexual_orientation(search, gender, sexual_orientation):
@@ -54,6 +65,13 @@ def _search_interests(search, interests):
     search["interests"] = interests
 
 
+def _search_distance(search, distance):
+    if distance == MAX_DISTANCE:
+        return
+
+    search["distance"] = distance * 180.0 / 20015.09
+
+
 def services_browsing(id_user, request):
     search = {
         "gender": None,
@@ -63,12 +81,17 @@ def services_browsing(id_user, request):
         "max_age": None,
         "min_fame": None,
         "max_fame": None,
+        "latitude": None,
+        "longitude": None,
+        "distance": None,
     }
 
     user_db = db_get_user_per_id(id_user)
     gender = user_db[4]
     age = user_db[7]
     fame = user_db[10]
+    search["latitude"] = user_db[11]
+    search["longitude"] = user_db[12]
     sexual_orientation = user_db[5]
 
     _search_gender_sexual_orientation(search, gender, sexual_orientation)
@@ -89,6 +112,8 @@ def services_browsing(id_user, request):
         _search_age(search, age, request.json["ageGap"])
         _search_fame(search, fame, request.json["fameGap"])
         _search_interests(search, request.json["interests"])
+        if search["latitude"] is not None and search["longitude"] is not None:
+            _search_distance(search, request.json["distance"])
 
     db_browsing_users = db_browsing_gender_sexualorientation(id_user, search)
 
