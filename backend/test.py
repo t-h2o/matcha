@@ -934,9 +934,20 @@ def _test_delete_notification():
     notifications = check_get_token(
         "/api/notification",
         201,
-        {
-            "notifications": [],
-        },
+        [
+            {
+                "content": "another like you",
+                "id": 11,
+                "timestamp": 1733844512.283099,
+                "title": "like",
+            },
+            {
+                "content": "another like you",
+                "id": 12,
+                "timestamp": 1733844512.90055,
+                "title": "like",
+            },
+        ],
     )
     for notification in notifications:
         check_delete_token(
