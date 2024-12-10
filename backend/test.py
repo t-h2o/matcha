@@ -799,6 +799,38 @@ def test_browsing():
         "/api/browsing",
         200,
         {
+            "ageGap": 31,
+            "fameGap": 5,
+            "distance": 42, # update users set (latitude, longitude) = (46.532327, 6.591987) where username = 'user'
+            "interests": [],
+        },
+        [
+            {
+                "age": 110,
+                "fameRating": 4,
+                "firstname": "Marquise",
+                "gender": "f",
+                "lastname": "Kautzer",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "marquise",
+            },
+            {
+                "age": 18,
+                "fameRating": 2,
+                "firstname": "Camren",
+                "gender": "f",
+                "lastname": "Bechtelar",
+                "sexualPreference": "e",
+                "urlProfile": "no url",
+                "username": "camren",
+            },
+        ],
+    )
+    check_post_token(
+        "/api/browsing",
+        200,
+        {
             "ageGap": 20,
             "fameGap": 5,
             "distance": 101,
