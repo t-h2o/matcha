@@ -1286,6 +1286,11 @@ def test_notification():
 
 
 def test_position():
+    check_get_token(
+        "/api/position",
+        201,
+        {"latitude": None, "longitude": None},
+    )
     check_post_token(
         "/api/position",
         201,
@@ -1297,6 +1302,11 @@ def test_position():
         422,
         {"latitude": "no a float", "longitude": 999},
         {"error": "bad input"},
+    )
+    check_get_token(
+        "/api/position",
+        201,
+        {"latitude": 46.532327, "longitude": 6.591987},
     )
 
 
