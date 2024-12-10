@@ -8,7 +8,6 @@ from matcha.db.db import (
 from matcha.db.browsing import db_browsing_gender_sexualorientation
 
 from matcha.app_utils import check_request_json
-from matcha.app_utils import flaskprint
 
 MAX_AGE_GAP = 31
 MAX_FAME_GAP = 5
@@ -57,9 +56,7 @@ def _search_fame(search, fame, fame_gap):
 
 
 def _search_interests(search, interests):
-    flaskprint(interests)
     if interests == []:
-        flaskprint("returned ------")
         return
 
     search["interests"] = interests

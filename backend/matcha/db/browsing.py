@@ -6,10 +6,6 @@ from matcha.db.utils import (
     fetchall_to_array,
 )
 
-from matcha.app_utils import flaskprint
-
-# fitness ,music ,photography ,yoga ,reading ,cooking ,fashion ,meditation ,dance ,
-
 
 def _get_query(search) -> str:
     query = """
@@ -44,7 +40,6 @@ def _get_query(search) -> str:
 
     query += " ORDER BY u.id;"
 
-    flaskprint(query)
     return query
 
 
