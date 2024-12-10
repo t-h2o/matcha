@@ -12,7 +12,7 @@ from flask_jwt_extended import (
 bp = Blueprint("position", __name__)
 
 
-@bp.route("/api/position", methods=["POST"])
+@bp.route("/api/position", methods=("GET", "POST"))
 @jwt_required()
 def login_user():
     id_user = get_jwt_identity()
