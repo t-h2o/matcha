@@ -1,6 +1,7 @@
 from requests import put
 from requests import post
 from requests import get
+from requests import delete
 from json import loads
 
 import re
@@ -73,6 +74,39 @@ def check_content_code(
                 received_loaded,
                 json,
             )
+            return
+
+    if isinstance(received_loaded, list):
+        if len(received_loaded) > 0 and "timestamp" in received_loaded[0]:
+            if len(received_loaded) != len(content_expected):
+                print("--- bad content ---")
+                print_error(
+                    url,
+                    path,
+                    code_expected,
+                    code_received,
+                    content_expected,
+                    received_loaded,
+                    json,
+                )
+                return
+            for index, notification in enumerate(received_loaded):
+                for key in notification:
+                    if key == "timestamp" or key == "id":
+                        continue
+                    if notification[key] != content_expected[index][key]:
+                        print("--- bad content ---")
+                        print_error(
+                            url,
+                            path,
+                            code_expected,
+                            code_received,
+                            content_expected,
+                            received_loaded,
+                            json,
+                        )
+                        return
+            print(bcolors.OKGREEN + "success: " + bcolors.ENDC + path)
             return
 
     if received_loaded != content_expected:
@@ -174,6 +208,22 @@ def check_post(path, status, json, content):
     )
 
 
+def check_delete_token(path, status, content):
+    headers = {"Authorization": f"Bearer {access_token}"}
+
+    response = delete(URL + path, headers=headers)
+
+    check_content_code(
+        URL, path, status, response.status_code, content, response.content
+    )
+
+    try:
+        content = loads(response.content)
+        return content
+    except:
+        pass
+
+
 def check_get_token(path, status, content):
     headers = {"Authorization": f"Bearer {access_token}"}
 
@@ -182,6 +232,12 @@ def check_get_token(path, status, content):
     check_content_code(
         URL, path, status, response.status_code, content, response.content
     )
+
+    try:
+        content = loads(response.content)
+        return content
+    except:
+        pass
 
 
 def check_post_token(path, status, json, content):

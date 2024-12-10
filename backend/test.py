@@ -12,6 +12,7 @@ from test_utils import (
     check_get_token_pictures,
     check_post_token_pictures,
     check_put_token_pictures,
+    check_delete_token,
 )
 
 HTTP_405 = b"<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
@@ -925,6 +926,57 @@ def test_like_user():
     )
 
 
+def _test_delete_notification():
+    check_login_token(
+        "/api/login",
+        {"username": "user", "password": "1234"},
+    )
+    notifications = check_get_token(
+        "/api/notification",
+        201,
+        [
+            {
+                "content": "another like you",
+                "id": 11,
+                "timestamp": 1733844512.283099,
+                "title": "like",
+            },
+            {
+                "content": "another like you",
+                "id": 12,
+                "timestamp": 1733844512.90055,
+                "title": "like",
+            },
+        ],
+    )
+    for notification in notifications:
+        check_delete_token(
+            f"/api/notification/{notification['id']}",
+            201,
+            {
+                "delete": notification["id"],
+            },
+        )
+
+
+def test_notification():
+    check_login_token(
+        "/api/login",
+        {"username": "another", "password": "5678"},
+    )
+    check_post_token(
+        "/api/like-user",
+        201,
+        {
+            "like": "user",
+        },
+        {
+            "isLiked": True,
+        },
+    )
+    _test_delete_notification()
+
+
 def main():
     test_register()
     test_create_another_user()
@@ -936,6 +988,7 @@ def main():
     test_reset_password()
     test_browsing()
     test_like_user()
+    test_notification()
     test_deleteme()
 
 
