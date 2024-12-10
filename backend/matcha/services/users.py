@@ -1,6 +1,6 @@
 from os import remove
 
-from flask import Blueprint, request, jsonify, current_app
+from flask import request, jsonify, current_app
 
 from flask_jwt_extended import (
     jwt_required,
@@ -11,8 +11,6 @@ from matcha.app_utils import (
     check_request_json,
     flaskprint,
 )
-
-from matcha.db.register import db_register
 
 from matcha.db.db import (
     db_set_user_email,
@@ -150,30 +148,6 @@ def services_modify_email(id_user, request):
             return error_msg
 
     return {"email": db_get_user_email(id_user)}, 201
-
-
-def services_register(request):
-    json = request.json
-
-    check_request = check_request_json(
-        request.headers.get("Content-Type"),
-        json,
-        ["username", "password", "firstname", "lastname", "email"],
-    )
-
-    if check_request is not None:
-        return jsonify(check_request[0]), check_request[1]
-
-    response = db_register(
-        json["username"],
-        json["password"],
-        json["firstname"],
-        json["lastname"],
-        json["email"],
-        current_app.config["URL"] + "/api/images/avatar.png",
-    )
-
-    return jsonify(response)
 
 
 def _wipe_user_image(id_user):

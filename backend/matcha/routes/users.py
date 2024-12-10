@@ -6,7 +6,6 @@ from flask_jwt_extended import (
 )
 
 from matcha.services.users import (
-    services_register,
     services_delete_me,
     services_modify_email,
     services_users,
@@ -28,11 +27,6 @@ def users():
 def modify_email():
     id_user = get_jwt_identity()
     return services_modify_email(id_user, request)
-
-
-@bp.route("/api/register", methods=["POST"])
-def register_user():
-    return services_register(request)
 
 
 @bp.route("/api/deleteme")
