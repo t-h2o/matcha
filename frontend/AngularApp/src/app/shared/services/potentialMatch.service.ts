@@ -71,7 +71,6 @@ export class PotentialMatchService {
   }
 
   filterPotentialMatches(filterPotentialMatch: FilterPotentialMatch) {
-    console.log('postFilter: ' + JSON.stringify(filterPotentialMatch));
     this.httpService.filterPotentialMatches(filterPotentialMatch).subscribe({
       next: (data: PossibleMatchesUserData[]) => {
         this.potentialMatches.set(data);
