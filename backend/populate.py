@@ -7,6 +7,50 @@ from string import Template
 from json import load
 
 
+RANGE_LATITUDE = [45.907168, 47.68394]
+RANGE_LONGITUDE = [5.963634, 10.35195]
+
+
+def number_to_interests(seed: int) -> list:
+    """
+    seed will create an random array of interests.
+
+    for that the function trunc the seed between 0 and (2 ^ number of interest)
+
+    convert the seed to binary, and each bit is a bool on the array of interest
+    """
+
+    all_interests = [
+        "travel",
+        "fitness",
+        "music",
+        "photography",
+        "gaming",
+        "yoga",
+        "reading",
+        "movies",
+        "cooking",
+        "hiking",
+        "technology",
+        "fashion",
+        "nature",
+        "meditation",
+        "tattoos",
+        "cats",
+        "dogs",
+        "dance",
+    ]
+
+    seed = seed % (pow(2, len(all_interests)) - 1)
+    interests = []
+    for index in range(0, len(all_interests)):
+        if seed % 2:
+            interests.append(all_interests[index])
+        seed //= 2
+
+    return interests
+
+
 def short_sex(sexe):
     if sexe == "female":
         return "f"
@@ -20,6 +64,20 @@ def fame(random):
 
 def age(random):
     return (random % (120 - 18)) + 18
+
+
+def latitude(random):
+    while random >= 1.0:
+        random /= 10
+
+    return RANGE_LATITUDE[0] + random * (RANGE_LATITUDE[1] - RANGE_LATITUDE[0])
+
+
+def longitude(random):
+    while random >= 1.0:
+        random /= 10
+
+    return RANGE_LONGITUDE[0] + random * (RANGE_LONGITUDE[1] - RANGE_LONGITUDE[0])
 
 
 def sexualpreference(sexe):
@@ -39,13 +97,32 @@ def sanitize(value):
     return value
 
 
+def _generate_sql_interest(all_users):
+    fake_data = open(json_file)
+    fake = load(fake_data)
+    fake_data.close()
+    query = "INSERT INTO user_interests (user_id, interest_id) VALUES\n"
+    for index, user in enumerate(all_users):
+
+        username = user["username"]
+        interests = number_to_interests(
+            (fake[index]["int.2"] % 999) * (fake[index]["int"] % 998)
+        )
+        for index_i, interest in enumerate(interests):
+            if index != 0 or index_i != 0:
+                query += ",\n"
+            query += f" ((SELECT id from users WHERE username = '{user['username']}'), (SELECT id FROM interests WHERE name = '{interest}'))"
+    query += ";"
+    print(query)
+
+
 def _generate_sql(all_users):
     print(
-        "INSERT INTO users (username, firstname, lastname, email, password, bio, gender, sexual_orientation, age, fame_rating) VALUES"
+        "INSERT INTO users (username, firstname, lastname, email, password, bio, gender, sexual_orientation, age, fame_rating, latitude, longitude) VALUES"
     )
 
     t_line_user = Template(
-        "('$username', '$firstName', '$lastName', '$email', '$password', '$bio', '$gender', '$sexualPreference', $age, $fame)"
+        "('$username', '$firstName', '$lastName', '$email', '$password', '$bio', '$gender', '$sexualPreference', $age, $fame, $latitude, $longitude)"
     )
 
     length = len(all_users) - 1
@@ -84,6 +161,8 @@ def generate_all_users():
                     "gender": short_sex(item["sex"]),
                     "sexualPreference": sexualpreference(item["boolean"]),
                     "fame": fame(item["int.2"]),
+                    "latitude": latitude(item["int.2"]),
+                    "longitude": longitude(item["int.2"]),
                 }
             )
 
@@ -93,6 +172,7 @@ def generate_all_users():
 def main():
     all_users = generate_all_users()
     _generate_sql(all_users)
+    _generate_sql_interest(all_users)
 
 
 if __name__ == "__main__":

@@ -28,7 +28,9 @@ def check_request_json(content_type, json, required_fields):
         return {"error": "Content-Type not supported!"}, 415
 
     missing_fields = [
-        field for field in required_fields if field not in json or not json[field]
+        field
+        for field in required_fields
+        if field not in json or (not isinstance(json[field], int) and not json[field])
     ]
 
     if missing_fields:

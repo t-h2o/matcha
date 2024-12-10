@@ -149,13 +149,6 @@ def db_get_user_images(id_user):
     return fetchall_to_array(filenames)
 
 
-def db_browsing_gender_sexualorientation(id_user, search):
-    return db_fetchall(
-        "SELECT id, username, firstname, lastname, gender, sexual_orientation, age, fame_rating FROM users WHERE sexual_orientation = %s AND gender = %s AND id != %s",
-        (search["sexual_orientation"], search["gender"], id_user),
-    )
-
-
 def db_get_iduser_per_username(username):
     return db_fetchone(
         "SELECT id FROM users WHERE username = %s",
@@ -165,7 +158,7 @@ def db_get_iduser_per_username(username):
 
 def db_get_user_per_id(id_user):
     return db_fetchone(
-        "SELECT username, email, firstname, lastname, gender, sexual_orientation, bio, age, email_verified, profile_complete, fame_rating FROM users WHERE id = %s",
+        "SELECT username, email, firstname, lastname, gender, sexual_orientation, bio, age, email_verified, profile_complete, fame_rating, latitude, longitude FROM users WHERE id = %s",
         (id_user,),
     )
 

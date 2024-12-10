@@ -45,7 +45,7 @@ def check_content_code(
     json=None,
 ):
     try:
-        loads(content_received)
+        received_loaded = loads(content_received)
     except Exception as e:
         print(str(e))
         print_error(
@@ -59,7 +59,23 @@ def check_content_code(
         )
         return
 
-    if loads(content_received) != content_expected:
+    if "interests" in received_loaded:
+        if sorted(received_loaded["interests"]) != sorted(
+            content_expected["interests"]
+        ):
+            print("--- bad content ---")
+            print_error(
+                url,
+                path,
+                code_expected,
+                code_received,
+                content_expected,
+                received_loaded,
+                json,
+            )
+            return
+
+    if received_loaded != content_expected:
         print("--- bad content ---")
         print_error(
             url,
@@ -67,7 +83,7 @@ def check_content_code(
             code_expected,
             code_received,
             content_expected,
-            loads(content_received),
+            received_loaded,
             json,
         )
         return
@@ -80,7 +96,7 @@ def check_content_code(
             code_expected,
             code_received,
             content_expected,
-            loads(content_received),
+            received_loaded,
             json,
         )
         return
