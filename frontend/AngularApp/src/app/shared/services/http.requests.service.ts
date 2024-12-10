@@ -102,12 +102,6 @@ export class HttpRequestsService {
     return this.httpClient.post(`${this.baseUrl}/reset-password`, resetData);
   }
 
-  getPotentialMatches() {
-    return this.httpClient.get<PossibleMatchesUserData[]>(
-      `${this.baseUrl}/browsing`,
-    );
-  }
-
   filterPotentialMatches(filterPotentialMatch: FilterPotentialMatch) {
     return this.httpClient.post<PossibleMatchesUserData[]>(
       `${this.baseUrl}/browsing`,
