@@ -801,7 +801,7 @@ def test_browsing():
         {
             "ageGap": 31,
             "fameGap": 5,
-            "distance": 42, # update users set (latitude, longitude) = (46.532327, 6.591987) where username = 'user'
+            "distance": 42,  # update users set (latitude, longitude) = (46.532327, 6.591987) where username = 'user'
             "interests": [],
         },
         [
