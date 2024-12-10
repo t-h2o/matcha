@@ -9,7 +9,7 @@ export class FilterMatchesPipe implements PipeTransform {
   transform(
     matches: PossibleMatchesUserData[],
     filterType: string,
-    currentUser: UserData | null,
+    currentUser: UserData | null
   ): PossibleMatchesUserData[] {
     if (!matches || !currentUser) {
       return matches;
@@ -35,6 +35,29 @@ export class FilterMatchesPipe implements PipeTransform {
           const diffA = Math.abs(a.fameRating - userFame);
           const diffB = Math.abs(b.fameRating - userFame);
           return diffA - diffB;
+        });
+
+      case 'interests':
+        if (!currentUser.interests) {
+          return matches;
+        }
+        return matches.sort((a, b) => {
+          // Count common interests for user A
+          const commonInterestsA = a.interests
+            ? currentUser.interests.filter((interest) =>
+                a.interests?.includes(interest)
+              ).length
+            : 0;
+
+          // Count common interests for user B
+          const commonInterestsB = b.interests
+            ? currentUser.interests.filter((interest) =>
+                b.interests?.includes(interest)
+              ).length
+            : 0;
+
+          // Sort by most common interests first
+          return commonInterestsB - commonInterestsA;
         });
 
       default:
