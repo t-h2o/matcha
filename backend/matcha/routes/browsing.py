@@ -13,7 +13,7 @@ from matcha.services.browsing import (
 bp = Blueprint("browsing", __name__)
 
 
-@bp.route("/api/browsing", methods=("POST", "GET"))
+@bp.route("/api/browsing", methods=["POST"])
 @jwt_required()
 def browsing_browsing():
     id_user = get_jwt_identity()

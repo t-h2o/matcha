@@ -17,17 +17,25 @@ export class PotentialMatchService {
 
   potentialMatches = signal<PossibleMatchesUserData[]>([]);
   otherProfileData = signal<UserData>(emptyUser);
+  potentialMatchFilter = signal<FilterPotentialMatch>({
+    ageGap: 5,
+    fameGap: 2,
+    distance: 10,
+    interests: [],
+  });
 
   getAllPotentialMatches() {
-    this.httpService.getPotentialMatches().subscribe({
-      next: (data: PossibleMatchesUserData[]) => {
-        this.potentialMatches.set(data);
-      },
-      error: (error: any) => {
-        const errorMessage = error?.message || 'An unknown error occurred';
-        this.toastService.show(errorMessage, 'error');
-      },
-    });
+    this.httpService
+      .filterPotentialMatches(this.potentialMatchFilter())
+      .subscribe({
+        next: (data: PossibleMatchesUserData[]) => {
+          this.potentialMatches.set(data);
+        },
+        error: (error: any) => {
+          const errorMessage = error?.message || 'An unknown error occurred';
+          this.toastService.show(errorMessage, 'error');
+        },
+      });
   }
 
   getUserProfileByUsername(username: string) {

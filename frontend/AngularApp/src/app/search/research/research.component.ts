@@ -2,9 +2,8 @@ import { NgClass } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { tags } from '../../shared/models/tags';
-import { UserService } from '../../shared/services/user.service';
-import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { PotentialMatchService } from '../../shared/services/potentialMatch.service';
+import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-research',
@@ -14,15 +13,14 @@ import { PotentialMatchService } from '../../shared/services/potentialMatch.serv
   styleUrl: './research.component.scss',
 })
 export class ResearchComponent {
-  private userService = inject(UserService);
   private potentialMatchService = inject(PotentialMatchService);
 
-  interestList = this.userService.interestList;
+  storedMatchFilter = this.potentialMatchService.potentialMatchFilter;
   tagsList = tags;
   selectedTags: string[] = [];
 
   ngOnInit() {
-    this.selectedTags = [...this.interestList().interests];
+    this.selectedTags = [...this.storedMatchFilter().interests];
   }
 
   onTagChange(event: any) {
@@ -37,12 +35,11 @@ export class ResearchComponent {
     }
   }
 
-  interests = computed(() => this.interestList().interests);
+  interests = computed(() => this.storedMatchFilter().interests);
   isExpanded = signal<boolean>(false);
-  maxAgeGap = signal<number>(0);
-  maxDistance = signal<number>(0);
-  maxFameGap = signal<number>(0);
-  commonTags = signal<string[]>([]);
+  maxAgeGap = signal<number>(this.storedMatchFilter().ageGap);
+  maxDistance = signal<number>(this.storedMatchFilter().distance);
+  maxFameGap = signal<number>(this.storedMatchFilter().fameGap);
 
   toggleForm(): void {
     this.isExpanded.set(!this.isExpanded());
@@ -61,10 +58,17 @@ export class ResearchComponent {
   }
 
   onReset() {
-    this.maxAgeGap.set(0);
-    this.maxDistance.set(0);
-    this.maxFameGap.set(0);
-    this.selectedTags = [...this.interestList().interests];
+    this.maxAgeGap.set(31);
+    this.maxDistance.set(101);
+    this.maxFameGap.set(6);
+    this.selectedTags = [];
+    const postFilter = {
+      ageGap: 31,
+      fameGap: 5,
+      distance: 101,
+      interests: [],
+    };
+    this.potentialMatchService.potentialMatchFilter.set(postFilter);
   }
 
   onSearch() {
@@ -74,7 +78,7 @@ export class ResearchComponent {
       distance: this.maxDistance(),
       interests: this.selectedTags,
     };
-
+    this.potentialMatchService.potentialMatchFilter.set(postFilter);
     this.potentialMatchService.filterPotentialMatches(postFilter);
   }
 }
