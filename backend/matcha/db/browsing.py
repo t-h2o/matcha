@@ -31,6 +31,10 @@ def _get_query(search) -> str:
     if search["interests"] is not None:
         query += " AND i.name = ANY(%s)"
 
+    if search["distance"] is not None:
+        query += " AND u.latitude BETWEEN %s AND %s"
+        query += " AND u.longitude BETWEEN %s AND %s"
+
     query += """
         GROUP BY u.id, u.username, u.firstname, u.lastname, u.gender, u.sexual_orientation, u.age, u.fame_rating
     """
@@ -61,6 +65,12 @@ def _get_parameters(id_user: int, search: dict) -> list:
 
     if search["interests"] is not None:
         parameters.append(search["interests"])
+
+    if search["distance"] is not None:
+        parameters.append(search["latitude"] - search["distance"])
+        parameters.append(search["latitude"] + search["distance"])
+        parameters.append(search["longitude"] - search["distance"])
+        parameters.append(search["longitude"] + search["distance"])
 
     return list(parameters)
 
