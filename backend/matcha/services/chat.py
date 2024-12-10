@@ -1,0 +1,29 @@
+from flask import jsonify
+
+from matcha.db.db import db_get_id_where_username
+
+from matcha.db.chat import (
+    db_get_chat,
+    db_post_chat,
+)
+
+from matcha.app_utils import check_request_json
+
+
+def services_chat_get(id_user, username):
+    id_other = db_get_id_where_username(username)[0]
+    return db_get_chat(id_user, id_other), 200
+
+
+def services_chat_post(id_user, request):
+    check_request = check_request_json(
+        request.headers.get("Content-Type"),
+        request.json,
+        ["to", "message"],
+    )
+
+    if check_request is not None:
+        return jsonify(check_request[0]), check_request[1]
+
+    db_post_chat(id_user, request.json["to"], request.json["message"])
+    return jsonify({"ok": ""}), 201
