@@ -167,6 +167,20 @@ example of payload
 }
 ----
 
+=== Position
+
+=== POST
+
+On `/api/postition` example of payload
+
+[source,json]
+----
+{
+  "latitude": 46.532327,
+  "longitude": 6.591987
+}
+----
+
 == Debug
 
 === JWT Error: Subject must be a string!
