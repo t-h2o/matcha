@@ -1,12 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CardComponent } from '../UI/card/card.component';
 import { NotificationService } from '../shared/services/notification.service';
 import { DisplayNotifComponent } from './display-notif/display-notif.component';
 
 @Component({
   selector: 'app-notification',
   standalone: true,
-  imports: [CardComponent, DisplayNotifComponent],
+  imports: [DisplayNotifComponent],
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.scss',
 })
