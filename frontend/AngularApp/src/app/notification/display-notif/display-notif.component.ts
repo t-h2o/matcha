@@ -13,7 +13,6 @@ export class DisplayNotifComponent {
   onDeleteNotification = output<number>();
 
   onDeleteNotificationHandler(notificationId: number) {
-    console.log('Deleting notification with id: ' + notificationId);
     this.onDeleteNotification.emit(notificationId);
   }
 }
