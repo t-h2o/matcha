@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CardComponent } from '../UI/card/card.component';
 import { chatContact } from '../shared/models/data-to-api/user';
 import { ContactComponent } from './contact/contact.component';
 
@@ -29,7 +28,7 @@ const DummyChatContact: chatContact[] = [
     profilePicture: '/dummy-pics/placeholderPic.jpg',
   },
   {
-    username: 'Charlie',
+    username: 'CharlieCharlie1',
     firstName: 'Charlie',
     lastName: 'Chaplin',
     profilePicture: '/dummy-pics/placeholderPic.jpg',
@@ -39,7 +38,7 @@ const DummyChatContact: chatContact[] = [
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [CardComponent, ContactComponent],
+  imports: [ContactComponent],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })

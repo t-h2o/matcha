@@ -1,18 +1,17 @@
 @import "../../../styles.scss";
 
 .contact-card {
-  background-color: $green;
   border-radius: 8px;
   padding: 1rem;
   border-width: 2px;
   border-color: $pink;
   border-style: solid;
   overflow: hidden;
-  width: 100%;
+  width: 281px;
 
   .top {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     margin-bottom: 1rem;
 
@@ -35,7 +34,6 @@
   display: flex;
   justify-content: center;
   margin-bottom: 1rem;
-  // visibility: hidden;
 
   img {
     height: 2rem;
