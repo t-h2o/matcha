@@ -47,4 +47,3 @@ class MainNamespace(Namespace):
 
     def on_error(self, e):
         flaskprint("--- SocketIO error:", str(e))
-
