@@ -168,6 +168,7 @@ export class UserService {
       .subscribe({
         next: (data: any) => {
           this.ownProfileData.update((prev) => {
+            this.router.navigate(['/profile']);
             return {
               ...prev,
               pictures: data.pictures,

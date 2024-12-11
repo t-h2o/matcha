@@ -76,14 +76,9 @@ export class ModifyPicturesComponent {
     this.selectedPictures.push(file);
   }
 
-  uploadFiles() {
-    this.userService.modifyPictures(this.selectedPictures);
-  }
-
   onSubmit() {
     if (this.selectedPictures.length > 0) {
-      this.uploadFiles();
+      this.userService.modifyPictures(this.selectedPictures);
     }
-    this.goBack();
   }
 }
