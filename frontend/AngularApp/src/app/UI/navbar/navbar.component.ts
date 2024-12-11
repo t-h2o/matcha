@@ -38,8 +38,4 @@ export class NavbarComponent {
   get profileComplete(): boolean {
     return this.usersService.ownProfileData().profile_complete;
   }
-
-  onMessage(): void {
-    this.socketService.sendMessage('Navbar say hi!');
-  }
 }

@@ -91,14 +91,6 @@ export class SocketService {
     });
   }
 
-  sendMessage(message: any): void {
-    if (this.socket?.connected) {
-      this.socket.emit('message', message);
-    } else {
-      console.error('Socket not connected');
-    }
-  }
-
   isConnected(): boolean {
     return this.socket?.connected || false;
   }
