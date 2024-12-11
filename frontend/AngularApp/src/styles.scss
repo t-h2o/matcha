@@ -7,8 +7,10 @@ $valid-green: #70e10c;
 $invalid-red: #c71f37;
 
 $title-font-size: 20px;
+$subtitle-font-size: 18px;
 $max-width: 1200px;
 $mobile-max-width: 767px;
+$border-radius: 10px;
 
 * {
   box-sizing: border-box;
@@ -164,5 +166,29 @@ body {
       border-radius: 0.25rem;
       outline: none;
     }
+  }
+}
+
+.box-item {
+  min-width: 153px;
+  padding: 0.5rem;
+  border-radius: $border-radius;
+  border: 1px solid $pink;
+
+  p {
+    text-align: center;
+    font-weight: bold;
+    color: $pink;
+  }
+}
+
+.box-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 2rem;
+  @media screen and (max-width: $mobile-max-width) {
+    grid-template-columns: repeat(1, 1fr);
+    width: 70%;
   }
 }

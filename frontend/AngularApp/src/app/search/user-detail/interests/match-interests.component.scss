@@ -29,7 +29,7 @@
     .interest-item {
       padding: 1rem;
       background-color: lighten($color: $pink, $amount: 40);
-      border-radius: 10px;
+      border-radius: $border-radius;
       border: 1px solid $pink;
 
       p {

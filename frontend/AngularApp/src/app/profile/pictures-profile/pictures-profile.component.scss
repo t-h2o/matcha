@@ -9,6 +9,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
+
   .image-resize {
     width: 100%;
     height: auto;
@@ -16,6 +17,7 @@
   }
   .profile-picture {
     border: 3px solid $pink;
+    border-radius: $border-radius;
   }
 }
 .btn-container {

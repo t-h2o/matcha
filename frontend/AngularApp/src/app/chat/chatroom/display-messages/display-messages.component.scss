@@ -4,7 +4,7 @@
   .messages {
     display: flex;
     flex-direction: column;
-    border-radius: 10px;
+    border-radius: $border-radius;
     margin-bottom: 2rem;
     max-width: 100%;
     word-wrap: break-word;
@@ -15,7 +15,7 @@
       color: $black;
       padding: 10px;
       margin: 10px;
-      border-radius: 10px;
+      border-radius: $border-radius;
       max-width: 330px;
       word-wrap: break-word;
 
