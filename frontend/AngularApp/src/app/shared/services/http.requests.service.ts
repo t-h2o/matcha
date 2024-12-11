@@ -127,12 +127,12 @@ export class HttpRequestsService {
   }
 
   getNotifications() {
-    return this.httpClient.get<Notification[]>(
-      `${this.baseUrl}/notification`,
-    );
+    return this.httpClient.get<Notification[]>(`${this.baseUrl}/notification`);
   }
 
   deleteNotification(notificationId: number) {
-    return this.httpClient.delete(`${this.baseUrl}/notification/${notificationId}`);
+    return this.httpClient.delete(
+      `${this.baseUrl}/notification/${notificationId}`,
+    );
   }
 }

@@ -3,7 +3,6 @@ import { HttpRequestsService } from './http.requests.service';
 import { ToastService } from './toast.service';
 import { Notification } from '../models/message';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -15,7 +14,7 @@ export class NotificationService {
   getNotifications() {
     this.httpService.getNotifications().subscribe({
       next: (notifications: Notification[]) => {
-        console.log("Notifications: " + notifications);
+        console.log('Notifications: ' + notifications);
         this.notificationList.set(notifications);
       },
       error: (error: any) => {
@@ -29,7 +28,9 @@ export class NotificationService {
     this.httpService.deleteNotification(notificationId).subscribe({
       next: () => {
         this.notificationList.update((prev) => {
-          return prev.filter((notification) => notification.id !== notificationId);
+          return prev.filter(
+            (notification) => notification.id !== notificationId,
+          );
         });
         this.toastService.show('Notification deleted successfully', 'success');
       },
