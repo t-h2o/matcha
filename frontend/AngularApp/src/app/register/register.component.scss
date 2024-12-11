@@ -1,5 +1,17 @@
 @import "../../styles.scss";
 
+.form {
+  p {
+    color: $green;
+  }
+
+  .title {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: $pink;
+  }
+}
+
 .tooltip-icon {
   cursor: pointer;
   display: inline-block;

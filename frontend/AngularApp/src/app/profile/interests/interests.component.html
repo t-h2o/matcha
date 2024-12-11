@@ -1,11 +1,11 @@
-<app-card>
+<app-card class="unique">
   <div class="container">
-    <div class="title-item">
+    <p class="list-title">Interests</p>
+    <div class="group">
       @if (interests().length > 0) {
-        <p><span class="list-title">Interests:</span></p>
-        <div class="interests-grid">
+        <div class="box-grid">
           @for (interest of interests(); track $index) {
-            <div class="interest-item">
+            <div class="box-item">
               <p>{{ interest }}</p>
             </div>
           }

@@ -1,24 +1,20 @@
 <div class="app-wrapper">
-  <main>
-    <app-card>
-      <h2 class="title">
-        {{ username() }}
-        <span class="status-dot" [class.online]="isOnline()"></span>
-      </h2>
-      <div class="stars-group">
-        <div class="heart tooltip" (click)="toggleLike()">
-          <img src="{{ heartIcon }}" alt="Heart" />
-          <span class="tooltip-text">Like or unlike the profile</span>
-        </div>
-        <div [innerHTML]="FameRatingStars"></div>
-        <div class="fake tooltip" (click)="reportAsFake(username())">
-          <img src="/icons/ban.svg" alt="Ban" />
-          <span class="tooltip-text">Report profile as fake</span>
-        </div>
-      </div>
-      <app-pictures></app-pictures>
-      <app-general></app-general>
-      <app-match-interests></app-match-interests>
-    </app-card>
-  </main>
+  <h2 class="title">
+    {{ username() }}
+    <span class="status-dot" [class.online]="isOnline()"></span>
+  </h2>
+  <div class="stars-group">
+    <div class="heart tooltip" (click)="toggleLike()">
+      <img src="{{ heartIcon }}" alt="Heart" />
+      <span class="tooltip-text">Like or unlike the profile</span>
+    </div>
+    <div [innerHTML]="FameRatingStars"></div>
+    <div class="fake tooltip" (click)="reportAsFake(username())">
+      <img src="/icons/ban.svg" alt="Ban" />
+      <span class="tooltip-text">Report profile as fake</span>
+    </div>
+  </div>
+  <app-pictures></app-pictures>
+  <app-general></app-general>
+  <app-match-interests></app-match-interests>
 </div>

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 
 const personWhoLikedYou: { username: string }[] = [
   {
-    username: 'cassandra',
+    username: 'cassandra123456',
   },
   {
     username: 'brando',

@@ -1,40 +1,47 @@
 <div class="container">
-  <div class="detail-group">
-    <p>
-      <span class="list-title">First name:</span
-      ><span class="list-detail">{{
-        userProfile().firstname | titlecase
-      }}</span>
-    </p>
+  <div class="left">
+    <div class="detail-group">
+      <p>
+        <span class="list-title">First name:</span
+        ><span class="list-detail">{{
+          userProfile().firstname | titlecase
+        }}</span>
+      </p>
+    </div>
+    <div class="detail-group">
+      <p>
+        <span class="list-title">Last name:</span
+        ><span class="list-detail"></span
+        ><span class="list-detail">{{
+          userProfile().lastname | titlecase
+        }}</span>
+      </p>
+    </div>
+    <div class="detail-group">
+      <p>
+        <span class="list-title">Age:</span
+        ><span class="list-detail">{{ age }}</span>
+      </p>
+    </div>
   </div>
-  <div class="detail-group">
-    <p>
-      <span class="list-title">Last name:</span><span class="list-detail"></span
-      ><span class="list-detail">{{ userProfile().lastname | titlecase }}</span>
-    </p>
-  </div>
-  <div class="detail-group">
-    <p>
-      <span class="list-title">Age:</span
-      ><span class="list-detail">{{ age }}</span>
-    </p>
-  </div>
-  <div class="detail-group">
-    <p>
-      <span class="list-title">Gender:</span
-      ><span class="list-detail">{{ gender }}</span>
-    </p>
-  </div>
-  <div class="detail-group">
-    <p>
-      <span class="list-title">Sexual preferences:</span
-      ><span class="list-detail">{{ sexualPreference }}</span>
-    </p>
-  </div>
-  <div class="detail-group">
-    <p>
-      <span class="list-title">Bio:</span
-      ><span class="list-detail">{{ bio }}</span>
-    </p>
+  <div class="right">
+    <div class="detail-group">
+      <p>
+        <span class="list-title">Gender:</span
+        ><span class="list-detail">{{ gender }}</span>
+      </p>
+    </div>
+    <div class="detail-group">
+      <p>
+        <span class="list-title">Sexual preferences:</span
+        ><span class="list-detail">{{ sexualPreference }}</span>
+      </p>
+    </div>
+    <div class="detail-group">
+      <p>
+        <span class="list-title">Bio:</span
+        ><span class="list-detail">{{ bio }}</span>
+      </p>
+    </div>
   </div>
 </div>

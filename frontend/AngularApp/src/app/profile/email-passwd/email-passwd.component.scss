@@ -6,13 +6,14 @@
   flex-direction: column;
 
   .list-title {
-    font-size: $title-font-size;
+    font-size: $subtitle-font-size;
     margin-right: 1rem;
-    color: $pink;
+    color: $green;
   }
 
   .list-detail {
     font-size: 18px;
+    color: $pink;
   }
 
   .detail-group {

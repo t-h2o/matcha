@@ -2,17 +2,24 @@
 
 .container {
   display: flex;
-  justify-content: left;
-  flex-direction: column;
+  justify-content: space-around;
+  flex-direction: row;
+  margin-top: 2rem;
+
+  @media screen and (max-width: $mobile-max-width) {
+    flex-direction: column;
+    margin: 0;
+  }
 
   .list-title {
     font-size: $title-font-size;
     margin-right: 1rem;
-    color: $pink;
+    color: $green;
   }
 
   .list-detail {
-    font-size: 18px;
+    font-size: $subtitle-font-size;
+    color: $pink;
   }
 
   .detail-group {

@@ -2,9 +2,9 @@
   <div class="container">
     <p class="rating-item-p">Liked by</p>
     <div class="group">
-      <div class="person-list">
+      <div class="box-grid">
         @for (person of personWhoLikedYou; track person.username) {
-          <div class="person-item" (click)="onClickHandler(person.username)">
+          <div class="box-item" (click)="onClickHandler(person.username)">
             <p>{{ person.username }}</p>
           </div>
         }
@@ -13,9 +13,9 @@
 
     <p class="rating-item-p">Visited by</p>
     <div class="group">
-      <div class="person-list">
+      <div class="box-grid">
         @for (person of personWhoVisitedYou; track person.username) {
-          <div class="person-item" (click)="onClickHandler(person.username)">
+          <div class="box-item" (click)="onClickHandler(person.username)">
             <p>{{ person.username }}</p>
           </div>
         }

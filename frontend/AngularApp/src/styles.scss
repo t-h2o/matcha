@@ -7,8 +7,10 @@ $valid-green: #70e10c;
 $invalid-red: #c71f37;
 
 $title-font-size: 20px;
+$subtitle-font-size: 18px;
 $max-width: 1200px;
 $mobile-max-width: 767px;
+$border-radius: 10px;
 
 * {
   box-sizing: border-box;
@@ -57,6 +59,12 @@ body {
 }
 
 .form {
+  p {
+    color: $green;
+  }
+}
+
+.form {
   width: 100%;
   max-width: 330px;
   padding: 0.5rem;
@@ -66,9 +74,16 @@ body {
   justify-content: center;
   text-align: center;
 
+  .title {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: $pink;
+  }
+
   p {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
+    color: $green;
   }
   a {
     color: $pink;
@@ -80,18 +95,10 @@ body {
     }
   }
 
-  .title {
-    margin-bottom: 2rem;
-    font-size: 2rem;
-    font-weight: 700;
-    color: $pink;
-    text-align: center;
-  }
-
   .form-group {
     display: flex;
     flex-direction: column;
-    color: $black;
+    color: $green;
 
     label {
       margin-top: 1rem;
@@ -104,10 +111,10 @@ body {
       font-size: 1rem;
       font-weight: 400;
       line-height: 1.5;
-      color: $black;
-      background-color: $white;
+      color: $white;
+      background-color: $black;
       background-clip: padding-box;
-      border: none;
+      border: 2px solid $pink;
       border-radius: 0.25rem;
       outline: none;
     }
@@ -117,8 +124,8 @@ body {
       font-size: 1rem;
       font-weight: 400;
       line-height: 1.5;
-      color: $black;
-      background-color: $white;
+      color: $white;
+      background-color: $black;
       background-clip: padding-box;
       border: 2px solid $pink;
       border-radius: 0.25rem;
@@ -126,7 +133,6 @@ body {
 
       &:focus {
         border: 2px solid lighten($color: $pink, $amount: 45);
-        background-color: lighten($color: $pink, $amount: 45);
       }
 
       &.ng-valid {
@@ -139,8 +145,8 @@ body {
       font-size: 1rem;
       font-weight: 400;
       line-height: 1.5;
-      color: $black;
-      background-color: $white;
+      color: $white;
+      background-color: $black;
       background-clip: padding-box;
       border: 2px solid $pink;
       border-radius: 0.25rem;
@@ -148,7 +154,6 @@ body {
 
       &:focus {
         border: 2px solid lighten($color: $pink, $amount: 45);
-        background-color: lighten($color: $pink, $amount: 45);
       }
     }
     select,
@@ -157,12 +162,36 @@ body {
       font-size: 1rem;
       font-weight: 400;
       line-height: 1.5;
-      color: $black;
-      background-color: $white;
+      color: $white;
+      background-color: $black;
       background-clip: padding-box;
       border: 2px solid $pink;
       border-radius: 0.25rem;
       outline: none;
     }
+  }
+}
+
+.box-item {
+  min-width: 153px;
+  padding: 0.5rem;
+  border-radius: $border-radius;
+  border: 1px solid $pink;
+
+  p {
+    text-align: center;
+    font-weight: bold;
+    color: $pink;
+  }
+}
+
+.box-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 2rem;
+  @media screen and (max-width: $mobile-max-width) {
+    grid-template-columns: repeat(1, 1fr);
+    width: 70%;
   }
 }

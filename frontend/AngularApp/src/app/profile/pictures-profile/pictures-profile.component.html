@@ -3,17 +3,11 @@
     <div class="grid">
       @if (userPictures().length === 0) {
         <div>
-          <img
-            [src]="'/dummy-pics/placeholderPic.jpg'"
-            alt="{{ 'placeholderPic' }}"
-            [ngClass]="{
-              'image-resize': true,
-            }"
-          />
+          <p>No Image</p>
         </div>
       } @else {
         @for (picUrl of userPictures(); track $index) {
-          <div (click)="setProfilePicture(picUrl)">
+          <div class="img-container" (click)="setProfilePicture(picUrl)">
             <img
               [src]="picUrl"
               alt="{{ picUrl }}"
