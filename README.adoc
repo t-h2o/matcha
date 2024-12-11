@@ -167,6 +167,20 @@ example of payload
 }
 ----
 
+=== Pictures
+
+==== `/api/modify-profile-picture`
+
+PUT to update the picture selected as profile picture.
+
+GET or PUT return the URL of the profile picture
+
+==== `/api/pictures`
+
+POST for upload pictures
+
+GET or POST return the array of picture in URL format
+
 == Debug
 
 === JWT Error: Subject must be a string!
