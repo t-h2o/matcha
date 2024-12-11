@@ -85,7 +85,8 @@ def db_count_number_image(id_user):
 def db_get_interests(id_user):
     query = """
     SELECT name FROM interests
-    WHERE id IN (SELECT interest_id FROM user_interests where user_id = %s);
+    WHERE id IN (SELECT interest_id FROM user_interests where user_id = %s)
+    ORDER BY name;
     """
 
     interests = db_fetchall(query, (id_user,))

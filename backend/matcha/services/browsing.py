@@ -3,6 +3,7 @@ from flask import Blueprint, request, jsonify
 from matcha.db.db import (
     db_get_user_per_id,
     db_get_url_profile,
+    db_get_interests,
 )
 
 from matcha.db.browsing import db_browsing_gender_sexualorientation
@@ -115,6 +116,7 @@ def services_browsing(id_user, request):
     browsing_users = []
     for user in db_browsing_users:
         profile_picture = db_get_url_profile(user[0])
+        interests = db_get_interests(user[0])
 
         if "url" in profile_picture:
             profile_url = url = profile_picture["url"]
@@ -131,6 +133,7 @@ def services_browsing(id_user, request):
                 "age": user[6],
                 "fameRating": user[7],
                 "urlProfile": profile_url,
+                "interests": interests,
             }
         )
 
