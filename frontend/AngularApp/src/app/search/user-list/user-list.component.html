@@ -1,8 +1,9 @@
 <header>
   <div class="container">
     <div></div>
-    <h2>Discover Lovely People</h2>
+    <h2 class="title">Discover Lovely People</h2>
     <div class="filter-container">
+      <label class="filter" for="filter">Filter by:</label>
       <select (change)="onChangeTasksFilter(filter.value)" #filter>
         <option value="all">All</option>
         <option value="age">Age</option>

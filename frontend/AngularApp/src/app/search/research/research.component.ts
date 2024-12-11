@@ -36,7 +36,7 @@ export class ResearchComponent {
   }
 
   interests = computed(() => this.storedMatchFilter().interests);
-  isExpanded = signal<boolean>(false);
+  isExpanded = signal<boolean>(true);
   maxAgeGap = signal<number>(this.storedMatchFilter().ageGap);
   maxDistance = signal<number>(this.storedMatchFilter().distance);
   maxFameGap = signal<number>(this.storedMatchFilter().fameGap);
