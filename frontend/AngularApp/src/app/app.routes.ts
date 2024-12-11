@@ -15,6 +15,7 @@ import { ModifyInterestsComponent } from './profile/modify-interests/modify-inte
 import { ModifyPicturesComponent } from './profile/modify-pictures/modify-pictures.component';
 import { ChatroomComponent } from './chat/chatroom/chatroom.component';
 import { NotificationComponent } from './notification/notification.component';
+import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -79,6 +80,11 @@ export const routes: Routes = [
   {
     path: 'notifications',
     component: NotificationComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'delete-account',
+    component: DeleteConfirmationComponent,
     canActivate: [AuthGuard],
   },
   {
