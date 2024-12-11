@@ -53,6 +53,7 @@ export class UserService {
     this.httpService.getUser().subscribe({
       next: (data: UserData) => {
         this.ownProfileData.update((prev) => {
+          console.log('data: ' + JSON.stringify(data));
           return {
             ...prev,
             username: data.username,
@@ -67,6 +68,7 @@ export class UserService {
             profile_complete: data.profile_complete,
             fameRating: data.fameRating,
             urlProfile: data.urlProfile,
+            interests: data.interests,
           };
         });
       },

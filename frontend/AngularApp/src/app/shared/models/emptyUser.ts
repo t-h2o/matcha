@@ -14,6 +14,7 @@ export const emptyUser: UserData = {
   emailVerified: false,
   profile_complete: false,
   fameRating: 4,
+  interests: [],
 };
 
 export const testUser: UserData = {
@@ -30,4 +31,5 @@ export const testUser: UserData = {
   emailVerified: true,
   profile_complete: true,
   fameRating: 4,
+  interests: [],
 };
