@@ -23,6 +23,10 @@ export class EmailPasswdComponent {
     this.router.navigate(['/modify-email']);
   };
 
+  goToDeleteAccount = () => {
+    this.router.navigate(['/delete-account']);
+  };
+
   get Email() {
     if (this.userEmail() === '') {
       return 'No email';
