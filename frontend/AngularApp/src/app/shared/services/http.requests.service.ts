@@ -135,4 +135,8 @@ export class HttpRequestsService {
       `${this.baseUrl}/notification/${notificationId}`,
     );
   }
+
+  deleteAccount() {
+    return this.httpClient.get(`${this.baseUrl}/deleteme`);
+  }
 }
