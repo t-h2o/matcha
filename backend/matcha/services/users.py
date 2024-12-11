@@ -67,6 +67,7 @@ def services_users(id_user, request):
     if get_username == "":
         user_db = db_get_user_per_id(id_user)
         profile_picture = db_get_url_profile(id_user)
+        interests = db_get_interests(id_user)
 
         if "url" in profile_picture:
             profile_url = url = profile_picture["url"]
@@ -87,6 +88,7 @@ def services_users(id_user, request):
                 profile_complete=user_db[9],
                 fameRating=user_db[10],
                 urlProfile=profile_url,
+                interests=interests,
             ),
             200,
         )
