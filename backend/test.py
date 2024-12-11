@@ -349,12 +349,12 @@ def test_interests():
         "/api/interests",
         201,
         {"interests": ["hiking", "technology", "fashion", "nature", "meditation"]},
-        {"interests": ["technology", "nature", "hiking", "meditation", "fashion"]},
+        {"interests": ["fashion", "hiking", "meditation", "nature", "technology"]},
     )
     check_get_token(
         "/api/interests",
         201,
-        {"interests": ["technology", "nature", "hiking", "meditation", "fashion"]},
+        {"interests": ["fashion", "hiking", "meditation", "nature", "technology"]},
     )
     check_put_token(
         "/api/interests",
@@ -368,12 +368,12 @@ def test_interests():
                 "meditation",
             ]
         },
-        {"interests": ["technology", "nature", "hiking", "meditation", "fashion"]},
+        {"interests": ["fashion", "hiking", "meditation", "nature", "technology"]},
     )
     check_get_token(
         "/api/interests",
         201,
-        {"interests": ["technology", "nature", "hiking", "meditation", "fashion"]},
+        {"interests": ["fashion", "hiking", "meditation", "nature", "technology"]},
     )
     check_put_token(
         "/api/interests",
