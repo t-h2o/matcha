@@ -1,26 +1,16 @@
 <div class="app-wrapper">
   <main class="main">
     <app-card>
-      <div class="inside-card">
-        <div class="contact-list">
-          @for (notif of notificationList(); track notif.date) {
-            <div class="message-card">
-              <div class="delete" (click)="onDeleteNotification(notif.id)">X</div>
-              <div class="title">
-                <h3>{{ notif.title }}</h3>
-              </div>
-              <div class="content">
-                <p>{{ notif.content }}</p>
-              </div>
-              <div class="footer">
-                <div class="date">
-                  <p>{{ notif.date }}</p>
-                </div>
-              </div>
-            </div>
-          }
+      @if (notificationList.length === 0) {
+        <div class="empty">
+          <h2>No notifications</h2>
         </div>
-      </div>
+      } @else {
+        <app-display-notif
+          [notificationList]="notificationList()"
+          deleteNotification="onDeleteNotification($event)"
+        ></app-display-notif>
+      }
     </app-card>
   </main>
 </div>
