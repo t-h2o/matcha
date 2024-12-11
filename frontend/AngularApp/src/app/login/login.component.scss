@@ -1,9 +1,15 @@
 @import "../../styles.scss";
 
-.title {
-  text-align: center;
-  margin-bottom: 1rem;
-  color: $pink;
+.form {
+  p {
+    color: $green;
+  }
+
+  .title {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: $pink;
+  }
 }
 
 .error-msg {

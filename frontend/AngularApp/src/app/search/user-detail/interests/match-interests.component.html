@@ -1,16 +1,14 @@
-<div class="container">
-  <div class="title-item">
-    @if (interests().length > 0) {
-      <p><span class="list-title">Interests:</span></p>
-      <div class="interests-grid">
-        @for (interest of interests(); track $index) {
-          <div class="interest-item">
-            <p>{{ interest }}</p>
-          </div>
-        }
-      </div>
-    } @else {
-      <p><span class="list-title">No Interests chosen yet.</span></p>
-    }
-  </div>
+<div class="title-item">
+  <p class="list-title">Interests</p>
+  @if (interests().length === 0) {
+    <p><span class="list-title">No Interests chosen yet.</span></p>
+  } @else {
+    <div class="interests-grid">
+      @for (interest of interests(); track $index) {
+        <div class="box-item">
+          <p>{{ interest }}</p>
+        </div>
+      }
+    </div>
+  }
 </div>
