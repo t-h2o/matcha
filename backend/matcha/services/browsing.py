@@ -2,8 +2,10 @@ from flask import Blueprint, request, jsonify
 
 from matcha.db.db import (
     db_get_user_per_id,
-    db_get_url_profile,
     db_get_interests,
+)
+from matcha.db.images import (
+    db_get_url_profile,
 )
 
 from matcha.db.browsing import db_browsing_gender_sexualorientation
