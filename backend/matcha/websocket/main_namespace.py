@@ -48,13 +48,3 @@ class MainNamespace(Namespace):
     def on_error(self, e):
         flaskprint("--- SocketIO error:", str(e))
 
-    def on_message(self, data):
-        try:
-            flaskprint(SocketManager())
-            user_id = SocketManager().get_user_id(request.sid)
-            emit(
-                "response",
-                f"Server received from user id {user_id} your message: {data}",
-            )
-        except Exception as e:
-            flaskprint("Error handling message:" + str(e))
