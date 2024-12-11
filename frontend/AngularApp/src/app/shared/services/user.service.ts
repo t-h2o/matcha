@@ -249,4 +249,16 @@ export class UserService {
       },
     });
   }
+
+  deleteUserAccount() {
+    this.httpService.deleteAccount().subscribe({
+      next: (_data) => {
+        this.router.navigate(['/register']);
+      },
+      error: (error) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
+  }
 }
