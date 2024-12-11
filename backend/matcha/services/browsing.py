@@ -4,7 +4,7 @@ from matcha.db.db import (
     db_get_user_per_id,
     db_get_interests,
 )
-from matcha.db.images import (
+from matcha.db.pictures import (
     db_get_url_profile,
 )
 
