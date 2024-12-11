@@ -43,6 +43,30 @@ def db_upload_pictures(id_user, filenames):
     )
 
 
+def db_delete_pictures(id_user: int, urls: list):
+    query = """
+    DELETE
+    FROM user_images
+    WHERE
+    user_id = %s
+    """
+
+    parameters = []
+    parameters.append(id_user)
+
+    query += " AND ("
+
+    for index, url in enumerate(urls):
+        query += "image_url = %s "
+        if index < len(urls) - 1:
+            query += " OR "
+        parameters.append(url)
+
+    query += ");"
+
+    db_query(query, parameters)
+
+
 def db_count_number_image(id_user):
     return db_fetchone(
         "SELECT COUNT(*) FROM user_images WHERE   user_id = %s;",
