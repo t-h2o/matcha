@@ -4,10 +4,11 @@ import {
   ElementRef,
   inject,
   input,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Message } from '../../shared/models/message';
+import { ChatMessageToBack, Message } from '../../shared/models/message';
 import { MessageService } from '../../shared/services/messsage.service';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { DisplayMessagesComponent } from './display-messages/display-messages.component';
@@ -42,12 +43,16 @@ const DummyChat = [
   templateUrl: './chatroom.component.html',
   styleUrl: './chatroom.component.scss',
 })
-export class ChatroomComponent implements AfterViewChecked {
+export class ChatroomComponent implements AfterViewChecked, OnInit {
   @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
   messageService = inject(MessageService);
   username = input.required<string>();
   messages: Message[] = DummyChat;
   messageText = '';
+
+  ngOnInit(): void {
+    this.messageService.getAllMessages(this.username());
+  }
 
   ngAfterViewChecked() {
     this.scrollToBottom();
@@ -62,16 +67,12 @@ export class ChatroomComponent implements AfterViewChecked {
 
   sendMessage(): void {
     if (this.messageText !== '') {
-      const newMessage: Message = {
-        senderUsername: this.username(),
-        text: this.messageText,
+      const newMessage: ChatMessageToBack = {
+        to: this.username(),
+        message: this.messageText,
       };
-      this.messages.push({
-        id: this.messages.length + 1,
-        senderUsername: this.username(),
-        text: this.messageText,
-      });
-      this.messageService.add(newMessage);
+      console.log('newMessage: ' + JSON.stringify(newMessage));
+      this.messageService.sendMsg(newMessage);
       this.messageText = '';
     }
   }
