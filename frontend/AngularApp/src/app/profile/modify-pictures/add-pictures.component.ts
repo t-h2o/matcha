@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
@@ -12,17 +12,31 @@ import { PicturePreviewComponent } from './picture-preview/picture-preview.compo
   templateUrl: './add-pictures.component.html',
   styleUrl: './add-pictures.component.scss',
 })
-export class AddPicturesComponent {
+export class AddPicturesComponent implements OnInit {
   private router = inject(Router);
   private userService = inject(UserService);
+  selectedPictures = signal<File[]>([]);
+  userProfileData = this.userService.ownProfileData;
 
-  userPictures = this.userService.ownProfileData().pictures;
-  profilePicture = this.userService.ownProfileData().urlProfile;
-
-  selectedPictures: File[] = [];
   maxFiles = 5;
   maxSizePerFile = 5 * 1024 * 1024;
   localProfilePicture = '';
+  numberOfPicturesUploadable = computed(() => {
+    return (
+      this.maxFiles -
+      (this.userProfileData().pictures.length + this.selectedPictures().length)
+    );
+  });
+
+  ngOnInit(): void {
+    console.log(this.userProfileData());
+    this.userService.getUserProfile();
+    this.userService.getUserPictures();
+  }
+
+  get subTitleString() {
+    return `You can upload up to ${this.numberOfPicturesUploadable()} pictures.`;
+  }
 
   goBack() {
     this.router.navigate(['/profile']);
@@ -37,7 +51,7 @@ export class AddPicturesComponent {
     event.preventDefault();
     event.stopPropagation();
     const files = event.dataTransfer?.files;
-    if (files) {
+    if (files && files.length <= this.numberOfPicturesUploadable()) {
       this.addFile(files[0]);
     }
   }
@@ -51,9 +65,9 @@ export class AddPicturesComponent {
   }
 
   removeFile(file: File) {
-    this.selectedPictures = this.selectedPictures.filter(
-      (picture) => picture !== file,
-    );
+    this.selectedPictures.update(() => {
+      return this.selectedPictures().filter((picture) => picture !== file);
+    });
   }
 
   private addFile(file: File) {
@@ -67,12 +81,14 @@ export class AddPicturesComponent {
       alert(`You can upload a maximum of ${this.maxFiles} pictures.`);
       return;
     }
-    this.selectedPictures.push(file);
+    this.selectedPictures.update((prev) => {
+      return [...prev, file];
+    });
   }
 
   onSubmit() {
-    if (this.selectedPictures.length > 0) {
-      this.userService.modifyPictures(this.selectedPictures);
+    if (this.selectedPictures().length > 0) {
+      this.userService.modifyPictures(this.selectedPictures());
     }
   }
 }

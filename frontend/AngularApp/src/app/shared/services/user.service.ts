@@ -118,25 +118,25 @@ export class UserService {
       });
   }
 
-  getUserEmail() {
-    this.httpService
-      .getEmail()
+  // getUserEmail() {
+  //   this.httpService
+  //     .getEmail()
 
-      .subscribe({
-        next: (data: ModifiedUserEmail) => {
-          this.ownProfileData.update((prev) => {
-            return {
-              ...prev,
-              email: data.email,
-            };
-          });
-        },
-        error: (error: any) => {
-          const errorMessage = error?.message || 'An unknown error occurred';
-          this.toastService.show(errorMessage, 'error');
-        },
-      });
-  }
+  //     .subscribe({
+  //       next: (data: ModifiedUserEmail) => {
+  //         this.ownProfileData.update((prev) => {
+  //           return {
+  //             ...prev,
+  //             email: data.email,
+  //           };
+  //         });
+  //       },
+  //       error: (error: any) => {
+  //         const errorMessage = error?.message || 'An unknown error occurred';
+  //         this.toastService.show(errorMessage, 'error');
+  //       },
+  //     });
+  // }
 
   modifyPassword(userData: ModifiedUserPassword) {
     this.httpService
