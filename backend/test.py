@@ -1294,8 +1294,8 @@ def test_position():
     check_post_token(
         "/api/position",
         201,
-        {"latitude": 999, "longitude": 999},
-        {"latitude": 999, "longitude": 999},
+        {"latitude": 46.532327, "longitude": 6.591987},
+        {"latitude": 46.532327, "longitude": 6.591987},
     )
     check_post_token(
         "/api/position",
