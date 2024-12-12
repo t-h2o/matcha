@@ -32,18 +32,18 @@ export class HttpRequestsService {
 
   modifyUser(userData: ModifyGeneralData) {
     return this.httpClient.put<ModifiedUserGeneral>(
-      `${this.baseUrl}/users`,
+      `${this.baseUrl}/profile`,
       userData,
     );
   }
 
   getUser() {
-    return this.httpClient.get<UserData>(`${this.baseUrl}/users`);
+    return this.httpClient.get<UserData>(`${this.baseUrl}/profile`);
   }
 
   getUserByUsername(username: string) {
     return this.httpClient.get<UserData>(
-      `${this.baseUrl}/users?username=${username}`,
+      `${this.baseUrl}/profile?username=${username}`,
     );
   }
 
