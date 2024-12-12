@@ -330,7 +330,19 @@ def check_pictures(
 
 
 def check_response_pictures(response, path, status, content):
-    content_received = loads(response.content)
+    try:
+        content_received = loads(response.content)
+    except:
+        print("---- cannot loads response.content ----")
+        print_error(
+            URL,
+            path,
+            status,
+            response.status_code,
+            content,
+            response.content,
+        )
+        return
     if check_pictures(content, content_received, path, status, response.status_code):
         return
 
