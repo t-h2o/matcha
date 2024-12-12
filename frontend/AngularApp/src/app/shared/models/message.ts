@@ -10,3 +10,10 @@ export type Notification = {
   content: string;
   date: string;
 };
+
+export type ChatMessage = {
+  id: number;
+  date: string;
+  sender: string;
+  content: string;
+};

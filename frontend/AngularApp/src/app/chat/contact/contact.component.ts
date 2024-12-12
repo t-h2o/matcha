@@ -1,6 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
-import { chatContact } from '../../shared/models/data-to-api/user';
 import { Router } from '@angular/router';
+import { PossibleMatchesUserData } from '../../shared/models/data-to-api/user';
 
 @Component({
   selector: 'app-contact',
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrl: './contact.component.scss',
 })
 export class ContactComponent {
-  @Input({ required: true }) contact!: chatContact;
+  @Input({ required: true }) contact!: PossibleMatchesUserData
   private router = inject(Router);
 
   onClickContact() {
