@@ -38,4 +38,9 @@ dump:
 	docker exec postgres-dev pg_dump --dbname=$(shell grep DATABASE_URL= .env | sed 's/DATABASE_URL=//') > postgres-init/dump.sql
 
 
+pr:
+	@firefox https://github.com/t-h2o/matcha/pull/new/$(shell git rev-parse --abbrev-ref HEAD)
+	@git cliff origin/main..HEAD -o pr-description.md || docker run -t -v "$(shell pwd)":/app/ "orhunp/git-cliff" origin/main..HEAD -o pr-description.md
+
+
 .PHONY: env start-dev stop-dev start-prod stop-prod build-prod cmd-dev cmd-prod
