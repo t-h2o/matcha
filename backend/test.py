@@ -1342,7 +1342,7 @@ def test_chat():
     check_get_token(
         "/api/chat/another",
         200,
-        [{"my": "Hi another", "timestamp": 1733863065.403688}],
+        [{"message": "Hi another", "sender": "user", "timestamp": 1734008116.142995}],
     )
     check_login_token(
         "/api/login",
@@ -1351,7 +1351,7 @@ def test_chat():
     check_get_token(
         "/api/chat/user",
         200,
-        [{"his": "Hi another", "timestamp": 1733863065.403688}],
+        [{"message": "Hi another", "sender": "user", "timestamp": 1734008187.052514}],
     )
     check_post_token(
         "/api/chat",
@@ -1372,8 +1372,8 @@ def test_chat():
         "/api/chat/another",
         200,
         [
-            {"my": "Hi another", "timestamp": 1733863272.913283},
-            {"his": "Hi user", "timestamp": 1733863273.087238},
+            {"message": "Hi another", "sender": "user", "timestamp": 1734008187.052514},
+            {"message": "Hi user", "sender": "another", "timestamp": 1734008187.249586},
         ],
     )
 
