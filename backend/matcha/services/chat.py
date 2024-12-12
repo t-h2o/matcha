@@ -26,5 +26,5 @@ def services_chat_post(id_user, request):
     if check_request is not None:
         return jsonify(check_request[0]), check_request[1]
 
-    db_post_chat(id_user, request.json["to"], request.json["message"])
-    return jsonify({"ok": ""}), 201
+    response = db_post_chat(id_user, request.json["to"], request.json["message"])
+    return jsonify(response), 201
