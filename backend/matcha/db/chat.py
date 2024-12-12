@@ -1,5 +1,6 @@
 from matcha.db.utils import (
     db_query,
+    db_fetchone,
     db_fetchall,
 )
 
@@ -62,4 +63,26 @@ def db_post_chat(id_user: int, username, message: str):
         ),
     )
 
-    return error_msg
+    if error_msg is not None:
+        return error_msg
+
+    query = """
+    SELECT users.username, message, chat.created_at
+    FROM chat
+    INNER JOIN users
+    ON chat.id_sender = users.id
+    WHERE id_sender = %s
+    ORDER BY created_at DESC
+    LIMIT 1;
+    """
+
+    last_message = db_fetchone(
+        query,
+        (id_user,),
+    )
+
+    return {
+        "sender": last_message[0],
+        "timestamp": last_message[2].timestamp(),
+        "message": last_message[1],
+    }
