@@ -153,6 +153,26 @@ export class UserService {
       });
   }
 
+  deletePicture(pictureName: string) {
+    this.httpService
+      .deletePicture(pictureName)
+
+      .subscribe({
+        next: (data: any) => {
+          this.ownProfileData.update((prev) => {
+            return {
+              ...prev,
+              pictures: data.pictures,
+            };
+          });
+        },
+        error: (error: any) => {
+          const errorMessage = error?.message || 'An unknown error occurred';
+          this.toastService.show(errorMessage, 'error');
+        },
+      });
+  }
+
   modifyPictures(pictures: File[]) {
     this.httpService
       .modifyPictures(pictures)

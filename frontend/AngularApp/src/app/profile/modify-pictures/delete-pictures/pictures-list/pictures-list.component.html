@@ -1,0 +1,8 @@
+<li class="item-container">
+  @if (file) {
+    <div class="wrapper">
+      <img [src]="file" [alt]="file" class="image-preview" />
+      <div class="img-delete" (click)="removeFile()">X</div>
+    </div>
+  }
+</li>

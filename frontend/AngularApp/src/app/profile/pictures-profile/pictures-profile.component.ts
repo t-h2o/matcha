@@ -22,6 +22,10 @@ export class PicturesProfileComponent {
     this.router.navigate(['/add-pictures']);
   };
 
+  goToDeletePictures = () => {
+    this.router.navigate(['/delete-pictures']);
+  };
+
   get proPicture() {
     return this.profilePicture();
   }

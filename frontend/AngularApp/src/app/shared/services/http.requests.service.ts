@@ -87,6 +87,14 @@ export class HttpRequestsService {
     );
   }
 
+  deletePicture(pictureName: string) {
+    console.log('httprequest send: ' + pictureName);
+    return this.httpClient.delete<{ pictures: string }>(
+      `${this.baseUrl}/pictures`,
+      { body: { pictureName } },
+    );
+  }
+
   getPictures() {
     return this.httpClient.get<{ pictures: string[] }>(
       `${this.baseUrl}/pictures`,
