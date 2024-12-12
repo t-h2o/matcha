@@ -4,17 +4,11 @@ import { Router } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { PicturePreviewComponent } from './picture-preview/picture-preview.component';
-import { CardComponent } from '../../UI/card/card.component';
 
 @Component({
   selector: 'app-modify-pictures',
   standalone: true,
-  imports: [
-    FormsModule,
-    CustomButtonComponent,
-    PicturePreviewComponent,
-    CardComponent,
-  ],
+  imports: [FormsModule, CustomButtonComponent, PicturePreviewComponent],
   templateUrl: './modify-pictures.component.html',
   styleUrl: './modify-pictures.component.scss',
 })
