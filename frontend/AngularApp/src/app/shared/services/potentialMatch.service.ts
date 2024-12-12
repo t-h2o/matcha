@@ -29,6 +29,7 @@ export class PotentialMatchService {
       .filterPotentialMatches(this.potentialMatchFilter())
       .subscribe({
         next: (data: PossibleMatchesUserData[]) => {
+          console.log('data: ' + JSON.stringify(data));
           this.potentialMatches.set(data);
         },
         error: (error: any) => {

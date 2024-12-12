@@ -1,39 +1,6 @@
-import { Component } from '@angular/core';
-import { chatContact } from '../shared/models/data-to-api/user';
+import { Component, inject, OnInit } from '@angular/core';
+import { PotentialMatchService } from '../shared/services/potentialMatch.service';
 import { ContactComponent } from './contact/contact.component';
-
-const DummyChatContact: chatContact[] = [
-  {
-    username: 'JohnDoe',
-    firstName: 'John',
-    lastName: 'Doe',
-    profilePicture: '/dummy-pics/placeholderPic.jpg',
-  },
-  {
-    username: 'JaneDoe',
-    firstName: 'Jane',
-    lastName: 'Doe',
-    profilePicture: '/dummy-pics/placeholderPic.jpg',
-  },
-  {
-    username: 'Alice',
-    firstName: 'Alice',
-    lastName: 'Wonderland',
-    profilePicture: '/dummy-pics/placeholderPic.jpg',
-  },
-  {
-    username: 'Bob',
-    firstName: 'Bob',
-    lastName: 'Builder',
-    profilePicture: '/dummy-pics/placeholderPic.jpg',
-  },
-  {
-    username: 'CharlieCharlie1',
-    firstName: 'Charlie',
-    lastName: 'Chaplin',
-    profilePicture: '/dummy-pics/placeholderPic.jpg',
-  },
-];
 
 @Component({
   selector: 'app-chat',
@@ -42,6 +9,12 @@ const DummyChatContact: chatContact[] = [
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })
-export class ChatComponent {
-  contacts: chatContact[] = DummyChatContact;
+export class ChatComponent implements OnInit {
+  private potentialMatchService = inject(PotentialMatchService);
+
+  contacts = this.potentialMatchService.potentialMatches;
+
+  ngOnInit(): void {
+    this.potentialMatchService.getAllPotentialMatches();
+  }
 }
