@@ -41,7 +41,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.userServices.getUserProfile();
-    this.userServices.getInterests();
     this.userServices.getUserPictures();
     if (!this.ProfileComplete && this.location().latitude === 999) {
       this.getLocation();

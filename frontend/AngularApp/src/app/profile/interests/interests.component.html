@@ -2,9 +2,9 @@
   <div class="container">
     <p class="list-title">Interests</p>
     <div class="group">
-      @if (interests().length > 0) {
+      @if (interestList().length > 0) {
         <div class="box-grid">
-          @for (interest of interests(); track $index) {
+          @for (interest of interestList(); track $index) {
             <div class="box-item">
               <p>{{ interest }}</p>
             </div>

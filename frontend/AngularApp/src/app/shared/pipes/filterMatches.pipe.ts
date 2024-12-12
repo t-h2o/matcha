@@ -41,8 +41,6 @@ export class FilterMatchesPipe implements PipeTransform {
         if (!currentUser.interests) {
           return matches;
         }
-        console.log('currentUser interests' + currentUser.toString());
-        console.log('matches interests' + matches[0].interests);
         return matches.sort((a, b) => {
           const commonInterestsA = a.interests
             ? currentUser.interests.filter((interest) =>
@@ -55,7 +53,6 @@ export class FilterMatchesPipe implements PipeTransform {
                 b.interests?.includes(interest),
               ).length
             : 0;
-          console.log(commonInterestsA, commonInterestsB);
           return commonInterestsB - commonInterestsA;
         });
 
