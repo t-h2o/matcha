@@ -4,7 +4,7 @@ from matcha.db.utils import (
 )
 
 
-def db_get_chat(id_user, id_other):
+def db_get_chat(id_user, id_other, username_getter, username_other):
     query = """
     SELECT id_sender, message, created_at FROM chat
     WHERE id_sender = %s
@@ -21,19 +21,17 @@ def db_get_chat(id_user, id_other):
     array = []
     for id_sender, message, timestamp in chats:
         if id_sender == id_user:
-            array.append(
-                {
-                    "my": message,
-                    "timestamp": timestamp.timestamp(),
-                }
-            )
+            sender = username_getter
         else:
-            array.append(
-                {
-                    "his": message,
-                    "timestamp": timestamp.timestamp(),
-                }
-            )
+            sender = username_other
+
+        array.append(
+            {
+                "sender": sender,
+                "timestamp": timestamp.timestamp(),
+                "message": message,
+            }
+        )
 
     return array
 

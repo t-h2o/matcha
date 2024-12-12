@@ -1,6 +1,6 @@
 from flask import jsonify
 
-from matcha.db.db import db_get_id_where_username
+from matcha.db.db import db_get_id_where_username, db_get_username_where_id
 
 from matcha.db.chat import (
     db_get_chat,
@@ -12,7 +12,8 @@ from matcha.app_utils import check_request_json
 
 def services_chat_get(id_user, username):
     id_other = db_get_id_where_username(username)[0]
-    return db_get_chat(id_user, id_other), 200
+    username_getter = db_get_username_where_id(id_user)
+    return db_get_chat(id_user, id_other, username_getter, username), 200
 
 
 def services_chat_post(id_user, request):
