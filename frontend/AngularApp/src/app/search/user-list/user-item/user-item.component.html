@@ -1,26 +1,24 @@
-<app-card>
-  <div class="user-item" (click)="onViewProfile(user.username)">
-    <div class="top">
-      <img
-        class="profile-pic"
-        [src]="'/dummy-pics/placeholderPic.jpg'"
-        alt="Profile Picture"
-      />
-      <h3 class="username" data-testid="username">{{ user.username }}</h3>
+<div class="user-item" (click)="onViewProfile(user.username)">
+  <div class="top">
+    <img
+      class="profile-pic"
+      [src]="'/dummy-pics/placeholderPic.jpg'"
+      alt="Profile Picture"
+    />
+    <h3 class="username" data-testid="username">{{ user.username }}</h3>
+  </div>
+
+  <div class="bottom">
+    <div class="info-block">
+      <p data-testid="firstname">{{ user.firstname }}</p>
+      <p data-testid="lastname">{{ user.lastname }}</p>
+      <p data-testid="age">{{ user.age }} years old</p>
     </div>
 
-    <div class="bottom">
-      <div class="info-block">
-        <p data-testid="firstname">{{ user.firstname }}</p>
-        <p data-testid="lastname">{{ user.lastname }}</p>
-        <p data-testid="age">{{ user.age }} years old</p>
-      </div>
-
-      <div class="info-block">
-        <p data-testid="gender">{{ gender }}</p>
-        <p data-testid="sexualPreference">{{ sexualPreference }}</p>
-        <div [innerHTML]="FameRatingStars"></div>
-      </div>
+    <div class="info-block">
+      <p data-testid="gender">{{ gender }}</p>
+      <p data-testid="sexualPreference">{{ sexualPreference }}</p>
+      <div [innerHTML]="FameRatingStars"></div>
     </div>
   </div>
-</app-card>
+</div>

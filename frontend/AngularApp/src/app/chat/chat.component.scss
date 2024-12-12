@@ -1,27 +1,25 @@
 @import "../../styles.scss";
 
-.inside-card {
-  min-width: 375px;
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   .title {
     text-align: center;
     color: $pink;
     margin-bottom: 3rem;
+  }
+
+  .contact-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    min-width: 375px;
 
     @media screen and (max-width: $mobile-max-width) {
-      text-align: left;
-      margin-left: 20%;
+      grid-template-columns: 1fr;
     }
-  }
-}
-
-.contact-list {
-  width: 75%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
-
-  @media screen and (max-width: $mobile-max-width) {
-    grid-template-columns: 1fr;
   }
 }

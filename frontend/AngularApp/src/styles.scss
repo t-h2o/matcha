@@ -172,19 +172,6 @@ body {
   }
 }
 
-.box-item {
-  min-width: 153px;
-  padding: 0.5rem;
-  border-radius: $border-radius;
-  border: 1px solid $pink;
-
-  p {
-    text-align: center;
-    font-weight: bold;
-    color: $pink;
-  }
-}
-
 .box-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
