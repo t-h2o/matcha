@@ -217,18 +217,21 @@ return an array
 [source,json]
 ----
 [
- {
-  "date" : 1
-  "my" : "first message"
- }
- {
-  "date" : 2
-  "his" : "second message"
- }
- {
-  "date" : 3
-  "his" : "third message"
- }
+  {
+    "date": 1,
+    "sender": "daphnee",
+    "message": "first message"
+  },
+  {
+    "date": 2,
+    "sender": "edythe",
+    "message": "second message"
+  },
+  {
+    "date": 3,
+    "sender": "edythe",
+    "message": "third message"
+  }
 ]
 ----
 
