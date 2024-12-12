@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { CardComponent } from '../../UI/card/card.component';
 import { UserService } from '../../shared/services/user.service';
 import { Router } from '@angular/router';
@@ -40,11 +40,8 @@ const personWhoVisitedYou: { username: string }[] = [
 export class RatingComponent {
   private userService = inject(UserService);
   private router = inject(Router);
-  user = this.userService.ownProfileData();
-
-  get personWhoLikedYou(): string[] {
-    return this.user.likedBy;
-  }
+  user = this.userService.ownProfileData;
+  likeByList = computed(() => this.user().likedBy);
 
   get personWhoVisitedYou(): { username: string }[] {
     return personWhoVisitedYou;
