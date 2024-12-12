@@ -20,7 +20,7 @@ def modify_profile_picture():
     return services_modify_profile_picture(id_user, request)
 
 
-@bp.route("/api/pictures", methods=("POST", "GET"))
+@bp.route("/api/pictures", methods=("POST", "GET", "DELETE"))
 @jwt_required()
 def modify_pictures():
     id_user = get_jwt_identity()

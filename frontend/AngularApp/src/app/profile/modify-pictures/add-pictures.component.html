@@ -1,5 +1,6 @@
 <div class="app-wrapper">
   <h3 class="title">Manage Pictures</h3>
+  <p class="sub-title">{{ subTitleString }}</p>
   <form class="modifyPic" id="modfiyPic" #form="ngForm">
     <div
       class="drag-drop-area"
@@ -13,9 +14,12 @@
         <img src="icons/drop-item-icon.svg" alt="Drop Icon" />
       </div>
     </div>
-    <p class="file-upload-option">or select picture from files</p>
     <div class="form-group">
-      <label for="pictures" class="custom-file-upload"> Upload Pictures </label>
+      @if (numberOfPicturesUploadable() > 0) {
+        <label for="pictures" class="custom-file-upload">
+          Upload Pictures
+        </label>
+      }
       <input
         type="file"
         id="pictures"
@@ -25,11 +29,11 @@
         style="display: none"
       />
 
-      @if (selectedPictures.length > 0) {
+      @if (selectedPictures().length > 0) {
         <div class="text">
           <p>Selected Files:</p>
           <ul>
-            @for (file of selectedPictures; track $index) {
+            @for (file of selectedPictures(); track $index) {
               <app-picture-preview [file]="file" (remove)="removeFile(file)" />
             }
           </ul>
