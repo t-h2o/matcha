@@ -1335,9 +1335,7 @@ def test_chat():
             "to": "another",
             "message": "Hi another",
         },
-        {
-            "ok": "",
-        },
+        {"message": "Hi another", "sender": "user", "timestamp": 1734042686.615507},
     )
     check_get_token(
         "/api/chat/another",
@@ -1360,9 +1358,7 @@ def test_chat():
             "to": "user",
             "message": "Hi user",
         },
-        {
-            "ok": "",
-        },
+        {"message": "Hi user", "sender": "another", "timestamp": 1734042655.928707},
     )
     check_login_token(
         "/api/login",
