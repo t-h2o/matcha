@@ -135,7 +135,10 @@ form {
 .btn-wrapper {
   min-width: 30rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-top: 2rem;
+  @media screen and (max-width: $mobile-max-width) {
+    justify-content: center;
+  }
 }
