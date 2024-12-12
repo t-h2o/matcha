@@ -1,13 +1,13 @@
 <div class="app-wrapper">
   <main class="main">
-    @if (notificationList().length === 0) {
+    @if (notificationList2().length === 0) {
       <div class="empty">
         <h3>No notifications</h3>
       </div>
     } @else {
       <app-display-notif
         [notificationList]="notificationListReversed()"
-        deleteNotification="onDeleteNotification($event)"
+        (onDeleteNotification)="onDeleteNotificationHandler($event)"
       ></app-display-notif>
     }
   </main>
