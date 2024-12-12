@@ -7,7 +7,7 @@ from flask_jwt_extended import (
 
 from matcha.app_utils import check_request_json
 
-from matcha.db.images import db_get_user_images, db_get_url_profile
+from matcha.db.pictures import db_get_user_images, db_get_url_profile
 
 from matcha.db.db import (
     db_get_interests,
