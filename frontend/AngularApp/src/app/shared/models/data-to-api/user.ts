@@ -61,7 +61,7 @@ export type UserData = {
   fameRating: number;
   urlProfile: string;
   pictures: string[];
-  interests?: string[];
+  interests: string[];
   isLiked?: boolean;
 };
 
@@ -75,6 +75,7 @@ export type PossibleMatchesUserData = {
   fameRating: number;
   urlProfile: string;
   isLiked?: boolean;
+  interests: string[];
 };
 
 export type chatContact = {

@@ -22,25 +22,17 @@ export class UserService {
   private toastService = inject(ToastService);
   private router = inject(Router);
 
-  interestList = signal<Interests>({ interests: [] });
   ownProfileData = signal<UserData>(emptyUser);
-
-  getInterests() {
-    this.httpService.getInterests().subscribe({
-      next: (data: Interests) => {
-        this.interestList.set(data);
-      },
-      error: (error: any) => {
-        const errorMessage = error?.message || 'An unknown error occurred';
-        this.toastService.show(errorMessage, 'error');
-      },
-    });
-  }
 
   modifyInterests(selectedTagsObj: Interests) {
     this.httpService.modifyInterestsRequest(selectedTagsObj).subscribe({
       next: (data: Interests) => {
-        this.interestList.set(data);
+        this.ownProfileData.update((prev) => {
+          return {
+            ...prev,
+            interests: data.interests,
+          };
+        });
       },
       error: (error: any) => {
         const errorMessage = error?.message || 'An unknown error occurred';
@@ -53,6 +45,7 @@ export class UserService {
     this.httpService.getUser().subscribe({
       next: (data: UserData) => {
         this.ownProfileData.update((prev) => {
+          console.log('data: ' + JSON.stringify(data));
           return {
             ...prev,
             username: data.username,
@@ -67,6 +60,7 @@ export class UserService {
             profile_complete: data.profile_complete,
             fameRating: data.fameRating,
             urlProfile: data.urlProfile,
+            interests: data.interests,
           };
         });
       },
@@ -78,32 +72,29 @@ export class UserService {
   }
 
   modifyUserProfile(userData: ModifyGeneralData) {
-    this.httpService
-      .modifyUser(userData)
-
-      .subscribe({
-        next: (data: ModifiedUserGeneral) => {
-          this.ownProfileData.update((prev) => {
-            return {
-              ...prev,
-              age: data.age,
-              bio: data.bio,
-              email: data.email,
-              firstName: data.firstname,
-              lastName: data.lastname,
-              selectedGender: data.selectedGender,
-              sexualPreference: data.sexualPreference,
-              emailVerified: data.email_verified,
-              fameRating: data.fameRating,
-              profile_complete: data.profile_complete,
-            };
-          });
-        },
-        error: (error: any) => {
-          const errorMessage = error?.message || 'An unknown error occurred';
-          this.toastService.show(errorMessage, 'error');
-        },
-      });
+    this.httpService.modifyUser(userData).subscribe({
+      next: (data: ModifiedUserGeneral) => {
+        this.ownProfileData.update((prev) => {
+          return {
+            ...prev,
+            age: data.age,
+            bio: data.bio,
+            email: data.email,
+            firstName: data.firstname,
+            lastName: data.lastname,
+            selectedGender: data.selectedGender,
+            sexualPreference: data.sexualPreference,
+            emailVerified: data.email_verified,
+            fameRating: data.fameRating,
+            profile_complete: data.profile_complete,
+          };
+        });
+      },
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
   }
 
   modifyEmail(userData: ModifiedUserEmail) {

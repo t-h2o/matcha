@@ -37,6 +37,25 @@ export class FilterMatchesPipe implements PipeTransform {
           return diffA - diffB;
         });
 
+      case 'interests':
+        if (!currentUser.interests) {
+          return matches;
+        }
+        return matches.sort((a, b) => {
+          const commonInterestsA = a.interests
+            ? currentUser.interests.filter((interest) =>
+                a.interests?.includes(interest),
+              ).length
+            : 0;
+
+          const commonInterestsB = b.interests
+            ? currentUser.interests.filter((interest) =>
+                b.interests?.includes(interest),
+              ).length
+            : 0;
+          return commonInterestsB - commonInterestsA;
+        });
+
       default:
         return matches;
     }

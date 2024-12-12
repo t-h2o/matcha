@@ -3,8 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { tags } from '../../shared/models/tags';
 import { UserService } from '../../shared/services/user.service';
-import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { CardComponent } from '../../UI/card/card.component';
+import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-modify-interests',
@@ -17,12 +17,12 @@ export class ModifyInterestsComponent implements OnInit {
   private router = inject(Router);
   private userService = inject(UserService);
 
-  interestList = this.userService.interestList;
+  interestList = this.userService.ownProfileData().interests;
   tagsList = tags;
   selectedTags: string[] = [];
 
   ngOnInit() {
-    this.selectedTags = [...this.interestList().interests];
+    this.selectedTags = [...this.interestList];
   }
 
   goBack() {

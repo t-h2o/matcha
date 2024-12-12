@@ -15,8 +15,8 @@ export class InterestsComponent {
   private router = inject(Router);
   private userServices = inject(UserService);
 
-  interestList = this.userServices.interestList;
-  interests = computed(() => this.interestList().interests);
+  ownProfile = this.userServices.ownProfileData;
+  interestList = computed(() => this.ownProfile().interests);
 
   goToModifyInterests = () => {
     this.router.navigate(['/modify-interests']);

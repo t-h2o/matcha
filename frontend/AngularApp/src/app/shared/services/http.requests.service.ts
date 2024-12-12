@@ -69,12 +69,6 @@ export class HttpRequestsService {
     );
   }
 
-  getInterests() {
-    return this.httpClient.get<{ interests: string[] }>(
-      `${this.baseUrl}/interests`,
-    );
-  }
-
   modifyPictures(pictures: File[]) {
     const formData = new FormData();
     pictures.forEach((picture) => formData.append('pictures', picture));

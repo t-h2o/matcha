@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { PotentialMatchService } from '../../shared/services/potentialMatch.service';
 import { UserItemComponent } from './user-item/user-item.component';
 import { UserService } from '../../shared/services/user.service';
@@ -17,7 +17,7 @@ export class UserListComponent {
   private userServices = inject(UserService);
   potentialMatches = this.potentialMatchService.potentialMatches;
 
-  currentUser = this.userServices.ownProfileData;
+  currentUser = computed(() => this.userServices.ownProfileData());
 
   onChangeTasksFilter(filter: string) {
     this.selectedFilter.set(filter);
