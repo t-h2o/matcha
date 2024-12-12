@@ -6,13 +6,13 @@ import { CustomButtonComponent } from '../../UI/custom-button/custom-button.comp
 import { PicturePreviewComponent } from './picture-preview/picture-preview.component';
 
 @Component({
-  selector: 'app-modify-pictures',
+  selector: 'app-add-pictures',
   standalone: true,
   imports: [FormsModule, CustomButtonComponent, PicturePreviewComponent],
-  templateUrl: './modify-pictures.component.html',
-  styleUrl: './modify-pictures.component.scss',
+  templateUrl: './add-pictures.component.html',
+  styleUrl: './add-pictures.component.scss',
 })
-export class ModifyPicturesComponent {
+export class AddPicturesComponent {
   private router = inject(Router);
   private userService = inject(UserService);
 

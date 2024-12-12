@@ -18,8 +18,8 @@ export class PicturesProfileComponent {
   userPictures = computed(() => this.userService.ownProfileData().pictures);
   profilePicture = computed(() => this.userService.ownProfileData().urlProfile);
 
-  goToModifyPictures = () => {
-    this.router.navigate(['/modify-pictures']);
+  goToAddPictures = () => {
+    this.router.navigate(['/add-pictures']);
   };
 
   get proPicture() {

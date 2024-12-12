@@ -12,7 +12,7 @@ import { ChatComponent } from './chat/chat.component';
 import { ModifyEmailComponent } from './profile/modify-email/modify-email.component';
 import { ModifyGeneralComponent } from './profile/modify-general/modify-general.component';
 import { ModifyInterestsComponent } from './profile/modify-interests/modify-interests.component';
-import { ModifyPicturesComponent } from './profile/modify-pictures/modify-pictures.component';
+import { AddPicturesComponent } from './profile/modify-pictures/add-pictures.component';
 import { ChatroomComponent } from './chat/chatroom/chatroom.component';
 import { NotificationComponent } from './notification/notification.component';
 import { DeleteConfirmationComponent } from './delete-confirmation/delete-confirmation.component';
@@ -45,8 +45,8 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'modify-pictures',
-    component: ModifyPicturesComponent,
+    path: 'add-pictures',
+    component: AddPicturesComponent,
     canActivate: [AuthGuard],
   },
   {
