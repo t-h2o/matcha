@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Message } from '../../shared/models/message';
+import { ChatMessageToBack, Message } from '../../shared/models/message';
 import { MessageService } from '../../shared/services/messsage.service';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { DisplayMessagesComponent } from './display-messages/display-messages.component';
@@ -67,15 +67,11 @@ export class ChatroomComponent implements AfterViewChecked, OnInit {
 
   sendMessage(): void {
     if (this.messageText !== '') {
-      const newMessage: Message = {
-        senderUsername: this.username(),
-        text: this.messageText,
+      const newMessage: ChatMessageToBack = {
+        to: this.username(),
+        message: this.messageText,
       };
-      this.messages.push({
-        id: this.messages.length + 1,
-        senderUsername: this.username(),
-        text: this.messageText,
-      });
+      console.log('newMessage: ' + JSON.stringify(newMessage));
       this.messageService.sendMsg(newMessage);
       this.messageText = '';
     }
