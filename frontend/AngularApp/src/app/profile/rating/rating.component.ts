@@ -3,21 +3,6 @@ import { CardComponent } from '../../UI/card/card.component';
 import { UserService } from '../../shared/services/user.service';
 import { Router } from '@angular/router';
 
-const personWhoLikedYou: { username: string }[] = [
-  {
-    username: 'cassandra123456',
-  },
-  {
-    username: 'brando',
-  },
-  {
-    username: 'candace',
-  },
-  {
-    username: 'alexandro',
-  },
-];
-
 const personWhoVisitedYou: { username: string }[] = [
   {
     username: 'cassandra',
@@ -57,8 +42,8 @@ export class RatingComponent {
   private router = inject(Router);
   user = this.userService.ownProfileData();
 
-  get personWhoLikedYou(): { username: string }[] {
-    return personWhoLikedYou;
+  get personWhoLikedYou(): string[] {
+    return this.user.likedBy;
   }
 
   get personWhoVisitedYou(): { username: string }[] {

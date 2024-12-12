@@ -63,6 +63,7 @@ export type UserData = {
   pictures: string[];
   interests: string[];
   isLiked?: boolean;
+  likedBy: string[];
 };
 
 export type PossibleMatchesUserData = {

@@ -24,6 +24,12 @@
     flex-direction: column;
   }
 
+  .no-one {
+    text-align: center;
+    font-size: $subtitle-font-size;
+    color: $pink;
+  }
+
   .box-item {
     min-width: 153px;
     padding: 0.5rem;

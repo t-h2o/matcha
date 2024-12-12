@@ -15,6 +15,7 @@ export const emptyUser: UserData = {
   profile_complete: false,
   fameRating: 4,
   interests: [],
+  likedBy: [],
 };
 
 export const testUser: UserData = {
@@ -32,4 +33,5 @@ export const testUser: UserData = {
   profile_complete: true,
   fameRating: 4,
   interests: [],
+  likedBy: [],
 };

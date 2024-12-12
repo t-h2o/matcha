@@ -61,6 +61,7 @@ export class UserService {
             fameRating: data.fameRating,
             urlProfile: data.urlProfile,
             interests: data.interests,
+            likedBy: data.likedBy,
           };
         });
       },
