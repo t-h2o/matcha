@@ -433,13 +433,14 @@ def test_pictures():
     )
     pictures = check_get_token_pictures("/api/pictures", 201, {"pictures": 5})
     check_put_token_pictures(
-        "/api/modify-profile-picture",
+        "/api/profile-picture",
         201,
         {
             "selectedPictures": pictures[1],
         },
         {"selectedPicture": 1},
     )
+    check_get_token_pictures("/api/profile-picture", 201, {"selectedPicture": 1})
     check_delete_token_body(
         "/api/pictures",
         201,

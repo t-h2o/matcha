@@ -6,22 +6,22 @@ from flask_jwt_extended import (
 )
 
 from matcha.services.pictures import (
-    services_modify_pictures,
-    services_modify_profile_picture,
+    services_pictures,
+    services_profile_picture,
 )
 
 bp = Blueprint("pictures", __name__)
 
 
-@bp.route("/api/modify-profile-picture", methods=("PUT", "GET"))
+@bp.route("/api/profile-picture", methods=("PUT", "GET"))
 @jwt_required()
-def modify_profile_picture():
+def profile_picture():
     id_user = get_jwt_identity()
-    return services_modify_profile_picture(id_user, request)
+    return services_profile_picture(id_user, request)
 
 
 @bp.route("/api/pictures", methods=("POST", "GET", "DELETE"))
 @jwt_required()
-def modify_pictures():
+def pictures():
     id_user = get_jwt_identity()
-    return services_modify_pictures(id_user, request)
+    return services_pictures(id_user, request)
