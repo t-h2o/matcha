@@ -2,6 +2,22 @@
 
 .user-item {
   cursor: pointer;
+  padding: 1.5rem;
+  border-radius: $border-radius;
+  border: 1px solid $pink;
+  transition: background-color 0.2s ease;
+  transition: border 0.2s ease;
+  max-width: 90%;
+  margin: auto;
+
+  &:hover {
+    background-color: lighten($color: $pink, $amount: 20);
+    border: 1px solid $green;
+  }
+
+  @media screen and (max-width: $mobile-max-width) {
+    padding: 1rem;
+  }
 
   .top {
     display: flex;
@@ -13,12 +29,22 @@
       width: 150px;
       height: 150px;
       border-radius: 50%;
+
+      @media screen and (max-width: $mobile-max-width) {
+        width: 70px;
+        height: 70px;
+      }
     }
 
     .username {
       font-size: 30px;
       margin-left: 3rem;
       color: $pink;
+
+      @media screen and (max-width: $mobile-max-width) {
+        font-size: 20px;
+        margin-left: 1rem;
+      }
     }
   }
 
@@ -32,11 +58,18 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      @media screen and (max-width: $mobile-max-width) {
+        justify-content: center;
+      }
 
       p {
         font-size: 20px;
         margin: 0.3rem;
         color: $pink;
+        @media screen and (max-width: $mobile-max-width) {
+          font-size: 18px;
+          margin-left: 0.5rem;
+        }
       }
     }
   }

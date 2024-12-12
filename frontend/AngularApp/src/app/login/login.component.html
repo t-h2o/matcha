@@ -1,33 +1,25 @@
 <div class="app-wrapper">
-  <main class="main">
-    <h1 class="title">Sip, Swipe, Spark!</h1>
-    <app-card>
-      <form class="form" #form="ngForm" (ngSubmit)="onSubmit(form)">
-        <h2 class="title">Login</h2>
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" required ngModel />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            required
-            ngModel
-          />
-          @if (falseCredentials()) {
-            <p class="error-msg">Wrong Username or Password.</p>
-          }
-        </div>
+  <h1 class="title">Sip, Swipe, Spark!</h1>
+  <div class="card">
+    <form class="form" #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <h2 class="title">Login</h2>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required ngModel />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required ngModel />
+        @if (falseCredentials()) {
+          <p class="error-msg">Wrong Username or Password.</p>
+        }
+      </div>
 
-        <button custom-button class="btn">Login</button>
-        <p>Don't have an account yet?</p>
-        <a routerLink="/register">Register</a>
-        <p>Forgot your password?</p>
-        <a routerLink="/reset-password">Reset Password</a>
-      </form>
-    </app-card>
-  </main>
+      <button custom-button class="btn">Login</button>
+      <p>Don't have an account yet?</p>
+      <a routerLink="/register">Register</a>
+      <p>Forgot your password?</p>
+      <a routerLink="/reset-password">Reset Password</a>
+    </form>
+  </div>
 </div>

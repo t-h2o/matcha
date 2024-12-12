@@ -2,7 +2,6 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
-import { CardComponent } from '../UI/card/card.component';
 import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
 import { AuthService } from '../shared/services/auth.service';
 import { HttpRequestsService } from '../shared/services/http.requests.service';
@@ -10,7 +9,7 @@ import { HttpRequestsService } from '../shared/services/http.requests.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CardComponent, CustomButtonComponent, FormsModule, RouterModule],
+  imports: [CustomButtonComponent, FormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

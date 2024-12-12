@@ -10,6 +10,9 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
+    @media screen and (max-width: $mobile-max-width) {
+      flex-direction: column;
+    }
   }
 
   .title {
@@ -17,6 +20,11 @@ header {
     font-size: $title-font-size;
     font-weight: 600;
     color: $pink;
+
+    @media screen and (max-width: $mobile-max-width) {
+      text-align: center;
+      margin: auto;
+    }
   }
 
   .filter-container {
@@ -25,6 +33,7 @@ header {
     gap: 1rem;
 
     @media screen and (max-width: $mobile-max-width) {
+      margin-top: 1rem;
       flex-direction: column;
     }
 
@@ -62,8 +71,13 @@ header {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
+  max-width: 90%;
+  margin: auto;
 
   @media screen and (max-width: $mobile-max-width) {
     grid-template-columns: 1fr;
+    max-width: 90%;
+    margin: auto;
+    overflow: hidden;
   }
 }

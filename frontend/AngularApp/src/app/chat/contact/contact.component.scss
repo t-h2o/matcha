@@ -1,13 +1,20 @@
 @import "../../../styles.scss";
 
 .contact-card {
-  border-radius: 8px;
-  padding: 1rem;
-  border-width: 2px;
-  border-color: $pink;
-  border-style: solid;
   overflow: hidden;
   width: 281px;
+  cursor: pointer;
+  padding: 1.5rem;
+  border-radius: $border-radius;
+  border: 1px solid $pink;
+  transition: background-color 0.2s ease;
+  transition: border 0.2s ease;
+  margin: 0 auto;
+
+  &:hover {
+    background-color: lighten($color: $pink, $amount: 20);
+    border: 1px solid $green;
+  }
 
   .top {
     display: flex;
