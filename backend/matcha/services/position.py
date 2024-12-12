@@ -8,7 +8,7 @@ from werkzeug.security import check_password_hash
 
 from matcha.db.position import db_update_address, db_update_position, db_get_position
 
-from matcha.app_utils import check_request_json
+from matcha.utils import check_request_json
 
 from matcha.geoapi.latlon_to_address import latlon_to_address
 
