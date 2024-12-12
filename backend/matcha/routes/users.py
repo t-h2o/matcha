@@ -8,18 +8,18 @@ from flask_jwt_extended import (
 from matcha.services.users import (
     services_delete_me,
     services_modify_email,
-    services_users,
+    services_profile,
 )
 
 
 bp = Blueprint("users", __name__)
 
 
-@bp.route("/api/users", methods=("PUT", "GET"))
+@bp.route("/api/profile", methods=("PUT", "GET"))
 @jwt_required()
 def users():
     id_user = get_jwt_identity()
-    return services_users(id_user, request)
+    return services_profile(id_user, request)
 
 
 @bp.route("/api/email", methods=("PUT", "GET"))

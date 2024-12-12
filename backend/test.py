@@ -36,7 +36,7 @@ def test_create_another_user():
         {"username": "another", "password": "5678"},
     )
     check_put_token(
-        "/api/users",
+        "/api/profile",
         200,
         {
             "age": "18",
@@ -237,7 +237,7 @@ def test_login():
 
 def test_update():
     check_get_token(
-        "/api/users",
+        "/api/profile",
         200,
         {
             "age": None,
@@ -257,7 +257,7 @@ def test_update():
         },
     )
     check_put_token(
-        "/api/users",
+        "/api/profile",
         400,
         {"email": "b@b.com"},
         {
@@ -265,7 +265,7 @@ def test_update():
         },
     )
     check_put_token(
-        "/api/users",
+        "/api/profile",
         200,
         {
             "age": "22",
@@ -293,7 +293,7 @@ def test_update():
         },
     )
     check_put_token(
-        "/api/users",
+        "/api/profile",
         200,
         {
             "age": 22,
@@ -306,13 +306,13 @@ def test_update():
         {"error": "value too long for type character(1)\n"},
     )
     check_put(
-        "/api/users",
+        "/api/profile",
         401,
         {"firstname": "Johnny"},
         {"msg": "Missing Authorization Header"},
     )
     check_get_token(
-        "/api/users",
+        "/api/profile",
         200,
         {
             "age": 22,
@@ -332,7 +332,7 @@ def test_update():
         },
     )
     check_get_token(
-        "/api/users?username=another",
+        "/api/profile?username=another",
         200,
         {
             "age": 18,

@@ -29,7 +29,7 @@ from matcha.db.like import db_get_is_liked, db_get_list_liked_by
 from matcha.app_utils import check_request_json
 
 
-def _users_put(id_user, request):
+def _profile_put(id_user, request):
     json = request.json
 
     check_request = check_request_json(
@@ -52,11 +52,11 @@ def _users_put(id_user, request):
     )
 
 
-def services_users(id_user, request):
+def services_profile(id_user, request):
     id_user = get_jwt_identity()
 
     if request.method == "PUT":
-        error_msg = _users_put(id_user, request)
+        error_msg = _profile_put(id_user, request)
         if error_msg:
             return error_msg
 
