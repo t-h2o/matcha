@@ -141,4 +141,10 @@ export class HttpRequestsService {
   deleteAccount() {
     return this.httpClient.get(`${this.baseUrl}/deleteme`);
   }
+
+  getAllMsgByUsername(username: string) {
+    return this.httpClient.get<UserData>(
+      `${this.baseUrl}/chat?${username}`,
+    );
+  }
 }

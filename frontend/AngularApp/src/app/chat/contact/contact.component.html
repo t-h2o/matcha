@@ -1,7 +1,7 @@
 <div class="contact-card" (click)="onClickContact()">
   <div class="top">
     <div class="image-container">
-      <img src="{{ contact.profilePicture }}" alt="{{ contact.username }}" />
+      <img src="{{ contact.urlProfile }}" alt="{{ contact.username }}" />
     </div>
     <div class="info">
       <h3>{{ contact.username }}</h3>
@@ -10,10 +10,10 @@
 
   <div class="bottom" (click)="onClickContact()">
     <div class="info">
-      <p>{{ contact.firstName }}</p>
+      <p>{{ contact.firstname }}</p>
     </div>
     <div class="info">
-      <p>{{ contact.lastName }}</p>
+      <p>{{ contact.lastname }}</p>
     </div>
   </div>
 </div>

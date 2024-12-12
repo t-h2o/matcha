@@ -4,6 +4,7 @@ import {
   ElementRef,
   inject,
   input,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -42,12 +43,16 @@ const DummyChat = [
   templateUrl: './chatroom.component.html',
   styleUrl: './chatroom.component.scss',
 })
-export class ChatroomComponent implements AfterViewChecked {
+export class ChatroomComponent implements AfterViewChecked, OnInit {
   @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
   messageService = inject(MessageService);
   username = input.required<string>();
   messages: Message[] = DummyChat;
   messageText = '';
+
+  ngOnInit(): void {
+    this.messageService.getAllMessages(this.username());
+  }
 
   ngAfterViewChecked() {
     this.scrollToBottom();
@@ -71,7 +76,7 @@ export class ChatroomComponent implements AfterViewChecked {
         senderUsername: this.username(),
         text: this.messageText,
       });
-      this.messageService.add(newMessage);
+      this.messageService.sendMsg(newMessage);
       this.messageText = '';
     }
   }
