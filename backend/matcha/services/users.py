@@ -24,7 +24,7 @@ from matcha.db.db import (
     db_get_url_profile,
 )
 
-from matcha.db.like import db_get_is_liked
+from matcha.db.like import db_get_is_liked, db_get_list_liked_by
 
 from matcha.app_utils import check_request_json
 
@@ -66,6 +66,7 @@ def services_users(id_user, request):
         user_db = db_get_user_per_id(id_user)
         profile_picture = db_get_url_profile(id_user)
         interests = db_get_interests(id_user)
+        liked_by = db_get_list_liked_by(id_user)
 
         if "url" in profile_picture:
             profile_url = url = profile_picture["url"]
@@ -87,6 +88,7 @@ def services_users(id_user, request):
                 fameRating=user_db[10],
                 urlProfile=profile_url,
                 interests=interests,
+                likedBy=liked_by,
             ),
             200,
         )
