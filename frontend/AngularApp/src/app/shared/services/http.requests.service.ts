@@ -13,7 +13,11 @@ import {
   UserRegister,
 } from '../models/data-to-api/user';
 import { token } from '../models/token';
-import { Notification } from '../models/message';
+import {
+  ChatMessageFromBack,
+  ChatMessageToBack,
+  Notification,
+} from '../models/message';
 
 @Injectable({
   providedIn: 'root',
@@ -143,8 +147,13 @@ export class HttpRequestsService {
   }
 
   getAllMsgByUsername(username: string) {
-    return this.httpClient.get<UserData>(
-      `${this.baseUrl}/chat?${username}`,
+    return this.httpClient.get(`${this.baseUrl}/chat/${username}`);
+  }
+
+  sendMessage(message: ChatMessageToBack) {
+    return this.httpClient.post<ChatMessageFromBack>(
+      `${this.baseUrl}/chat`,
+      message,
     );
   }
 }

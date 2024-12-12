@@ -11,9 +11,14 @@ export type Notification = {
   date: string;
 };
 
-export type ChatMessage = {
+export type ChatMessageFromBack = {
   id: number;
   date: string;
   sender: string;
-  content: string;
+  message: string;
+};
+
+export type ChatMessageToBack = {
+  to: string;
+  message: string;
 };

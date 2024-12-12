@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { ChatMessage, Message } from '../models/message';
+import { ChatMessageFromBack, ChatMessageToBack } from '../models/message';
 import { HttpRequestsService } from './http.requests.service';
 import { ToastService } from './toast.service';
 
@@ -8,17 +8,28 @@ import { ToastService } from './toast.service';
 })
 export class MessageService {
   private httpService = inject(HttpRequestsService);
-    private toastService = inject(ToastService);
-  messages = signal<ChatMessage[]>([]);
+  private toastService = inject(ToastService);
+  messages = signal<ChatMessageFromBack[]>([]);
 
-  sendMsg(message: Message) {
-    // send message to server
+  sendMsg(message: ChatMessageToBack) {
+    this.httpService.sendMessage(message).subscribe({
+      next: (data: ChatMessageFromBack) => {
+        console.log('data: ' + JSON.stringify(data));
+        // this.messages.update((prev) => {
+        //   return [...prev, data];
+        // });
+      },
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
   }
 
   getAllMessages(username: string) {
     this.httpService.getAllMsgByUsername(username).subscribe({
       next: (data: any) => {
-        console.log("data" + JSON.stringify(data));
+        console.log('data' + JSON.stringify(data));
         this.messages.update(() => data);
       },
       error: (error: any) => {
@@ -26,5 +37,5 @@ export class MessageService {
         this.toastService.show(errorMessage, 'error');
       },
     });
-  };
+  }
 }
