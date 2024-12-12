@@ -247,6 +247,17 @@ return an array
 }
 ----
 
+the api return the current post message
+
+[source,json]
+----
+{
+  "date": 4,
+  "sender": "edythe",
+  "message": "fourth message"
+}
+----
+
 ==== DB
 
 [source,sql]
