@@ -80,7 +80,7 @@ export class HttpRequestsService {
 
   modifyProfilePicture(selectedPictures: string) {
     return this.httpClient.put<{ selectedPicture: string }>(
-      `${this.baseUrl}/modify-profile-picture`,
+      `${this.baseUrl}/profile-picture`,
       {
         selectedPictures,
       },
