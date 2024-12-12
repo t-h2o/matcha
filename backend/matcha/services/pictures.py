@@ -32,7 +32,7 @@ def _modify_profile_picture_put(id_user, request):
     return db_set_profile_picture(id_user, json["selectedPictures"])
 
 
-def services_modify_profile_picture(id_user, request):
+def services_profile_picture(id_user, request):
     if request.method == "PUT":
         error_msg = _modify_profile_picture_put(id_user, request)
         if error_msg:
@@ -80,7 +80,7 @@ def picture_delete(id_user: int, request):
     db_delete_pictures(id_user, request.json["url"])
 
 
-def services_modify_pictures(id_user, request):
+def services_pictures(id_user, request):
     if request.method == "POST":
         error_msg = picture_post(id_user, request)
         if error_msg:
