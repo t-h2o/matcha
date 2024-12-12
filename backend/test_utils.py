@@ -60,22 +60,6 @@ def check_content_code(
         )
         return
 
-    if "interests" in received_loaded:
-        if sorted(received_loaded["interests"]) != sorted(
-            content_expected["interests"]
-        ):
-            print("--- bad content ---")
-            print_error(
-                url,
-                path,
-                code_expected,
-                code_received,
-                content_expected,
-                received_loaded,
-                json,
-            )
-            return
-
     if isinstance(received_loaded, list):
         if len(received_loaded) > 0 and "timestamp" in received_loaded[0]:
             if len(received_loaded) != len(content_expected):

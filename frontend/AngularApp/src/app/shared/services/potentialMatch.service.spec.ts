@@ -56,7 +56,7 @@ describe('PotentialMatchService', () => {
     it('should call getUserByUsername with the correct URL and data and receive a user', () => {
       potentialMatchService.getUserProfileByUsername('test');
       const req = httpTestingController.expectOne(
-        'http://localhost:5001/api/users?username=test',
+        'http://localhost:5001/api/profile?username=test',
       );
       expect(req.request.method).toEqual('GET');
     });
