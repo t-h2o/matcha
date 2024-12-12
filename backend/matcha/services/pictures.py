@@ -7,12 +7,13 @@ from werkzeug.utils import secure_filename
 
 from matcha.app_utils import check_request_json, make_unique
 
-from matcha.db.db import (
-    db_upload_pictures,
+from matcha.db.pictures import (
     db_get_user_images,
+    db_upload_pictures,
     db_set_profile_picture,
     db_get_url_profile,
     db_count_number_image,
+    db_delete_pictures,
 )
 
 
@@ -66,9 +67,27 @@ def picture_post(user_id, request):
     db_upload_pictures(user_id, filenames)
 
 
+def picture_delete(id_user: int, request):
+    check_request = check_request_json(
+        request.headers.get("Content-Type"),
+        request.json,
+        ["url"],
+    )
+
+    if check_request is not None:
+        return jsonify(check_request[0]), check_request[1]
+
+    db_delete_pictures(id_user, request.json["url"])
+
+
 def services_modify_pictures(id_user, request):
     if request.method == "POST":
         error_msg = picture_post(id_user, request)
+        if error_msg:
+            return error_msg
+
+    elif request.method == "DELETE":
+        error_msg = picture_delete(id_user, request)
         if error_msg:
             return error_msg
 

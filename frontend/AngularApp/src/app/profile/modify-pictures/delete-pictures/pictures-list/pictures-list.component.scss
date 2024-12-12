@@ -1,0 +1,28 @@
+@import "../../../../../styles.scss";
+
+.item-container {
+  cursor: pointer;
+  list-style: none;
+  margin: 0.5rem;
+  max-width: 300px;
+
+  .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .image-preview {
+      height: 150px;
+      width: 150px;
+    }
+
+    .img-delete {
+      margin-left: 2rem;
+      margin-top: 3rem;
+      padding-top: 0.7rem;
+      font-size: 1.5rem;
+      text-align: center;
+      color: $pink;
+    }
+  }
+}

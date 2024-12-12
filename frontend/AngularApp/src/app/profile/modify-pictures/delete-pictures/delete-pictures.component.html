@@ -1,0 +1,21 @@
+<div class="app-wrapper">
+  <h3 class="title">Manage Pictures</h3>
+  <form class="modifyPic" id="modfiyPic" #form="ngForm">
+    <div class="form-group">
+      @if (selectedPictures().length > 0) {
+        <div>
+          <ul>
+            @for (file of selectedPictures(); track $index) {
+              <app-pictures-list [file]="file" (remove)="removeFile(file)" />
+            }
+          </ul>
+        </div>
+      }
+    </div>
+    <div class="btn-wrapper">
+      <button type="button" custom-button class="btn" (click)="goBack()">
+        Back
+      </button>
+    </div>
+  </form>
+</div>

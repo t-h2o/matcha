@@ -1,0 +1,40 @@
+@import "../../../../styles.scss";
+
+.title {
+  text-align: center;
+  margin: 2rem 0;
+  color: $pink;
+}
+
+.sub-title {
+  text-align: center;
+  margin: 1rem 0;
+  color: $green;
+}
+
+.modifyPic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 350px;
+  margin: 0 auto;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .btn-wrapper {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+
+    .btn {
+      margin: 3rem auto 1rem auto;
+    }
+  }
+}

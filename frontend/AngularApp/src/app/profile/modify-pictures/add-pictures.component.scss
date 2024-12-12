@@ -6,6 +6,12 @@
   color: $pink;
 }
 
+.sub-title {
+  text-align: center;
+  margin: 1rem 0;
+  color: $green;
+}
+
 .modifyPic {
   display: flex;
   justify-content: center;
@@ -61,6 +67,11 @@
     justify-content: space-between;
     .btn {
       margin: 3rem auto 1rem auto;
+    }
+    .disabled {
+      cursor: not-allowed;
+      background-color: $pink;
+      color: $green;
     }
   }
 

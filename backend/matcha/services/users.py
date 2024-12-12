@@ -9,11 +9,18 @@ from flask_jwt_extended import (
 
 from matcha.app_utils import check_request_json
 
-from matcha.db.db import (
-    db_set_user_email,
-    db_get_user_email,
-    db_delete_user,
+from matcha.db.pictures import (
     db_get_user_images,
+    db_get_url_profile,
+)
+
+from matcha.db.db import (
+    db_set_user_profile_data,
+    db_get_user_per_id,
+    db_get_user_per_username,
+    db_delete_user,
+    db_get_user_email,
+    db_set_user_email,
 )
 
 from matcha.db.like import db_get_is_liked, db_get_list_liked_by
@@ -57,7 +64,10 @@ def _wipe_user_image(id_user):
         if filename == "avatar.png":
 
             continue
-        remove("uploads/" + filename)
+        try:
+            remove("uploads/" + filename)
+        except:
+            pass
 
 
 def services_delete_me(id_user):
