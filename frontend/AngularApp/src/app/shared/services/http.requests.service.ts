@@ -87,11 +87,11 @@ export class HttpRequestsService {
     );
   }
 
-  deletePicture(pictureName: string) {
-    console.log('httprequest send: ' + pictureName);
+  deletePicture(url: string) {
+    console.log('httprequest send: ' + url);
     return this.httpClient.delete<{ pictures: string }>(
       `${this.baseUrl}/pictures`,
-      { body: { pictureName } },
+      { body: { url } },
     );
   }
 
