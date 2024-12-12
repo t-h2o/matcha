@@ -2,13 +2,17 @@
   <div class="container">
     <p class="rating-item-p">Liked by</p>
     <div class="group">
-      <div class="box-grid">
-        @for (person of personWhoLikedYou; track person.username) {
-          <div class="box-item" (click)="onClickHandler(person.username)">
-            <p>{{ person.username }}</p>
-          </div>
-        }
-      </div>
+      @if (personWhoLikedYou.length === 0) {
+        <p class="no-one">No one has liked you so far 🥲</p>
+      } @else {
+        <div class="box-grid">
+          @for (name of personWhoLikedYou; track name) {
+            <div class="box-item" (click)="onClickHandler(name)">
+              <p>{{ name }}</p>
+            </div>
+          }
+        </div>
+      }
     </div>
 
     <p class="rating-item-p">Visited by</p>
