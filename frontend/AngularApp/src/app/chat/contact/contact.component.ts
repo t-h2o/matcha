@@ -10,7 +10,7 @@ import { PossibleMatchesUserData } from '../../shared/models/data-to-api/user';
   styleUrl: './contact.component.scss',
 })
 export class ContactComponent {
-  @Input({ required: true }) contact!: PossibleMatchesUserData
+  @Input({ required: true }) contact!: PossibleMatchesUserData;
   private router = inject(Router);
 
   onClickContact() {
