@@ -91,7 +91,7 @@ export class HttpRequestsService {
     console.log('httprequest send: ' + url);
     return this.httpClient.delete<{ pictures: string }>(
       `${this.baseUrl}/pictures`,
-      { body: { url } },
+      { body: {"url":  [url]  }},
     );
   }
 
