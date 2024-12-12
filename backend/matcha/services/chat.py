@@ -7,7 +7,7 @@ from matcha.db.chat import (
     db_post_chat,
 )
 
-from matcha.app_utils import check_request_json
+from matcha.utils import check_request_json
 
 
 def services_chat_get(id_user, username):

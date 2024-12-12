@@ -8,7 +8,7 @@ from werkzeug.security import check_password_hash
 
 from matcha.db.db import db_get_id_password_where_username
 
-from matcha.app_utils import check_request_json
+from matcha.utils import check_request_json
 
 
 def service_login_user(request):

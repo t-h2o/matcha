@@ -5,7 +5,7 @@ from flask_socketio import send  # TODO remove me
 from matcha.db.db import db_get_interests
 from matcha.db.db import db_set_interests
 
-from matcha.app_utils import check_request_json_values
+from matcha.utils import check_request_json_values
 
 from matcha.websocket.socket_manager import SocketManager  # TODO remove me
 
