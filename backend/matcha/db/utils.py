@@ -2,7 +2,7 @@ from os import environ
 
 from psycopg2 import connect
 
-from psycopg2.errors import UniqueViolation
+from psycopg2.errors import UniqueViolation, InvalidTextRepresentation
 
 from contextlib import contextmanager
 
@@ -42,6 +42,8 @@ def db_query(query, arguments):
                 conn.commit()
             except UniqueViolation as e:
                 return {"error": "UniqueViolation " + str(e)}
+            except InvalidTextRepresentation as e:
+                return {"error": "InvalidTextRepresentation"}
             except conn.IntegrityError as e:
                 return {"error": "IntegrityError " + str(e)}
             except Exception as e:

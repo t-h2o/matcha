@@ -16,6 +16,10 @@ CREATE TABLE IF NOT EXISTS users (
     fame_rating INTEGER DEFAULT 0 CHECK (
         fame_rating >= 0 AND fame_rating <= 10
     ),
+    street_name VARCHAR DEFAULT NULL,
+    street_number VARCHAR DEFAULT NULL,
+    city VARCHAR DEFAULT NULL,
+    country VARCHAR DEFAULT NULL,
     latitude DOUBLE PRECISION DEFAULT NULL,
     longitude DOUBLE PRECISION DEFAULT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT now()

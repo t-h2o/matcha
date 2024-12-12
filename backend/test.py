@@ -1293,6 +1293,31 @@ def test_notification():
     _test_delete_notification()
 
 
+def test_position():
+    check_get_token(
+        "/api/position",
+        201,
+        {"latitude": None, "longitude": None},
+    )
+    check_post_token(
+        "/api/position",
+        201,
+        {"latitude": 46.532327, "longitude": 6.591987},
+        {"latitude": 46.532327, "longitude": 6.591987},
+    )
+    check_post_token(
+        "/api/position",
+        422,
+        {"latitude": "no a float", "longitude": 999},
+        {"error": "bad input"},
+    )
+    check_get_token(
+        "/api/position",
+        201,
+        {"latitude": 46.532327, "longitude": 6.591987},
+    )
+
+
 def main():
     test_register()
     test_create_another_user()
@@ -1302,6 +1327,7 @@ def main():
     test_pictures()
     test_email()
     test_reset_password()
+    test_position()
     test_browsing()
     test_like_user()
     test_notification()
