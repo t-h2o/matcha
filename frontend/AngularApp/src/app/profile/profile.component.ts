@@ -39,15 +39,25 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  private profileCompleteOverride = false;
+
+  get ProfileComplete(): boolean {
+    if (this.profileCompleteOverride) {
+      return true;
+    }
+    return this.userServices.ownProfileData().profile_complete;
+  }
+
   ngOnInit(): void {
     this.userServices.getUserProfile();
     this.userServices.getUserPictures();
     if (!this.ProfileComplete && this.location().latitude === 999) {
       this.getLocation();
     }
-  }
 
-  get ProfileComplete(): boolean {
-    return this.userServices.ownProfileData().profile_complete;
+    this.profileCompleteOverride = true;
+    setTimeout(() => {
+      this.profileCompleteOverride = false;
+    }, 500);
   }
 }
