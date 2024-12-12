@@ -12,7 +12,7 @@ from matcha.db.notification import db_put_notification
 from matcha.db.like import (
     db_put_dislike_user,
     db_put_like_user,
-    db_get_liker_username,
+    db_get_list_liked_by,
     db_get_is_liked,
 )
 
@@ -20,7 +20,7 @@ from matcha.websocket.socket_manager import SocketManager
 
 
 def services_like_user_get(id_user):
-    return db_get_liker_username(id_user)
+    return db_get_list_liked_by(id_user)
 
 
 def services_like_user(id_user, request):

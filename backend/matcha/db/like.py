@@ -7,7 +7,7 @@ from matcha.db.utils import (
 )
 
 
-def db_get_liker_username(id_user):
+def db_get_list_liked_by(id_user: int):
     query = """
     SELECT username FROM users
     WHERE users.id
