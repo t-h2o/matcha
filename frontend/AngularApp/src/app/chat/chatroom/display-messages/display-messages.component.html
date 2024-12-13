@@ -1,15 +1,15 @@
 <div class="chat-container">
   <div class="messages">
-    @for (msg of messages; track msg.id) {
+    @for (msg of messages(); track msg.timestamp) {
       <div
         class="message"
         data-testid="message"
         [ngClass]="{
-          myText: msg.senderUsername === username,
-          otherText: msg.senderUsername !== username,
+          myText: msg.sender === username,
+          otherText: msg.sender !== username,
         }"
       >
-        {{ msg.text }}
+        {{ msg.message }}
       </div>
     }
   </div>

@@ -12,8 +12,7 @@ export type Notification = {
 };
 
 export type ChatMessageFromBack = {
-  id: number;
-  date: string;
+  timestamp: string;
   sender: string;
   message: string;
 };

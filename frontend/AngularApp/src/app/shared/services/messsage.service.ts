@@ -14,10 +14,9 @@ export class MessageService {
   sendMsg(message: ChatMessageToBack) {
     this.httpService.sendMessage(message).subscribe({
       next: (data: ChatMessageFromBack) => {
-        console.log('data: ' + JSON.stringify(data));
-        // this.messages.update((prev) => {
-        //   return [...prev, data];
-        // });
+        this.messages.update((prev) => {
+          return [...prev, data];
+        });
       },
       error: (error: any) => {
         const errorMessage = error?.message || 'An unknown error occurred';
@@ -29,7 +28,6 @@ export class MessageService {
   getAllMessages(username: string) {
     this.httpService.getAllMsgByUsername(username).subscribe({
       next: (data: any) => {
-        console.log('data' + JSON.stringify(data));
         this.messages.update(() => data);
       },
       error: (error: any) => {
