@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
-import { Message } from '../../../shared/models/message';
+import { Component, inject, input, Input, OnInit } from '@angular/core';
+import { ChatMessageFromBack, Message } from '../../../shared/models/message';
 import { UserService } from '../../../shared/services/user.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { UserService } from '../../../shared/services/user.service';
   styleUrl: './display-messages.component.scss',
 })
 export class DisplayMessagesComponent implements OnInit {
-  @Input() messages: Message[] = [];
+  messages = input<ChatMessageFromBack[]>([]);
   private userService = inject(UserService);
 
   ngOnInit(): void {

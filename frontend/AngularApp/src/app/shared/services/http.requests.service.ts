@@ -13,7 +13,11 @@ import {
   UserRegister,
 } from '../models/data-to-api/user';
 import { token } from '../models/token';
-import { Notification } from '../models/message';
+import {
+  ChatMessageFromBack,
+  ChatMessageToBack,
+  Notification,
+} from '../models/message';
 
 @Injectable({
   providedIn: 'root',
@@ -140,5 +144,16 @@ export class HttpRequestsService {
 
   deleteAccount() {
     return this.httpClient.get(`${this.baseUrl}/deleteme`);
+  }
+
+  getAllMsgByUsername(username: string) {
+    return this.httpClient.get(`${this.baseUrl}/chat/${username}`);
+  }
+
+  sendMessage(message: ChatMessageToBack) {
+    return this.httpClient.post<ChatMessageFromBack>(
+      `${this.baseUrl}/chat`,
+      message,
+    );
   }
 }

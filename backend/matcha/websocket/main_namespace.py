@@ -2,7 +2,7 @@ from flask import request
 from flask_jwt_extended import decode_token
 from flask_socketio import Namespace, emit
 
-from matcha.app_utils import flaskprint
+from matcha.utils import flaskprint
 
 from matcha.websocket.socket_manager import SocketManager
 

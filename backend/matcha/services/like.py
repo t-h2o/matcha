@@ -2,7 +2,7 @@ from flask import jsonify
 
 from flask_socketio import emit
 
-from matcha.app_utils import check_request_json_values
+from matcha.utils import check_request_json_values
 
 from matcha.db.db import db_get_id_where_username
 from matcha.db.db import db_get_username_where_id

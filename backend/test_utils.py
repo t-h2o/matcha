@@ -61,7 +61,11 @@ def check_content_code(
         return
 
     if isinstance(received_loaded, list):
-        if len(received_loaded) > 0 and "timestamp" in received_loaded[0]:
+        if (
+            len(received_loaded) > 0
+            and isinstance(received_loaded[0], dict)
+            and "timestamp" in received_loaded[0]
+        ):
             if len(received_loaded) != len(content_expected):
                 print("--- bad content ---")
                 print_error(
@@ -78,7 +82,20 @@ def check_content_code(
                 for key in notification:
                     if key == "timestamp" or key == "id":
                         continue
-                    if notification[key] != content_expected[index][key]:
+                    try:
+                        if notification[key] != content_expected[index][key]:
+                            print("--- bad content ---")
+                            print_error(
+                                url,
+                                path,
+                                code_expected,
+                                code_received,
+                                content_expected,
+                                received_loaded,
+                                json,
+                            )
+                            return
+                    except:
                         print("--- bad content ---")
                         print_error(
                             url,

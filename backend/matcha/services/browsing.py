@@ -10,7 +10,7 @@ from matcha.db.pictures import (
 
 from matcha.db.browsing import db_browsing_gender_sexualorientation
 
-from matcha.app_utils import check_request_json
+from matcha.utils import check_request_json
 
 MAX_AGE_GAP = 31
 MAX_FAME_GAP = 5

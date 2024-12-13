@@ -206,6 +206,71 @@ On `/api/postition` example of payload
 }
 ----
 
+=== Chat
+
+==== GET
+
+`/api/chat/username`
+
+return an array
+
+[source,json]
+----
+[
+  {
+    "date": 1,
+    "sender": "daphnee",
+    "message": "first message"
+  },
+  {
+    "date": 2,
+    "sender": "edythe",
+    "message": "second message"
+  },
+  {
+    "date": 3,
+    "sender": "edythe",
+    "message": "third message"
+  }
+]
+----
+
+==== POST
+
+`/api/chat`
+
+[source,json]
+----
+{
+ "to": "other"
+ "message": "Hi!"
+}
+----
+
+the api return the current post message
+
+[source,json]
+----
+{
+  "date": 4,
+  "sender": "edythe",
+  "message": "fourth message"
+}
+----
+
+==== DB
+
+[source,sql]
+----
+CREATE TABLE IF NOT EXISTS chat (
+    id SERIAL PRIMARY KEY,
+    id_sender INTEGER REFERENCES users (id) ON DELETE CASCADE,
+    id_receiver INTEGER REFERENCES users (id) ON DELETE CASCADE,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+);
+----
+
 == Debug
 
 === JWT Error: Subject must be a string!

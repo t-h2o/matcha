@@ -1319,6 +1319,62 @@ def test_position():
     )
 
 
+def test_chat():
+    check_login_token(
+        "/api/login",
+        {"username": "user", "password": "1234"},
+    )
+    check_get_token(
+        "/api/chat/another",
+        200,
+        [],
+    )
+    check_post_token(
+        "/api/chat",
+        201,
+        {
+            "to": "another",
+            "message": "Hi another",
+        },
+        {"message": "Hi another", "sender": "user", "timestamp": 1734042686.615507},
+    )
+    check_get_token(
+        "/api/chat/another",
+        200,
+        [{"message": "Hi another", "sender": "user", "timestamp": 1734008116.142995}],
+    )
+    check_login_token(
+        "/api/login",
+        {"username": "another", "password": "5678"},
+    )
+    check_get_token(
+        "/api/chat/user",
+        200,
+        [{"message": "Hi another", "sender": "user", "timestamp": 1734008187.052514}],
+    )
+    check_post_token(
+        "/api/chat",
+        201,
+        {
+            "to": "user",
+            "message": "Hi user",
+        },
+        {"message": "Hi user", "sender": "another", "timestamp": 1734042655.928707},
+    )
+    check_login_token(
+        "/api/login",
+        {"username": "user", "password": "1234"},
+    )
+    check_get_token(
+        "/api/chat/another",
+        200,
+        [
+            {"message": "Hi another", "sender": "user", "timestamp": 1734008187.052514},
+            {"message": "Hi user", "sender": "another", "timestamp": 1734008187.249586},
+        ],
+    )
+
+
 def main():
     test_register()
     test_create_another_user()
@@ -1332,6 +1388,7 @@ def main():
     test_browsing()
     test_like_user()
     test_notification()
+    test_chat()
     test_deleteme()
 
 

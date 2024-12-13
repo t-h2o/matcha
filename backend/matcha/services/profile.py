@@ -5,7 +5,7 @@ from flask_jwt_extended import (
     get_jwt_identity,
 )
 
-from matcha.app_utils import check_request_json
+from matcha.utils import check_request_json
 
 from matcha.db.pictures import db_get_user_images, db_get_url_profile
 
@@ -18,7 +18,7 @@ from matcha.db.db import (
 
 from matcha.db.like import db_get_is_liked, db_get_list_liked_by
 
-from matcha.app_utils import check_request_json
+from matcha.utils import check_request_json
 
 
 def _profile_put(id_user, request):

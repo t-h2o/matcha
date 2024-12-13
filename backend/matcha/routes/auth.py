@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 
-from matcha.app_utils import check_request_json
+from matcha.utils import check_request_json
 
 from matcha.services.auth import service_login_user, services_reset_password
 

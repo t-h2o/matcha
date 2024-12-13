@@ -5,7 +5,7 @@ from flask import current_app
 
 from werkzeug.utils import secure_filename
 
-from matcha.app_utils import check_request_json, make_unique
+from matcha.utils import check_request_json, make_unique
 
 from matcha.db.pictures import (
     db_get_user_images,

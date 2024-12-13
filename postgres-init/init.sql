@@ -46,6 +46,14 @@ CREATE TABLE IF NOT EXISTS user_images (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 
+CREATE TABLE IF NOT EXISTS chat (
+    id SERIAL PRIMARY KEY,
+    id_sender INTEGER REFERENCES users (id) ON DELETE CASCADE,
+    id_receiver INTEGER REFERENCES users (id) ON DELETE CASCADE,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+);
+
 ALTER TABLE users
 ADD COLUMN profile_picture_id INTEGER,
 ADD CONSTRAINT fk_profile_picture

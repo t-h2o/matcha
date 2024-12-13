@@ -1,13 +1,39 @@
-import { Injectable, signal } from '@angular/core';
-import { Message } from '../models/message';
+import { inject, Injectable, signal } from '@angular/core';
+import { ChatMessageFromBack, ChatMessageToBack } from '../models/message';
+import { HttpRequestsService } from './http.requests.service';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MessageService {
-  messages = signal<Message[]>([]);
+  private httpService = inject(HttpRequestsService);
+  private toastService = inject(ToastService);
+  messages = signal<ChatMessageFromBack[]>([]);
 
-  add(message: Message) {
-    // send message to server
+  sendMsg(message: ChatMessageToBack) {
+    this.httpService.sendMessage(message).subscribe({
+      next: (data: ChatMessageFromBack) => {
+        this.messages.update((prev) => {
+          return [...prev, data];
+        });
+      },
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
+  }
+
+  getAllMessages(username: string) {
+    this.httpService.getAllMsgByUsername(username).subscribe({
+      next: (data: any) => {
+        this.messages.update(() => data);
+      },
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
   }
 }
