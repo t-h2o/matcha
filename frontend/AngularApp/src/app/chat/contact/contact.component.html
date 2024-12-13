@@ -1,7 +1,19 @@
 <div class="contact-card" (click)="onClickContact()">
   <div class="top">
     <div class="image-container">
-      <img src="{{ contact.urlProfile }}" alt="{{ contact.username }}" />
+      @if (contact.urlProfile === "no url") {
+        <img
+          class="profile-pic"
+          [src]="'dummy-pics/blank-profile-picture.webp'"
+          alt="No Profile Picture"
+        />
+      } @else {
+        <img
+          class="profile-pic"
+          [src]="contact.urlProfile"
+          alt="{{ contact.urlProfile }}"
+        />
+      }
     </div>
     <div class="info">
       <h3>{{ contact.username }}</h3>
