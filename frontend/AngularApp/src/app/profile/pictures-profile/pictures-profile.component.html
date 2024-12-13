@@ -2,9 +2,13 @@
   <div class="container">
     <div class="grid">
       @if (userPictures().length === 0) {
-        <div>
-          <p>No Image</p>
-        </div>
+        <img
+          [ngClass]="{
+            'image-resize': true,
+          }"
+          [src]="'dummy-pics/blank-profile-picture.webp'"
+          alt="No Profile Picture"
+        />
       } @else {
         @for (picUrl of userPictures(); track $index) {
           <div class="img-container" (click)="setProfilePicture(picUrl)">

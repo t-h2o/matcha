@@ -33,4 +33,8 @@ export class UserItemComponent {
   get FameRatingStars(): string {
     return getFameRatingStars(this.user.fameRating);
   }
+
+  get profilePicture(): string {
+    return this.user.urlProfile;
+  }
 }
