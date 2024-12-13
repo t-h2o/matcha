@@ -15,7 +15,7 @@ import { CustomButtonComponent } from '../../UI/custom-button/custom-button.comp
 export class ResearchComponent {
   private potentialMatchService = inject(PotentialMatchService);
 
-  storedMatchFilter = this.potentialMatchService.potentialMatchFilter;
+  storedMatchFilter = this.potentialMatchService.potentialMatchSearchFilter;
   tagsList = tags;
   selectedTags: string[] = [];
 
@@ -68,7 +68,7 @@ export class ResearchComponent {
       distance: 101,
       interests: [],
     };
-    this.potentialMatchService.potentialMatchFilter.set(postFilter);
+    this.potentialMatchService.potentialMatchSearchFilter.set(postFilter);
   }
 
   onSearch() {
@@ -78,7 +78,7 @@ export class ResearchComponent {
       distance: this.maxDistance(),
       interests: this.selectedTags,
     };
-    this.potentialMatchService.potentialMatchFilter.set(postFilter);
+    this.potentialMatchService.potentialMatchSearchFilter.set(postFilter);
     this.potentialMatchService.filterPotentialMatches(postFilter);
   }
 }
