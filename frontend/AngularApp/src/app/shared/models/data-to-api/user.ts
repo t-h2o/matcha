@@ -94,3 +94,9 @@ export type FilterPotentialMatch = {
   distance: number;
   interests: string[];
 };
+
+export type LocationCoordinates = {
+  latitude: number;
+  longitude: number;
+  accuracy?: number;
+};

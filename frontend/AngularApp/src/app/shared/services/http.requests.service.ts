@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import {
   FilterPotentialMatch,
+  LocationCoordinates,
   ModifiedUserEmail,
   ModifiedUserGeneral,
   ModifiedUserPassword,
@@ -154,6 +155,13 @@ export class HttpRequestsService {
     return this.httpClient.post<ChatMessageFromBack>(
       `${this.baseUrl}/chat`,
       message,
+    );
+  }
+
+  sendCoordinates(coords: LocationCoordinates) {
+    return this.httpClient.post<LocationCoordinates>(
+      `${this.baseUrl}/position`,
+      coords,
     );
   }
 }
