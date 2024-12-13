@@ -1,10 +1,13 @@
 <div class="user-item" (click)="onViewProfile(user.username)">
   <div class="top">
-    <img
+    @if (profilePicture === 'no url') {
+    <img class="profile-pic" [src]="'blank-profile-picture.webp'" alt="No Profile Picture" />
+    } @else {<img
       class="profile-pic"
-      [src]="'/dummy-pics/placeholderPic.jpg'"
-      alt="Profile Picture"
-    />
+      [src]="profilePicture"
+      alt="No Profile Picture"
+    />}
+
     <h3 class="username" data-testid="username">{{ user.username }}</h3>
   </div>
 
