@@ -12,6 +12,13 @@
   @media screen and (max-width: $mobile-max-width) {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .image {
     max-width: 150px;
     max-height: 150px;
