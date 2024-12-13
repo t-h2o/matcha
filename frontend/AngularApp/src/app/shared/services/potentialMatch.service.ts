@@ -17,16 +17,17 @@ export class PotentialMatchService {
 
   potentialMatches = signal<PossibleMatchesUserData[]>([]);
   otherProfileData = signal<UserData>(emptyUser);
-  potentialMatchFilter = signal<FilterPotentialMatch>({
+  potentialMatchSearchFilter = signal<FilterPotentialMatch>({
     ageGap: 5,
     fameGap: 2,
     distance: 10,
     interests: [],
   });
+  potentialMatchFilter = signal<string>('all');
 
   getAllPotentialMatches() {
     this.httpService
-      .filterPotentialMatches(this.potentialMatchFilter())
+      .filterPotentialMatches(this.potentialMatchSearchFilter())
       .subscribe({
         next: (data: PossibleMatchesUserData[]) => {
           console.log('data: ' + JSON.stringify(data));
