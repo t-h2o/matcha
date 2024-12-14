@@ -3,6 +3,7 @@ from flask import Blueprint, request, jsonify
 from matcha.db.db import (
     db_get_user_per_id,
     db_get_interests,
+    db_is_profile_completed,
 )
 from matcha.db.pictures import (
     db_get_url_profile,
@@ -11,6 +12,7 @@ from matcha.db.pictures import (
 from matcha.db.browsing import db_browsing_gender_sexualorientation
 
 from matcha.utils import check_request_json
+from matcha.utils import flaskprint
 
 MAX_AGE_GAP = 31
 MAX_FAME_GAP = 5
@@ -73,6 +75,9 @@ def _search_distance(search, distance):
 
 
 def services_browsing(id_user, request):
+    if db_is_profile_completed(id_user) == False:
+        return jsonify({"error": "profile not completed"}), 400
+
     search = {
         "gender": None,
         "sexual_orientation": None,
