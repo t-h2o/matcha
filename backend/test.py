@@ -357,6 +357,13 @@ def test_update():
             "error": "username not found",
         },
     )
+    check_get_token(
+        "/api/profile?username=another'",
+        401,
+        {
+            "error": "username not found",
+        },
+    )
 
 
 def test_interests():
