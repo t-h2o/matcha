@@ -43,6 +43,13 @@ def db_get_user_email(id_user):
     )[0]
 
 
+def db_is_profile_completed(id_user: int):
+    return db_fetchone(
+        "SELECT profile_complete FROM users where id = %s",
+        (id_user,),
+    )[0]
+
+
 def db_set_user_profile_data(
     firstname, lastname, selectedGender, sexualPreference, bio, age, id_user
 ):
