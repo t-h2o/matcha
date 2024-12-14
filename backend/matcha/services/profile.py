@@ -86,6 +86,9 @@ def services_profile(id_user, request):
         )
     else:
         user_db = db_get_user_per_username(get_username)
+
+        if user_db is None:
+            return (jsonify({"error": "username not found"}), 401)
         interests = db_get_interests(user_db[0])
         pictures = db_get_user_images(user_db[0])
         profile_picture = db_get_url_profile(user_db[0])
@@ -95,9 +98,6 @@ def services_profile(id_user, request):
             profile_url = url = profile_picture["url"]
         elif "error" in profile_picture:
             profile_url = url = profile_picture["error"]
-
-        if user_db is None:
-            return (jsonify({"error": "username not found"}), 401)
 
         return (
             jsonify(
