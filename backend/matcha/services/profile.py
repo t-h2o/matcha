@@ -9,6 +9,8 @@ from matcha.utils import check_request_json
 
 from matcha.db.pictures import db_get_user_images, db_get_url_profile
 
+from matcha.db.visit import db_put_visit
+
 from matcha.db.db import (
     db_get_interests,
     db_set_user_profile_data,
@@ -100,6 +102,8 @@ def services_profile(id_user, request):
             profile_url = url = profile_picture["url"]
         elif "error" in profile_picture:
             profile_url = url = profile_picture["error"]
+
+        db_put_visit(id_user, user_db[0])
 
         return (
             jsonify(
