@@ -45,11 +45,11 @@ def test_create_another_user():
             "lastname": "User",
             "selectedGender": "m",
             "sexualPreference": "e",
-            "bio": "My bio is short.",
+            "bio": "My bio is short. with special a single quote '",
         },
         {
             "age": 18,
-            "bio": "My bio is short.",
+            "bio": "My bio is short. with special a single quote '",
             "email": "another@flask.py",
             "email_verified": False,
             "fameRating": 0,
@@ -337,7 +337,7 @@ def test_update():
         200,
         {
             "age": 18,
-            "bio": "My bio is short.",
+            "bio": "My bio is short. with special a single quote '",
             "fameRating": 0,
             "firstname": "Another",
             "gender": "m",
