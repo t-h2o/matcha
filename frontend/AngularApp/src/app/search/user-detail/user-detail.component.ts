@@ -6,7 +6,6 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { CardComponent } from '../../UI/card/card.component';
 import { PotentialMatchService } from '../../shared/services/potentialMatch.service';
 import { getFameRatingStars } from '../../shared/utils/displayUtils';
 import { GeneralComponent } from './general/general.component';
@@ -16,12 +15,7 @@ import { PicturesComponent } from './pictures/pictures.component';
 @Component({
   selector: 'app-user-detail',
   standalone: true,
-  imports: [
-    MatchInterestsComponent,
-    GeneralComponent,
-    PicturesComponent,
-    CardComponent,
-  ],
+  imports: [MatchInterestsComponent, GeneralComponent, PicturesComponent],
   templateUrl: './user-detail.component.html',
   styleUrl: './user-detail.component.scss',
 })
@@ -30,7 +24,7 @@ export class UserDetailComponent implements OnInit {
   username = input.required<string>();
   user = this.PotentialMatchService.otherProfileData;
   isLikedByUser = computed(() => this.user().isLiked);
-  isOnline = signal<boolean>(true);
+  isOnline = computed(() => this.user().connected);
 
   ngOnInit(): void {
     this.PotentialMatchService.getUserProfileByUsername(this.username());

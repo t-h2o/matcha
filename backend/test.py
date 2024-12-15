@@ -338,6 +338,7 @@ def test_update():
         {
             "age": 18,
             "bio": "My bio is short. with special a single quote '",
+            "connected": False,
             "fameRating": 0,
             "firstname": "Another",
             "gender": "m",

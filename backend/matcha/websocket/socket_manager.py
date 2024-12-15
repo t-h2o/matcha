@@ -10,9 +10,14 @@ class SocketManager:
         return cls._instance
 
     @classmethod
+    def is_connected(cls, userid) -> bool:
+        return userid in cls.userid_sid
+
+    @classmethod
     def get_user_id(cls, sid):
         return cls.sid_userid.get(sid)
 
+    @classmethod
     def get_sid(cls, userid):
         return cls.userid_sid.get(userid)
 

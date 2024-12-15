@@ -16,6 +16,8 @@ from matcha.db.db import (
     db_get_user_per_username,
 )
 
+from matcha.websocket.socket_manager import SocketManager
+
 from matcha.db.like import db_get_is_liked, db_get_list_liked_by
 
 from matcha.utils import check_request_json
@@ -113,6 +115,7 @@ def services_profile(id_user, request):
                 pictures=pictures,
                 urlProfile=profile_url,
                 isLiked=is_liked,
+                connected=SocketManager.is_connected(user_db[0]),
             ),
             200,
         )
