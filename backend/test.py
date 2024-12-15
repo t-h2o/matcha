@@ -471,6 +471,11 @@ def test_deleteme():
     check_get_token("/api/deleteme", 200, {"success": "user delete"})
     check_login_token(
         "/api/login",
+        {"username": "notcompleted", "password": "notcompleted"},
+    )
+    check_get_token("/api/deleteme", 200, {"success": "user delete"})
+    check_login_token(
+        "/api/login",
         {"username": "another", "password": "5678"},
     )
     check_get_token("/api/deleteme", 200, {"success": "user delete"})
@@ -1148,6 +1153,33 @@ def test_browsing():
                 "username": "leta",
             },
         ],
+    )
+    check_post(
+        "/api/register",
+        200,
+        {
+            "username": "notcompleted",
+            "firstname": "Not",
+            "lastname": "Completed",
+            "email": "notcompleted@flask.py",
+            "password": "notcompleted",
+        },
+        {"success": "User notcompleted was successfully added"},
+    )
+    check_login_token(
+        "/api/login",
+        {"username": "notcompleted", "password": "notcompleted"},
+    )
+    check_post_token(
+        "/api/browsing",
+        400,
+        {
+            "ageGap": 31,
+            "fameGap": 5,
+            "distance": 101,
+            "interests": ["travel", "reading"],
+        },
+        {"error": "profile not completed"},
     )
 
 
