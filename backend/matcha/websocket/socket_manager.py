@@ -13,6 +13,7 @@ class SocketManager:
     def get_user_id(cls, sid):
         return cls.sid_userid.get(sid)
 
+    @classmethod
     def get_sid(cls, userid):
         return cls.userid_sid.get(userid)
 
