@@ -45,11 +45,11 @@ def test_create_another_user():
             "lastname": "User",
             "selectedGender": "m",
             "sexualPreference": "e",
-            "bio": "My bio is short.",
+            "bio": "My bio is short. with special a single quote '",
         },
         {
             "age": 18,
-            "bio": "My bio is short.",
+            "bio": "My bio is short. with special a single quote '",
             "email": "another@flask.py",
             "email_verified": False,
             "fameRating": 0,
@@ -337,7 +337,7 @@ def test_update():
         200,
         {
             "age": 18,
-            "bio": "My bio is short.",
+            "bio": "My bio is short. with special a single quote '",
             "fameRating": 0,
             "firstname": "Another",
             "gender": "m",
@@ -348,6 +348,20 @@ def test_update():
             "sexualPreference": "e",
             "urlProfile": "http://localhost:5001/api/images/avatar.png",
             "username": "another",
+        },
+    )
+    check_get_token(
+        "/api/profile?username= another",
+        401,
+        {
+            "error": "username not found",
+        },
+    )
+    check_get_token(
+        "/api/profile?username=another'",
+        401,
+        {
+            "error": "username not found",
         },
     )
 
@@ -1369,6 +1383,11 @@ def test_chat():
             "message": "Hi another",
         },
         {"message": "Hi another", "sender": "user", "timestamp": 1734042686.615507},
+    )
+    check_get_token(
+        "/api/chat/another'",
+        401,
+        {"error": "username not found"},
     )
     check_get_token(
         "/api/chat/another",

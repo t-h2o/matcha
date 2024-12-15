@@ -11,7 +11,12 @@ from matcha.utils import check_request_json
 
 
 def services_chat_get(id_user, username):
-    id_other = db_get_id_where_username(username)[0]
+    db_response = db_get_id_where_username(username)
+
+    if db_response is None:
+        return (jsonify({"error": "username not found"}), 401)
+
+    id_other = db_response[0]
     username_getter = db_get_username_where_id(id_user)
     return db_get_chat(id_user, id_other, username_getter, username), 200
 
