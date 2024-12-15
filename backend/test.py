@@ -1353,6 +1353,11 @@ def test_chat():
         {"message": "Hi another", "sender": "user", "timestamp": 1734042686.615507},
     )
     check_get_token(
+        "/api/chat/another'",
+        401,
+        {"error": "username not found"},
+    )
+    check_get_token(
         "/api/chat/another",
         200,
         [{"message": "Hi another", "sender": "user", "timestamp": 1734008116.142995}],
