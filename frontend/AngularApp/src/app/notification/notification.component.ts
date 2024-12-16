@@ -1,7 +1,8 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { NotificationService } from '../shared/services/notification.service';
-import { DisplayNotifComponent } from './display-notif/display-notif.component';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { Notification } from '../shared/models/message';
+import { NotificationService } from '../shared/services/notification.service';
+import { UserService } from '../shared/services/user.service';
+import { DisplayNotifComponent } from './display-notif/display-notif.component';
 
 @Component({
   selector: 'app-notification',
@@ -12,6 +13,7 @@ import { Notification } from '../shared/models/message';
 })
 export class NotificationComponent implements OnInit {
   private notificationService = inject(NotificationService);
+  private userService = inject(UserService);
   notificationList = this.notificationService.notificationList;
   notificationListWithDate = computed(() =>
     this.notificationList().map((notification: Notification) => {
@@ -25,6 +27,7 @@ export class NotificationComponent implements OnInit {
   );
 
   ngOnInit(): void {
+    this.userService.getUserProfile();
     this.notificationService.getNotifications();
   }
 
