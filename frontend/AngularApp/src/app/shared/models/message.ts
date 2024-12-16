@@ -8,7 +8,8 @@ export type Notification = {
   id: number;
   title: string;
   content: string;
-  date: string;
+  timestamp: number;
+  date?: string;
 };
 
 export type ChatMessageFromBack = {
