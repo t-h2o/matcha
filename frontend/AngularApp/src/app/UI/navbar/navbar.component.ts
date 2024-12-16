@@ -1,8 +1,7 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, computed, inject, Input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { token } from '../../shared/models/token';
 import { AuthService } from '../../shared/services/auth.service';
-import { SocketService } from '../../shared/services/socket.service';
 import { UserService } from '../../shared/services/user.service';
 
 @Component({
@@ -17,7 +16,8 @@ export class NavbarComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
   private usersService = inject(UserService);
-  private socketService = inject(SocketService);
+  user = this.usersService.ownProfileData;
+  profileCompleted = computed(() => this.user().profile_complete);
 
   isLoginRoute(): boolean {
     return this.router.url === '/login';
@@ -33,9 +33,5 @@ export class NavbarComponent {
 
   get token(): token | null | undefined {
     return this.authService.tokenSignal();
-  }
-
-  get profileComplete(): boolean {
-    return this.usersService.ownProfileData().profile_complete;
   }
 }

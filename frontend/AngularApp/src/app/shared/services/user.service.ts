@@ -64,6 +64,9 @@ export class UserService {
             likedBy: data.likedBy,
           };
         });
+        if (data.profile_complete === false && this.router.url !== '/profile') {
+          this.router.navigate(['/profile']);
+        }
       },
       error: (error: any) => {
         const errorMessage = error?.message || 'An unknown error occurred';
