@@ -62,6 +62,7 @@ export class UserService {
             urlProfile: data.urlProfile,
             interests: data.interests,
             likedBy: data.likedBy,
+            visitedBy: data.visitedBy,
           };
         });
         if (data.profile_complete === false && this.router.url !== '/profile') {

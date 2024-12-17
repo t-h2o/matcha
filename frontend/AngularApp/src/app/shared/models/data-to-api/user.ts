@@ -64,6 +64,7 @@ export type UserData = {
   interests: string[];
   isLiked?: boolean;
   likedBy: string[];
+  visitedBy: string[];
   connected: boolean;
 };
 
