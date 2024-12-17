@@ -1,12 +1,6 @@
-import {
-  Component,
-  computed,
-  inject,
-  input,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, computed, inject, input, OnInit } from '@angular/core';
 import { PotentialMatchService } from '../../shared/services/potentialMatch.service';
+import { UserService } from '../../shared/services/user.service';
 import { getFameRatingStars } from '../../shared/utils/displayUtils';
 import { GeneralComponent } from './general/general.component';
 import { MatchInterestsComponent } from './interests/match-interests.component';
@@ -21,6 +15,7 @@ import { PicturesComponent } from './pictures/pictures.component';
 })
 export class UserDetailComponent implements OnInit {
   private PotentialMatchService = inject(PotentialMatchService);
+  private userServices = inject(UserService);
   username = input.required<string>();
   user = this.PotentialMatchService.otherProfileData;
   isLikedByUser = computed(() => this.user().isLiked);
@@ -28,6 +23,7 @@ export class UserDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.PotentialMatchService.getUserProfileByUsername(this.username());
+    this.userServices.getUserProfile();
   }
 
   get heartIcon(): string {
