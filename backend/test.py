@@ -62,6 +62,7 @@ def test_create_another_user():
             "sexualPreference": "e",
             "urlProfile": "http://localhost:5001/api/images/avatar.png",
             "username": "another",
+            "visitedBy": [],
         },
     )
 
@@ -255,6 +256,7 @@ def test_update():
             "sexualPreference": None,
             "urlProfile": "http://localhost:5001/api/images/avatar.png",
             "username": "user",
+            "visitedBy": [],
         },
     )
     check_put_token(
@@ -291,6 +293,7 @@ def test_update():
             "sexualPreference": "e",
             "urlProfile": "http://localhost:5001/api/images/avatar.png",
             "username": "user",
+            "visitedBy": [],
         },
     )
     check_put_token(
@@ -330,6 +333,7 @@ def test_update():
             "sexualPreference": "e",
             "urlProfile": "http://localhost:5001/api/images/avatar.png",
             "username": "user",
+            "visitedBy": [],
         },
     )
     check_get_token(
@@ -363,6 +367,31 @@ def test_update():
         401,
         {
             "error": "username not found",
+        },
+    )
+    check_login_token(
+        "/api/login",
+        {"username": "another", "password": "5678"},
+    )
+    check_get_token(
+        "/api/profile",
+        200,
+        {
+            "age": 18,
+            "bio": "My bio is short. with special a single quote '",
+            "email": "another@flask.py",
+            "email_verified": False,
+            "fameRating": 0,
+            "firstname": "Another",
+            "interests": [],
+            "lastname": "User",
+            "likedBy": [],
+            "profile_complete": True,
+            "selectedGender": "m",
+            "sexualPreference": "e",
+            "urlProfile": "http://localhost:5001/api/images/avatar.png",
+            "username": "another",
+            "visitedBy": ["user"],
         },
     )
 
