@@ -7,14 +7,6 @@ from matcha.utils import flaskprint
 from matcha.websocket.socket_manager import SocketManager
 
 
-class ConnectedUser:
-    def __init__(self):
-        self.sid_userid = {}
-
-    def insert(self, sid: str, user_id: int):
-        self.sid_userid.update({sid: user_id})
-
-
 class MainNamespace(Namespace):
     def on_connect(self, auth):
         flaskprint(SocketManager())
