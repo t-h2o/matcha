@@ -17,13 +17,17 @@
 
     <p class="rating-item-p">Visited by</p>
     <div class="group">
-      <div class="box-grid">
-        @for (person of personWhoVisitedYou; track person.username) {
-          <div class="box-item" (click)="onClickHandler(person.username)">
-            <p>{{ person.username }}</p>
-          </div>
-        }
-      </div>
+      @if (visitedByList().length === 0) {
+        <p class="no-one">No one has visited your profile yet so far.</p>
+      } @else {
+        <div class="box-grid">
+          @for (username of visitedByList(); track username) {
+            <div class="box-item" (click)="onClickHandler(username)">
+              <p>{{ username }}</p>
+            </div>
+          }
+        </div>
+      }
     </div>
   </div>
 </app-card>

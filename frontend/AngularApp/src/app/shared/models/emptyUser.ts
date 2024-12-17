@@ -16,6 +16,7 @@ export const emptyUser: UserData = {
   fameRating: 4,
   interests: [],
   likedBy: [],
+  visitedBy: [],
   connected: false,
 };
 
@@ -35,5 +36,6 @@ export const testUser: UserData = {
   fameRating: 4,
   interests: [],
   likedBy: [],
+  visitedBy: [],
   connected: false,
 };
