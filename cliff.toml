@@ -55,6 +55,7 @@ commit_preprocessors = [
 commit_parsers = [
   { message = "^front", group = "<!-- 0 -->  Frontend" },
   { message = "^back", group = "<!-- 0 -->  Backend" },
+  { message = "^db", group = "<!-- 0 -->  Database" },
   { message = "^feat", group = "<!-- 0 -->  Features" },
   { message = "^fix", group = "<!-- 1 -->  Bug Fixes" },
   { message = "^doc", group = "<!-- 3 -->  Documentation" },
