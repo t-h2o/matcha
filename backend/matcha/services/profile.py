@@ -9,7 +9,7 @@ from matcha.utils import check_request_json
 
 from matcha.db.pictures import db_get_user_images, db_get_url_profile
 
-from matcha.db.visit import db_put_visit
+from matcha.db.visit import db_put_visit, db_get_visit
 
 from matcha.db.db import (
     db_get_interests,
@@ -85,6 +85,7 @@ def services_profile(id_user, request):
                 urlProfile=profile_url,
                 interests=interests,
                 likedBy=liked_by,
+                visitedBy=db_get_visit(id_user),
             ),
             200,
         )
