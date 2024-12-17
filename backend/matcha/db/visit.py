@@ -28,3 +28,26 @@ def db_put_visit(id_visitor: int, id_visited: int):
             id_visited,
         ),
     )
+
+
+def db_get_visit(id_visited: int):
+    query = """
+    SELECT username
+    FROM users
+    WHERE
+    id IN
+    (
+      SELECT visitor_id
+      FROM user_visits
+      WHERE
+      visited_id = %s
+    )
+    ;
+    """
+
+    return fetchall_to_array(
+        db_fetchall(
+            query,
+            (id_visited,),
+        )
+    )
