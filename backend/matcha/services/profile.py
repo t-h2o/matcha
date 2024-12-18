@@ -16,6 +16,7 @@ from matcha.db.db import (
     db_set_user_profile_data,
     db_get_user_per_id,
     db_get_user_per_username,
+    db_update_by_one_fame_rating,
 )
 
 from matcha.websocket.socket_manager import SocketManager
@@ -55,6 +56,7 @@ def services_profile(id_user, request):
         error_msg = _profile_put(id_user, request)
         if error_msg:
             return error_msg
+        db_update_by_one_fame_rating(id_user)
 
     get_username = request.args.get("username", default="", type=str)
 
