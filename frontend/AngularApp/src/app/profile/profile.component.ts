@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LocalizationService } from '../shared/services/localization.service';
 import { UserService } from '../shared/services/user.service';
 import { EmailPasswdComponent } from './email-passwd/email-passwd.component';
@@ -25,18 +25,8 @@ export class ProfileComponent implements OnInit {
   private localizationService = inject(LocalizationService);
   location = this.localizationService.location;
 
-  constructor() {
-    effect(() => {
-      console.log('Location changed:', this.location());
-    });
-  }
-
   getLocation() {
-    this.localizationService.getCurrentPosition().subscribe({
-      error: (error) => {
-        console.error('Error getting location:', error);
-      },
-    });
+    this.localizationService.getCurrentPosition();
   }
 
   private profileCompleteOverride = false;
