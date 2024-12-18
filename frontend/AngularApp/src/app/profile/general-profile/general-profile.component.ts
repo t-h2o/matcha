@@ -11,6 +11,7 @@ import {
 } from '../../shared/utils/displayUtils';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
+import { LocalizationService } from '../../shared/services/localization.service';
 
 @Component({
   selector: 'app-general-profile',
@@ -23,6 +24,8 @@ export class GeneralProfileComponent {
   private userServices = inject(UserService);
   private router = inject(Router);
   userProfile = this.userServices.ownProfileData;
+  private localizationService = inject(LocalizationService);
+  location = this.localizationService.location;
 
   goToModifyingGeneral = () => {
     this.router.navigate(['/modify-general']);
@@ -46,5 +49,13 @@ export class GeneralProfileComponent {
 
   get FameRatingStars(): string {
     return getFameRatingStars(this.userProfile().fameRating);
+  }
+
+  get lat(): string {
+    return this.location().latitude.toString();
+  }
+
+  get long(): string {
+    return this.location().longitude.toString();
   }
 }

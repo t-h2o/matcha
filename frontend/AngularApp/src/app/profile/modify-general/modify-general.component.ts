@@ -5,6 +5,7 @@ import { ModifyGeneralData } from '../../shared/models/data-to-api/user';
 import { UserService } from '../../shared/services/user.service';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
+import { LocalizationService } from '../../shared/services/localization.service';
 
 @Component({
   selector: 'app-modify-general',
@@ -16,6 +17,8 @@ import { CustomButtonComponent } from '../../UI/custom-button/custom-button.comp
 export class ModifyGeneralComponent implements OnInit {
   private userService = inject(UserService);
   private router = inject(Router);
+  private localizationService = inject(LocalizationService);
+  location = this.localizationService.location;
   userProfile = this.userService.ownProfileData;
 
   firstName: string = '';
@@ -24,6 +27,8 @@ export class ModifyGeneralComponent implements OnInit {
   sexualPreference: string = '';
   bio: string = '';
   age: string = '';
+  lat: string = '';
+  long: string = '';
 
   ngOnInit() {
     this.firstName = this.userProfile().firstname;
@@ -32,6 +37,14 @@ export class ModifyGeneralComponent implements OnInit {
     this.sexualPreference = this.userProfile().sexualPreference;
     this.bio = this.userProfile().bio;
     this.age = this.userProfile().age;
+    this.lat =
+      this.location().latitude.toString() === '999'
+        ? '-91'
+        : this.location().latitude.toString();
+    this.long =
+      this.location().latitude.toString() === '999'
+        ? '-181'
+        : this.location().longitude.toString();
   }
 
   goBack() {
@@ -40,12 +53,6 @@ export class ModifyGeneralComponent implements OnInit {
 
   onSubmit(formData: NgForm) {
     if (formData.invalid) {
-      Object.keys(formData.controls).forEach((field) => {
-        const control = formData.controls[field];
-        if (control.invalid) {
-          console.log(`${field} is invalid`);
-        }
-      });
       return;
     }
     const modifiedUserData: ModifyGeneralData = {
@@ -58,6 +65,13 @@ export class ModifyGeneralComponent implements OnInit {
       email_verified: this.userProfile().emailVerified,
     };
 
+    const newLocation = {
+      latitude: parseFloat(this.lat),
+      longitude: parseFloat(this.long),
+      accuracy: this.location().accuracy,
+    };
+
+    this.localizationService.location.set(newLocation);
     this.userService.modifyUserProfile(modifiedUserData);
     formData.form.reset();
     this.goBack();
