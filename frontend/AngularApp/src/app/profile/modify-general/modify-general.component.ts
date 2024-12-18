@@ -6,6 +6,7 @@ import { UserService } from '../../shared/services/user.service';
 import { CardComponent } from '../../UI/card/card.component';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { LocalizationService } from '../../shared/services/localization.service';
+import { HttpRequestsService } from '../../shared/services/http.requests.service';
 
 @Component({
   selector: 'app-modify-general',
@@ -18,6 +19,7 @@ export class ModifyGeneralComponent implements OnInit {
   private userService = inject(UserService);
   private router = inject(Router);
   private localizationService = inject(LocalizationService);
+  private httpService = inject(HttpRequestsService);
   location = this.localizationService.location;
   userProfile = this.userService.ownProfileData;
 
@@ -72,6 +74,17 @@ export class ModifyGeneralComponent implements OnInit {
     };
 
     this.localizationService.location.set(newLocation);
+    this.httpService.sendCoordinates(newLocation).subscribe({
+      next: (data: any) => {
+        this.location.update((prev) => {
+          return {
+            ...prev,
+            latitude: data.latitude,
+            longitude: data.longitude,
+          };
+        });
+      },
+    });
     this.userService.modifyUserProfile(modifiedUserData);
     formData.form.reset();
     this.goBack();
