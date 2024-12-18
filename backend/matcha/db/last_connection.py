@@ -23,7 +23,7 @@ def db_update_last_connection(id_user: int) -> str:
     SET
     last_connection_at
     =
-    GETDATE()
+    now()
     WHERE
     id = %s
     ;
