@@ -3,6 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { token } from '../../shared/models/token';
 import { AuthService } from '../../shared/services/auth.service';
 import { UserService } from '../../shared/services/user.service';
+import { SocketService } from '../../shared/services/socket.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +17,7 @@ export class NavbarComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
   private usersService = inject(UserService);
+  private socketService = inject(SocketService);
   user = this.usersService.ownProfileData;
   profileCompleted = computed(() => this.user().profile_complete);
 
