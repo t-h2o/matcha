@@ -5,6 +5,7 @@ import { getFameRatingStars } from '../../shared/utils/displayUtils';
 import { GeneralComponent } from './general/general.component';
 import { MatchInterestsComponent } from './interests/match-interests.component';
 import { PicturesComponent } from './pictures/pictures.component';
+import { ToastService } from '../../shared/services/toast.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -16,10 +17,12 @@ import { PicturesComponent } from './pictures/pictures.component';
 export class UserDetailComponent implements OnInit {
   private PotentialMatchService = inject(PotentialMatchService);
   private userServices = inject(UserService);
+  private toastService = inject(ToastService);
   username = input.required<string>();
-  user = this.PotentialMatchService.otherProfileData;
-  isLikedByUser = computed(() => this.user().isLiked);
-  isOnline = computed(() => this.user().connected);
+  otherUser = this.PotentialMatchService.otherProfileData;
+  selfUser = this.userServices.ownProfileData;
+  isLikedByUser = computed(() => this.otherUser().isLiked);
+  isOnline = computed(() => this.otherUser().connected);
 
   ngOnInit(): void {
     this.PotentialMatchService.getUserProfileByUsername(this.username());
@@ -33,15 +36,19 @@ export class UserDetailComponent implements OnInit {
   }
 
   get FameRatingStars(): string {
-    return getFameRatingStars(this.user().fameRating);
+    return getFameRatingStars(this.otherUser().fameRating);
   }
 
   toggleLike(): void {
+    if (this.selfUser().pictures.length === 0) {
+      this.toastService.show('You need to upload a picture first', 'error');
+      return;
+    }
     if (!this.isLikedByUser()) {
-      let payload = { like: this.user().username };
+      let payload = { like: this.otherUser().username };
       this.PotentialMatchService.toggleLike(payload);
     } else {
-      let payload = { dislike: this.user().username };
+      let payload = { dislike: this.otherUser().username };
       this.PotentialMatchService.toggleLike(payload);
     }
   }
