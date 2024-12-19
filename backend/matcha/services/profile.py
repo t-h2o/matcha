@@ -61,6 +61,7 @@ def services_profile(id_user, request):
     get_username = request.args.get("username", default="", type=str)
 
     if get_username == "":
+        db_update_by_one_fame_rating(id_user)
         user_db = db_get_user_per_id(id_user)
         profile_picture = db_get_url_profile(id_user)
         interests = db_get_interests(id_user)
