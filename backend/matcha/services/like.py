@@ -43,6 +43,8 @@ def services_like_user(id_user, request):
         if id_to_notify is None:
             return jsonify({"error": "bad username"}), 400
 
+        id_to_notify = id_to_notify[0]
+
         liker_username = db_get_username_where_id(id_user)
 
         title = "like"
@@ -55,7 +57,7 @@ def services_like_user(id_user, request):
 
         db_put_notification(id_to_notify, title, content)
 
-        sid = SocketManager().get_sid(id_to_notify[0])
+        sid = SocketManager().get_sid(id_to_notify)
         if sid is not None:
             emit("like", notification_message, to=sid, namespace="/")
 
