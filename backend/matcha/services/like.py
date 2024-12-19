@@ -40,6 +40,9 @@ def services_like_user(id_user, request):
 
         id_to_notify = db_get_id_where_username(json["like"])
 
+        if id_to_notify is None:
+            return jsonify({"error": "bad username"}), 400
+
         liker_username = db_get_username_where_id(id_user)
 
         title = "like"
