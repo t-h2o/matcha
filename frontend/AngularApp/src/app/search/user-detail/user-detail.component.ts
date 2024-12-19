@@ -48,7 +48,7 @@ export class UserDetailComponent implements OnInit {
       let payload = { like: this.otherUser().username };
       this.PotentialMatchService.toggleLike(payload);
     } else {
-      let payload = { dislike: this.otherUser().username };
+      let payload = { unlike: this.otherUser().username };
       this.PotentialMatchService.toggleLike(payload);
     }
   }

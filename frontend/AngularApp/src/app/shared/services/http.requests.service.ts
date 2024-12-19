@@ -126,7 +126,7 @@ export class HttpRequestsService {
     );
   }
 
-  toggleLike(data: { dislike: string } | { like: string }) {
+  toggleLike(data: { unlike: string } | { like: string }) {
     return this.httpClient.post<{ isLiked: boolean }>(
       `${this.baseUrl}/like-user`,
       data,
