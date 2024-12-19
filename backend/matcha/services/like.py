@@ -10,7 +10,7 @@ from matcha.db.db import db_get_username_where_id
 from matcha.db.notification import db_put_notification
 
 from matcha.db.like import (
-    db_put_dislike_user,
+    db_put_unlike_user,
     db_put_like_user,
     db_get_list_liked_by,
     db_get_is_liked,
@@ -56,9 +56,9 @@ def services_like_user(id_user, request):
         if sid is not None:
             emit("like", notification_message, to=sid, namespace="/")
 
-    elif "dislike" in json:
-        username = json["dislike"]
-        error = db_put_dislike_user(id_user, json["dislike"])
+    elif "unlike" in json:
+        username = json["unlike"]
+        error = db_put_unlike_user(id_user, json["unlike"])
     else:
         return jsonify({"error": "bad payload"}), 400
 
