@@ -145,4 +145,11 @@ def db_update_by_one_fame_rating(id_user):
     WHERE id = %s;
     """
 
-    return db_query(query, (id_user,id_user,id_user,))
+    return db_query(
+        query,
+        (
+            id_user,
+            id_user,
+            id_user,
+        ),
+    )
