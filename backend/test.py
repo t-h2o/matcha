@@ -1279,7 +1279,7 @@ def test_like_user():
         "/api/like-user",
         201,
         {
-            "dislike": "another",
+            "unlike": "another",
         },
         {
             "isLiked": False,
@@ -1300,7 +1300,7 @@ def test_like_user():
         "/api/like-user",
         201,
         {
-            "dislike": "user",
+            "unlike": "user",
         },
         {
             "isLiked": False,
