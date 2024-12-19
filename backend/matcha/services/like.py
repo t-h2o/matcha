@@ -6,6 +6,7 @@ from matcha.utils import check_request_json_values
 
 from matcha.db.db import db_get_id_where_username
 from matcha.db.db import db_get_username_where_id
+from matcha.db.db import db_update_by_one_fame_rating
 
 from matcha.db.notification import db_put_notification
 
@@ -56,6 +57,8 @@ def services_like_user(id_user, request):
         }
 
         db_put_notification(id_to_notify, title, content)
+
+        db_update_by_one_fame_rating(id_to_notify)
 
         sid = SocketManager().get_sid(id_to_notify)
         if sid is not None:
