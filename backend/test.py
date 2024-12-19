@@ -1249,6 +1249,14 @@ def test_like_user():
             "isLiked": True,
         },
     )
+    check_post_token(
+        "/api/like-user",
+        400,
+        {
+            "like": "bad username",
+        },
+        {"error": "bad username"},
+    )
     check_login_token(
         "/api/login",
         {"username": "another", "password": "5678"},
