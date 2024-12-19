@@ -141,7 +141,7 @@ def db_update_by_one_fame_rating(id_user):
     SET fame_rating
     = cast(profile_complete as int)
     + (select count (*) from user_likes where liked_id = %s)
-    + cast(select count (*) from user_likes where liked_id = %s > 10 as int)
+    + cast(((select count (*) from user_likes where liked_id = %s) > 10) as int)
     WHERE id = %s;
     """
 
