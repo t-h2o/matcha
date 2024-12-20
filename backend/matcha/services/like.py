@@ -46,6 +46,13 @@ def services_like_user(id_user, request):
     elif "unlike" in json:
         username = json["unlike"]
         error = db_put_unlike_user(id_user, json["unlike"])
+
+        id_to_notify = db_get_id_where_username(json["unlike"])
+        liker_username = db_get_username_where_id(id_user)
+
+        title = "unlike"
+        content = f"{liker_username} unlike you"
+        db_put_notification(id_to_notify[0], title, content)
     else:
         return jsonify({"error": "bad payload"}), 400
 
