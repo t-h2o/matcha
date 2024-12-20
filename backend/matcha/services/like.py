@@ -1,7 +1,5 @@
 from flask import jsonify
 
-from flask_socketio import emit
-
 from matcha.utils import check_request_json_values
 
 from matcha.db.db import db_get_id_where_username
@@ -15,8 +13,6 @@ from matcha.db.like import (
     db_get_list_liked_by,
     db_get_is_liked,
 )
-
-from matcha.websocket.socket_manager import SocketManager
 
 
 def services_like_user_get(id_user):
@@ -44,17 +40,8 @@ def services_like_user(id_user, request):
 
         title = "like"
         content = f"{liker_username} like you"
-        notification_message = {
-            "content": content,
-            "date": "hier",
-            "title": title,
-        }
 
-        db_put_notification(id_to_notify, title, content)
-
-        sid = SocketManager().get_sid(id_to_notify[0])
-        if sid is not None:
-            emit("like", notification_message, to=sid, namespace="/")
+        db_put_notification(id_to_notify[0], title, content)
 
     elif "unlike" in json:
         username = json["unlike"]
