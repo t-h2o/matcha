@@ -1,3 +1,7 @@
+from flask_socketio import emit
+
+from matcha.websocket.socket_manager import SocketManager
+
 from matcha.db.utils import (
     db_query,
     db_fetchone,
@@ -30,6 +34,18 @@ def db_get_notification(id_user):
     return array
 
 
+def ws_send_notification(id_user: int, title: str, content: str):
+    notification_message = {
+        "content": content,
+        "title": title,
+    }
+
+    sid = SocketManager().get_sid(id_user)
+
+    if sid is not None:
+        emit(title, notification_message, to=sid, namespace="/")
+
+
 def db_put_notification(id_user, title: str, content: str):
     query = """
     INSERT
@@ -38,6 +54,8 @@ def db_put_notification(id_user, title: str, content: str):
     VALUES
     (%s, %s, %s);
     """
+
+    ws_send_notification(id_user, title, content)
 
     error_msg = db_query(
         query,
