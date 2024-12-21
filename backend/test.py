@@ -1350,15 +1350,39 @@ def _test_delete_notification():
         [
             {
                 "content": "another like you",
-                "id": 11,
-                "timestamp": 1733844512.283099,
+                "id": 233,
+                "timestamp": 1734811079.914981,
                 "title": "like",
             },
             {
+                "content": "another unlike you",
+                "id": 234,
+                "timestamp": 1734811079.983057,
+                "title": "unlike",
+            },
+            {
                 "content": "another like you",
-                "id": 12,
-                "timestamp": 1733844512.90055,
+                "id": 235,
+                "timestamp": 1734811080.058823,
                 "title": "like",
+            },
+            {
+                "content": "another unlike you",
+                "id": 237,
+                "timestamp": 1734811080.534858,
+                "title": "unlike",
+            },
+            {
+                "content": "another like you",
+                "id": 238,
+                "timestamp": 1734811080.943861,
+                "title": "like",
+            },
+            {
+                "content": "another viewed your profile",
+                "id": 239,
+                "timestamp": 1734811081.06461,
+                "title": "visit",
             },
         ],
     )
@@ -1385,6 +1409,25 @@ def test_notification():
         },
         {
             "isLiked": True,
+        },
+    )
+    check_get_token(
+        "/api/profile?username=user",
+        200,
+        {
+            "age": 22,
+            "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
+            "connected": False,
+            "fameRating": 0,
+            "firstname": "Johnny",
+            "gender": "m",
+            "interests": [],
+            "isLiked": True,
+            "lastname": "Appleseed",
+            "pictures": ["http://localhost:5001/api/images/avatar.png"],
+            "sexualPreference": "e",
+            "urlProfile": "http://localhost:5001/api/images/avatar.png",
+            "username": "user",
         },
     )
     _test_delete_notification()
