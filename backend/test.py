@@ -1270,6 +1270,26 @@ def test_like_user():
             "isLiked": True,
         },
     )
+    check_post_token(
+        "/api/like-user",
+        201,
+        {
+            "unlike": "user",
+        },
+        {
+            "isLiked": False,
+        },
+    )
+    check_post_token(
+        "/api/like-user",
+        201,
+        {
+            "like": "user",
+        },
+        {
+            "isLiked": True,
+        },
+    )
 
     check_login_token(
         "/api/login",
