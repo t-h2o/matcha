@@ -1,6 +1,6 @@
 from flask import jsonify
 
-from matcha.utils import check_request_json_values
+from matcha.utils import check_request_json_values, get_id_where_username_else_error
 
 from matcha.db.db import db_get_id_where_username
 from matcha.db.db import db_get_username_where_id
@@ -13,13 +13,6 @@ from matcha.db.like import (
     db_get_list_liked_by,
     db_get_is_liked,
 )
-
-
-def _get_id_where_username_else_error(username: str):
-    id_to_notify = db_get_id_where_username(username)
-    if id_to_notify is None:
-        return jsonify({"error": "bad username"}), 400
-    return id_to_notify[0]
 
 
 def services_like_user_get(id_user):
@@ -41,7 +34,7 @@ def services_like_user(id_user, request):
         if error is not None:
             return error
 
-        id_to_notify = _get_id_where_username_else_error(json["like"])
+        id_to_notify = get_id_where_username_else_error(json["like"])
         if not isinstance(id_to_notify, int):
             return id_to_notify
 
@@ -56,7 +49,7 @@ def services_like_user(id_user, request):
         username = json["unlike"]
         error = db_put_unlike_user(id_user, json["unlike"])
 
-        id_to_notify = _get_id_where_username_else_error(json["unlike"])
+        id_to_notify = get_id_where_username_else_error(json["unlike"])
         if not isinstance(id_to_notify, int):
             return id_to_notify
 
