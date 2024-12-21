@@ -41,28 +41,30 @@ def services_like_user(id_user, request):
         if error is not None:
             return error
 
-        id_to_notify = db_get_id_where_username(json["like"])
-
-        if id_to_notify is None:
-            return jsonify({"error": "bad username"}), 400
+        id_to_notify = _get_id_where_username_else_error(json["like"])
+        if not isinstance(id_to_notify, int):
+            return id_to_notify
 
         liker_username = db_get_username_where_id(id_user)
 
         title = "like"
         content = f"{liker_username} like you"
 
-        db_put_notification(id_to_notify[0], title, content)
+        db_put_notification(id_to_notify, title, content)
 
     elif "unlike" in json:
         username = json["unlike"]
         error = db_put_unlike_user(id_user, json["unlike"])
 
-        id_to_notify = db_get_id_where_username(json["unlike"])
+        id_to_notify = _get_id_where_username_else_error(json["unlike"])
+        if not isinstance(id_to_notify, int):
+            return id_to_notify
+
         liker_username = db_get_username_where_id(id_user)
 
         title = "unlike"
         content = f"{liker_username} unlike you"
-        db_put_notification(id_to_notify[0], title, content)
+        db_put_notification(id_to_notify, title, content)
     else:
         return jsonify({"error": "bad payload"}), 400
 
