@@ -15,6 +15,13 @@ from matcha.db.like import (
 )
 
 
+def _get_id_where_username_else_error(username: str):
+    id_to_notify = db_get_id_where_username(username)
+    if id_to_notify is None:
+        return jsonify({"error": "bad username"}), 400
+    return id_to_notify[0]
+
+
 def services_like_user_get(id_user):
     return db_get_list_liked_by(id_user)
 
