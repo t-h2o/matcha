@@ -1350,38 +1350,44 @@ def _test_delete_notification():
         [
             {
                 "content": "another like you",
-                "id": 233,
-                "timestamp": 1734811079.914981,
+                "id": 389,
+                "timestamp": 1734812518.117288,
                 "title": "like",
             },
             {
                 "content": "another unlike you",
-                "id": 234,
-                "timestamp": 1734811079.983057,
+                "id": 390,
+                "timestamp": 1734812518.195932,
                 "title": "unlike",
             },
             {
                 "content": "another like you",
-                "id": 235,
-                "timestamp": 1734811080.058823,
+                "id": 391,
+                "timestamp": 1734812518.264354,
                 "title": "like",
             },
             {
                 "content": "another unlike you",
-                "id": 237,
-                "timestamp": 1734811080.534858,
+                "id": 393,
+                "timestamp": 1734812518.729724,
                 "title": "unlike",
             },
             {
+                "content": "message from another",
+                "id": 395,
+                "timestamp": 1734812519.500513,
+                "title": "chat",
+            },
+            {
                 "content": "another like you",
-                "id": 238,
-                "timestamp": 1734811080.943861,
+                "id": 396,
+                "timestamp": 1734812519.913834,
                 "title": "like",
             },
             {
                 "content": "another viewed your profile",
-                "id": 239,
-                "timestamp": 1734811081.06461,
+                "id": 397,
+                "timestamp": 1734812520.030613,
                 "title": "visit",
             },
         ],
@@ -1531,8 +1537,8 @@ def main():
     test_position()
     test_browsing()
     test_like_user()
-    test_notification()
     test_chat()
+    test_notification()
     test_deleteme()
 
 
