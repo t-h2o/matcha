@@ -337,7 +337,7 @@ def test_update():
         },
     )
     check_get_token(
-        "/api/profile?username=another",
+        "/api/profile/another",
         200,
         {
             "age": 18,
@@ -356,14 +356,14 @@ def test_update():
         },
     )
     check_get_token(
-        "/api/profile?username= another",
+        "/api/profile/ another",
         401,
         {
             "error": "username not found",
         },
     )
     check_get_token(
-        "/api/profile?username=another'",
+        "/api/profile/another'",
         401,
         {
             "error": "username not found",
@@ -1418,7 +1418,7 @@ def test_notification():
         },
     )
     check_get_token(
-        "/api/profile?username=user",
+        "/api/profile/user",
         200,
         {
             "age": 22,
