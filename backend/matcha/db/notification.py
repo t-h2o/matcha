@@ -1,3 +1,5 @@
+from matcha.websocket.notification import ws_send_notification
+
 from matcha.db.utils import (
     db_query,
     db_fetchone,
@@ -38,6 +40,8 @@ def db_put_notification(id_user, title: str, content: str):
     VALUES
     (%s, %s, %s);
     """
+
+    ws_send_notification(id_user, title, content)
 
     error_msg = db_query(
         query,

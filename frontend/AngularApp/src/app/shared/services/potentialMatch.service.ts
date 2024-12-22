@@ -63,7 +63,7 @@ export class PotentialMatchService {
     });
   }
 
-  toggleLike(payload: { dislike: string } | { like: string }) {
+  toggleLike(payload: { unlike: string } | { like: string }) {
     this.httpService.toggleLike(payload).subscribe({
       next: (data: { isLiked: boolean }) => {
         this.otherProfileData.update((prev) => {

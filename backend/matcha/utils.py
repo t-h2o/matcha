@@ -4,9 +4,20 @@ from uuid import uuid4
 
 from re import search
 
+from flask import jsonify
+
+from matcha.db.db import db_get_id_where_username
+
 
 def flaskprint(message):
     print(message, file=stderr)
+
+
+def get_id_where_username_else_error(username: str):
+    id_to_notify = db_get_id_where_username(username)
+    if id_to_notify is None:
+        return jsonify({"error": "bad username"}), 400
+    return id_to_notify[0]
 
 
 def check_request_json_values(content_type, json, required_fields):

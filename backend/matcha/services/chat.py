@@ -1,13 +1,14 @@
 from flask import jsonify
 
 from matcha.db.db import db_get_id_where_username, db_get_username_where_id
+from matcha.db.notification import db_put_notification
 
 from matcha.db.chat import (
     db_get_chat,
     db_post_chat,
 )
 
-from matcha.utils import check_request_json
+from matcha.utils import check_request_json, get_id_where_username_else_error
 
 
 def services_chat_get(id_user, username):
@@ -31,5 +32,14 @@ def services_chat_post(id_user, request):
     if check_request is not None:
         return jsonify(check_request[0]), check_request[1]
 
+    id_to_notify = get_id_where_username_else_error(request.json["to"])
+    if not isinstance(id_to_notify, int):
+        return id_to_notify
+
     response = db_post_chat(id_user, request.json["to"], request.json["message"])
+
+    visitor_username = db_get_username_where_id(id_user)
+
+    db_put_notification(id_to_notify, "chat", f"message from {visitor_username}")
+
     return jsonify(response), 201

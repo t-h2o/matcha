@@ -79,7 +79,7 @@ def db_put_like_user(id_user, username):
     return error_msg
 
 
-def db_put_dislike_user(id_user, username):
+def db_put_unlike_user(id_user, username):
     query = """
     DELETE FROM user_likes
     WHERE liker_id = %s

@@ -1,8 +1,6 @@
 from flask import jsonify
 
-from flask_socketio import emit
-
-from matcha.utils import check_request_json_values
+from matcha.utils import check_request_json_values, get_id_where_username_else_error
 
 from matcha.db.db import db_get_id_where_username
 from matcha.db.db import db_get_username_where_id
@@ -10,13 +8,11 @@ from matcha.db.db import db_get_username_where_id
 from matcha.db.notification import db_put_notification
 
 from matcha.db.like import (
-    db_put_dislike_user,
+    db_put_unlike_user,
     db_put_like_user,
     db_get_list_liked_by,
     db_get_is_liked,
 )
-
-from matcha.websocket.socket_manager import SocketManager
 
 
 def services_like_user_get(id_user):
@@ -38,27 +34,30 @@ def services_like_user(id_user, request):
         if error is not None:
             return error
 
-        id_to_notify = db_get_id_where_username(json["like"])
+        id_to_notify = get_id_where_username_else_error(json["like"])
+        if not isinstance(id_to_notify, int):
+            return id_to_notify
 
         liker_username = db_get_username_where_id(id_user)
 
         title = "like"
         content = f"{liker_username} like you"
-        notification_message = {
-            "content": content,
-            "date": "hier",
-            "title": title,
-        }
 
         db_put_notification(id_to_notify, title, content)
 
-        sid = SocketManager().get_sid(id_to_notify[0])
-        if sid is not None:
-            emit("like", notification_message, to=sid, namespace="/")
+    elif "unlike" in json:
+        username = json["unlike"]
+        error = db_put_unlike_user(id_user, json["unlike"])
 
-    elif "dislike" in json:
-        username = json["dislike"]
-        error = db_put_dislike_user(id_user, json["dislike"])
+        id_to_notify = get_id_where_username_else_error(json["unlike"])
+        if not isinstance(id_to_notify, int):
+            return id_to_notify
+
+        liker_username = db_get_username_where_id(id_user)
+
+        title = "unlike"
+        content = f"{liker_username} unlike you"
+        db_put_notification(id_to_notify, title, content)
     else:
         return jsonify({"error": "bad payload"}), 400
 

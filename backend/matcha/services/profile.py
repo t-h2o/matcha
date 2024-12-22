@@ -20,7 +20,10 @@ from matcha.db.db import (
     db_set_user_profile_data,
     db_get_user_per_id,
     db_get_user_per_username,
+    db_get_username_where_id,
 )
+
+from matcha.db.notification import db_put_notification
 
 from matcha.websocket.socket_manager import SocketManager
 
@@ -111,6 +114,11 @@ def services_profile(id_user, request):
             profile_url = url = profile_picture["error"]
 
         db_put_visit(id_user, user_db[0])
+
+        visitor_username = db_get_username_where_id(id_user)
+        db_put_notification(
+            user_db[0], "visit", f"{visitor_username} viewed your profile"
+        )
 
         return (
             jsonify(

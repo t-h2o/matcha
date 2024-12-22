@@ -82,11 +82,11 @@ export class SocketService {
       this.toastService.show(notification.content, 'success');
     });
 
-    this.socket.on('view', (notification: Notification) => {
+    this.socket.on('visit', (notification: Notification) => {
       this.toastService.show(notification.content, 'success');
     });
 
-    this.socket.on('message', (notification: Notification) => {
+    this.socket.on('chat', (notification: Notification) => {
       this.toastService.show(notification.content, 'success');
     });
   }

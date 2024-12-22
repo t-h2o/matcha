@@ -1270,6 +1270,26 @@ def test_like_user():
             "isLiked": True,
         },
     )
+    check_post_token(
+        "/api/like-user",
+        201,
+        {
+            "unlike": "user",
+        },
+        {
+            "isLiked": False,
+        },
+    )
+    check_post_token(
+        "/api/like-user",
+        201,
+        {
+            "like": "user",
+        },
+        {
+            "isLiked": True,
+        },
+    )
 
     check_login_token(
         "/api/login",
@@ -1279,7 +1299,7 @@ def test_like_user():
         "/api/like-user",
         201,
         {
-            "dislike": "another",
+            "unlike": "another",
         },
         {
             "isLiked": False,
@@ -1300,7 +1320,7 @@ def test_like_user():
         "/api/like-user",
         201,
         {
-            "dislike": "user",
+            "unlike": "user",
         },
         {
             "isLiked": False,
@@ -1330,15 +1350,45 @@ def _test_delete_notification():
         [
             {
                 "content": "another like you",
-                "id": 11,
-                "timestamp": 1733844512.283099,
+                "id": 389,
+                "timestamp": 1734812518.117288,
                 "title": "like",
             },
             {
+                "content": "another unlike you",
+                "id": 390,
+                "timestamp": 1734812518.195932,
+                "title": "unlike",
+            },
+            {
                 "content": "another like you",
-                "id": 12,
-                "timestamp": 1733844512.90055,
+                "id": 391,
+                "timestamp": 1734812518.264354,
                 "title": "like",
+            },
+            {
+                "content": "another unlike you",
+                "id": 393,
+                "timestamp": 1734812518.729724,
+                "title": "unlike",
+            },
+            {
+                "content": "message from another",
+                "id": 395,
+                "timestamp": 1734812519.500513,
+                "title": "chat",
+            },
+            {
+                "content": "another like you",
+                "id": 396,
+                "timestamp": 1734812519.913834,
+                "title": "like",
+            },
+            {
+                "content": "another viewed your profile",
+                "id": 397,
+                "timestamp": 1734812520.030613,
+                "title": "visit",
             },
         ],
     )
@@ -1365,6 +1415,25 @@ def test_notification():
         },
         {
             "isLiked": True,
+        },
+    )
+    check_get_token(
+        "/api/profile?username=user",
+        200,
+        {
+            "age": 22,
+            "bio": "I am a very interesting person. I like to do interesting things and go to interesting places. I am looking for someone who is also interesting.",
+            "connected": False,
+            "fameRating": 0,
+            "firstname": "Johnny",
+            "gender": "m",
+            "interests": [],
+            "isLiked": True,
+            "lastname": "Appleseed",
+            "pictures": ["http://localhost:5001/api/images/avatar.png"],
+            "sexualPreference": "e",
+            "urlProfile": "http://localhost:5001/api/images/avatar.png",
+            "username": "user",
         },
     )
     _test_delete_notification()
@@ -1468,8 +1537,8 @@ def main():
     test_position()
     test_browsing()
     test_like_user()
-    test_notification()
     test_chat()
+    test_notification()
     test_deleteme()
 
 
