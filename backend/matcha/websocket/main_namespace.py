@@ -4,15 +4,9 @@ from flask_socketio import Namespace, emit
 
 from matcha.utils import flaskprint
 
+from matcha.db.last_connection import db_update_last_connection
+
 from matcha.websocket.socket_manager import SocketManager
-
-
-class ConnectedUser:
-    def __init__(self):
-        self.sid_userid = {}
-
-    def insert(self, sid: str, user_id: int):
-        self.sid_userid.update({sid: user_id})
 
 
 class MainNamespace(Namespace):
@@ -41,6 +35,7 @@ class MainNamespace(Namespace):
 
     def on_disconnect(self):
         try:
+            db_update_last_connection(SocketManager.get_user_id(request.sid))
             SocketManager.remove_session(request.sid)
         except Exception as e:
             flaskprint("Error handling message:" + str(e))

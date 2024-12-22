@@ -29,7 +29,7 @@ class SocketManager:
     @classmethod
     def remove_session(cls, sid):
         user_id = cls.sid_userid.pop(sid, None)
-        cls.userid_sid.pop(userid, None)
+        cls.userid_sid.pop(user_id, None)
 
     @classmethod
     def __str__(cls):
