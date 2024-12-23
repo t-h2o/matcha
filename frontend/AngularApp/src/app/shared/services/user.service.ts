@@ -45,7 +45,7 @@ export class UserService {
     this.httpService.getUser().subscribe({
       next: (data: UserData) => {
         this.ownProfileData.update((prev) => {
-          console.log('data: ' + JSON.stringify(data));
+          console.log('data getUserProfile():  ' + JSON.stringify(data));
           return {
             ...prev,
             username: data.username,
@@ -221,23 +221,20 @@ export class UserService {
   }
 
   getUserPictures() {
-    this.httpService
-      .getPictures()
-
-      .subscribe({
-        next: (data: any) => {
-          this.ownProfileData.update((prev) => {
-            return {
-              ...prev,
-              pictures: data.pictures,
-            };
-          });
-        },
-        error: (error: any) => {
-          const errorMessage = error?.message || 'An unknown error occurred';
-          this.toastService.show(errorMessage, 'error');
-        },
-      });
+    this.httpService.getPictures().subscribe({
+      next: (data: any) => {
+        this.ownProfileData.update((prev) => {
+          return {
+            ...prev,
+            pictures: data.pictures,
+          };
+        });
+      },
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
   }
 
   resetPassword(resetData: { username: string }) {
