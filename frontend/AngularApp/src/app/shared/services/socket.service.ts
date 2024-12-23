@@ -1,9 +1,10 @@
 import { effect, inject, Injectable } from '@angular/core';
-import { Socket, io } from 'socket.io-client';
-import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { AuthService } from './auth.service';
+import { io, Socket } from 'socket.io-client';
+import { environment } from '../../../environments/environment';
 import { Notification } from '../models/message';
+import { AuthService } from './auth.service';
 import { ToastService } from './toast.service';
 
 @Injectable({
@@ -14,6 +15,7 @@ export class SocketService {
   private authService = inject(AuthService);
   private toastService = inject(ToastService);
   private connectedUsers = new BehaviorSubject<string[]>([]);
+  private router = inject(Router);
 
   constructor() {
     effect(() => {
@@ -87,7 +89,9 @@ export class SocketService {
     });
 
     this.socket.on('chat', (notification: Notification) => {
+      if (!this.router.url.match(/^\/chat\/.+/)) {
       this.toastService.show(notification.content, 'success');
+      }
     });
   }
 
