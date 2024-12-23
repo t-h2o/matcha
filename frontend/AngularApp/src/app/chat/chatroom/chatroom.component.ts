@@ -49,7 +49,6 @@ export class ChatroomComponent implements AfterViewChecked, OnInit {
         to: this.username(),
         message: this.messageText,
       };
-      console.log('newMessage: ' + JSON.stringify(newMessage));
       this.messageService.sendMsg(newMessage);
       this.messageText = '';
     }

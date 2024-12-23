@@ -8,9 +8,7 @@
     </div>
     <div class="connection">
       @if (!isOnline()) {
-        <p class="connection-text">
-          Last connection: {{ otherUser().lastConnection }}
-        </p>
+        <p class="connection-text">Last connection: {{ lastConnection() }}</p>
       }
     </div>
   </div>

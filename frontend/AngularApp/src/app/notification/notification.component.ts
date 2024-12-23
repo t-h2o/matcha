@@ -2,6 +2,7 @@ import { Component, computed, inject, OnInit } from '@angular/core';
 import { Notification } from '../shared/models/message';
 import { NotificationService } from '../shared/services/notification.service';
 import { UserService } from '../shared/services/user.service';
+import { format24HourDateTime } from '../shared/utils/displayUtils';
 import { DisplayNotifComponent } from './display-notif/display-notif.component';
 
 @Component({
@@ -17,7 +18,7 @@ export class NotificationComponent implements OnInit {
   notificationList = this.notificationService.notificationList;
   notificationListWithDate = computed(() =>
     this.notificationList().map((notification: Notification) => {
-      notification.date = this.format24HourDateTime(notification.timestamp);
+      notification.date = format24HourDateTime(notification.timestamp);
       return notification;
     }),
   );
@@ -34,17 +35,5 @@ export class NotificationComponent implements OnInit {
   onDeleteNotificationHandler(notificationId: number) {
     console.log('Delete notification with id: ', notificationId);
     this.notificationService.deleteNotification(notificationId);
-  }
-
-  format24HourDateTime(timestamp: number): string {
-    return new Intl.DateTimeFormat('en-GB', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: false,
-    }).format(new Date(timestamp));
   }
 }
