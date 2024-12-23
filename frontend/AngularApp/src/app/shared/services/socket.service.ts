@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 import { environment } from '../../../environments/environment';
-import { Notification } from '../models/message';
+import { ChatMessageFromBack, Notification } from '../models/message';
 import { AuthService } from './auth.service';
+import { MessageService } from './messsage.service';
 import { ToastService } from './toast.service';
 
 @Injectable({
@@ -16,6 +17,7 @@ export class SocketService {
   private toastService = inject(ToastService);
   private connectedUsers = new BehaviorSubject<string[]>([]);
   private router = inject(Router);
+  private msgService = inject(MessageService);
 
   constructor() {
     effect(() => {
@@ -88,9 +90,13 @@ export class SocketService {
       this.toastService.show(notification.content, 'success');
     });
 
-    this.socket.on('chat', (notification: Notification) => {
+    this.socket.on('chat', (notification: ChatMessageFromBack) => {
+      console.log('msg: ' + JSON.stringify(notification));
+      this.msgService.messages.update((prev) => {
+        return [...prev, notification];
+      });
       if (!this.router.url.match(/^\/chat\/.+/)) {
-      this.toastService.show(notification.content, 'success');
+        this.toastService.show(notification.message, 'success');
       }
     });
   }
