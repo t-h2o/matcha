@@ -1,8 +1,20 @@
 <div class="app-wrapper">
-  <h2 class="title">
-    {{ username() }}
-    <span class="status-dot" [class.online]="isOnline()"></span>
-  </h2>
+  <div class="username-group">
+    <div class="name">
+      <h2 class="title">
+        {{ username() }}
+        <span class="status-dot" [class.online]="isOnline()"></span>
+      </h2>
+    </div>
+    <div class="connection">
+      @if (!isOnline()) {
+        <p class="connection-text">
+          Last connection: {{ otherUser().lastConnection }}
+        </p>
+      }
+    </div>
+  </div>
+
   <div class="stars-group">
     <div class="heart tooltip" (click)="toggleLike()">
       <img src="{{ heartIcon }}" alt="Heart" />

@@ -66,6 +66,7 @@ export type UserData = {
   likedBy: string[];
   visitedBy: string[];
   connected: boolean;
+  lastConnection: number;
 };
 
 export type PossibleMatchesUserData = {

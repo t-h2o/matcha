@@ -18,6 +18,7 @@ export const emptyUser: UserData = {
   likedBy: [],
   visitedBy: [],
   connected: false,
+  lastConnection: 0,
 };
 
 export const testUser: UserData = {
@@ -38,4 +39,5 @@ export const testUser: UserData = {
   likedBy: [],
   visitedBy: [],
   connected: false,
+  lastConnection: 0,
 };
