@@ -33,6 +33,7 @@ export class UserDetailComponent implements OnInit {
   ngOnInit(): void {
     this.PotentialMatchService.getUserProfileByUsername(this.username());
     this.userServices.getUserProfile();
+    this.userServices.getUserPictures();
   }
 
   get heartIcon(): string {
