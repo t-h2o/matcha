@@ -1,24 +1,40 @@
 @import "../../../styles.scss";
 
-.title {
-  font-size: 2em;
-  font-weight: bold;
-  color: $pink;
-  margin-bottom: 2rem;
-  text-align: center;
-}
+.username-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-.status-dot {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  display: inline-block;
-  background-color: red;
-  margin-left: 1.5rem;
-}
+  @media screen and (max-width: $mobile-max-width) {
+    flex-direction: column;
+  }
 
-.online {
-  background-color: green;
+  .title {
+    font-size: 2em;
+    font-weight: bold;
+    color: $pink;
+    margin-bottom: 2rem;
+    text-align: center;
+
+    .status-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: inline-block;
+      background-color: red;
+      margin-left: 1.5rem;
+    }
+
+    .online {
+      background-color: green;
+    }
+  }
+
+  .connection-text {
+    color: $pink;
+    font-size: 1rem;
+    margin-left: 2rem;
+  }
 }
 
 .stars-group {
@@ -69,7 +85,6 @@
   border-color: $pink transparent transparent transparent;
 }
 
-/* Show tooltip on hover */
 .tooltip:hover .tooltip-text {
   visibility: visible;
   opacity: 1;

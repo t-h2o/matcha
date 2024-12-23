@@ -1,11 +1,14 @@
 import { Component, computed, inject, input, OnInit } from '@angular/core';
 import { PotentialMatchService } from '../../shared/services/potentialMatch.service';
+import { ToastService } from '../../shared/services/toast.service';
 import { UserService } from '../../shared/services/user.service';
-import { getFameRatingStars } from '../../shared/utils/displayUtils';
+import {
+  format24HourDateTime,
+  getFameRatingStars,
+} from '../../shared/utils/displayUtils';
 import { GeneralComponent } from './general/general.component';
 import { MatchInterestsComponent } from './interests/match-interests.component';
 import { PicturesComponent } from './pictures/pictures.component';
-import { ToastService } from '../../shared/services/toast.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -23,6 +26,9 @@ export class UserDetailComponent implements OnInit {
   selfUser = this.userServices.ownProfileData;
   isLikedByUser = computed(() => this.otherUser().isLiked);
   isOnline = computed(() => this.otherUser().connected);
+  lastConnection = computed(() => {
+    return format24HourDateTime(this.otherUser().lastConnection);
+  });
 
   ngOnInit(): void {
     this.PotentialMatchService.getUserProfileByUsername(this.username());
