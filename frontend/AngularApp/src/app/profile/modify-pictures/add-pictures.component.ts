@@ -52,7 +52,12 @@ export class AddPicturesComponent implements OnInit {
     event.stopPropagation();
     const files = event.dataTransfer?.files;
     if (files && files.length <= this.numberOfPicturesUploadable()) {
-      this.addFile(files[0]);
+      const file = files[0];
+      if (file.type.startsWith('image/')) {
+        this.addFile(file);
+      } else {
+        alert('Only image files are allowed.');
+      }
     }
   }
 
