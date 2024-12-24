@@ -17,6 +17,10 @@ URL = "http://localhost:5001"
 
 def print_diff(expected: dict, received: dict) -> None:
     print("------------ diff ------------")
+    if not isinstance(expected, dict):
+        return
+    if not isinstance(received, dict):
+        return
     keys_expected = set(expected.keys())
     keys_received = set(received.keys())
     keys_diff = keys_received - keys_expected
