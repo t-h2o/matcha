@@ -67,7 +67,7 @@ def check_content_code(
             and "timestamp" in received_loaded[0]
         ):
             if len(received_loaded) != len(content_expected):
-                print("--- bad content ---")
+                print("--- bad content [a] ---")
                 print_error(
                     url,
                     path,
@@ -84,7 +84,7 @@ def check_content_code(
                         continue
                     try:
                         if notification[key] != content_expected[index][key]:
-                            print("--- bad content ---")
+                            print("--- bad content [b] ---")
                             print_error(
                                 url,
                                 path,
@@ -96,7 +96,7 @@ def check_content_code(
                             )
                             return
                     except:
-                        print("--- bad content ---")
+                        print("--- bad content [c] ---")
                         print_error(
                             url,
                             path,
@@ -111,7 +111,7 @@ def check_content_code(
             return
 
     if received_loaded != content_expected:
-        print("--- bad content ---")
+        print("--- bad content [d] ---")
         print_error(
             url,
             path,
@@ -179,7 +179,7 @@ def check_get(path, status, content):
     response = get(URL + path)
 
     if response.content != content:
-        print("--- bad content ---")
+        print("--- bad content [get] ---")
         print_error(URL, path, status, response.status_code, content, response.content)
         return
     if response.status_code != status:
