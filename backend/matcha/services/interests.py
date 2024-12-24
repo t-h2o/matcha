@@ -1,13 +1,10 @@
 from flask import jsonify
 
-from flask_socketio import send  # TODO remove me
 
 from matcha.db.interests import db_get_interests
 from matcha.db.interests import db_set_interests
 
 from matcha.utils import check_request_json_values
-
-from matcha.websocket.socket_manager import SocketManager  # TODO remove me
 
 
 def _services_put_interests(id_user, request):
@@ -27,10 +24,6 @@ def _services_put_interests(id_user, request):
 
 def services_interests(id_user, request):
     if request.method == "PUT":
-        sid = SocketManager().get_sid(id_user)  # TODO remove me
-        if sid is not None:  # TODO remove me
-            send("interest PUT", to=sid, namespace="/")  # TODO remove me
-
         error_msg = _services_put_interests(id_user, request)
         if error_msg:
             return error_msg
