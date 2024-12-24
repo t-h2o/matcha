@@ -15,6 +15,27 @@ class bcolors:
 URL = "http://localhost:5001"
 
 
+def print_diff(expected: dict, received: dict) -> None:
+    print("------------ diff ------------")
+    keys_expected = set(expected.keys())
+    keys_received = set(received.keys())
+    keys_diff = keys_received - keys_expected
+
+    if len(keys_diff) != 0:
+        print(keys_expected)
+        print(keys_received)
+        print(keys_diff)
+        return
+
+    result = {}
+    for key in keys_expected:
+        if expected[key] != received[key]:
+            print(f'for key : "{key}"')
+            print(f"- {received[key]}")
+            print(f"+ {expected[key]}")
+    print("------------ diff ------------")
+
+
 def print_error(
     url,
     path,
@@ -33,6 +54,7 @@ def print_error(
     print(f"received: {content_received}")
     print(f"code expected: {code_expected}")
     print(f"code received: {code_received}")
+    print_diff(content_expected, content_received)
     print("----")
 
 
