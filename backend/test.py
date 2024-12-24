@@ -1272,11 +1272,6 @@ def test_like_user():
             "likers": ["user"],
         },
     )
-    check_get_token(
-        "/api/match",
-        201,
-        ["user"],
-    )
     check_post_token(
         "/api/like-user",
         201,
@@ -1311,6 +1306,11 @@ def test_like_user():
         {
             "isLiked": False,
         },
+    )
+    check_get_token(
+        "/api/match",
+        201,
+        [],
     )
     check_post_token(
         "/api/like-user",
