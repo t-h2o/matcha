@@ -131,6 +131,7 @@ def services_profile_username(id_user: int, username: str):
             urlProfile=profile_url,
             isLiked=is_liked,
             connected=SocketManager.is_connected(user_db[0]),
+            lastConnection=db_get_last_connection(user_db[0]),
         ),
         200,
     )
