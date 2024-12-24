@@ -337,7 +337,7 @@ def test_update():
         },
     )
     check_get_token(
-        "/api/profile?username=another",
+        "/api/profile/another",
         200,
         {
             "age": 18,
@@ -348,6 +348,7 @@ def test_update():
             "gender": "m",
             "interests": [],
             "isLiked": False,
+            "lastConnection": 1734914588.912091,
             "lastname": "User",
             "pictures": ["http://localhost:5001/api/images/avatar.png"],
             "sexualPreference": "e",
@@ -356,14 +357,14 @@ def test_update():
         },
     )
     check_get_token(
-        "/api/profile?username= another",
+        "/api/profile/ another",
         401,
         {
             "error": "username not found",
         },
     )
     check_get_token(
-        "/api/profile?username=another'",
+        "/api/profile/another'",
         401,
         {
             "error": "username not found",
@@ -1249,6 +1250,16 @@ def test_like_user():
             "isLiked": True,
         },
     )
+    check_post_token(
+        "/api/like-user",
+        201,
+        {
+            "like": "daphnee",
+        },
+        {
+            "isLiked": True,
+        },
+    )
     check_login_token(
         "/api/login",
         {"username": "another", "password": "5678"},
@@ -1264,11 +1275,26 @@ def test_like_user():
         "/api/like-user",
         201,
         {
+            "like": "edythe",
+        },
+        {
+            "isLiked": True,
+        },
+    )
+    check_post_token(
+        "/api/like-user",
+        201,
+        {
             "like": "user",
         },
         {
             "isLiked": True,
         },
+    )
+    check_get_token(
+        "/api/match",
+        201,
+        ["user"],
     )
     check_post_token(
         "/api/like-user",
@@ -1279,6 +1305,11 @@ def test_like_user():
         {
             "isLiked": False,
         },
+    )
+    check_get_token(
+        "/api/match",
+        201,
+        [],
     )
     check_post_token(
         "/api/like-user",
@@ -1418,7 +1449,7 @@ def test_notification():
         },
     )
     check_get_token(
-        "/api/profile?username=user",
+        "/api/profile/user",
         200,
         {
             "age": 22,
@@ -1429,6 +1460,7 @@ def test_notification():
             "gender": "m",
             "interests": [],
             "isLiked": True,
+            "lastConnection": 1735056819.039922,
             "lastname": "Appleseed",
             "pictures": ["http://localhost:5001/api/images/avatar.png"],
             "sexualPreference": "e",

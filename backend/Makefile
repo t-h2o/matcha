@@ -7,7 +7,7 @@ black:
 	docker exec flask-dev black .
 
 test:
-	python test.py
+	@python test.py
 
 populate:
 	@python populate.py
