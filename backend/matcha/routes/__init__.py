@@ -5,6 +5,7 @@ import matcha.routes.browsing
 import matcha.routes.chat
 import matcha.routes.fake
 import matcha.routes.auth
+import matcha.routes.match
 import matcha.routes.position
 import matcha.routes.images
 import matcha.routes.interests
@@ -21,6 +22,7 @@ def init_routes(app):
     app.register_blueprint(chat.bp)
     app.register_blueprint(fake.bp)
     app.register_blueprint(auth.bp)
+    app.register_blueprint(match.bp)
     app.register_blueprint(position.bp)
     app.register_blueprint(images.bp)
     app.register_blueprint(interests.bp)
