@@ -68,5 +68,5 @@ export function format24HourDateTime(timestamp: number): string {
     minute: '2-digit',
     second: '2-digit',
     hour12: false,
-  }).format(new Date(timestamp));
+  }).format(new Date(timestamp * 1000));
 }
