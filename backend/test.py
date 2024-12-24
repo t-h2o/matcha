@@ -337,7 +337,7 @@ def test_update():
         },
     )
     check_get_token(
-        "/api/profile?username=another",
+        "/api/profile/another",
         200,
         {
             "age": 18,
@@ -348,6 +348,7 @@ def test_update():
             "gender": "m",
             "interests": [],
             "isLiked": False,
+            "lastConnection": 1734914588.912091,
             "lastname": "User",
             "pictures": ["http://localhost:5001/api/images/avatar.png"],
             "sexualPreference": "e",
@@ -356,14 +357,14 @@ def test_update():
         },
     )
     check_get_token(
-        "/api/profile?username= another",
+        "/api/profile/ another",
         401,
         {
             "error": "username not found",
         },
     )
     check_get_token(
-        "/api/profile?username=another'",
+        "/api/profile/another'",
         401,
         {
             "error": "username not found",
@@ -1418,7 +1419,7 @@ def test_notification():
         },
     )
     check_get_token(
-        "/api/profile?username=user",
+        "/api/profile/user",
         200,
         {
             "age": 22,
@@ -1429,6 +1430,7 @@ def test_notification():
             "gender": "m",
             "interests": [],
             "isLiked": True,
+            "lastConnection": 1735056819.039922,
             "lastname": "Appleseed",
             "pictures": ["http://localhost:5001/api/images/avatar.png"],
             "sexualPreference": "e",
