@@ -82,6 +82,22 @@ def check_content_code(
         )
         return
 
+    if "lastConnection" in content_expected and "lastConnection" in received_loaded:
+        if not isinstance(received_loaded["lastConnection"], float):
+            print("--- bad content [e] ---")
+            print("lastConnection is not a float")
+            return
+        content_expected.pop("lastConnection")
+        received_loaded.pop("lastConnection")
+
+    if "timestamp" in content_expected and "timestamp" in received_loaded:
+        if not isinstance(received_loaded["timestamp"], float):
+            print("--- bad content [e] ---")
+            print("timestamp is not a float")
+            return
+        content_expected.pop("timestamp")
+        received_loaded.pop("timestamp")
+
     if isinstance(received_loaded, list):
         if (
             len(received_loaded) > 0
