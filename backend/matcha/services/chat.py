@@ -10,6 +10,8 @@ from matcha.db.chat import (
 
 from matcha.utils import check_request_json, get_id_where_username_else_error
 
+from matcha.websocket.chat import ws_send_chat
+
 
 def services_chat_get(id_user, username):
     db_response = db_get_id_where_username(username)
@@ -41,5 +43,7 @@ def services_chat_post(id_user, request):
     visitor_username = db_get_username_where_id(id_user)
 
     db_put_notification(id_to_notify, "chat", f"message from {visitor_username}")
+
+    ws_send_chat(id_to_notify, response)
 
     return jsonify(response), 201
