@@ -1538,6 +1538,27 @@ def test_fake():
         },
         {"isFaked": True},
     )
+    check_get_token(
+        "/api/profile/another",
+        200,
+        {
+            "age": 18,
+            "bio": "My bio is short. with special a single quote '",
+            "connected": False,
+            "fameRating": 0,
+            "firstname": "Another",
+            "gender": "m",
+            "interests": [],
+            "isLiked": False,
+            "isFaked": True,
+            "lastConnection": 1734914588.912091,
+            "lastname": "User",
+            "pictures": [],
+            "sexualPreference": "e",
+            "urlProfile": "no url",
+            "username": "another",
+        },
+    )
     check_post_token(
         "/api/fake",
         201,
@@ -1545,6 +1566,27 @@ def test_fake():
             "unfake": "another",
         },
         {"isFaked": False},
+    )
+    check_get_token(
+        "/api/profile/another",
+        200,
+        {
+            "age": 18,
+            "bio": "My bio is short. with special a single quote '",
+            "connected": False,
+            "fameRating": 0,
+            "firstname": "Another",
+            "gender": "m",
+            "interests": [],
+            "isLiked": False,
+            "isFaked": False,
+            "lastConnection": 1734914588.912091,
+            "lastname": "User",
+            "pictures": [],
+            "sexualPreference": "e",
+            "urlProfile": "no url",
+            "username": "another",
+        },
     )
 
 
