@@ -1527,6 +1527,25 @@ def test_chat():
     )
 
 
+def test_fake():
+    check_post_token(
+        "/api/fake",
+        201,
+        {
+            "fake": "another",
+        },
+        {"isFaked": True},
+    )
+    check_post_token(
+        "/api/fake",
+        201,
+        {
+            "unfake": "another",
+        },
+        {"isFaked": False},
+    )
+
+
 def main():
     test_register()
     test_create_another_user()
@@ -1541,6 +1560,7 @@ def main():
     test_like_user()
     test_chat()
     test_notification()
+    test_fake()
     test_deleteme()
 
 
