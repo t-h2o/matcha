@@ -2,9 +2,10 @@ from flask import Blueprint, request, jsonify
 
 from matcha.db.user import (
     db_get_user_per_id,
-    db_get_interests,
     db_is_profile_completed,
 )
+
+from matcha.db.interests import db_get_interests
 from matcha.db.pictures import (
     db_get_url_profile,
 )

@@ -16,11 +16,14 @@ from matcha.db.visit import db_put_visit, db_get_visit
 from matcha.db.last_connection import db_get_last_connection
 
 from matcha.db.user import (
-    db_get_interests,
     db_set_user_profile_data,
     db_get_user_per_id,
     db_get_user_per_username,
     db_get_username_where_id,
+)
+
+from matcha.db.interests import (
+    db_get_interests,
 )
 
 from matcha.db.notification import db_put_notification
