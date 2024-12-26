@@ -6,7 +6,7 @@ from re import search
 
 from flask import jsonify
 
-from matcha.db.db import db_get_id_where_username
+from matcha.db.user import db_get_id_where_username
 
 
 def flaskprint(message):

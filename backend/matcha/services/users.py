@@ -14,7 +14,7 @@ from matcha.db.pictures import (
     db_get_url_profile,
 )
 
-from matcha.db.db import (
+from matcha.db.user import (
     db_set_user_profile_data,
     db_get_user_per_id,
     db_get_user_per_username,

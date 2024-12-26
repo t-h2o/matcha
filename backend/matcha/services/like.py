@@ -2,8 +2,8 @@ from flask import jsonify
 
 from matcha.utils import check_request_json_values, get_id_where_username_else_error
 
-from matcha.db.db import db_get_id_where_username
-from matcha.db.db import db_get_username_where_id
+from matcha.db.user import db_get_id_where_username
+from matcha.db.user import db_get_username_where_id
 
 from matcha.db.notification import db_put_notification
 
