@@ -67,6 +67,7 @@ export type UserData = {
   visitedBy: string[];
   connected: boolean;
   lastConnection: number;
+  isFaked: boolean;
 };
 
 export type PossibleMatchesUserData = {

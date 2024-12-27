@@ -29,6 +29,7 @@ export class UserDetailComponent implements OnInit {
   lastConnection = computed(() => {
     return format24HourDateTime(this.otherUser().lastConnection);
   });
+  isFake = computed(() => this.otherUser().isFaked);
 
   ngOnInit(): void {
     this.PotentialMatchService.getUserProfileByUsername(this.username());
