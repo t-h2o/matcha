@@ -44,6 +44,9 @@ export class GeneralProfileComponent {
   }
 
   get bio() {
+    if (this.userProfile().bio.length > 300) {
+      return getBio(this.userProfile().bio.substring(0, 300) + ' ...');
+    }
     return getBio(this.userProfile().bio);
   }
 
