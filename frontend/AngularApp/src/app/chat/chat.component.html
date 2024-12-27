@@ -1,8 +1,8 @@
 <div class="container">
   <h3 class="title">Your contacts</h3>
   <div class="contact-list">
-    @for (contact of contacts(); track contact.username) {
-      <app-contact [contact]="contact"></app-contact>
+    @for (match of matches(); track match.username) {
+      <app-contact [contact]="match"></app-contact>
     }
   </div>
 </div>

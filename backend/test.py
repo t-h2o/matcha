@@ -1251,6 +1251,16 @@ def test_like_user():
             "isLiked": True,
         },
     )
+    check_post_token(
+        "/api/like-user",
+        201,
+        {
+            "like": "daphnee",
+        },
+        {
+            "isLiked": True,
+        },
+    )
     check_login_token(
         "/api/login",
         {"username": "another", "password": "5678"},
@@ -1266,11 +1276,26 @@ def test_like_user():
         "/api/like-user",
         201,
         {
+            "like": "edythe",
+        },
+        {
+            "isLiked": True,
+        },
+    )
+    check_post_token(
+        "/api/like-user",
+        201,
+        {
             "like": "user",
         },
         {
             "isLiked": True,
         },
+    )
+    check_get_token(
+        "/api/match",
+        201,
+        ["user"],
     )
     check_post_token(
         "/api/like-user",
@@ -1281,6 +1306,11 @@ def test_like_user():
         {
             "isLiked": False,
         },
+    )
+    check_get_token(
+        "/api/match",
+        201,
+        [],
     )
     check_post_token(
         "/api/like-user",

@@ -11,8 +11,15 @@ def _get_query(search) -> str:
     query = """
         SELECT u.id, u.username, u.firstname, u.lastname, u.gender, u.sexual_orientation, u.age, u.fame_rating
         FROM users u
-        JOIN user_interests ui ON u.id = ui.user_id
-        JOIN interests i ON ui.interest_id = i.id
+        """
+
+    if search["interests"] is not None:
+        query += """
+            JOIN user_interests ui ON u.id = ui.user_id
+            JOIN interests i ON ui.interest_id = i.id
+            """
+
+    query += """
         WHERE sexual_orientation = %s
           AND u.gender = %s
           AND u.id != %s
