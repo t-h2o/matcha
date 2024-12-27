@@ -13,6 +13,7 @@ export class BlockFakeComponent {
   private PotentialMatchService = inject(PotentialMatchService);
   username = input.required<string>();
   isFake = input.required<boolean>();
+  isBlocked = input.required<boolean>();
 
   reportAsFake(username: string): void {
     if (this.isFake()) {
@@ -24,6 +25,12 @@ export class BlockFakeComponent {
     }
   }
   blockUser(username: string): void {
-    console.log(`User ${username} blocked`);
+    if (this.isBlocked()) {
+      const payload = { unblock: username };
+      this.PotentialMatchService.blockUser(payload);
+    } else {
+      const payload = { block: username };
+      this.PotentialMatchService.blockUser(payload);
+    }
   }
 }

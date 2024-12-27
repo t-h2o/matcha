@@ -137,4 +137,21 @@ export class PotentialMatchService {
       },
     });
   }
+
+  blockUser(payload: { block: string } | { unblock: string }) {
+    this.httpService.blockUser(payload).subscribe({
+      next: () => {
+        // this.otherProfileData.update((prev) => {
+        //   return {
+        //     ...prev,
+        //     isBlocked: !prev.isBlocked,
+        //   };
+        // });
+      },
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
+  }
 }
