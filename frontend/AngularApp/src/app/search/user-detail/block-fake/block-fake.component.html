@@ -1,0 +1,12 @@
+<div class="block-fake-header">
+  <p class="title">Block or Report as fake</p>
+</div>
+<div class="block-fake">
+  <div class="block" (click)="blockUser(username())">
+    <button custom-button class="btn">Block</button>
+  </div>
+  <div class="fake tooltip" (click)="reportAsFake(username())">
+    <img src="/icons/ban.svg" alt="Ban" />
+    <span class="tooltip-text">Toggle profile as fake</span>
+  </div>
+</div>
