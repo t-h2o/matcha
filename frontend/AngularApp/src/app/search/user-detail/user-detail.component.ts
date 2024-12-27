@@ -62,7 +62,12 @@ export class UserDetailComponent implements OnInit {
   }
 
   reportAsFake(username: string): void {
-    console.log(`reporting ${username} as fake`);
-    // this.PotentialMatchService.reportUserAsFake(this.user.username);
+    if (this.isFake()) {
+      const payload = { unfake: username };
+      this.PotentialMatchService.toggleUserAsFake(payload);
+    } else {
+      const payload = { fake: username };
+      this.PotentialMatchService.toggleUserAsFake(payload);
+    }
   }
 }

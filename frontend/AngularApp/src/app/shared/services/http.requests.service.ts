@@ -13,12 +13,12 @@ import {
   UserLogin,
   UserRegister,
 } from '../models/data-to-api/user';
-import { token } from '../models/token';
 import {
   ChatMessageFromBack,
   ChatMessageToBack,
   Notification,
 } from '../models/message';
+import { token } from '../models/token';
 
 @Injectable({
   providedIn: 'root',
@@ -161,5 +161,9 @@ export class HttpRequestsService {
       `${this.baseUrl}/position`,
       coords,
     );
+  }
+
+  reportFake(payload: { fake: string } | { unfake: string }) {
+    return this.httpClient.post(`${this.baseUrl}/fake`, payload);
   }
 }
