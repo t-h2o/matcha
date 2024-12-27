@@ -29,7 +29,6 @@ export class AddPicturesComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    console.log(this.userProfileData());
     this.userService.getUserProfile();
     this.userService.getUserPictures();
   }

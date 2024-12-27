@@ -4,14 +4,12 @@ import { RouterModule } from '@angular/router';
 import { PasswordConfirmValidatorDirective } from '../shared/directives/password-confirm-validator.directive';
 import { UserRegister } from '../shared/models/data-to-api/user';
 import { UserService } from '../shared/services/user.service';
-import { CardComponent } from '../UI/card/card.component';
 import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
-    CardComponent,
     CustomButtonComponent,
     FormsModule,
     PasswordConfirmValidatorDirective,
@@ -25,12 +23,6 @@ export class RegisterComponent {
 
   onSubmit(formData: NgForm) {
     if (formData.invalid) {
-      Object.keys(formData.controls).forEach((field) => {
-        const control = formData.controls[field];
-        if (control.invalid) {
-          console.log(`${field} is invalid`);
-        }
-      });
       return;
     }
     const userData: UserRegister = {

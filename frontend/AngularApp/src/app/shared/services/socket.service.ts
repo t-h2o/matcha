@@ -70,10 +70,6 @@ export class SocketService {
       this.connectedUsers.next(users);
     });
 
-    this.socket.on('response', (message: string) => {
-      console.log('Received message:', message);
-    });
-
     this.socket.on('like', (notification: Notification) => {
       this.toastService.show(notification.content, 'success');
     });

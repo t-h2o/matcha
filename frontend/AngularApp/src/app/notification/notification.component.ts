@@ -33,7 +33,6 @@ export class NotificationComponent implements OnInit {
   }
 
   onDeleteNotificationHandler(notificationId: number) {
-    console.log('Delete notification with id: ', notificationId);
     this.notificationService.deleteNotification(notificationId);
   }
 }
