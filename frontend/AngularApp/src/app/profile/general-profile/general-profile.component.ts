@@ -44,6 +44,9 @@ export class GeneralProfileComponent {
   }
 
   get bio() {
+    if (this.userProfile().bio.length > 300) {
+      return getBio(this.userProfile().bio.substring(0, 300) + ' ...');
+    }
     return getBio(this.userProfile().bio);
   }
 
@@ -52,10 +55,16 @@ export class GeneralProfileComponent {
   }
 
   get lat(): string {
+    if (this.location().latitude === 999) {
+      return 'NA';
+    }
     return this.location().latitude.toString();
   }
 
   get long(): string {
+    if (this.location().latitude === 999) {
+      return 'NA';
+    }
     return this.location().longitude.toString();
   }
 }

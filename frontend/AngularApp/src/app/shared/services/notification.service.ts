@@ -14,7 +14,6 @@ export class NotificationService {
   getNotifications() {
     this.httpService.getNotifications().subscribe({
       next: (notifications: Notification[]) => {
-        console.log('Notifications: ' + notifications);
         this.notificationList.set(notifications);
       },
       error: (error: any) => {

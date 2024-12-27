@@ -103,121 +103,83 @@ export class UserService {
   }
 
   modifyEmail(userData: ModifiedUserEmail) {
-    this.httpService
-      .modifyEmail(userData)
-
-      .subscribe({
-        next: (data: ModifiedUserEmail) => {
-          this.ownProfileData.update((prev) => {
-            return {
-              ...prev,
-              email: data.email,
-            };
-          });
-        },
-        error: (error: any) => {
-          const errorMessage = error?.message || 'An unknown error occurred';
-          this.toastService.show(errorMessage, 'error');
-        },
-      });
+    this.httpService.modifyEmail(userData).subscribe({
+      next: (data: ModifiedUserEmail) => {
+        this.ownProfileData.update((prev) => {
+          return {
+            ...prev,
+            email: data.email,
+          };
+        });
+      },
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
   }
 
-  // getUserEmail() {
-  //   this.httpService
-  //     .getEmail()
-
-  //     .subscribe({
-  //       next: (data: ModifiedUserEmail) => {
-  //         this.ownProfileData.update((prev) => {
-  //           return {
-  //             ...prev,
-  //             email: data.email,
-  //           };
-  //         });
-  //       },
-  //       error: (error: any) => {
-  //         const errorMessage = error?.message || 'An unknown error occurred';
-  //         this.toastService.show(errorMessage, 'error');
-  //       },
-  //     });
-  // }
-
   modifyPassword(userData: ModifiedUserPassword) {
-    this.httpService
-      .modifyPassword(userData)
-
-      .subscribe({
-        next: (data: any) => {
-          console.log('data: ' + JSON.stringify(data));
-        },
-        error: (error: any) => {
-          const errorMessage = error?.message || 'An unknown error occurred';
-          this.toastService.show(errorMessage, 'error');
-        },
-      });
+    this.httpService.modifyPassword(userData).subscribe({
+      next: (_data: any) => {},
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
   }
 
   deletePicture(pictureName: string) {
-    this.httpService
-      .deletePicture(pictureName)
-
-      .subscribe({
-        next: (data: any) => {
-          this.ownProfileData.update((prev) => {
-            return {
-              ...prev,
-              pictures: data.pictures,
-            };
-          });
-        },
-        error: (error: any) => {
-          const errorMessage = error?.message || 'An unknown error occurred';
-          this.toastService.show(errorMessage, 'error');
-        },
-      });
+    this.httpService.deletePicture(pictureName).subscribe({
+      next: (data: any) => {
+        this.ownProfileData.update((prev) => {
+          return {
+            ...prev,
+            pictures: data.pictures,
+          };
+        });
+      },
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
   }
 
   modifyPictures(pictures: File[]) {
-    this.httpService
-      .modifyPictures(pictures)
-
-      .subscribe({
-        next: (data: any) => {
-          this.ownProfileData.update((prev) => {
-            this.router.navigate(['/profile']);
-            return {
-              ...prev,
-              pictures: data.pictures,
-            };
-          });
-        },
-        error: (error: any) => {
-          console.log('error:', error);
-          const errorMessage =
-            error?.error?.message || 'An unknown error occurred';
-          this.toastService.show(errorMessage, 'error');
-        },
-      });
+    this.httpService.modifyPictures(pictures).subscribe({
+      next: (data: any) => {
+        this.ownProfileData.update((prev) => {
+          this.router.navigate(['/profile']);
+          return {
+            ...prev,
+            pictures: data.pictures,
+          };
+        });
+      },
+      error: (error: any) => {
+        const errorMessage =
+          error?.error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
   }
 
   modifyProfilePicture(pictureName: string) {
-    this.httpService
-      .modifyProfilePicture(pictureName)
-
-      .subscribe({
-        next: (data: any) => {
-          this.ownProfileData.update((prev) => {
-            return {
-              ...prev,
-              urlProfile: data.selectedPicture,
-            };
-          });
-        },
-        error: (error: any) => {
-          const errorMessage = error?.message || 'An unknown error occurred';
-          this.toastService.show(errorMessage, 'error');
-        },
-      });
+    this.httpService.modifyProfilePicture(pictureName).subscribe({
+      next: (data: any) => {
+        this.ownProfileData.update((prev) => {
+          return {
+            ...prev,
+            urlProfile: data.selectedPicture,
+          };
+        });
+      },
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
   }
 
   getUserPictures() {
@@ -238,18 +200,13 @@ export class UserService {
   }
 
   resetPassword(resetData: { username: string }) {
-    this.httpService
-      .resetPassword(resetData)
-
-      .subscribe({
-        next: (data: any) => {
-          console.log('data: ' + JSON.stringify(data));
-        },
-        error: (error: any) => {
-          const errorMessage = error?.message || 'An unknown error occurred';
-          this.toastService.show(errorMessage, 'error');
-        },
-      });
+    this.httpService.resetPassword(resetData).subscribe({
+      next: (_data: any) => {},
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
   }
 
   sendUserRegisterData(userData: UserRegister) {

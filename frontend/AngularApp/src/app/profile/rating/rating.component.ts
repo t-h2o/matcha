@@ -18,7 +18,6 @@ export class RatingComponent {
   visitedByList = computed(() => this.user().visitedBy);
 
   onClickHandler(username: string) {
-    console.log('Clicked');
     this.router.navigate(['search', username]);
   }
 }
