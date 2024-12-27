@@ -19,6 +19,7 @@ export const emptyUser: UserData = {
   visitedBy: [],
   connected: false,
   lastConnection: 0,
+  isFaked: false,
 };
 
 export const testUser: UserData = {
@@ -40,4 +41,5 @@ export const testUser: UserData = {
   visitedBy: [],
   connected: false,
   lastConnection: 0,
+  isFaked: false,
 };

@@ -6,7 +6,7 @@ from flask_jwt_extended import (
 
 from werkzeug.security import check_password_hash
 
-from matcha.db.db import db_get_id_password_where_username
+from matcha.db.user import db_get_id_password_where_username
 
 from matcha.utils import check_request_json
 

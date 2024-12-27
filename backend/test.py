@@ -348,6 +348,7 @@ def test_update():
             "gender": "m",
             "interests": [],
             "isLiked": False,
+            "isFaked": False,
             "lastConnection": 1734914588.912091,
             "lastname": "User",
             "pictures": ["http://localhost:5001/api/images/avatar.png"],
@@ -1430,6 +1431,7 @@ def test_notification():
             "gender": "m",
             "interests": [],
             "isLiked": True,
+            "isFaked": False,
             "lastConnection": 1735056819.039922,
             "lastname": "Appleseed",
             "pictures": ["http://localhost:5001/api/images/avatar.png"],
@@ -1527,6 +1529,67 @@ def test_chat():
     )
 
 
+def test_fake():
+    check_post_token(
+        "/api/fake",
+        201,
+        {
+            "fake": "another",
+        },
+        {"isFaked": True},
+    )
+    check_get_token(
+        "/api/profile/another",
+        200,
+        {
+            "age": 18,
+            "bio": "My bio is short. with special a single quote '",
+            "connected": False,
+            "fameRating": 0,
+            "firstname": "Another",
+            "gender": "m",
+            "interests": [],
+            "isLiked": False,
+            "isFaked": True,
+            "lastConnection": 1734914588.912091,
+            "lastname": "User",
+            "pictures": [],
+            "sexualPreference": "e",
+            "urlProfile": "no url",
+            "username": "another",
+        },
+    )
+    check_post_token(
+        "/api/fake",
+        201,
+        {
+            "unfake": "another",
+        },
+        {"isFaked": False},
+    )
+    check_get_token(
+        "/api/profile/another",
+        200,
+        {
+            "age": 18,
+            "bio": "My bio is short. with special a single quote '",
+            "connected": False,
+            "fameRating": 0,
+            "firstname": "Another",
+            "gender": "m",
+            "interests": [],
+            "isLiked": False,
+            "isFaked": False,
+            "lastConnection": 1734914588.912091,
+            "lastname": "User",
+            "pictures": [],
+            "sexualPreference": "e",
+            "urlProfile": "no url",
+            "username": "another",
+        },
+    )
+
+
 def main():
     test_register()
     test_create_another_user()
@@ -1541,6 +1604,7 @@ def main():
     test_like_user()
     test_chat()
     test_notification()
+    test_fake()
     test_deleteme()
 
 

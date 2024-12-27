@@ -1,6 +1,6 @@
 from flask import jsonify
 
-from matcha.db.db import db_get_id_where_username, db_get_username_where_id
+from matcha.db.user import db_get_id_where_username, db_get_username_where_id
 from matcha.db.notification import db_put_notification
 
 from matcha.db.chat import (

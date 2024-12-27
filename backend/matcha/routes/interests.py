@@ -5,8 +5,6 @@ from flask_jwt_extended import (
     get_jwt_identity,
 )
 
-from matcha.db.db import db_set_interests
-
 from matcha.services.interests import services_interests
 
 bp = Blueprint("interests", __name__)

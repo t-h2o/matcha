@@ -1,6 +1,6 @@
 from werkzeug.security import generate_password_hash
 
-from matcha.db.db import db_query, db_get_iduser_per_username
+from matcha.db.user import db_query, db_get_iduser_per_username
 
 
 def db_register(username, password, firstname, lastname, email, default_avatar):

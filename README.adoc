@@ -148,6 +148,26 @@ and for a dislike
 }
 ----
 
+=== Fake
+
+Payload example for a fake
+
+[source,json]
+----
+{
+  "fake": "alice",
+}
+----
+
+and for a unfake
+
+[source,json]
+----
+{
+  "unfake": "aalice",
+}
+----
+
 === Browsing
 
 * Max age gap 0 - 30 years

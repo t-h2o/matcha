@@ -91,4 +91,21 @@ export class PotentialMatchService {
       },
     });
   }
+
+  toggleUserAsFake(payload: { fake: string } | { unfake: string }) {
+    this.httpService.reportFake(payload).subscribe({
+      next: () => {
+        this.otherProfileData.update((prev) => {
+          return {
+            ...prev,
+            isFaked: !prev.isFaked,
+          };
+        });
+      },
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
+  }
 }
