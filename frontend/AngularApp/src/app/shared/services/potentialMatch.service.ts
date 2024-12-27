@@ -113,7 +113,6 @@ export class PotentialMatchService {
     });
   }
 
-<<<<<<< HEAD
   toggleUserAsFake(payload: { fake: string } | { unfake: string }) {
     this.httpService.reportFake(payload).subscribe({
       next: () => {
@@ -123,12 +122,14 @@ export class PotentialMatchService {
             isFaked: !prev.isFaked,
           };
         });
-=======
+      },
+    });
+  }
+
   getAllMatches() {
     this.httpService.getAllMatches().subscribe({
       next: (data: String[]) => {
         this.matchesNames.set(data);
->>>>>>> 5fe7373 (feat only matches are visible to chat)
       },
       error: (error: any) => {
         const errorMessage = error?.message || 'An unknown error occurred';
