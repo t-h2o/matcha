@@ -40,6 +40,11 @@ CREATE TABLE IF NOT EXISTS user_fake (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 
+CREATE TABLE IF NOT EXISTS user_blocked (
+    user_id INTEGER REFERENCES users (id) ON DELETE CASCADE,
+    blocked_id INTEGER REFERENCES users (id) ON DELETE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS user_images (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users (id) ON DELETE CASCADE,
