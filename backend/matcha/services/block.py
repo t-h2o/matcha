@@ -34,7 +34,7 @@ def services_block_post(id_user, request):
         title = "block"
         content = f"{blocker_username} block you"
 
-        db_put_notification(id_to_notify, title, content)
+        db_put_notification(id_user, id_to_notify, title, content)
 
     elif "unblock" in json:
         username = json["unblock"]
@@ -48,7 +48,7 @@ def services_block_post(id_user, request):
 
         title = "unblock"
         content = f"{blocker_username} unblock you"
-        db_put_notification(id_to_notify, title, content)
+        db_put_notification(id_user, id_to_notify, title, content)
     else:
         return jsonify({"error": "bad payload"}), 400
 

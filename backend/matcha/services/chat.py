@@ -42,7 +42,9 @@ def services_chat_post(id_user, request):
 
     visitor_username = db_get_username_where_id(id_user)
 
-    db_put_notification(id_to_notify, "chat", f"message from {visitor_username}")
+    db_put_notification(
+        id_user, id_to_notify, "chat", f"message from {visitor_username}"
+    )
 
     ws_send_chat(id_to_notify, response)
 

@@ -34,7 +34,7 @@ def services_fake_post(id_user, request):
         title = "fake"
         content = f"{faker_username} fake you"
 
-        db_put_notification(id_to_notify, title, content)
+        db_put_notification(id_user, id_to_notify, title, content)
 
     elif "unfake" in json:
         username = json["unfake"]
@@ -48,7 +48,7 @@ def services_fake_post(id_user, request):
 
         title = "unfake"
         content = f"{faker_username} unfake you"
-        db_put_notification(id_to_notify, title, content)
+        db_put_notification(id_user, id_to_notify, title, content)
     else:
         return jsonify({"error": "bad payload"}), 400
 

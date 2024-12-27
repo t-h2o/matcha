@@ -121,7 +121,9 @@ def services_profile_username(id_user: int, username: str):
     db_put_visit(id_user, user_db[0])
 
     visitor_username = db_get_username_where_id(id_user)
-    db_put_notification(user_db[0], "visit", f"{visitor_username} viewed your profile")
+    db_put_notification(
+        id_user, user_db[0], "visit", f"{visitor_username} viewed your profile"
+    )
 
     return (
         jsonify(
