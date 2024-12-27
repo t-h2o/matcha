@@ -47,9 +47,7 @@ export class HttpRequestsService {
   }
 
   getUserByUsername(username: string) {
-    return this.httpClient.get<UserData>(
-      `${this.baseUrl}/profile?username=${username}`,
-    );
+    return this.httpClient.get<UserData>(`${this.baseUrl}/profile/${username}`);
   }
 
   modifyEmail(userData: ModifiedUserEmail) {

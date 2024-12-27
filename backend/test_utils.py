@@ -15,6 +15,27 @@ class bcolors:
 URL = "http://localhost:5001"
 
 
+def print_diff(expected: dict, received: dict) -> None:
+    print("------------ diff ------------")
+    keys_expected = set(expected.keys())
+    keys_received = set(received.keys())
+    keys_diff = keys_received - keys_expected
+
+    if len(keys_diff) != 0:
+        print(keys_expected)
+        print(keys_received)
+        print(keys_diff)
+        return
+
+    result = {}
+    for key in keys_expected:
+        if expected[key] != received[key]:
+            print(f'for key : "{key}"')
+            print(f"- {received[key]}")
+            print(f"+ {expected[key]}")
+    print("------------ diff ------------")
+
+
 def print_error(
     url,
     path,
@@ -33,6 +54,7 @@ def print_error(
     print(f"received: {content_received}")
     print(f"code expected: {code_expected}")
     print(f"code received: {code_received}")
+    print_diff(content_expected, content_received)
     print("----")
 
 
@@ -60,6 +82,22 @@ def check_content_code(
         )
         return
 
+    if "lastConnection" in content_expected and "lastConnection" in received_loaded:
+        if not isinstance(received_loaded["lastConnection"], float):
+            print("--- bad content [e] ---")
+            print("lastConnection is not a float")
+            return
+        content_expected.pop("lastConnection")
+        received_loaded.pop("lastConnection")
+
+    if "timestamp" in content_expected and "timestamp" in received_loaded:
+        if not isinstance(received_loaded["timestamp"], float):
+            print("--- bad content [e] ---")
+            print("timestamp is not a float")
+            return
+        content_expected.pop("timestamp")
+        received_loaded.pop("timestamp")
+
     if isinstance(received_loaded, list):
         if (
             len(received_loaded) > 0
@@ -67,7 +105,7 @@ def check_content_code(
             and "timestamp" in received_loaded[0]
         ):
             if len(received_loaded) != len(content_expected):
-                print("--- bad content ---")
+                print("--- bad content [a] ---")
                 print_error(
                     url,
                     path,
@@ -84,7 +122,7 @@ def check_content_code(
                         continue
                     try:
                         if notification[key] != content_expected[index][key]:
-                            print("--- bad content ---")
+                            print("--- bad content [b] ---")
                             print_error(
                                 url,
                                 path,
@@ -96,7 +134,7 @@ def check_content_code(
                             )
                             return
                     except:
-                        print("--- bad content ---")
+                        print("--- bad content [c] ---")
                         print_error(
                             url,
                             path,
@@ -111,7 +149,7 @@ def check_content_code(
             return
 
     if received_loaded != content_expected:
-        print("--- bad content ---")
+        print("--- bad content [d] ---")
         print_error(
             url,
             path,
@@ -179,7 +217,7 @@ def check_get(path, status, content):
     response = get(URL + path)
 
     if response.content != content:
-        print("--- bad content ---")
+        print("--- bad content [get] ---")
         print_error(URL, path, status, response.status_code, content, response.content)
         return
     if response.status_code != status:
