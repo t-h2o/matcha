@@ -1,5 +1,6 @@
 from flask import Blueprint
 
+import matcha.routes.block
 import matcha.routes.users
 import matcha.routes.browsing
 import matcha.routes.chat
@@ -17,6 +18,7 @@ import matcha.routes.register
 
 
 def init_routes(app):
+    app.register_blueprint(block.bp)
     app.register_blueprint(users.bp)
     app.register_blueprint(browsing.bp)
     app.register_blueprint(chat.bp)
