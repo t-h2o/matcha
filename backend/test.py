@@ -1620,6 +1620,25 @@ def test_fake():
     )
 
 
+def test_block():
+    check_post_token(
+        "/api/block",
+        201,
+        {
+            "block": "another",
+        },
+        {"isBlocked": True},
+    )
+    check_post_token(
+        "/api/block",
+        201,
+        {
+            "unblock": "another",
+        },
+        {"isBlocked": False},
+    )
+
+
 def main():
     test_register()
     test_create_another_user()
@@ -1635,6 +1654,7 @@ def main():
     test_chat()
     test_notification()
     test_fake()
+    test_block()
     test_deleteme()
 
 
