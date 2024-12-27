@@ -91,17 +91,12 @@ export class SocketService {
     });
 
     this.socket.on('chat', (notification: ChatMessageFromBack) => {
-      console.log('msg: ' + JSON.stringify(notification));
-      this.msgService.messages.update((prev) => {
-        return [...prev, notification];
-      });
       if (!this.router.url.match(/^\/chat\/.+/)) {
         this.toastService.show(notification.message, 'success');
       }
     });
 
     this.socket.on('chat-object', (notification: ChatMessageFromBack) => {
-      console.log('chat-object: ' + JSON.stringify(notification));
       this.msgService.messages.update((prev) => {
         return [...prev, notification];
       });
