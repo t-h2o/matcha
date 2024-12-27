@@ -165,4 +165,8 @@ export class HttpRequestsService {
   reportFake(payload: { fake: string } | { unfake: string }) {
     return this.httpClient.post(`${this.baseUrl}/fake`, payload);
   }
+  
+  getAllMatches() {
+    return this.httpClient.get<String[]>(`${this.baseUrl}/match`);
+  }
 }
