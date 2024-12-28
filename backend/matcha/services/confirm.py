@@ -29,7 +29,6 @@ def _verify_token(id_user: int, jwt: str):
 
 def services_confirm(id_user: int):
     token = _generate_confim_token(id_user, "email")
-    gt
     return jsonify({"token": token}), 201
 
 
