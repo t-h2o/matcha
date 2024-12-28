@@ -3,10 +3,13 @@
 </div>
 <div class="block-fake">
   <div class="block" (click)="blockUser(username())">
-    <button custom-button class="btn">Block</button>
+    <button custom-button class="btn">
+      {{ isBlocked() ? "Unblock" : "Block" }}
+    </button>
   </div>
-  <div class="fake tooltip" (click)="reportAsFake(username())">
-    <img src="/icons/ban.svg" alt="Ban" />
-    <span class="tooltip-text">Toggle profile as fake</span>
+  <div class="fake" (click)="reportAsFake(username())">
+    <button custom-button class="btn">
+      {{ isFake() ? "Unflag" : "Flag" }}
+    </button>
   </div>
 </div>

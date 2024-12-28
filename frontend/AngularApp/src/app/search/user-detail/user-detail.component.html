@@ -4,6 +4,11 @@
       <p>You have reported this profile as Fake</p>
     </div>
   }
+  @if (isBlocked()) {
+    <div class="alert">
+      <p>You have blocked this profile</p>
+    </div>
+  }
   <div class="username-group">
     <div class="name">
       <h2 class="title">
