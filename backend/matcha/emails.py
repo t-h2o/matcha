@@ -11,7 +11,7 @@ bp = Blueprint("emails", __name__)
 @bp.route("/mail")
 def mail():
     start = time()
-    smtp_ssl = SMTP_SSL(host=current_app.config["MAIL_SMTP"], port=465)
+    smtp_ssl = SMTP_SSL(host=current_app.config["MAIL_SMTP"], port=1025)
 
     print("Connection Object : {}".format(smtp_ssl))
     print("Total Time Taken  : {:,.2f} Seconds".format(time() - start))
