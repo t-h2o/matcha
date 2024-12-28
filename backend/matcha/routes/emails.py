@@ -13,16 +13,23 @@ def mail():
     start = time()
 
     if current_app.config["MAIL_SMTP_METHOD"] == "ssl":
-        smtp_connection = SMTP_SSL(host=current_app.config["MAIL_SMTP_HOST"], port=current_app.config["MAIL_SMTP_PORT"])
+        smtp_connection = SMTP_SSL(
+            host=current_app.config["MAIL_SMTP_HOST"],
+            port=current_app.config["MAIL_SMTP_PORT"],
+        )
     else:
-        smtp_connection = SMTP(host=current_app.config["MAIL_SMTP_HOST"], port=current_app.config["MAIL_SMTP_PORT"])
+        smtp_connection = SMTP(
+            host=current_app.config["MAIL_SMTP_HOST"],
+            port=current_app.config["MAIL_SMTP_PORT"],
+        )
 
     print("Connection Object : {}".format(smtp_connection))
     print("Total Time Taken  : {:,.2f} Seconds".format(time() - start))
 
     print("\nLogging In.....")
     resp_code, response = smtp_connection.login(
-        user=current_app.config["MAIL_USER"], password=current_app.config["MAIL_PASSWORD"]
+        user=current_app.config["MAIL_USER"],
+        password=current_app.config["MAIL_PASSWORD"],
     )
 
     print("Response Code : {}".format(resp_code))
