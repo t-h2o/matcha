@@ -68,7 +68,6 @@ def create_app():
     app.config["MAIL_PASSWORD"] = environ["MAIL_PASSWORD"]
     app.config["MAIL_TEST"] = environ["MAIL_TEST"]
 
-
     jwt = JWTManager(app)
 
     socketio.on_namespace(MainNamespace("/"))
