@@ -2,7 +2,7 @@ from flask import jsonify
 
 from jwt import encode, decode, InvalidSignatureError
 
-from matcha.app_utils import flaskprint
+from matcha.utils import flaskprint
 
 
 def _generate_confim_token(id_user: int, email: str):
