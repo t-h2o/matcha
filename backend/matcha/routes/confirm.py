@@ -17,8 +17,6 @@ def get_confirm():
     return services_confirm(id_user)
 
 
-@bp.route("/api/confirm/<string:jwt>/")
-@jwt_required()
+@bp.route("/api/confirm/<string:jwt>")
 def get_confirm_jwt(jwt):
-    id_user = get_jwt_identity()
-    return services_confirm_jwt(id_user, jwt)
+    return services_confirm_jwt(jwt)

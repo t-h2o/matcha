@@ -1,8 +1,9 @@
-from flask import jsonify
+from flask import jsonify, current_app
 
 from jwt import encode, decode, InvalidSignatureError
 
-from matcha.utils import flaskprint
+from matcha.utils import flaskprint, send_mail
+from matcha.db.user import db_get_email_where_id, db_confirm_email
 
 
 def _generate_confim_token(id_user: int, email: str):
@@ -11,7 +12,7 @@ def _generate_confim_token(id_user: int, email: str):
     return token
 
 
-def _verify_token(id_user: int, jwt: str):
+def _verify_token(jwt: str):
     try:
         # data = decode(jwt, "secret", algorithm="HS512")
         data = decode(jwt, "secret", algorithms=["HS512"])
@@ -24,14 +25,18 @@ def _verify_token(id_user: int, jwt: str):
         return "bad token"
 
     flaskprint(data)
+    db_confirm_email(data["email"])
     return "ok"
 
 
 def services_confirm(id_user: int):
-    token = _generate_confim_token(id_user, "email")
+    email = db_get_email_where_id(id_user)
+    token = _generate_confim_token(id_user, email)
+    url = current_app.config["URL"] + f"/api/confirm/{token}"
+    send_mail(email, "Confirm email", f"here the code\n\n{url}")
     return jsonify({"token": token}), 201
 
 
-def services_confirm_jwt(id_user: int, jwt: str):
-    result = _verify_token(id_user, jwt)
+def services_confirm_jwt(jwt: str):
+    result = _verify_token(jwt)
     return jsonify({"ok": result}), 201
