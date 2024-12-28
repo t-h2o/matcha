@@ -49,17 +49,18 @@ create_the_environment_file () {
 	FLASK_URL="http://localhost:5001"
 
 	# Mail
-	MAIL_USER=${MAIL_USER}
-	MAIL_SMTP=${MAIL_SMTP}
-	MAIL_TEST=${MAIL_TEST}
-	MAIL_PASSWORD=${MAIL_PASSWORD}
+	MAIL_USER=test # default username of MailHog
+	MAIL_SMTP_HOST=mail-dev # container name of MailHog
+	MAIL_SMTP_PORT=1025 # default port of MailHog
+	MAIL_SMTP_METHOD=plain
+	MAIL_TEST=whatever@random.com
+	MAIL_PASSWORD=test # default password of MailHog
 	environment_file
 }
 
 main () {
 	is_environement_file_already_exist
 	generate_all_variables
-	mail_credentials
 	create_the_environment_file
 }
 
