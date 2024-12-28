@@ -11,14 +11,14 @@ bp = Blueprint("emails", __name__)
 @bp.route("/mail")
 def mail():
     start = time()
-    smtp_ssl = SMTP_SSL(host=current_app.config["MAIL_SMTP"], port=1025)
+    smtp_ssl = SMTP_SSL(host=current_app.config["MAIL_SMTP_HOST"], port=current_app.config["MAIL_SMTP_PORT"])
 
     print("Connection Object : {}".format(smtp_ssl))
     print("Total Time Taken  : {:,.2f} Seconds".format(time() - start))
 
     print("\nLogging In.....")
     resp_code, response = smtp_ssl.login(
-        user=current_app.config["MAIL_USER"], password=current_app.config["MAIL_PASS"]
+        user=current_app.config["MAIL_USER"], password=current_app.config["MAIL_PASSWORD"]
     )
 
     print("Response Code : {}".format(resp_code))
