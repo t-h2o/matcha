@@ -20,6 +20,7 @@ export const emptyUser: UserData = {
   connected: false,
   lastConnection: 0,
   isFaked: false,
+  isBlocked: false,
 };
 
 export const testUser: UserData = {
@@ -42,4 +43,5 @@ export const testUser: UserData = {
   connected: false,
   lastConnection: 0,
   isFaked: false,
+  isBlocked: false,
 };

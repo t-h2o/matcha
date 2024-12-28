@@ -68,6 +68,7 @@ export type UserData = {
   connected: boolean;
   lastConnection: number;
   isFaked: boolean;
+  isBlocked: boolean;
 };
 
 export type PossibleMatchesUserData = {
