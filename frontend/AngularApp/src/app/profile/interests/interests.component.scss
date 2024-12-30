@@ -30,7 +30,8 @@
 
 .list-title {
   font-size: $title-font-size;
-  margin: 0 auto;
+  margin: 0 auto 2rem auto;
+
   text-align: center;
   color: $green;
   @media screen and (max-width: $mobile-max-width) {
