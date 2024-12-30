@@ -15,6 +15,8 @@ from matcha.db.visit import db_put_visit, db_get_visit
 
 from matcha.db.fake import db_get_is_faked
 
+from matcha.db.block import db_get_is_blocked
+
 from matcha.db.last_connection import db_get_last_connection
 
 from matcha.db.user import (
@@ -119,7 +121,9 @@ def services_profile_username(id_user: int, username: str):
     db_put_visit(id_user, user_db[0])
 
     visitor_username = db_get_username_where_id(id_user)
-    db_put_notification(user_db[0], "visit", f"{visitor_username} viewed your profile")
+    db_put_notification(
+        id_user, user_db[0], "visit", f"{visitor_username} viewed your profile"
+    )
 
     return (
         jsonify(
@@ -138,6 +142,7 @@ def services_profile_username(id_user: int, username: str):
             connected=SocketManager.is_connected(user_db[0]),
             lastConnection=db_get_last_connection(user_db[0]),
             isFaked=db_get_is_faked(id_user, user_db[0]),
+            isBlocked=db_get_is_blocked(id_user, user_db[0]),
         ),
         200,
     )

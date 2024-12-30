@@ -23,6 +23,12 @@ def _get_query(search) -> str:
         WHERE sexual_orientation = %s
           AND u.gender = %s
           AND u.id != %s
+          AND NOT EXISTS
+            (
+              SELECT * FROM user_blocked
+                WHERE user_id = %s
+                AND blocked_id = u.id
+            )
     """
 
     if search["max_fame"] is not None:
@@ -55,6 +61,7 @@ def _get_parameters(id_user: int, search: dict) -> list:
 
     parameters.append(search["sexual_orientation"])
     parameters.append(search["gender"])
+    parameters.append(id_user)
     parameters.append(id_user)
 
     if search["max_fame"] is not None:

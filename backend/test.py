@@ -349,6 +349,7 @@ def test_update():
             "interests": [],
             "isLiked": False,
             "isFaked": False,
+            "isBlocked": False,
             "lastConnection": 1734914588.912091,
             "lastname": "User",
             "pictures": ["http://localhost:5001/api/images/avatar.png"],
@@ -1462,6 +1463,7 @@ def test_notification():
             "interests": [],
             "isLiked": True,
             "isFaked": False,
+            "isBlocked": False,
             "lastConnection": 1735056819.039922,
             "lastname": "Appleseed",
             "pictures": ["http://localhost:5001/api/images/avatar.png"],
@@ -1581,6 +1583,7 @@ def test_fake():
             "interests": [],
             "isLiked": False,
             "isFaked": True,
+            "isBlocked": False,
             "lastConnection": 1734914588.912091,
             "lastname": "User",
             "pictures": [],
@@ -1610,6 +1613,7 @@ def test_fake():
             "interests": [],
             "isLiked": False,
             "isFaked": False,
+            "isBlocked": False,
             "lastConnection": 1734914588.912091,
             "lastname": "User",
             "pictures": [],
@@ -1617,6 +1621,25 @@ def test_fake():
             "urlProfile": "no url",
             "username": "another",
         },
+    )
+
+
+def test_block():
+    check_post_token(
+        "/api/block",
+        201,
+        {
+            "block": "another",
+        },
+        {"isBlocked": True},
+    )
+    check_post_token(
+        "/api/block",
+        201,
+        {
+            "unblock": "another",
+        },
+        {"isBlocked": False},
     )
 
 
@@ -1635,6 +1658,7 @@ def main():
     test_chat()
     test_notification()
     test_fake()
+    test_block()
     test_deleteme()
 
 

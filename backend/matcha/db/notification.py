@@ -7,6 +7,8 @@ from matcha.db.utils import (
     fetchall_to_array,
 )
 
+from matcha.db.block import db_get_is_blocked
+
 
 # def db_get_notification(id_user) -> list:
 def db_get_notification(id_user):
@@ -32,7 +34,12 @@ def db_get_notification(id_user):
     return array
 
 
-def db_put_notification(id_user, title: str, content: str):
+def db_put_notification(
+    id_user_source: int, id_user_destination: int, title: str, content: str
+):
+    if db_get_is_blocked(id_user_destination, id_user_source):
+        return
+
     query = """
     INSERT
     INTO notification
@@ -41,12 +48,12 @@ def db_put_notification(id_user, title: str, content: str):
     (%s, %s, %s);
     """
 
-    ws_send_notification(id_user, title, content)
+    ws_send_notification(id_user_destination, title, content)
 
     error_msg = db_query(
         query,
         (
-            id_user,
+            id_user_destination,
             title,
             content,
         ),

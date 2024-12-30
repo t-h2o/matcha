@@ -43,7 +43,6 @@ export class LoginComponent {
         if (error.status === 401) {
           this.falseCredentials.set(true);
         }
-        console.error(error.status);
       },
       complete: () => {
         subscription.unsubscribe();

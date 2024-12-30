@@ -9,11 +9,17 @@ import {
 import { GeneralComponent } from './general/general.component';
 import { MatchInterestsComponent } from './interests/match-interests.component';
 import { PicturesComponent } from './pictures/pictures.component';
+import { BlockFakeComponent } from './block-fake/block-fake.component';
 
 @Component({
   selector: 'app-user-detail',
   standalone: true,
-  imports: [MatchInterestsComponent, GeneralComponent, PicturesComponent],
+  imports: [
+    MatchInterestsComponent,
+    GeneralComponent,
+    PicturesComponent,
+    BlockFakeComponent,
+  ],
   templateUrl: './user-detail.component.html',
   styleUrl: './user-detail.component.scss',
 })
@@ -30,6 +36,7 @@ export class UserDetailComponent implements OnInit {
     return format24HourDateTime(this.otherUser().lastConnection);
   });
   isFake = computed(() => this.otherUser().isFaked);
+  isBlocked = computed(() => this.otherUser().isBlocked);
 
   ngOnInit(): void {
     this.PotentialMatchService.getUserProfileByUsername(this.username());
@@ -58,16 +65,6 @@ export class UserDetailComponent implements OnInit {
     } else {
       let payload = { unlike: this.otherUser().username };
       this.PotentialMatchService.toggleLike(payload);
-    }
-  }
-
-  reportAsFake(username: string): void {
-    if (this.isFake()) {
-      const payload = { unfake: username };
-      this.PotentialMatchService.toggleUserAsFake(payload);
-    } else {
-      const payload = { fake: username };
-      this.PotentialMatchService.toggleUserAsFake(payload);
     }
   }
 }

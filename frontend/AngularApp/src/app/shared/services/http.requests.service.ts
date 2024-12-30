@@ -169,4 +169,8 @@ export class HttpRequestsService {
   getAllMatches() {
     return this.httpClient.get<String[]>(`${this.baseUrl}/match`);
   }
+
+  blockUser(payload: { block: string } | { unblock: string }) {
+    return this.httpClient.post(`${this.baseUrl}/block`, payload);
+  }
 }

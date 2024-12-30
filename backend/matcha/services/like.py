@@ -43,7 +43,7 @@ def services_like_user(id_user, request):
         title = "like"
         content = f"{liker_username} like you"
 
-        db_put_notification(id_to_notify, title, content)
+        db_put_notification(id_user, id_to_notify, title, content)
 
     elif "unlike" in json:
         username = json["unlike"]
@@ -57,7 +57,7 @@ def services_like_user(id_user, request):
 
         title = "unlike"
         content = f"{liker_username} unlike you"
-        db_put_notification(id_to_notify, title, content)
+        db_put_notification(id_user, id_to_notify, title, content)
     else:
         return jsonify({"error": "bad payload"}), 400
 

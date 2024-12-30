@@ -2,6 +2,7 @@ from flask import jsonify
 
 from matcha.db.user import db_get_id_where_username, db_get_username_where_id
 from matcha.db.notification import db_put_notification
+from matcha.db.block import db_get_is_blocked
 
 from matcha.db.chat import (
     db_get_chat,
@@ -38,11 +39,16 @@ def services_chat_post(id_user, request):
     if not isinstance(id_to_notify, int):
         return id_to_notify
 
+    if db_get_is_blocked(id_to_notify, id_user):
+        return jsonify({"error": "the user has blocked you"}), 401
+
     response = db_post_chat(id_user, request.json["to"], request.json["message"])
 
     visitor_username = db_get_username_where_id(id_user)
 
-    db_put_notification(id_to_notify, "chat", f"message from {visitor_username}")
+    db_put_notification(
+        id_user, id_to_notify, "chat", f"message from {visitor_username}"
+    )
 
     ws_send_chat(id_to_notify, response)
 

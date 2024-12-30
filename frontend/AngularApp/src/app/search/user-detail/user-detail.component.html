@@ -4,6 +4,11 @@
       <p>You have reported this profile as Fake</p>
     </div>
   }
+  @if (isBlocked()) {
+    <div class="alert">
+      <p>You have blocked this profile</p>
+    </div>
+  }
   <div class="username-group">
     <div class="name">
       <h2 class="title">
@@ -24,12 +29,13 @@
       <span class="tooltip-text">Like or unlike the profile</span>
     </div>
     <div [innerHTML]="FameRatingStars"></div>
-    <div class="fake tooltip" (click)="reportAsFake(username())">
-      <img src="/icons/ban.svg" alt="Ban" />
-      <span class="tooltip-text">Toggle profile as fake</span>
-    </div>
   </div>
   <app-pictures></app-pictures>
   <app-general></app-general>
   <app-match-interests></app-match-interests>
+  <app-block-fake
+    [username]="username()"
+    [isFake]="isFake()"
+    [isBlocked]="isBlocked()"
+  ></app-block-fake>
 </div>
