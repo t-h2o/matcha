@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ChatMessageToBack } from '../../shared/models/message';
-import { MessageService } from '../../shared/services/messsage.service';
+import { MessageService } from '../../shared/services/message.service';
 import { CustomButtonComponent } from '../../UI/custom-button/custom-button.component';
 import { DisplayMessagesComponent } from './display-messages/display-messages.component';
 

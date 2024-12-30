@@ -5,7 +5,7 @@ import { io, Socket } from 'socket.io-client';
 import { environment } from '../../../environments/environment';
 import { ChatMessageFromBack, Notification } from '../models/message';
 import { AuthService } from './auth.service';
-import { MessageService } from './messsage.service';
+import { MessageService } from './message.service';
 import { ToastService } from './toast.service';
 
 @Injectable({
