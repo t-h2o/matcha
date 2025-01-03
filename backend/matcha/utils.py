@@ -2,8 +2,6 @@ from sys import stderr
 
 from uuid import uuid4
 
-from re import search
-
 from flask import jsonify
 
 from matcha.db.user import db_get_id_where_username
