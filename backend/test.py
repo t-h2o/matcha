@@ -536,6 +536,22 @@ def test_reset_password():
         "/api/reset-password",
         201,
         {"username": "user"},
+        {"error": "your email wasn't verified"},
+    )
+    check_post(
+        "/api/reset-password",
+        401,
+        {"username": "thisusernamedoesnotexist"},
+        {"error": "this username does not exist"},
+    )
+    check_login_token(
+        "/api/login",
+        {"username": "another", "password": "5678"},
+    )
+    check_post(
+        "/api/reset-password",
+        401,
+        {"username": "another"},
         {"success": "email with password reset link sent"},
     )
 
@@ -1712,7 +1728,6 @@ def main():
     test_interests()
     test_pictures()
     test_email()
-    test_reset_password()
     test_position()
     test_browsing()
     test_like_user()
@@ -1721,6 +1736,7 @@ def main():
     test_fake()
     test_block()
     test_confirm()
+    test_reset_password()
     test_deleteme()
 
 
