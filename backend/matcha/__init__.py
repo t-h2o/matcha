@@ -6,7 +6,6 @@ from flask_cors import CORS
 from os import environ
 from flask_jwt_extended import (
     JWTManager,
-    decode_token,
     get_jwt,
     create_access_token,
     get_jwt_identity,
@@ -32,21 +31,34 @@ def create_app():
         app,
         resources={
             r"/*": {
-                "origins": ["http://localhost:4200"],
+                "origins": ["http://localhost:4200", "http://localhost"],
                 "allow_credentials": True,
                 "methods": ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
             }
         },
     )
 
-    socketio = SocketIO(
-        app,
-        cors_allowed_origins="http://localhost:4200",
-        async_mode="threading",
-        ping_timeout=60000,
-        logger=True,
-        engineio_logger=True,
-    )
+    FLASK_ENV = environ.get("FLASK_ENV", "development")
+
+    if FLASK_ENV == "production":
+        socketio = SocketIO(
+            app,
+            cors_allowed_origins="http://localhost",
+            async_mode="eventlet",
+            ping_timeout=60000,
+            logger=True,
+            engineio_logger=True,
+            message_queue=None
+        )
+    else:
+        socketio = SocketIO(
+            app,
+            cors_allowed_origins="http://localhost:4200",
+            async_mode="threading",
+            ping_timeout=60000,
+            logger=True,
+            engineio_logger=True,
+        )
 
     jwt = JWTManager(app)
 
@@ -79,3 +91,6 @@ def create_app():
             return response
 
     return app
+
+
+app = create_app()
