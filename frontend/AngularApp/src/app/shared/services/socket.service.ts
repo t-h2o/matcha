@@ -39,7 +39,7 @@ export class SocketService {
 
     this.socket = io(environment.websocketUrl, {
       withCredentials: true,
-      path: '/socket/',
+      path: environment.production ? '/socket/' : '',
       transports: ['websocket', 'polling'],
       auth: {
         token: `Bearer ${token}`,
