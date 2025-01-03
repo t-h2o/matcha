@@ -1,11 +1,5 @@
 from flask import jsonify
 
-from flask_jwt_extended import (
-    create_access_token,
-)
-
-from werkzeug.security import check_password_hash
-
 from matcha.db.position import db_update_address, db_update_position, db_get_position
 
 from matcha.utils import check_request_json

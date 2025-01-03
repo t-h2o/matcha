@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import jsonify
 
 from matcha.db.user import (
     db_get_user_per_id,
