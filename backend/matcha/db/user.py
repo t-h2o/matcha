@@ -20,6 +20,12 @@ def db_get_email_where_id(id_user: int) -> str:
     return db_fetchone("SELECT email FROM users WHERE id = %s", (id_user,))[0]
 
 
+def db_get_email_data_where_username(username: str):
+    return db_fetchone(
+        "SELECT email, email_verified FROM users WHERE username = %s", (username,)
+    )
+
+
 def db_get_id_password_where_username(username):
     return db_fetchone("SELECT id,password FROM users WHERE username = %s", (username,))
 
