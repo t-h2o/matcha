@@ -24,16 +24,23 @@ def db_get_id_password_where_username(username):
     return db_fetchone("SELECT id,password FROM users WHERE username = %s", (username,))
 
 
-def db_confirm_email(email):
+def db_confirm_email(id_user: int, email: str):
     query = """
     UPDATE users
     SET email_verified = TRUE
-    WHERE email = %s;
+    WHERE
+    id = %s
+    AND
+    email = %s
+    ;
     """
 
     error_msg = db_query(
         query,
-        (email,),
+        (
+            id_user,
+            email,
+        ),
     )
 
     if error_msg:

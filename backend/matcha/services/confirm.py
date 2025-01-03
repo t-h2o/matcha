@@ -25,7 +25,7 @@ def _verify_token(jwt: str):
         return "bad token"
 
     flaskprint(data)
-    db_confirm_email(data["email"])
+    db_confirm_email(data["id_user"], data["email"])
     return "ok"
 
 
