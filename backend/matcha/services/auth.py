@@ -6,7 +6,10 @@ from flask_jwt_extended import (
 
 from werkzeug.security import check_password_hash
 
-from matcha.db.user import db_get_id_password_where_username
+from matcha.db.user import (
+    db_get_id_password_where_username,
+    db_get_email_data_where_username,
+)
 
 from matcha.utils import check_request_json
 
@@ -45,6 +48,14 @@ def services_reset_password(request):
     if check_request is not None:
         return jsonify(check_request[0]), check_request[1]
 
-    # TODO sent email recovery password
+    email_data = db_get_email_data_where_username(json["username"])
+
+    if email_data is None:
+        return jsonify({"error": "this username does not exist"}), 401
+
+    if email_data[1] == False:
+        return jsonify({"error": "your email wasn't verified"}), 401
+
+    send_mail(email_data[0], "matcha : reset password", "[link]")
 
     return jsonify({"success": "email with password reset link sent"}), 201
