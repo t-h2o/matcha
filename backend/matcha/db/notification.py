@@ -2,9 +2,7 @@ from matcha.websocket.notification import ws_send_notification
 
 from matcha.db.utils import (
     db_query,
-    db_fetchone,
     db_fetchall,
-    fetchall_to_array,
 )
 
 from matcha.db.block import db_get_is_blocked

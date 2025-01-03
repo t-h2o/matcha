@@ -1,6 +1,6 @@
 from flask import request
 from flask_jwt_extended import decode_token
-from flask_socketio import Namespace, emit
+from flask_socketio import Namespace
 
 from matcha.utils import flaskprint
 

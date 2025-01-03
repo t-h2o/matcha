@@ -7,7 +7,7 @@ from matcha.db.notification import (
 
 
 def services_delete_notification(id_user: int, id_notification: int):
-    notifications = db_destroy_notification(id_user, id_notification)
+    db_destroy_notification(id_user, id_notification)
     return jsonify({"delete": id_notification}), 201
 
 

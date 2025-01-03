@@ -1,13 +1,10 @@
-from flask import request, jsonify
+from flask import jsonify
 
 from flask_jwt_extended import (
-    jwt_required,
     get_jwt_identity,
 )
 
 from matcha.utils import check_request_json
-
-from matcha.db.last_connection import db_update_last_connection
 
 from matcha.db.pictures import db_get_user_images, db_get_url_profile
 
@@ -76,9 +73,9 @@ def services_profile(id_user, request):
     liked_by = db_get_list_liked_by(id_user)
 
     if "url" in profile_picture:
-        profile_url = url = profile_picture["url"]
+        profile_url = profile_picture["url"]
     elif "error" in profile_picture:
-        profile_url = url = profile_picture["error"]
+        profile_url = profile_picture["error"]
 
     return (
         jsonify(
@@ -114,9 +111,9 @@ def services_profile_username(id_user: int, username: str):
     is_liked = db_get_is_liked(id_user, username)
 
     if "url" in profile_picture:
-        profile_url = url = profile_picture["url"]
+        profile_url = profile_picture["url"]
     elif "error" in profile_picture:
-        profile_url = url = profile_picture["error"]
+        profile_url = profile_picture["error"]
 
     db_put_visit(id_user, user_db[0])
 

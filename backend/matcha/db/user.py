@@ -4,10 +4,7 @@ from psycopg2.errors import UndefinedTable
 
 from matcha.db.utils import (
     db_query,
-    db_query_for,
     db_fetchone,
-    db_fetchall,
-    fetchall_to_array,
 )
 
 
@@ -92,9 +89,6 @@ def db_get_user_per_username(username):
 
 
 def db_delete_user(id_user):
-    response_json = {}
-    response_code = 200
-
     error_msg = db_query("DELETE from users where id = (%s);", (id_user,))
 
     if error_msg:

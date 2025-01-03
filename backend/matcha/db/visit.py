@@ -1,7 +1,5 @@
 from matcha.db.utils import (
     db_query,
-    db_query_for,
-    db_fetchone,
     db_fetchall,
     fetchall_to_array,
 )

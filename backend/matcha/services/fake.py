@@ -1,8 +1,7 @@
 from flask import jsonify
 
-from matcha.utils import check_request_json_values, get_id_where_username_else_error
+from matcha.utils import get_id_where_username_else_error
 
-from matcha.db.user import db_get_id_where_username
 from matcha.db.user import db_get_username_where_id
 
 from matcha.db.notification import db_put_notification
@@ -17,10 +16,7 @@ from matcha.db.fake import (
 def services_fake_post(id_user, request):
     json = request.json
 
-    username = None
-
     if "fake" in json:
-        username = json["fake"]
         error = db_put_fake_user(id_user, json["fake"])
         if error is not None:
             return error
@@ -37,7 +33,6 @@ def services_fake_post(id_user, request):
         db_put_notification(id_user, id_to_notify, title, content)
 
     elif "unfake" in json:
-        username = json["unfake"]
         error = db_put_unfake_user(id_user, json["unfake"])
 
         id_to_notify = get_id_where_username_else_error(json["unfake"])
