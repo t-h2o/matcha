@@ -446,3 +446,11 @@ def check_post_token_pictures(path, status, filenames, content):
     response = post(URL + path, files=files, headers=headers)
 
     check_response_pictures(response, path, status, content)
+
+
+def confirm_get_last_url():
+    response = get("http://localhost:8025/api/v2/messages?limit=1")
+    mail = loads(response.content)
+    body = mail["items"][0]["Content"]["Body"]
+    url = re.search("http[^\s]*", body)[0]
+    return url
