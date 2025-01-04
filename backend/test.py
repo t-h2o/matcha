@@ -534,7 +534,7 @@ def test_deleteme():
 def test_reset_password():
     check_post(
         "/api/reset-password",
-        201,
+        401,
         {"username": "user"},
         {"error": "your email wasn't verified"},
     )
@@ -550,7 +550,7 @@ def test_reset_password():
     )
     check_post(
         "/api/reset-password",
-        401,
+        201,
         {"username": "another"},
         {"success": "email with password reset link sent"},
     )
