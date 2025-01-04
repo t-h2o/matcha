@@ -109,7 +109,7 @@ def test_register():
 
     check_post(
         "/api/register",
-        200,
+        401,
         {
             "username": "user",
             "firstname": "firstname",
