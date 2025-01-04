@@ -1,4 +1,6 @@
-from flask import jsonify
+from flask import jsonify, current_app
+
+from jwt import encode, decode, InvalidSignatureError
 
 from flask_jwt_extended import (
     create_access_token,
@@ -9,9 +11,11 @@ from werkzeug.security import check_password_hash
 from matcha.db.user import (
     db_get_id_password_where_username,
     db_get_email_data_where_username,
+    db_update_password,
 )
 
 from matcha.utils import check_request_json, send_mail
+from matcha.utils import flaskprint
 
 
 def service_login_user(request):
@@ -36,6 +40,12 @@ def service_login_user(request):
     return jsonify({"error": "Incorrect password"}), 401
 
 
+def _generate_confim_token(username: str):
+    data = {"username": username}
+    token = encode(data, "secret", algorithm="HS512")
+    return token
+
+
 def services_reset_password(request):
     json = request.json
 
@@ -56,6 +66,29 @@ def services_reset_password(request):
     if email_data[1] == False:
         return jsonify({"error": "your email wasn't verified"}), 401
 
-    send_mail(email_data[0], "matcha : reset password", "[link]")
+    token = _generate_confim_token(json["username"])
+    url = current_app.config["URL"] + f"/api/reset-password/{token}"
+    send_mail(email_data[0], "matcha : reset password", f"reset password\n\n{url}")
 
     return jsonify({"success": "email with password reset link sent"}), 201
+
+
+def services_reset_password_jwt(request, jwt: str):
+    check_request = check_request_json(
+        request.headers.get("Content-Type"),
+        request.json,
+        ["password"],
+    )
+
+    if check_request is not None:
+        return jsonify(check_request[0]), check_request[1]
+
+    try:
+        data = decode(jwt, "secret", algorithms=["HS512"])
+    except Exception as e:
+        return jsonify({"error": "bad token"}), 401
+
+    flaskprint(data)
+    db_update_password(data["username"], request.json["password"])
+
+    return jsonify({"success": "password reset"}), 201
