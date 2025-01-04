@@ -32,8 +32,13 @@ def _verify_token(jwt: str):
 def services_confirm(id_user: int):
     email = db_get_email_where_id(id_user)
     token = _generate_confim_token(id_user, email)
-    url = current_app.config["URL"] + f"/api/confirm/{token}"
-    send_mail(email, "Confirm email", f"here the code\n\n{url}")
+    url_backend = current_app.config["URL"] + f"/api/confirm/{token}"
+    url_frontend = "http://localhost:4200" + f"/confirm/{token}"
+    send_mail(
+        email,
+        "Confirm email",
+        f"here the code\n\nbackend: {url_backend}\n\nfrontend: {url_frontend}",
+    )
     return jsonify({"success": "mail sent"}), 201
 
 

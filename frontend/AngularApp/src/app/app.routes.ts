@@ -17,6 +17,7 @@ import { RegisterComponent } from './register/register.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SearchComponent } from './search/search.component';
 import { UserDetailComponent } from './search/user-detail/user-detail.component';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -92,6 +93,10 @@ export const routes: Routes = [
     path: 'delete-account',
     component: DeleteConfirmationComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'confirm/:token',
+    component: ConfirmComponent,
   },
   {
     path: '**',
