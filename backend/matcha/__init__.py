@@ -60,6 +60,14 @@ def create_app():
             engineio_logger=True,
         )
 
+    app.config["MAIL_USER"] = environ["MAIL_USER"]
+    app.config["MAIL_USER"] = environ["MAIL_USER"]
+    app.config["MAIL_SMTP_HOST"] = environ["MAIL_SMTP_HOST"]
+    app.config["MAIL_SMTP_PORT"] = environ["MAIL_SMTP_PORT"]
+    app.config["MAIL_SMTP_METHOD"] = environ["MAIL_SMTP_METHOD"]
+    app.config["MAIL_PASSWORD"] = environ["MAIL_PASSWORD"]
+    app.config["MAIL_TEST"] = environ["MAIL_TEST"]
+
     jwt = JWTManager(app)
 
     socketio.on_namespace(MainNamespace("/"))

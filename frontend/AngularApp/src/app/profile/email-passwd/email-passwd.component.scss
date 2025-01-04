@@ -17,23 +17,31 @@
   }
 
   .detail-group {
-    display: inline;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
   }
 
   .btn-container {
     width: 100%;
-    margin-top: 1rem;
+    margin-top: 3rem;
     display: flex;
     justify-content: space-around;
     align-items: center;
 
+    @media screen and (max-width: $mobile-max-width) {
+      flex-direction: column;
+      height: 8rem;
+      justify-content: space-between;
+    }
+
     .long-btn {
-      width: 11rem;
+      width: 9rem;
     }
   }
   .icon-img {
-    width: 20px;
-    height: 20px;
-    margin-left: 3rem;
+    width: 25px;
+    height: 25px;
+    align-items: center;
   }
 }

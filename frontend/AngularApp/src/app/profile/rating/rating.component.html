@@ -18,7 +18,7 @@
     <p class="rating-item-p">Visited by</p>
     <div class="group">
       @if (visitedByList().length === 0) {
-        <p class="no-one">No one has visited your profile yet so far.</p>
+        <p class="no-one">No one has visited your profile yet.</p>
       } @else {
         <div class="box-grid">
           @for (username of visitedByList(); track username) {

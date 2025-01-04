@@ -11,3 +11,4 @@ xmltodict==0.14.2
 requests==2.31.0
 eventlet==0.30.2
 python-socketio==5.8.0
+secure-smtplib==0.1.1

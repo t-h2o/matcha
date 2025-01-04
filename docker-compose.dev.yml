@@ -51,6 +51,15 @@ services:
     networks:
         - appnet
 
+  mail:
+    container_name: mail-dev
+    image: mailhog/mailhog
+    ports:
+      - '1025:1025'
+      - '8025:8025'
+    networks:
+        - appnet
+
 volumes:
     data:
       name: postgres-volume-dev

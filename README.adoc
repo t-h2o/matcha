@@ -226,6 +226,18 @@ On `/api/postition` example of payload
 }
 ----
 
+=== Mail
+
+For testing, we have a smtp server (https://github.com/mailhog/MailHog[MailHog]) running as a container.
+His goal is to received outgoing email (smtp) add display them through a web interface (http://localhost:8025/).
+
+The frontend ask a confirm code with a GET on `/api/confirm`.
+The mail is then confirmed after a GET on `/api/confirm/correct jwt token`
+
+When the user lost his password, he can ask an email with a link to recreate a new password on the web app.
+
+On `/api/reset-password` as POST with `{"username":"asdf"}` as body.
+
 === Chat
 
 ==== GET

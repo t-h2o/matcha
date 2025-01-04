@@ -56,7 +56,7 @@ export class UserService {
             sexualPreference: data.sexualPreference,
             bio: data.bio,
             age: data.age,
-            emailVerified: data.emailVerified,
+            email_verified: data.email_verified,
             profile_complete: data.profile_complete,
             fameRating: data.fameRating,
             urlProfile: data.urlProfile,
@@ -89,7 +89,7 @@ export class UserService {
             lastName: data.lastname,
             selectedGender: data.selectedGender,
             sexualPreference: data.sexualPreference,
-            emailVerified: data.email_verified,
+            email_verified: data.email_verified,
             fameRating: data.fameRating,
             profile_complete: data.profile_complete,
           };
@@ -227,6 +227,16 @@ export class UserService {
         this.router.navigate(['/register']);
       },
       error: (error) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
+  }
+
+  confirmEmail() {
+    this.httpService.confirmEmail().subscribe({
+      next: () => {},
+      error: (error: any) => {
         const errorMessage = error?.message || 'An unknown error occurred';
         this.toastService.show(errorMessage, 'error');
       },

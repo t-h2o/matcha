@@ -14,6 +14,7 @@ from test_utils import (
     check_put_token_pictures,
     check_delete_token,
     check_delete_token_body,
+    confirm_get_last_url,
 )
 
 HTTP_405 = b"<!doctype html>\n<html lang=en>\n<title>405 Method Not Allowed</title>\n<h1>Method Not Allowed</h1>\n<p>The method is not allowed for the requested URL.</p>\n"
@@ -1643,6 +1644,64 @@ def test_block():
     )
 
 
+def test_confirm():
+    check_login_token(
+        "/api/login",
+        {"username": "another", "password": "5678"},
+    )
+    check_get_token(
+        "/api/confirm",
+        201,
+        {
+            "success": "mail sent",
+        },
+    )
+    url = confirm_get_last_url()
+    confirm_token = url.removeprefix("http://localhost:5001" + "/api/confirm/")
+    check_get_token(
+        "/api/confirm/" + confirm_token,
+        201,
+        {
+            "success": "ok",
+        },
+    )
+    check_get_token(
+        "/api/profile",
+        200,
+        {
+            "age": 18,
+            "bio": "My bio is short. with special a single quote '",
+            "email": "test@python.py",
+            "email_verified": True,
+            "fameRating": 0,
+            "firstname": "Another",
+            "interests": [],
+            "lastname": "User",
+            "likedBy": [],
+            "profile_complete": True,
+            "selectedGender": "m",
+            "sexualPreference": "e",
+            "urlProfile": "no url",
+            "username": "another",
+            "visitedBy": ["user"],
+        },
+    )
+    check_get_token(
+        "/api/confirm/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.eyJpZF91c2VyIjoyNjUsImVtYWlsIjoiZW1haWwifQ.wcMsNi2aafLInc_8NcUjh0Ldzq5zKm7CvwAi4RpD1rtm91hFQVfLEl09txwJT0u85poWe-TJjbIopMchuJQhhQ",
+        401,
+        {
+            "error": "bad token",
+        },
+    )
+    check_get_token(
+        "/api/confirm/dummy",
+        401,
+        {
+            "error": "bad token",
+        },
+    )
+
+
 def main():
     test_register()
     test_create_another_user()
@@ -1659,6 +1718,7 @@ def main():
     test_notification()
     test_fake()
     test_block()
+    test_confirm()
     test_deleteme()
 
 

@@ -25,6 +25,12 @@ generate_all_variables () {
 	POSTGRES_NAME="matcha-db"
 }
 
+mail_credentials() {
+	echo -n "mail user: " ; read MAIL_USER
+	echo -n "mail smtp: " ; read MAIL_SMTP
+	echo -n "mail test (to test the send mail feature): " ; read MAIL_TEST
+	echo -n "mail password: " ; read -s MAIL_PASSWORD
+}
 
 create_the_environment_file () {
 	cat > ${ENVIRONMENT_FILE} <<- environment_file
@@ -42,6 +48,13 @@ create_the_environment_file () {
 	FLASK_UPLOAD_FOLDER="uploads"
 	FLASK_URL="http://localhost:5001"
 
+	# Mail
+	MAIL_USER=test # default username of MailHog
+	MAIL_SMTP_HOST=mail-dev # container name of MailHog
+	MAIL_SMTP_PORT=1025 # default port of MailHog
+	MAIL_SMTP_METHOD=plain
+	MAIL_TEST=whatever@random.com
+	MAIL_PASSWORD=test # default password of MailHog
 	environment_file
 }
 

@@ -16,8 +16,35 @@ def db_get_username_where_id(id_user: int) -> str:
     return db_fetchone("SELECT username FROM users WHERE id = %s", (id_user,))[0]
 
 
+def db_get_email_where_id(id_user: int) -> str:
+    return db_fetchone("SELECT email FROM users WHERE id = %s", (id_user,))[0]
+
+
 def db_get_id_password_where_username(username):
     return db_fetchone("SELECT id,password FROM users WHERE username = %s", (username,))
+
+
+def db_confirm_email(id_user: int, email: str):
+    query = """
+    UPDATE users
+    SET email_verified = TRUE
+    WHERE
+    id = %s
+    AND
+    email = %s
+    ;
+    """
+
+    error_msg = db_query(
+        query,
+        (
+            id_user,
+            email,
+        ),
+    )
+
+    if error_msg:
+        return error_msg
 
 
 def db_set_user_email(id_user, email):

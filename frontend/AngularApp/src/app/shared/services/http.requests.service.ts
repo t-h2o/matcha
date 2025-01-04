@@ -173,4 +173,8 @@ export class HttpRequestsService {
   blockUser(payload: { block: string } | { unblock: string }) {
     return this.httpClient.post(`${this.baseUrl}/block`, payload);
   }
+
+  confirmEmail() {
+    return this.httpClient.get(`${this.baseUrl}/confirm`);
+  }
 }

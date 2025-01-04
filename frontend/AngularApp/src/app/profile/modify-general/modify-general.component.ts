@@ -64,7 +64,7 @@ export class ModifyGeneralComponent implements OnInit {
       sexualPreference: this.sexualPreference,
       bio: this.bio,
       age: this.age,
-      email_verified: this.userProfile().emailVerified,
+      email_verified: this.userProfile().email_verified,
     };
 
     const newLocation = {

@@ -1,17 +1,16 @@
 <app-card>
   <div class="container">
     <div class="detail-group">
-      <div>
-        <span class="list-title">Email:</span
-        ><span class="list-detail">{{ Email }}</span
-        ><img class="icon-img" src="{{ icon }}" alt="My Profile" />
-      </div>
+      <span class="list-title">Email:</span
+      ><span class="list-detail">{{ Email }}</span>
     </div>
     <div class="detail-group">
-      <p>
-        <span class="list-title">Password:</span
-        ><span class="list-detail">{{ "••••••••" }}</span>
-      </p>
+      <span class="list-title">Verified:</span
+      ><img class="icon-img" src="{{ icon }}" alt="My Profile" />
+    </div>
+    <div class="detail-group">
+      <span class="list-title">Password:</span
+      ><span class="list-detail">{{ "••••••••" }}</span>
     </div>
     <div class="btn-container">
       <button custom-button class="btn" (click)="goToModifyEmail()">
@@ -20,6 +19,11 @@
       <button custom-button class="btn long-btn" (click)="goToDeleteAccount()">
         Delete Account
       </button>
+      @if (!isEmailVerified()) {
+        <button custom-button class="btn long-btn" (click)="goToVerifyEmail()">
+          Verify Email
+        </button>
+      }
     </div>
   </div>
 </app-card>
