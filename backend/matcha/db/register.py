@@ -16,7 +16,7 @@ def db_register(username, password, firstname, lastname, email, default_avatar):
     )
 
     if error_msg:
-        return {"error": f"User {username} is already registered."}
+        return {"error": f"User {username} is already registered."}, 401
 
     id_user = db_get_iduser_per_username(username)
 
@@ -36,4 +36,4 @@ def db_register(username, password, firstname, lastname, email, default_avatar):
         ),
     )
 
-    return {"success": f"User {username} was successfully added"}
+    return {"success": f"User {username} was successfully added"}, 200
