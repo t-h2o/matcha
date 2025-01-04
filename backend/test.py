@@ -61,7 +61,7 @@ def test_create_another_user():
             "profile_complete": True,
             "selectedGender": "m",
             "sexualPreference": "e",
-            "urlProfile": "http://localhost:5001/api/images/avatar.png",
+            "urlProfile": "no url",
             "username": "another",
             "visitedBy": [],
         },
@@ -255,7 +255,7 @@ def test_update():
             "profile_complete": False,
             "selectedGender": None,
             "sexualPreference": None,
-            "urlProfile": "http://localhost:5001/api/images/avatar.png",
+            "urlProfile": "no url",
             "username": "user",
             "visitedBy": [],
         },
@@ -292,7 +292,7 @@ def test_update():
             "profile_complete": True,
             "selectedGender": "m",
             "sexualPreference": "e",
-            "urlProfile": "http://localhost:5001/api/images/avatar.png",
+            "urlProfile": "no url",
             "username": "user",
             "visitedBy": [],
         },
@@ -332,7 +332,7 @@ def test_update():
             "profile_complete": True,
             "selectedGender": "m",
             "sexualPreference": "e",
-            "urlProfile": "http://localhost:5001/api/images/avatar.png",
+            "urlProfile": "no url",
             "username": "user",
             "visitedBy": [],
         },
@@ -353,9 +353,9 @@ def test_update():
             "isBlocked": False,
             "lastConnection": 1734914588.912091,
             "lastname": "User",
-            "pictures": ["http://localhost:5001/api/images/avatar.png"],
+            "pictures": [],
             "sexualPreference": "e",
-            "urlProfile": "http://localhost:5001/api/images/avatar.png",
+            "urlProfile": "no url",
             "username": "another",
         },
     )
@@ -393,7 +393,7 @@ def test_update():
             "profile_complete": True,
             "selectedGender": "m",
             "sexualPreference": "e",
-            "urlProfile": "http://localhost:5001/api/images/avatar.png",
+            "urlProfile": "no url",
             "username": "another",
             "visitedBy": ["user"],
         },
@@ -446,12 +446,12 @@ def test_interests():
 
 
 def test_pictures():
-    check_get_token_pictures("/api/pictures", 201, {"pictures": 1})
+    check_get_token_pictures("/api/pictures", 201, {"pictures": 0})
     check_post_token_pictures(
         "/api/pictures",
         200,
         "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
-        {"pictures": 2},
+        {"pictures": 1},
     )
     check_post_token_pictures(
         "/api/pictures",
@@ -460,12 +460,13 @@ def test_pictures():
             "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
             "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
         ],
-        {"pictures": 4},
+        {"pictures": 3},
     )
     check_post_token_pictures(
         "/api/pictures",
         401,
         [
+            "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
             "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
             "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
         ],
@@ -475,6 +476,7 @@ def test_pictures():
         "/api/pictures",
         201,
         [
+            "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
             "../frontend/AngularApp/public/dummy-pics/placeholderPic.jpg",
         ],
         {"pictures": 5},
@@ -1467,9 +1469,9 @@ def test_notification():
             "isBlocked": False,
             "lastConnection": 1735056819.039922,
             "lastname": "Appleseed",
-            "pictures": ["http://localhost:5001/api/images/avatar.png"],
+            "pictures": [],
             "sexualPreference": "e",
-            "urlProfile": "http://localhost:5001/api/images/avatar.png",
+            "urlProfile": "no url",
             "username": "user",
         },
     )
