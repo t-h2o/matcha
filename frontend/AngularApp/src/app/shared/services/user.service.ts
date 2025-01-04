@@ -239,6 +239,18 @@ export class UserService {
       error: (error: any) => {
         const errorMessage = error?.message || 'An unknown error occurred';
         this.toastService.show(errorMessage, 'error');
+      }
+    });
+  }
+  
+  verifyEmailToken(token: string) {
+    this.httpService.verifyEmailToken(token).subscribe({
+      next: (_data) => {
+        this.router.navigate(['/profile']);
+      },
+      error: (_error) => {
+        const errorMessage = 'The token is invalid';
+        this.toastService.show(errorMessage, 'error');
       },
     });
   }

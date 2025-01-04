@@ -95,7 +95,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'confirm',
+    path: 'confirm/:token',
     component: ConfirmComponent,
   },
   {
