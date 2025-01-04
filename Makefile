@@ -41,6 +41,9 @@ dump:
 pr:
 	@firefox https://github.com/t-h2o/matcha/pull/new/$(shell git rev-parse --abbrev-ref HEAD)
 	@git cliff origin/main..HEAD -o pr-description.md || docker run -t -v "$(shell pwd)":/app/ "orhunp/git-cliff" origin/main..HEAD -o pr-description.md
+	@cp pr-description.md commit-description.md
+	@sed -i 's/## //' commit-description.md
+	@sed -i 's/*//g' commit-description.md
 
 
 .PHONY: env start-dev stop-dev start-prod stop-prod build-prod cmd-dev cmd-prod
