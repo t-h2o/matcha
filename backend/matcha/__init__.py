@@ -48,7 +48,7 @@ def create_app():
             ping_timeout=60000,
             logger=True,
             engineio_logger=True,
-            message_queue=None
+            message_queue=None,
         )
     else:
         socketio = SocketIO(
