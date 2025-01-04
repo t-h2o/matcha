@@ -6,12 +6,15 @@ from psycopg2.errors import UniqueViolation, InvalidTextRepresentation
 
 from contextlib import contextmanager
 
+from flask import current_app
+
 
 @contextmanager
 def _get_db_connection():
     """Generator of database connection"""
 
-    conn = connect(environ["DATABASE_URL"])
+    conn = connect(current_app.config["DATABASE_URL"])
+
     try:
         yield conn
     finally:
