@@ -1,10 +1,10 @@
 import { PossibleMatchesUserData, UserData } from '../models/data-to-api/user';
 import {
-  getSexualPreference,
-  getGender,
-  getFameRatingStars,
   getAge,
   getBio,
+  getFameRatingStars,
+  getGender,
+  getSexualPreference,
 } from './displayUtils';
 
 describe('DisplayUtils', () => {
@@ -16,11 +16,18 @@ describe('DisplayUtils', () => {
     sexualPreference: 'e',
     bio: 'test',
     age: 'test',
-    emailVerified: true,
+    email_verified: true,
     profile_complete: true,
     fameRating: 5,
     urlProfile: 'test',
     pictures: ['test'],
+    interests: [],
+    likedBy: [],
+    visitedBy: [],
+    connected: false,
+    lastConnection: 0,
+    isFaked: false,
+    isBlocked: false,
   };
   let userWithPossibleMatchesDataType: PossibleMatchesUserData = {
     username: 'test',
@@ -31,6 +38,7 @@ describe('DisplayUtils', () => {
     sexualPreference: 'e',
     fameRating: 5,
     urlProfile: 'test',
+    interests: [],
   };
 
   describe('getSexualPreference', () => {

@@ -16,7 +16,7 @@ export class EmailPasswdComponent {
   private userService = inject(UserService);
   userEmail = computed(() => this.userService.ownProfileData().email);
   isEmailVerified = computed(
-    () => this.userService.ownProfileData().emailVerified,
+    () => this.userService.ownProfileData().email_verified,
   );
 
   goToModifyEmail = () => {

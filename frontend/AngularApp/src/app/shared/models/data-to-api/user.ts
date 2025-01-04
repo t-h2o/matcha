@@ -56,7 +56,7 @@ export type UserData = {
   sexualPreference: string;
   bio: string;
   age: string;
-  emailVerified: boolean;
+  email_verified: boolean;
   profile_complete: boolean;
   fameRating: number;
   urlProfile: string;
