@@ -554,6 +554,14 @@ def test_reset_password():
         {"username": "another"},
         {"success": "email with password reset link sent"},
     )
+    url = confirm_get_last_url()
+    confirm_token = url.removeprefix("http://localhost:5001" + "/api/reset-password/")
+    check_post(
+        "/api/reset-password/" + confirm_token,
+        201,
+        {"password": "1234"},
+        {"success": "password reset"},
+    )
 
 
 def test_browsing():
