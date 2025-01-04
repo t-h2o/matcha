@@ -1666,6 +1666,27 @@ def test_confirm():
         },
     )
     check_get_token(
+        "/api/profile",
+        200,
+        {
+            "age": 18,
+            "bio": "My bio is short. with special a single quote '",
+            "email": "test@python.py",
+            "email_verified": True,
+            "fameRating": 0,
+            "firstname": "Another",
+            "interests": [],
+            "lastname": "User",
+            "likedBy": [],
+            "profile_complete": True,
+            "selectedGender": "m",
+            "sexualPreference": "e",
+            "urlProfile": "no url",
+            "username": "another",
+            "visitedBy": ["user"],
+        },
+    )
+    check_get_token(
         "/api/confirm/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.eyJpZF91c2VyIjoyNjUsImVtYWlsIjoiZW1haWwifQ.wcMsNi2aafLInc_8NcUjh0Ldzq5zKm7CvwAi4RpD1rtm91hFQVfLEl09txwJT0u85poWe-TJjbIopMchuJQhhQ",
         401,
         {
