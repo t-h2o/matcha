@@ -1,4 +1,4 @@
-from flask import request, jsonify, current_app
+from flask import jsonify, current_app
 
 from matcha.utils import check_request_json
 

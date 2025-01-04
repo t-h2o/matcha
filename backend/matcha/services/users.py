@@ -1,9 +1,8 @@
 from os import remove
 
-from flask import request, jsonify, current_app
+from flask import jsonify, current_app
 
 from flask_jwt_extended import (
-    jwt_required,
     get_jwt_identity,
 )
 
@@ -11,19 +10,13 @@ from matcha.utils import check_request_json
 
 from matcha.db.pictures import (
     db_get_user_images,
-    db_get_url_profile,
 )
 
 from matcha.db.user import (
-    db_set_user_profile_data,
-    db_get_user_per_id,
-    db_get_user_per_username,
     db_delete_user,
     db_get_user_email,
     db_set_user_email,
 )
-
-from matcha.db.like import db_get_is_liked, db_get_list_liked_by
 
 from matcha.utils import check_request_json
 

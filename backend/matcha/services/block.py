@@ -1,6 +1,6 @@
 from flask import jsonify
 
-from matcha.utils import check_request_json_values, get_id_where_username_else_error
+from matcha.utils import get_id_where_username_else_error
 
 from matcha.db.user import db_get_id_where_username
 from matcha.db.user import db_get_username_where_id
@@ -17,10 +17,7 @@ from matcha.db.block import (
 def services_block_post(id_user, request):
     json = request.json
 
-    username = None
-
     if "block" in json:
-        username = json["block"]
         error = db_put_block_user(id_user, json["block"])
         if error is not None:
             return error
@@ -37,7 +34,6 @@ def services_block_post(id_user, request):
         db_put_notification(id_user, id_to_notify, title, content)
 
     elif "unblock" in json:
-        username = json["unblock"]
         error = db_put_unblock_user(id_user, json["unblock"])
 
         id_to_notify = get_id_where_username_else_error(json["unblock"])
