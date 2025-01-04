@@ -26,4 +26,4 @@ def services_register(request):
         current_app.config["URL"] + "/api/images/avatar.png",
     )
 
-    return jsonify(response)
+    return jsonify(response[0]), response[1]
