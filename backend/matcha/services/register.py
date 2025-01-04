@@ -23,7 +23,6 @@ def services_register(request):
         json["firstname"],
         json["lastname"],
         json["email"],
-        current_app.config["URL"] + "/api/images/avatar.png",
     )
 
     return jsonify(response[0]), response[1]
