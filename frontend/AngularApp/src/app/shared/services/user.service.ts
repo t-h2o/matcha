@@ -232,4 +232,14 @@ export class UserService {
       },
     });
   }
+
+  confirmEmail() {
+    this.httpService.confirmEmail().subscribe({
+      next: () => {},
+      error: (error: any) => {
+        const errorMessage = error?.message || 'An unknown error occurred';
+        this.toastService.show(errorMessage, 'error');
+      },
+    });
+  }
 }

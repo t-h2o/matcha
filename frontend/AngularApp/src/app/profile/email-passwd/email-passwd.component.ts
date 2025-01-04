@@ -27,6 +27,10 @@ export class EmailPasswdComponent {
     this.router.navigate(['/delete-account']);
   };
 
+  goToVerifyEmail = () => {
+    this.userService.confirmEmail();
+  };
+
   get Email() {
     if (this.userEmail() === '') {
       return 'No email';

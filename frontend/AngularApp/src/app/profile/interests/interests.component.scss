@@ -44,8 +44,9 @@
   display: inline-block;
   width: 100%;
   margin: auto;
-  color: $green;
+  color: $pink;
   text-align: center;
+  font-size: $subtitle-font-size;
   @media screen and (max-width: $mobile-max-width) {
     display: inline;
   }
