@@ -11,7 +11,7 @@ from matcha.db.user import (
     db_get_email_data_where_username,
 )
 
-from matcha.utils import check_request_json
+from matcha.utils import check_request_json, send_mail
 
 
 def service_login_user(request):
