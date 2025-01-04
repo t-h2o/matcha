@@ -1652,28 +1652,28 @@ def test_confirm():
         "/api/confirm",
         201,
         {
-            "token": "asdf",
+            "success": "mail sent",
         },
     )
     check_get_token(
         "/api/confirm/eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoyNjUsImVtYWlsIjoiZW1haWwifQ.wcMsNi2aafLInc_8NcUjh0Ldzq5zKm7CvwAi4RpD1rtm91hFQVfLEl09txwJT0u85poWe-TJjbIopMchuJQhhQ",
         201,
         {
-            "ok": "ok",
+            "success": "ok",
         },
     )
     check_get_token(
         "/api/confirm/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.eyJpZF91c2VyIjoyNjUsImVtYWlsIjoiZW1haWwifQ.wcMsNi2aafLInc_8NcUjh0Ldzq5zKm7CvwAi4RpD1rtm91hFQVfLEl09txwJT0u85poWe-TJjbIopMchuJQhhQ",
-        201,
+        401,
         {
-            "ok": "bad token",
+            "error": "bad token",
         },
     )
     check_get_token(
         "/api/confirm/dummy",
-        201,
+        401,
         {
-            "ok": "bad token",
+            "error": "bad token",
         },
     )
 
