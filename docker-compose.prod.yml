@@ -44,9 +44,9 @@ services:
       - data:/var/lib/postgresql/data
       - ./postgres-init:/docker-entrypoint-initdb.d
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_NAME}
+      - POSTGRES_USER=${PROD_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${PROD_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${PROD_POSTGRES_NAME}
     networks:
       - appnet
 
