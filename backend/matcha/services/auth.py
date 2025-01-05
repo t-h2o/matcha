@@ -60,17 +60,12 @@ def services_reset_password(request):
 
     email_data = db_get_email_data_where_username(json["username"])
 
-    if email_data is None:
-        return jsonify({"error": "this username does not exist"}), 401
+    if email_data is not None and email_data[1] == True:
+        token = _generate_confim_token(json["username"])
+        url = current_app.config["URL"] + f"/api/reset-password/{token}"
+        send_mail(email_data[0], "matcha : reset password", f"reset password\n\n{url}")
 
-    if email_data[1] == False:
-        return jsonify({"error": "your email wasn't verified"}), 401
-
-    token = _generate_confim_token(json["username"])
-    url = current_app.config["URL"] + f"/api/reset-password/{token}"
-    send_mail(email_data[0], "matcha : reset password", f"reset password\n\n{url}")
-
-    return jsonify({"success": "email with password reset link sent"}), 201
+    return jsonify({"success": "ok"}), 201
 
 
 def services_reset_password_jwt(request, jwt: str):
