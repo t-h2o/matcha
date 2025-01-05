@@ -534,15 +534,15 @@ def test_deleteme():
 def test_reset_password():
     check_post(
         "/api/reset-password",
-        401,
+        201,
         {"username": "user"},
-        {"error": "your email wasn't verified"},
+        {"success": "ok"},
     )
     check_post(
         "/api/reset-password",
-        401,
+        201,
         {"username": "thisusernamedoesnotexist"},
-        {"error": "this username does not exist"},
+        {"success": "ok"},
     )
     check_login_token(
         "/api/login",
@@ -552,7 +552,7 @@ def test_reset_password():
         "/api/reset-password",
         201,
         {"username": "another"},
-        {"success": "email with password reset link sent"},
+        {"success": "ok"},
     )
     url = confirm_get_last_url()
     confirm_token = url.removeprefix("http://localhost:5001" + "/api/reset-password/")
