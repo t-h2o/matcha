@@ -240,8 +240,13 @@ export class UserService {
         this.router.navigate(['/login']);
       },
       error: (error) => {
-        const errorMessage = error?.message || 'An unknown error occurred';
-        this.toastService.show(errorMessage, 'error');
+        if (error.status === 401) {
+          const errorMessage = error.error.error;
+          this.toastService.show(errorMessage, 'error');
+        } else {
+          const errorMessage = error?.message || 'An unknown error occurred';
+          this.toastService.show(errorMessage, 'error');
+        }
       },
     });
   }
