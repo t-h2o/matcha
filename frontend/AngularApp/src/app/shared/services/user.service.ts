@@ -46,7 +46,6 @@ export class UserService {
     this.httpService.getUser().subscribe({
       next: (data: UserData) => {
         this.ownProfileData.update((prev) => {
-          console.log('data getUserProfile():  ' + JSON.stringify(data));
           return {
             ...prev,
             username: data.username,

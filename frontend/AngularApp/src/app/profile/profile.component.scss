@@ -28,6 +28,10 @@
   justify-content: center;
   gap: 1rem;
 
+  @media screen and (max-width: 969px) {
+    grid-template-columns: 1fr;
+  }
+
   @media screen and (max-width: $mobile-max-width) {
     grid-template-columns: 1fr;
     width: 80%;

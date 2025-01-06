@@ -21,7 +21,7 @@ export class PotentialMatchService {
   potentialMatchSearchFilter = signal<FilterPotentialMatch>({
     ageGap: 5,
     fameGap: 2,
-    distance: 10,
+    distance: 101,
     interests: [],
   });
   potentialMatchFilter = signal<string>('all');
@@ -31,7 +31,6 @@ export class PotentialMatchService {
       .filterPotentialMatches(this.potentialMatchSearchFilter())
       .subscribe({
         next: (data: PossibleMatchesUserData[]) => {
-          console.log('data: ' + JSON.stringify(data));
           this.potentialMatches.set(data);
         },
         error: (error: any) => {
@@ -51,7 +50,6 @@ export class PotentialMatchService {
       })
       .subscribe({
         next: (data: PossibleMatchesUserData[]) => {
-          console.log('data: ' + JSON.stringify(data));
           this.potentialMatches.set(data);
         },
         error: (error: any) => {
@@ -64,7 +62,6 @@ export class PotentialMatchService {
   getUserProfileByUsername(username: string) {
     this.httpService.getUserByUsername(username).subscribe({
       next: (data: UserData) => {
-        console.log('data: ' + JSON.stringify(data));
         this.otherProfileData.set(data);
       },
       error: (error: any) => {
