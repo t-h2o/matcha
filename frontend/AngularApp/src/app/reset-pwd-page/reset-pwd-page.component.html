@@ -1,56 +1,56 @@
 <div class="app-wrapper">
   <form class="form" id="profile" #form="ngForm">
-      <div class="form-group">
-        <label for="password">
-          Enter new password
-          <span class="tooltip-icon">?</span>
-          <div class="tooltip-content">
-            Password must be:
-            <ul>
-              <li>At least 8 characters long</li>
-              <li>Contain at least one uppercase letter</li>
-              <li>Contain at least one lowercase letter</li>
-              <li>Contain at least one number</li>
-              <li>Contain at least one non-alpha numeric</li>
-            </ul>
-          </div>
-        </label>
-        <input
-          type="password"
-          id="nPassword"
-          name="newPassword"
-          class="register"
-          ngModel
-          required
-          pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s])([^\s]){8,15}$"
-          #nPassword="ngModel"
-        />
-      </div>
-      <div class="form-group">
-        <label for="password-repetition">Repeat your new password</label>
-        <input
-          type="password"
-          id="passwordRepetition"
-          name="passwordRepetition"
-          class="register"
-          required
-          ngModel
-          appPasswordConfirm="newPassword"
-          #password2="ngModel"
-        />
-      </div>
-      <div class="btn-wrapper">
-        <button
-          type="button"
-          custom-button
-          class="btn"
-          (click)="onSubmitPassword(form)"
-        >
-          Save
-        </button>
-        <button type="button" custom-button class="btn" (click)="goBack()">
-          Cancel
-        </button>
-      </div>
+    <div class="form-group">
+      <label for="password">
+        Enter new password
+        <span class="tooltip-icon">?</span>
+        <div class="tooltip-content">
+          Password must be:
+          <ul>
+            <li>At least 8 characters long</li>
+            <li>Contain at least one uppercase letter</li>
+            <li>Contain at least one lowercase letter</li>
+            <li>Contain at least one number</li>
+            <li>Contain at least one non-alpha numeric</li>
+          </ul>
+        </div>
+      </label>
+      <input
+        type="password"
+        id="nPassword"
+        name="newPassword"
+        class="register"
+        ngModel
+        required
+        pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s])([^\s]){8,15}$"
+        #nPassword="ngModel"
+      />
+    </div>
+    <div class="form-group">
+      <label for="password-repetition">Repeat your new password</label>
+      <input
+        type="password"
+        id="passwordRepetition"
+        name="passwordRepetition"
+        class="register"
+        required
+        ngModel
+        appPasswordConfirm="newPassword"
+        #password2="ngModel"
+      />
+    </div>
+    <div class="btn-wrapper">
+      <button
+        type="button"
+        custom-button
+        class="btn"
+        (click)="onSubmitPassword(form)"
+      >
+        Save
+      </button>
+      <button type="button" custom-button class="btn" (click)="goBack()">
+        Cancel
+      </button>
+    </div>
   </form>
 </div>

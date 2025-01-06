@@ -32,7 +32,6 @@ export class RegisterComponent {
       email: formData.value.email,
       password: formData.value.password,
     };
-    console.log(userData);
     this.userService.sendUserRegisterData(userData);
     formData.form.reset();
   }
