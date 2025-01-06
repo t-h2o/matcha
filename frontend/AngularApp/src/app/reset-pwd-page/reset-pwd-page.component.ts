@@ -3,16 +3,13 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PasswordConfirmValidatorDirective } from '../shared/directives/password-confirm-validator.directive';
 import { UserService } from '../shared/services/user.service';
-import { CardComponent } from '../UI/card/card.component';
 import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
-import { ToastService } from '../shared/services/toast.service';
 
 @Component({
   selector: 'app-reset-pwd-page',
   standalone: true,
   imports: [
     FormsModule,
-    CardComponent,
     CustomButtonComponent,
     PasswordConfirmValidatorDirective,
   ],
@@ -22,7 +19,6 @@ import { ToastService } from '../shared/services/toast.service';
 export class ResetPwdPageComponent implements OnInit {
   private userService = inject(UserService);
   private router = inject(Router);
-  private toastService = inject(ToastService);
   private token: string = '';
 
   constructor(private route: ActivatedRoute) {}
