@@ -236,7 +236,33 @@ The mail is then confirmed after a GET on `/api/confirm/correct jwt token`
 
 When the user lost his password, he can ask an email with a link to recreate a new password on the web app.
 
-On `/api/reset-password` as POST with `{"username":"asdf"}` as body.
+=== Reset password
+
+We can ask to reset password with a POST and a username on `/api/reset-password`. That will send an email to the user.
+
+payload example:
+
+[source, json]
+----
+{
+  "username": "daphnee"
+}
+----
+
+The user will receive a link on the frontend like this: `https://frontend/reset-password/<jwt>`.
+
+The user complete a form where a new password is asked.
+
+The frontend send the new password to the backend with a POST on `https://backend/reset-password/<jwt>`
+
+payload example:
+
+[source, json]
+----
+{
+  "password": "1234"
+}
+----
 
 === Chat
 

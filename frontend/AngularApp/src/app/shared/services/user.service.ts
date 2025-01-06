@@ -11,6 +11,7 @@ import {
 import { emptyUser } from '../models/emptyUser';
 import { HttpRequestsService } from './http.requests.service';
 import { ToastService } from './toast.service';
+import { finalize } from 'rxjs';
 
 type Interests = { interests: string[] };
 
@@ -129,6 +130,30 @@ export class UserService {
     });
   }
 
+  sendNewPassword(payload: { password: string }, token: string) {
+    this.httpService
+      .sendNewPassword(payload, token)
+      .pipe(
+        finalize(() => {
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 1500);
+        }),
+      )
+      .subscribe({
+        next: (_data) => {
+          this.toastService.show(
+            'Your password was changed successfully',
+            'success',
+          );
+        },
+        error: (_error) => {
+          const errorMessage = 'The token is invalid';
+          this.toastService.show(errorMessage, 'error');
+        },
+      });
+  }
+
   deletePicture(pictureName: string) {
     this.httpService.deletePicture(pictureName).subscribe({
       next: (data: any) => {
@@ -239,10 +264,10 @@ export class UserService {
       error: (error: any) => {
         const errorMessage = error?.message || 'An unknown error occurred';
         this.toastService.show(errorMessage, 'error');
-      }
+      },
     });
   }
-  
+
   verifyEmailToken(token: string) {
     this.httpService.verifyEmailToken(token).subscribe({
       next: (_data) => {

@@ -536,7 +536,31 @@ def test_reset_password():
         "/api/reset-password",
         201,
         {"username": "user"},
-        {"success": "email with password reset link sent"},
+        {"success": "ok"},
+    )
+    check_post(
+        "/api/reset-password",
+        201,
+        {"username": "thisusernamedoesnotexist"},
+        {"success": "ok"},
+    )
+    check_login_token(
+        "/api/login",
+        {"username": "another", "password": "5678"},
+    )
+    check_post(
+        "/api/reset-password",
+        201,
+        {"username": "another"},
+        {"success": "ok"},
+    )
+    url = confirm_get_last_url()
+    confirm_token = url.removeprefix("http://localhost:5001" + "/api/reset-password/")
+    check_post(
+        "/api/reset-password/" + confirm_token,
+        201,
+        {"password": "1234"},
+        {"success": "password reset"},
     )
 
 
@@ -1712,7 +1736,6 @@ def main():
     test_interests()
     test_pictures()
     test_email()
-    test_reset_password()
     test_position()
     test_browsing()
     test_like_user()
@@ -1721,6 +1744,7 @@ def main():
     test_fake()
     test_block()
     test_confirm()
+    test_reset_password()
     test_deleteme()
 
 

@@ -18,6 +18,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { SearchComponent } from './search/search.component';
 import { UserDetailComponent } from './search/user-detail/user-detail.component';
 import { ConfirmComponent } from './confirm/confirm.component';
+import { ResetPwdPageComponent } from './reset-pwd-page/reset-pwd-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -71,7 +72,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'reset-password',
+    path: 'reset',
     component: ResetPasswordComponent,
   },
   {
@@ -97,6 +98,10 @@ export const routes: Routes = [
   {
     path: 'confirm/:token',
     component: ConfirmComponent,
+  },
+  {
+    path: 'reset-password/:token',
+    component: ResetPwdPageComponent,
   },
   {
     path: '**',
