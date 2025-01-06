@@ -177,7 +177,7 @@ export class HttpRequestsService {
   confirmEmail() {
     return this.httpClient.get(`${this.baseUrl}/confirm`);
   }
-  
+
   verifyEmailToken(token: string) {
     return this.httpClient.get(`${this.baseUrl}/confirm/${token}`);
   }

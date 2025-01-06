@@ -239,10 +239,10 @@ export class UserService {
       error: (error: any) => {
         const errorMessage = error?.message || 'An unknown error occurred';
         this.toastService.show(errorMessage, 'error');
-      }
+      },
     });
   }
-  
+
   verifyEmailToken(token: string) {
     this.httpService.verifyEmailToken(token).subscribe({
       next: (_data) => {
