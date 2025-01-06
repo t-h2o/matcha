@@ -181,4 +181,11 @@ export class HttpRequestsService {
   verifyEmailToken(token: string) {
     return this.httpClient.get(`${this.baseUrl}/confirm/${token}`);
   }
+
+  sendNewPassword(payload: { password: string }, token: string) {
+    return this.httpClient.post(
+      `${this.baseUrl}/reset-password/${token}`,
+      payload,
+    );
+  }
 }

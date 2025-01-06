@@ -72,7 +72,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'reset-password',
+    path: 'reset',
     component: ResetPasswordComponent,
   },
   {
