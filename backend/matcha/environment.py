@@ -33,7 +33,7 @@ def init_environment(app) -> None:
         app.config["JWT_SECRET_KEY"] = environ["PROD_FLASK_JWT_SECRET_KEY"]
         app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
         app.config["UPLOAD_FOLDER"] = environ["PROD_FLASK_UPLOAD_FOLDER"]
-        app.config["URL"] = environ["PROD_FLASK_URL"]
+        app.config["URL"] = environ["PROD_URL"]
         app.config["SECRET_KEY"] = "your_secret_key"
 
         app.config["MAIL_USER"] = environ["PROD_MAIL_USER"]

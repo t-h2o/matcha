@@ -66,7 +66,6 @@ create_the_environment_file () {
 	PROD_DATABASE_URL=postgres://${PROD_POSTGRES_USER}:${PROD_POSTGRES_PASSWORD}@postgres:5432/${PROD_POSTGRES_NAME}
 	PROD_FLASK_JWT_SECRET_KEY=$(pwgen)
 	PROD_FLASK_UPLOAD_FOLDER="uploads"
-	PROD_FLASK_URL="http://localhost:5001"
 
 	# Mail
 	DEVE_MAIL_USER=test # default username of MailHog
