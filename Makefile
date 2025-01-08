@@ -10,6 +10,10 @@ clean-dev: stop-dev
 	docker volume rm postgres-volume-dev | true
 	rm .env
 
+clean-prod: stop-dev
+	docker volume rm postgres-volume-prod | true
+	rm .env
+
 re: clean-dev start-dev
 
 start-prod: build-prod
