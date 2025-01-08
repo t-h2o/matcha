@@ -42,7 +42,7 @@ def create_app():
     if FLASK_ENV == "production":
         socketio = SocketIO(
             app,
-            cors_allowed_origins="http://localhost",
+            cors_allowed_origins=app.config["WS_ORIGINS"],
             async_mode="eventlet",
             ping_timeout=60000,
             logger=True,
@@ -52,7 +52,7 @@ def create_app():
     else:
         socketio = SocketIO(
             app,
-            cors_allowed_origins="http://localhost:4200",
+            cors_allowed_origins=app.config["WS_ORIGINS"],
             async_mode="threading",
             ping_timeout=60000,
             logger=True,

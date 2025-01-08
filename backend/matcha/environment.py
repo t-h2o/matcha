@@ -26,6 +26,7 @@ def init_environment(app) -> None:
             environ["DEVE_URL_FRONTEND"],
             environ["DEVE_URL_BACKEND"],
         ]
+        app.config["WS_ORIGINS"] = [environ["DEVE_URL_FRONTEND"]]
 
     elif app.config["MODE"] == "production":
 
@@ -46,3 +47,4 @@ def init_environment(app) -> None:
         app.config["DATABASE_URL"] = environ["PROD_DATABASE_URL"]
 
         app.config["ORIGINS"] = [environ["PROD_URL"]]
+        app.config["WS_ORIGINS"] = [environ["PROD_URL"]]
