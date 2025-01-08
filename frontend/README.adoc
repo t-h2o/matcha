@@ -1,0 +1,9 @@
+= Frontend
+
+== build dist
+
+sed -i 's|http://localhost|https://example.com|' AngularApp/src/environments/environment.prod.ts
+docker build -t angular-buid-prod -f Dockerfile.build-prod .
+docker run --rm -it -v $(pwd)/AngularApp:/jean --workdir /jean angular-buid-prod:latest sh
+> export NODE_PATH=/app/node_modules
+> npm run build
