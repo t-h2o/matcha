@@ -3,7 +3,9 @@ from datetime import timedelta, datetime, timezone
 
 
 def init_environment(app) -> None:
-    if environ["FLASK_ENV"] == "development":
+    app.config["MODE"] = environ["FLASK_ENV"]
+
+    if app.config["MODE"] == "development":
         app.config["JWT_SECRET_KEY"] = environ["DEVE_FLASK_JWT_SECRET_KEY"]
         app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
         app.config["UPLOAD_FOLDER"] = environ["DEVE_FLASK_UPLOAD_FOLDER"]
@@ -25,7 +27,7 @@ def init_environment(app) -> None:
             environ["DEVE_URL_BACKEND"],
         ]
 
-    elif environ["FLASK_ENV"] == "production":
+    elif app.config["MODE"] == "production":
 
         app.config["JWT_SECRET_KEY"] = environ["PROD_FLASK_JWT_SECRET_KEY"]
         app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
