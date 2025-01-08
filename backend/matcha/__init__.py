@@ -29,7 +29,7 @@ def create_app():
         app,
         resources={
             r"/*": {
-                "origins": ["http://localhost:4200", "http://localhost"],
+                "origins": app.config["ORIGINS"],
                 "allow_credentials": True,
                 "methods": ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
             }

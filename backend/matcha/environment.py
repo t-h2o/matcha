@@ -20,6 +20,11 @@ def init_environment(app) -> None:
 
         app.config["DATABASE_URL"] = environ["DEVE_DATABASE_URL"]
 
+        app.config["ORIGINS"] = [
+            environ["DEVE_URL_FRONTEND"],
+            environ["DEVE_URL_BACKEND"],
+        ]
+
     elif environ["FLASK_ENV"] == "production":
 
         app.config["JWT_SECRET_KEY"] = environ["PROD_FLASK_JWT_SECRET_KEY"]
@@ -37,3 +42,5 @@ def init_environment(app) -> None:
         app.config["MAIL_TEST"] = environ["PROD_MAIL_TEST"]
 
         app.config["DATABASE_URL"] = environ["PROD_DATABASE_URL"]
+
+        app.config["ORIGINS"] = [environ["PROD_URL"]]
