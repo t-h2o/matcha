@@ -34,10 +34,12 @@ def services_confirm(id_user: int):
     token = _generate_confim_token(id_user, email)
     url_backend = current_app.config["URL"] + f"/api/confirm/{token}"
     url_frontend = "http://localhost:4200" + f"/confirm/{token}"
+    mail_title = "Confirm email"
+    mail_body = f"here the code\n\nbackend: {url_backend}\n\nfrontend: {url_frontend}"
     send_mail(
         email,
-        "Confirm email",
-        f"here the code\n\nbackend: {url_backend}\n\nfrontend: {url_frontend}",
+        mail_title,
+        mail_body,
     )
     return jsonify({"success": "mail sent"}), 201
 

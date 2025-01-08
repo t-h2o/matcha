@@ -62,8 +62,17 @@ def services_reset_password(request):
 
     if email_data is not None and email_data[1] == True:
         token = _generate_confim_token(json["username"])
-        url = current_app.config["URL"] + f"/api/reset-password/{token}"
-        send_mail(email_data[0], "matcha : reset password", f"reset password\n\n{url}")
+
+        url_backend = current_app.config["URL"] + f"/api/reset-password/{token}"
+        url_frontend = "http://localhost:4200" + f"/reset-password/{token}"
+
+        mail_title = "matcha : reset password"
+        mail_body = f"here the password link\n\nbackend: {url_backend}\n\nfrontend: {url_frontend}"
+        send_mail(
+            email_data[0],
+            mail_title,
+            mail_body,
+        )
 
     return jsonify({"success": "ok"}), 201
 
