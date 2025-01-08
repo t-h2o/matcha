@@ -25,16 +25,17 @@ def create_app():
     init_environment(app)
     init_routes(app)
 
-    CORS(
-        app,
-        resources={
-            r"/*": {
-                "origins": app.config["ORIGINS"],
-                "allow_credentials": True,
-                "methods": ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
-            }
-        },
-    )
+    if app.config["MODE"] == "development":
+        CORS(
+            app,
+            resources={
+                r"/*": {
+                    "origins": app.config["ORIGINS"],
+                    "allow_credentials": True,
+                    "methods": ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
+                }
+            },
+        )
 
     FLASK_ENV = environ.get("FLASK_ENV", "development")
 
