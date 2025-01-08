@@ -42,6 +42,10 @@ create_the_environment_file () {
 
 	# File created the $(date +"%Y.%m.%d") by $(whoami)
 
+	# url
+	DEVE_URL_FRONTEND=http://localhost:4200
+	DEVE_URL_BACKEND=http://localhost:5001
+
 	# PostgreSQLexit
 	DEVE_POSTGRES_USER=${DEVE_POSTGRES_USER}
 	DEVE_POSTGRES_PASSWORD=${DEVE_POSTGRES_PASSWORD}
@@ -51,6 +55,9 @@ create_the_environment_file () {
 	DEVE_FLASK_JWT_SECRET_KEY=$(pwgen)
 	DEVE_FLASK_UPLOAD_FOLDER="uploads"
 	DEVE_FLASK_URL="http://localhost:5001"
+
+	# url
+	PROD_URL=http://localhost
 
 	PROD_POSTGRES_USER=${PROD_POSTGRES_USER}
 	PROD_POSTGRES_PASSWORD=${PROD_POSTGRES_PASSWORD}
