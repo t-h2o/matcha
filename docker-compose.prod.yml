@@ -6,7 +6,7 @@ services:
       context: ./frontend/
       dockerfile: Dockerfile.prod
     ports:
-      - '80:80'
+      - '4200:4200'
     volumes:
       - uploads:/usr/share/nginx/uploads
     depends_on:
