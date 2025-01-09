@@ -20,9 +20,13 @@ is_environement_file_already_exist () {
 }
 
 generate_all_variables () {
-	POSTGRES_USER=$(whoami)
-	POSTGRES_PASSWORD=$(pwgen)
-	POSTGRES_NAME="matcha-db"
+	DEVE_POSTGRES_USER=$(whoami)
+	DEVE_POSTGRES_PASSWORD=$(pwgen)
+	DEVE_POSTGRES_NAME="matcha-db-dev"
+
+	PROD_POSTGRES_USER=$(whoami)
+	PROD_POSTGRES_PASSWORD=$(pwgen)
+	PROD_POSTGRES_NAME="matcha-db-prod"
 }
 
 mail_credentials() {
@@ -38,23 +42,45 @@ create_the_environment_file () {
 
 	# File created the $(date +"%Y.%m.%d") by $(whoami)
 
-	# PostgreSQLexit
-	POSTGRES_USER=${POSTGRES_USER}
-	POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-	POSTGRES_NAME=${POSTGRES_NAME}
+	# url
+	DEVE_URL_FRONTEND=http://localhost:4200
+	DEVE_URL_BACKEND=http://localhost:5001
 
-	DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_NAME}
-	FLASK_JWT_SECRET_KEY=$(pwgen)
-	FLASK_UPLOAD_FOLDER="uploads"
-	FLASK_URL="http://localhost:5001"
+	# PostgreSQLexit
+	DEVE_POSTGRES_USER=${DEVE_POSTGRES_USER}
+	DEVE_POSTGRES_PASSWORD=${DEVE_POSTGRES_PASSWORD}
+	DEVE_POSTGRES_NAME=${DEVE_POSTGRES_NAME}
+
+	DEVE_DATABASE_URL=postgres://${DEVE_POSTGRES_USER}:${DEVE_POSTGRES_PASSWORD}@postgres:5432/${DEVE_POSTGRES_NAME}
+	DEVE_FLASK_JWT_SECRET_KEY=$(pwgen)
+	DEVE_FLASK_UPLOAD_FOLDER="uploads"
+	DEVE_FLASK_URL="http://localhost:5001"
+
+	# url
+	PROD_URL=http://localhost
+
+	PROD_POSTGRES_USER=${PROD_POSTGRES_USER}
+	PROD_POSTGRES_PASSWORD=${PROD_POSTGRES_PASSWORD}
+	PROD_POSTGRES_NAME=${PROD_POSTGRES_NAME}
+
+	PROD_DATABASE_URL=postgres://${PROD_POSTGRES_USER}:${PROD_POSTGRES_PASSWORD}@postgres:5432/${PROD_POSTGRES_NAME}
+	PROD_FLASK_JWT_SECRET_KEY=$(pwgen)
+	PROD_FLASK_UPLOAD_FOLDER="uploads"
 
 	# Mail
-	MAIL_USER=test # default username of MailHog
-	MAIL_SMTP_HOST=mail-dev # container name of MailHog
-	MAIL_SMTP_PORT=1025 # default port of MailHog
-	MAIL_SMTP_METHOD=plain
-	MAIL_TEST=whatever@random.com
-	MAIL_PASSWORD=test # default password of MailHog
+	DEVE_MAIL_USER=test # default username of MailHog
+	DEVE_MAIL_SMTP_HOST=mail-dev # container name of MailHog
+	DEVE_MAIL_SMTP_PORT=1025 # default port of MailHog
+	DEVE_MAIL_SMTP_METHOD=plain
+	DEVE_MAIL_TEST=whatever@random.com
+	DEVE_MAIL_PASSWORD=test # default password of MailHog
+
+	PROD_MAIL_USER=test # default username of MailHog
+	PROD_MAIL_SMTP_HOST=mail-dev # container name of MailHog
+	PROD_MAIL_SMTP_PORT=1025 # default port of MailHog
+	PROD_MAIL_SMTP_METHOD=plain
+	PROD_MAIL_TEST=whatever@random.com
+	PROD_MAIL_PASSWORD=test # default password of MailHog
 	environment_file
 }
 

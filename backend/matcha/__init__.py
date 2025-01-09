@@ -16,34 +16,33 @@ from matcha.websocket.main_namespace import MainNamespace
 
 from matcha.routes import init_routes
 
+from matcha.environment import init_environment
+
 
 def create_app():
     app = Flask(__name__)
-    app.config["JWT_SECRET_KEY"] = environ["FLASK_JWT_SECRET_KEY"]
-    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
-    app.config["UPLOAD_FOLDER"] = environ["FLASK_UPLOAD_FOLDER"]
-    app.config["URL"] = environ["FLASK_URL"]
-    app.config["SECRET_KEY"] = "your_secret_key"
 
+    init_environment(app)
     init_routes(app)
 
-    CORS(
-        app,
-        resources={
-            r"/*": {
-                "origins": ["http://localhost:4200", "http://localhost"],
-                "allow_credentials": True,
-                "methods": ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
-            }
-        },
-    )
+    if app.config["MODE"] == "development":
+        CORS(
+            app,
+            resources={
+                r"/*": {
+                    "origins": app.config["ORIGINS"],
+                    "allow_credentials": True,
+                    "methods": ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
+                }
+            },
+        )
 
     FLASK_ENV = environ.get("FLASK_ENV", "development")
 
     if FLASK_ENV == "production":
         socketio = SocketIO(
             app,
-            cors_allowed_origins="http://localhost",
+            cors_allowed_origins=app.config["WS_ORIGINS"],
             async_mode="eventlet",
             ping_timeout=60000,
             logger=True,
@@ -53,20 +52,12 @@ def create_app():
     else:
         socketio = SocketIO(
             app,
-            cors_allowed_origins="http://localhost:4200",
+            cors_allowed_origins=app.config["WS_ORIGINS"],
             async_mode="threading",
             ping_timeout=60000,
             logger=True,
             engineio_logger=True,
         )
-
-    app.config["MAIL_USER"] = environ["MAIL_USER"]
-    app.config["MAIL_USER"] = environ["MAIL_USER"]
-    app.config["MAIL_SMTP_HOST"] = environ["MAIL_SMTP_HOST"]
-    app.config["MAIL_SMTP_PORT"] = environ["MAIL_SMTP_PORT"]
-    app.config["MAIL_SMTP_METHOD"] = environ["MAIL_SMTP_METHOD"]
-    app.config["MAIL_PASSWORD"] = environ["MAIL_PASSWORD"]
-    app.config["MAIL_TEST"] = environ["MAIL_TEST"]
 
     jwt = JWTManager(app)
 
