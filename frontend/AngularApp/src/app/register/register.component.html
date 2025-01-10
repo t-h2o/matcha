@@ -81,6 +81,9 @@
         pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s])([^\s]){8,15}$"
         #password="ngModel"
       />
+      @if (passwordTooLong(form)) {
+        <p class="error-msg">Password too long.</p>
+      }
     </div>
     <div class="form-group">
       <label for="password-repetition">Repeat your Password</label>
