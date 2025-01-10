@@ -16,13 +16,12 @@ const tokenInterceptor = (
 ) => {
   const token = sessionStorage.getItem('access_token');
   if (!token) {
-    console.log('Request:', request);
     return next(request);
   }
   const req = request.clone({
     headers: request.headers.set('Authorization', 'Bearer ' + token),
   });
-  console.log('Request:', req);
+  // console.log('Request:', req);
   return next(req);
 };
 
