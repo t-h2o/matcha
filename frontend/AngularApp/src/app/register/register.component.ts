@@ -35,4 +35,8 @@ export class RegisterComponent {
     this.userService.sendUserRegisterData(userData);
     formData.form.reset();
   }
+
+  passwordTooLong(formData: NgForm) {
+    return formData.value.password.length > 15;
+  }
 }

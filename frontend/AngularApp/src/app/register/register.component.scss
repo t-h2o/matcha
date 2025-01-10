@@ -5,6 +5,13 @@
     color: $green;
   }
 
+  .error-msg {
+    text-align: center;
+    color: $invalid-red;
+    font-size: 0.7rem;
+    margin-top: 0.3rem;
+  }
+
   .title {
     text-align: center;
     margin-bottom: 1rem;
