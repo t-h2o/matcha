@@ -65,7 +65,11 @@ export class UserService {
             visitedBy: data.visitedBy,
           };
         });
-        if (data.profile_complete === false && this.router.url !== '/profile') {
+        if (
+          data.profile_complete === false &&
+          this.router.url !== '/profile' &&
+          this.router.url !== '/add-pictures'
+        ) {
           this.router.navigate(['/profile']);
         }
       },
