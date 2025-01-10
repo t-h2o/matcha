@@ -18,6 +18,11 @@ export type ChatMessageFromBack = {
   message: string;
 };
 
+export type ChatNotificationMsg = {
+  title: string;
+  content: string;
+};
+
 export type ChatMessageToBack = {
   to: string;
   message: string;
