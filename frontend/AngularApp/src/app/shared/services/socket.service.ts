@@ -3,7 +3,11 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 import { environment } from '../../../environments/environment';
-import { ChatMessageFromBack, Notification } from '../models/message';
+import {
+  ChatMessageFromBack,
+  ChatNotificationMsg,
+  Notification,
+} from '../models/message';
 import { AuthService } from './auth.service';
 import { MessageService } from './message.service';
 import { ToastService } from './toast.service';
@@ -87,9 +91,9 @@ export class SocketService {
       this.toastService.show(notification.content, 'success');
     });
 
-    this.socket.on('chat', (notification: ChatMessageFromBack) => {
+    this.socket.on('chat', (notification: ChatNotificationMsg) => {
       if (!this.router.url.match(/^\/chat\/.+/)) {
-        this.toastService.show(notification.message, 'success');
+        this.toastService.show(notification.content, 'success');
       }
     });
 
