@@ -3,6 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { token } from '../../shared/models/token';
 import { AuthService } from '../../shared/services/auth.service';
 import { UserService } from '../../shared/services/user.service';
+import { SocketService } from '../../shared/services/socket.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,6 +18,7 @@ export class NavbarComponent {
   private router = inject(Router);
   private usersService = inject(UserService);
   user = this.usersService.ownProfileData;
+  private socketService = inject(SocketService);
   profileCompleted = computed(() => this.user().profile_complete);
 
   isLoginRoute(): boolean {
