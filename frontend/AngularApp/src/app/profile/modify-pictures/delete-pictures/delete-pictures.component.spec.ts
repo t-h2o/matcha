@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DeletePicturesComponent } from './delete-pictures.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { PicturesListComponent } from './pictures-list/pictures-list.component';
 
 describe('DeletePicturesComponent', () => {
   let component: DeletePicturesComponent;
@@ -8,7 +11,8 @@ describe('DeletePicturesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DeletePicturesComponent],
+      imports: [DeletePicturesComponent, PicturesListComponent],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DeletePicturesComponent);

@@ -48,7 +48,7 @@ describe('PotentialMatchService', () => {
       const req = httpTestingController.expectOne(
         'http://localhost:5001/api/browsing',
       );
-      expect(req.request.method).toEqual('GET');
+      expect(req.request.method).toEqual('POST');
     });
   });
 
@@ -56,7 +56,7 @@ describe('PotentialMatchService', () => {
     it('should call getUserByUsername with the correct URL and data and receive a user', () => {
       potentialMatchService.getUserProfileByUsername('test');
       const req = httpTestingController.expectOne(
-        'http://localhost:5001/api/profile?username=test',
+        'http://localhost:5001/api/profile/test',
       );
       expect(req.request.method).toEqual('GET');
     });

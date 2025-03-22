@@ -18,18 +18,15 @@ describe('DisplayMessagesComponent', () => {
 
     fixture = TestBed.createComponent(DisplayMessagesComponent);
     component = fixture.componentInstance;
-    component.messages = [
+    fixture.componentRef.setInput('messages', [
+      { timestamp: '1234', senderUsername: 'Alice', message: 'Hello Robin!' },
       {
-        id: 101,
-        senderUsername: 'Alice',
-        text: 'Hello Robin!',
-      },
-      {
-        id: 102,
+        timestamp: '1235',
         senderUsername: 'roburi',
-        text: 'Hi Alice!',
+        message: 'Hi Alice!',
       },
-    ];
+    ]);
+
     fixture.detectChanges();
   });
 

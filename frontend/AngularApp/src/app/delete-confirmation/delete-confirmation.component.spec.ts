@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DeleteConfirmationComponent } from './delete-confirmation.component';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
 
 describe('DeleteConfirmationComponent', () => {
   let component: DeleteConfirmationComponent;
@@ -8,7 +11,8 @@ describe('DeleteConfirmationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DeleteConfirmationComponent],
+      imports: [DeleteConfirmationComponent, CustomButtonComponent],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DeleteConfirmationComponent);
