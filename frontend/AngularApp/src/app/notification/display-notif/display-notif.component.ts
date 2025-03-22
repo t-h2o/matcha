@@ -9,7 +9,7 @@ import { Notification } from '../../shared/models/message';
   styleUrl: './display-notif.component.scss',
 })
 export class DisplayNotifComponent {
-  notificationList = input.required<Notification[]>();
+  notificationList = input<Notification[]>([]);
   onDeleteNotification = output<number>();
 
   onDeleteNotificationHandler(notificationId: number) {
