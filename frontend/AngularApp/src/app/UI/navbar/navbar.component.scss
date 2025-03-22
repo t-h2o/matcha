@@ -22,6 +22,9 @@
     @media screen and (max-width: $mobile-max-width) {
       display: none;
     }
+    .logo-link {
+      cursor: pointer;
+    }
   }
 
   .links-container {
