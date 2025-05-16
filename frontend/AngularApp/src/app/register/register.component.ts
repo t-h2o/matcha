@@ -37,6 +37,6 @@ export class RegisterComponent {
   }
 
   passwordTooLong(formData: NgForm) {
-    return formData.value.password.length > 15;
+    return formData?.value?.password?.length > 15 || false;
   }
 }

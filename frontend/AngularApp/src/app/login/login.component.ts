@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { CustomButtonComponent } from '../UI/custom-button/custom-button.component';
 import { AuthService } from '../shared/services/auth.service';
 import { HttpRequestsService } from '../shared/services/http.requests.service';
+import { SocketService } from '../shared/services/socket.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent {
   private httpService = inject(HttpRequestsService);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private socketService = inject(SocketService);
   falseCredentials = signal<boolean>(false);
 
   onSubmit(formData: NgForm) {
@@ -37,6 +39,7 @@ export class LoginComponent {
       next: (data) => {
         sessionStorage.setItem('access_token', data.access_token);
         this.authService.tokenSignal.set(data);
+        this.socketService.initializeSocket(data.access_token);
         this.router.navigate(['/profile']);
       },
       error: (error) => {

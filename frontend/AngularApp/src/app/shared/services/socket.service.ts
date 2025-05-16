@@ -1,4 +1,4 @@
-import { effect, inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
@@ -16,27 +16,31 @@ import { ToastService } from './toast.service';
   providedIn: 'root',
 })
 export class SocketService {
-  private socket: Socket | null = null;
+  public socket: Socket | null = null;
   private authService = inject(AuthService);
   private toastService = inject(ToastService);
   private connectedUsers = new BehaviorSubject<string[]>([]);
   private router = inject(Router);
   private msgService = inject(MessageService);
 
-  constructor() {
-    effect(() => {
-      const currentToken = this.authService.tokenSignal();
-      if (currentToken?.access_token) {
-        this.initializeSocket(currentToken.access_token);
-      } else if (this.socket) {
-        this.socket.disconnect();
-        this.socket = null;
-      }
-    });
-  }
+private isDisconnecting = false;
 
-  private initializeSocket(token: string): void {
+public disconnectSocket(): void {
+  if (this.isDisconnecting) return;
+  
+  this.isDisconnecting = true;
+  if (this.socket) {
+    this.socket.removeAllListeners();
+    this.socket.disconnect();
+    this.socket = null;
+  }
+  
+  this.isDisconnecting = false;
+}
+
+  public initializeSocket(token: string): void {
     if (this.socket) {
+      this.socket.removeAllListeners();
       this.socket.disconnect();
       this.socket = null;
     }
@@ -51,6 +55,7 @@ export class SocketService {
       query: {
         token: `Bearer ${token}`,
       },
+      reconnection: false,
     });
 
     this.setupSocketListeners();
