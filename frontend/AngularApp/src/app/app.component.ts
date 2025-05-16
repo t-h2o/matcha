@@ -5,6 +5,7 @@ import { NavbarComponent } from './UI/navbar/navbar.component';
 
 import { AuthService } from './shared/services/auth.service';
 import { ToastComponent } from './shared/toast/toast.component';
+import { SocketService } from './shared/services/socket.service';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ import { ToastComponent } from './shared/toast/toast.component';
 })
 export class AppComponent implements OnInit {
   private authService = inject(AuthService);
+  private socketService = inject(SocketService);
 
   ngOnInit() {
     const token = sessionStorage.getItem('access_token');
@@ -26,5 +28,6 @@ export class AppComponent implements OnInit {
   logoutHandler() {
     this.authService.tokenSignal.set(null);
     sessionStorage.removeItem('access_token');
+    this.socketService.disconnectSocket();
   }
 }
