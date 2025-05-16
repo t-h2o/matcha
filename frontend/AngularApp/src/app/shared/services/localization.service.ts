@@ -41,6 +41,7 @@ export class LocalizationService {
         });
       },
       (_error) => {
+        console.log('Error getting location');
         this.httpService.sendCoordinates(this.location()).subscribe({
           next: (data: any) => {
             this.location.update((prev) => {
