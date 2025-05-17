@@ -11,6 +11,7 @@ from matcha.db.pictures import db_get_user_images, db_get_url_profile
 from matcha.db.visit import db_put_visit, db_get_visit
 
 from matcha.db.fake import db_get_is_faked
+from matcha.db.position import db_get_position
 
 from matcha.db.block import db_get_is_blocked
 
@@ -124,6 +125,8 @@ def services_profile_username(id_user: int, username: str):
         id_user, user_db[0], "visit", f"{visitor_username} viewed your profile"
     )
 
+    position = db_get_position(id_user)
+
     return (
         jsonify(
             username=user_db[1],
@@ -142,6 +145,7 @@ def services_profile_username(id_user: int, username: str):
             lastConnection=db_get_last_connection(user_db[0]),
             isFaked=db_get_is_faked(id_user, user_db[0]),
             isBlocked=db_get_is_blocked(id_user, user_db[0]),
+            localization={"latitude": position[0], "longitude": position[1]},
         ),
         200,
     )
