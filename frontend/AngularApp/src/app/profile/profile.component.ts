@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
     this.userServices.getUserProfile();
     this.userServices.getUserPictures();
     setTimeout(() => {
-      if (this.location().latitude === 999 || !this.ProfileComplete) {
+      if ((this.location().latitude && this.location()?.latitude === 999 )|| !this.ProfileComplete) {
       this.localizationService.getCurrentPosition();
       }
     }, 500);

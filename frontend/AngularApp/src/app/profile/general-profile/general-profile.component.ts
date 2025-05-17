@@ -58,14 +58,14 @@ export class GeneralProfileComponent {
   }
 
   get lat(): string {
-    if (this.location().latitude === 999) {
+    if (this.location().latitude === null || this.location().latitude === 999) {
       return 'NA';
     }
     return this.location().latitude.toString();
   }
 
   get long(): string {
-    if (this.location().latitude === 999) {
+    if (this.location().longitude === null || this.location().longitude === 999) {
       return 'NA';
     }
     return this.location().longitude.toString();

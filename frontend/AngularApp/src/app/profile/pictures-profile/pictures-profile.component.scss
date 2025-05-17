@@ -4,6 +4,12 @@
   display: grid;
   min-width: 100%;
 }
+.container p {
+  color: $green;
+  font-size: 12px;
+  margin-top: 3rem;
+  text-align: center;
+}
 
 .grid {
   display: grid;
@@ -22,7 +28,7 @@
 }
 .btn-container {
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
