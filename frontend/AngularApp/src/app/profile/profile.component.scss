@@ -11,13 +11,13 @@
 }
 
 .container {
+  margin: 1rem auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   @media screen and (max-width: $mobile-max-width) {
     max-width: 90%;
-    margin: auto;
   }
 }
 
@@ -38,13 +38,10 @@
   }
 
   .column {
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr;
     justify-content: center;
     gap: 1rem;
-    padding: 1rem;
-    @media screen and (max-width: $mobile-max-width) {
-      padding: 0 1rem;
-    }
   }
 }

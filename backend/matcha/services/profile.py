@@ -16,6 +16,8 @@ from matcha.db.block import db_get_is_blocked
 
 from matcha.db.last_connection import db_get_last_connection
 
+from matcha.db.position import db_get_position
+
 from matcha.db.user import (
     db_set_user_profile_data,
     db_get_user_per_id,
@@ -73,6 +75,7 @@ def services_profile(id_user, request):
     profile_picture = db_get_url_profile(id_user)
     interests = db_get_interests(id_user)
     liked_by = db_get_list_liked_by(id_user)
+    position = db_get_position(id_user)
 
     if "url" in profile_picture:
         profile_url = profile_picture["url"]
@@ -96,6 +99,7 @@ def services_profile(id_user, request):
             interests=interests,
             likedBy=liked_by,
             visitedBy=db_get_visit(id_user),
+            localization={"latitude": position[0], "longitude": position[1]},
         ),
         200,
     )

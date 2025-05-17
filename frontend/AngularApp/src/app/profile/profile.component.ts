@@ -25,9 +25,6 @@ export class ProfileComponent implements OnInit {
   private localizationService = inject(LocalizationService);
   location = this.localizationService.location;
 
-  getLocation() {
-    this.localizationService.getCurrentPosition();
-  }
 
   private profileCompleteOverride = false;
 
@@ -38,12 +35,15 @@ export class ProfileComponent implements OnInit {
     return this.userServices.ownProfileData().profile_complete;
   }
 
+
   ngOnInit(): void {
     this.userServices.getUserProfile();
     this.userServices.getUserPictures();
-    if (!this.ProfileComplete && this.location().latitude === 999) {
-      this.getLocation();
-    }
+    setTimeout(() => {
+      if (this.location().latitude === 999 || !this.ProfileComplete) {
+      this.localizationService.getCurrentPosition();
+      }
+    }, 500);
 
     this.profileCompleteOverride = true;
     setTimeout(() => {

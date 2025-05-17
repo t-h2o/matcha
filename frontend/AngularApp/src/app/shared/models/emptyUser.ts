@@ -21,6 +21,7 @@ export const emptyUser: UserData = {
   lastConnection: 0,
   isFaked: false,
   isBlocked: false,
+  localization: { latitude: 999, longitude: 0 },
 };
 
 export const testUser: UserData = {
@@ -44,4 +45,5 @@ export const testUser: UserData = {
   lastConnection: 0,
   isFaked: false,
   isBlocked: false,
+  localization: { latitude: 999, longitude: 0 },
 };
