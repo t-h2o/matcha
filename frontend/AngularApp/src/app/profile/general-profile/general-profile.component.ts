@@ -70,4 +70,8 @@ export class GeneralProfileComponent {
     }
     return this.location().longitude.toString();
   }
+
+  geoLocation = () => {
+    this.localizationService.getCurrentPosition();
+  }
 }

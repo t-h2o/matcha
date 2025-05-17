@@ -12,6 +12,7 @@ import { emptyUser } from '../models/emptyUser';
 import { HttpRequestsService } from './http.requests.service';
 import { ToastService } from './toast.service';
 import { finalize } from 'rxjs';
+import { LocalizationService } from './localization.service';
 
 type Interests = { interests: string[] };
 
@@ -22,6 +23,7 @@ export class UserService {
   private httpService = inject(HttpRequestsService);
   private toastService = inject(ToastService);
   private router = inject(Router);
+  private localizationService = inject(LocalizationService);
 
   ownProfileData = signal<UserData>(emptyUser);
 
@@ -46,6 +48,13 @@ export class UserService {
     this.httpService.getUser().subscribe({
       next: (data: UserData) => {
         this.ownProfileData.update((prev) => {
+          if (data.localization) {
+            this.localizationService.location.set({
+              latitude: data.localization.latitude,
+              longitude: data.localization.longitude,
+              accuracy: data.localization.accuracy,
+            });
+          }
           return {
             ...prev,
             username: data.username,

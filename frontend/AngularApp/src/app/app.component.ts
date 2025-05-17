@@ -12,7 +12,6 @@ import { SocketService } from './shared/services/socket.service';
   standalone: true,
   imports: [RouterOutlet, NavbarComponent, FooterComponent, ToastComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
   private authService = inject(AuthService);

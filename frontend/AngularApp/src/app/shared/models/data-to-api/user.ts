@@ -69,6 +69,7 @@ export type UserData = {
   lastConnection: number;
   isFaked: boolean;
   isBlocked: boolean;
+  localization: LocationCoordinates;
 };
 
 export type PossibleMatchesUserData = {
