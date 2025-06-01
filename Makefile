@@ -42,6 +42,12 @@ cmd-prod:
 dump:
 	docker exec postgres-dev pg_dump --dbname=$(shell grep DATABASE_URL= .env | sed 's/DATABASE_URL=//') > postgres-init/dump.sql
 
+psql-dev:
+	docker exec -it postgres-dev psql --dbname=$(shell grep DEVE_DATABASE_URL= .env | sed 's/DEVE_DATABASE_URL=//')
+
+psql-prod:
+	docker exec -it postgres-dev psql --dbname=$(shell grep PROD_DATABASE_URL= .env | sed 's/PROD_DATABASE_URL=//')
+
 
 pr:
 	@firefox https://github.com/t-h2o/matcha/pull/new/$(shell git rev-parse --abbrev-ref HEAD)
