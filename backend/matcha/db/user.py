@@ -1,5 +1,7 @@
 """Flask, psycopg2, os.environ, contextmanager"""
 
+from werkzeug.security import generate_password_hash
+
 from psycopg2.errors import UndefinedTable
 
 from matcha.db.utils import (
@@ -36,7 +38,7 @@ def db_update_password(username: str, password: str):
     query = """
     UPDATE users
     SET
-    password = %S
+    password = %s
     WHERE
     username = %s
     ;
@@ -45,7 +47,7 @@ def db_update_password(username: str, password: str):
     error_msg = db_query(
         query,
         (
-            password,
+            generate_password_hash(password),
             username,
         ),
     )
