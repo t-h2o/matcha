@@ -9,7 +9,7 @@ from flask_jwt_extended import (
 from werkzeug.security import check_password_hash
 
 from matcha.db.user import (
-    db_get_id_password_where_username,
+    db_get_id_password_confirm_where_username,
     db_get_email_data_where_username,
     db_update_password,
 )
@@ -30,10 +30,12 @@ def service_login_user(request):
     if check_request is not None:
         return jsonify(check_request[0]), check_request[1]
 
-    user_db = db_get_id_password_where_username(json["username"])
+    user_db = db_get_id_password_confirm_where_username(json["username"])
 
     if user_db is None:
         return jsonify({"error": "Incorrect username"}), 401
+    elif user_db[2] == False:
+        return jsonify({"error": "Email not confirmed"}), 401
     if check_password_hash(user_db[1], json["password"]):
         access_token = create_access_token(identity=user_db[0])
         return jsonify(access_token=access_token)

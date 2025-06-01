@@ -26,8 +26,10 @@ def db_get_email_data_where_username(username: str):
     )
 
 
-def db_get_id_password_where_username(username):
-    return db_fetchone("SELECT id,password FROM users WHERE username = %s", (username,))
+def db_get_id_password_confirm_where_username(username):
+    return db_fetchone(
+        "SELECT id,password,email_verified FROM users WHERE username = %s", (username,)
+    )
 
 
 def db_update_password(username: str, password: str):

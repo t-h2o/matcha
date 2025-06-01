@@ -3,6 +3,9 @@ from flask import jsonify, current_app
 from matcha.utils import check_request_json
 
 from matcha.db.register import db_register
+from matcha.db.user import db_get_id_where_username
+
+from matcha.services.confirm import services_confirm, services_confirm_jwt
 
 
 def services_register(request):
@@ -24,5 +27,9 @@ def services_register(request):
         json["lastname"],
         json["email"],
     )
+
+    user_id = db_get_id_where_username(json["username"])
+
+    services_confirm(user_id[0])
 
     return jsonify(response[0]), response[1]
