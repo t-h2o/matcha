@@ -1,6 +1,7 @@
 @import "../../../styles.scss";
 
 .card {
+  align-self: center;
   border-radius: 8px;
   padding: 2rem;
   border-width: 2px;
@@ -8,9 +9,11 @@
   border-style: solid;
   width: 90%;
   margin: 0 auto;
+  overflow: hidden;
 
   @media screen and (max-width: $mobile-max-width) {
-    width: 85%;
+    width: 90%;
     padding: 1rem;
+    max-width: 370px;
   }
 }
