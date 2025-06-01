@@ -31,7 +31,9 @@ MAX_DISTANCE = 101
 
 
 def _search_gender_sexual_orientation(search, gender, sexual_orientation):
-    if gender == "m" and sexual_orientation == "e":
+    if sexual_orientation == "b":
+        search["bisexual_gender"] = gender
+    elif gender == "m" and sexual_orientation == "e":
         search["gender"] = "f"
         search["sexual_orientation"] = "e"
     elif gender == "m" and sexual_orientation == "o":
@@ -81,6 +83,7 @@ def services_browsing(id_user, request):
 
     search = {
         "gender": None,
+        "bisexual_gender": None,
         "sexual_orientation": None,
         "interests": None,
         "min_age": None,

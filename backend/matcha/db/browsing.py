@@ -1,3 +1,5 @@
+from string import Template
+
 from matcha.db.utils import (
     db_fetchall,
 )
@@ -16,9 +18,37 @@ def _get_query(search) -> str:
             """
 
     query += """
-        WHERE sexual_orientation = %s
-          AND u.gender = %s
-          AND u.id != %s
+        WHERE
+    """
+
+    if search["bisexual_gender"] is None:
+        query += """
+              sexual_orientation = %s
+              AND u.gender = %s
+              AND
+        """
+    else:
+        bisexual_query = Template(
+            """
+              ((sexual_orientation = 'o'
+              AND u.gender = '${user_gender}')
+              OR
+              (sexual_orientation = 'e'
+              AND u.gender = '${opposite_user_gender}'))
+              AND
+                 """
+        )
+        if search["bisexual_gender"] == "m":
+            query += bisexual_query.safe_substitute(
+                user_gender="m", opposite_user_gender="f"
+            )
+        if search["bisexual_gender"] == "f":
+            query += bisexual_query.safe_substitute(
+                user_gender="f", opposite_user_gender="m"
+            )
+
+    query += """
+          u.id != %s
           AND NOT EXISTS
             (
               SELECT * FROM user_blocked
@@ -55,8 +85,10 @@ def _get_query(search) -> str:
 def _get_parameters(id_user: int, search: dict) -> list:
     parameters = []
 
-    parameters.append(search["sexual_orientation"])
-    parameters.append(search["gender"])
+    if search["gender"] is not None:
+        parameters.append(search["sexual_orientation"])
+        parameters.append(search["gender"])
+
     parameters.append(id_user)
     parameters.append(id_user)
 
