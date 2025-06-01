@@ -1,3 +1,5 @@
+from time import time
+
 from flask import jsonify, current_app
 
 from jwt import encode, decode, InvalidSignatureError
@@ -12,6 +14,11 @@ from matcha.db.user import (
     db_get_id_password_confirm_where_username,
     db_get_email_data_where_username,
     db_update_password,
+)
+
+from matcha.db.token import (
+    db_check_token_used,
+    db_add_token_used,
 )
 
 from matcha.utils import check_request_json, send_mail
@@ -43,7 +50,7 @@ def service_login_user(request):
 
 
 def _generate_confim_token(username: str):
-    data = {"username": username}
+    data = {"username": username, "time": time()}
     token = encode(data, "secret", algorithm="HS512")
     return token
 
@@ -101,6 +108,12 @@ def services_reset_password_jwt(request, jwt: str):
         return jsonify({"error": "bad token"}), 401
 
     flaskprint(data)
+
+    if db_check_token_used(jwt):
+        return jsonify({"error": "already used token"}), 401
+
     db_update_password(data["username"], request.json["password"])
+
+    db_add_token_used(jwt)
 
     return jsonify({"success": "password reset"}), 201
