@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS users (
     ),
     bio TEXT,
     gender CHAR(1),
-    sexual_orientation CHAR(1),
+    sexual_orientation CHAR(1) DEFAULT 'b',
     fame_rating INTEGER DEFAULT 0 CHECK (
         fame_rating >= 0 AND fame_rating <= 10
     ),
