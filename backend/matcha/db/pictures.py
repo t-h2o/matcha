@@ -66,10 +66,17 @@ def db_delete_pictures(id_user: int, urls: list):
 
     db_query(query, parameters)
 
+    url = db_get_url_profile(id_user)
+    if "error" in url:
+        filenames = db_get_user_images(id_user)
+        if len(filenames) == 0:
+            return
+        db_set_profile_picture(id_user, filenames[0])
+
 
 def db_count_number_image(id_user):
     return db_fetchone(
-        "SELECT COUNT(*) FROM user_images WHERE   user_id = %s;",
+        "SELECT COUNT(*) FROM user_images WHERE user_id = %s;",
         (id_user,),
     )
 

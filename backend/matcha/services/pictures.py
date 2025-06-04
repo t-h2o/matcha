@@ -51,6 +51,11 @@ def services_profile_picture(id_user, request):
 def picture_post(user_id, request):
     number_of_picture = db_count_number_image(user_id)
 
+    if number_of_picture[0] == 0:
+        set_first_picture_profile: bool = True
+    else:
+        set_first_picture_profile: bool = False
+
     available_picture = 5 - number_of_picture[0]
 
     list_pictures = request.files.getlist("pictures")
@@ -65,6 +70,9 @@ def picture_post(user_id, request):
         filenames.append(current_app.config["URL"] + "/api/images/" + filename)
 
     db_upload_pictures(user_id, filenames)
+
+    if set_first_picture_profile:
+        db_set_profile_picture(user_id, filenames[0])
 
 
 def picture_delete(id_user: int, request):
