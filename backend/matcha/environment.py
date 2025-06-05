@@ -4,6 +4,7 @@ from datetime import timedelta, datetime, timezone
 
 def init_environment(app) -> None:
     app.config["MODE"] = environ["FLASK_ENV"]
+    app.config["MAX_CONTENT_LENGTH"] = 1048576
 
     if app.config["MODE"] == "development":
         app.config["JWT_SECRET_KEY"] = environ["DEVE_FLASK_JWT_SECRET_KEY"]
