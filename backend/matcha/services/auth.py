@@ -14,6 +14,8 @@ from matcha.db.user import (
     db_get_id_password_confirm_where_username,
     db_get_email_data_where_username,
     db_update_password,
+    db_update_id_password,
+    db_get_password_from_user_id,
 )
 
 from matcha.db.token import (
@@ -90,6 +92,26 @@ def services_reset_password(request):
         )
 
     return jsonify({"success": "ok"}), 201
+
+
+def services_modify_password(id_user, request):
+    check_request = check_request_json(
+        request.headers.get("Content-Type"),
+        request.json,
+        ["currentPassword", "newPassword"],
+    )
+
+    if check_request is not None:
+        return jsonify(check_request[0]), check_request[1]
+
+    password = db_get_password_from_user_id(id_user)
+
+    if check_password_hash(password[0], request.json["currentPassword"]) == False:
+        return jsonify({"error": "bad password"}), 401
+
+    db_update_id_password(id_user, request.json["newPassword"])
+
+    return jsonify({"success": "password reset"}), 201
 
 
 def services_reset_password_jwt(request, jwt: str):

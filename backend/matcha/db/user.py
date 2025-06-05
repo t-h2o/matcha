@@ -34,6 +34,32 @@ def db_get_id_password_confirm_where_username(username):
     )
 
 
+def db_get_password_from_user_id(user_id: int):
+    return db_fetchone("SELECT password FROM users WHERE id = %s", (user_id,))
+
+
+def db_update_id_password(user_id: int, password: str):
+    query = """
+    UPDATE users
+    SET
+    password = %s
+    WHERE
+    id = %s
+    ;
+    """
+
+    error_msg = db_query(
+        query,
+        (
+            generate_password_hash(password),
+            user_id,
+        ),
+    )
+
+    if error_msg:
+        return error_msg
+
+
 def db_update_password(username: str, password: str):
     query = """
     UPDATE users
