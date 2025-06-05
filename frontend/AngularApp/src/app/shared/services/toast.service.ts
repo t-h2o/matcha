@@ -15,7 +15,7 @@ export class ToastService {
 
   show(message: string, type: ToastMessage['type'] = 'info') {
     if (message.length > 40) {
-      message = message.slice(0, 40) + '...';
+      message = message.slice(0, 80) + '...';
     }
     this.toastSubject.next({ message, type });
 

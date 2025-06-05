@@ -40,7 +40,7 @@ def service_login_user(request):
     user_db = db_get_id_password_confirm_where_username(json["username"])
 
     if user_db is None:
-        return jsonify({"error": "Incorrect username"}), 401
+        return jsonify({"error": "Incorrect username or password"}), 401
     elif user_db[2] == False:
         return jsonify({"error": "Email not confirmed"}), 401
     if check_password_hash(user_db[1], json["password"]):

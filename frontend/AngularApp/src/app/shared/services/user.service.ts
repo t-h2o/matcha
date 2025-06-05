@@ -249,7 +249,11 @@ export class UserService {
   sendUserRegisterData(userData: UserRegister) {
     this.httpService.register(userData).subscribe({
       next: (_data) => {
-        this.router.navigate(['/login']);
+        const successMessage = 'Registration successful! Please check your email to confirm your account.';
+        this.toastService.show(successMessage, 'success');
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 1500);
       },
       error: (error) => {
         if (error.status === 401) {

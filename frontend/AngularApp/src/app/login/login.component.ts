@@ -6,6 +6,7 @@ import { CustomButtonComponent } from '../UI/custom-button/custom-button.compone
 import { AuthService } from '../shared/services/auth.service';
 import { HttpRequestsService } from '../shared/services/http.requests.service';
 import { SocketService } from '../shared/services/socket.service';
+import { ToastService } from '../shared/services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
   private socketService = inject(SocketService);
-  falseCredentials = signal<boolean>(false);
+  private toastService = inject(ToastService);
 
   onSubmit(formData: NgForm) {
     if (formData.invalid) {
@@ -34,7 +35,6 @@ export class LoginComponent {
   }
 
   sendLoginDataToAPI(loginData: { username: string; password: string }) {
-    this.falseCredentials.set(false);
     const subscription = this.httpService.login(loginData).subscribe({
       next: (data) => {
         sessionStorage.setItem('access_token', data.access_token);
@@ -44,7 +44,7 @@ export class LoginComponent {
       },
       error: (error) => {
         if (error.status === 401) {
-          this.falseCredentials.set(true);
+          this.toastService.show(error.error.error, 'error');
         }
       },
       complete: () => {
