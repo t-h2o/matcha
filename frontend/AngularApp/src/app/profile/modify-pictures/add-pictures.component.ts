@@ -19,7 +19,7 @@ export class AddPicturesComponent implements OnInit {
   userProfileData = this.userService.ownProfileData;
 
   maxFiles = 5;
-  maxSizePerFile = 5 * 1024 * 1024;
+  maxSizePerFile = 1 * 1024 * 1024;
   localProfilePicture = '';
   numberOfPicturesUploadable = computed(() => {
     return (
@@ -77,7 +77,7 @@ export class AddPicturesComponent implements OnInit {
   private addFile(file: File) {
     if (file?.size >= this.maxSizePerFile) {
       alert(
-        'File size is too large. Please ensure all files are less than 5MB each.',
+        'File size is too large. Please ensure all files are less than 1MB each.',
       );
       return;
     }
