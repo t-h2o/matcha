@@ -15,7 +15,11 @@ def db_register(username, password, firstname, lastname, email):
         ),
     )
 
-    if error_msg:
-        return {"error": f"User {username} is already registered."}, 401
+    if error_msg is not None:
+        if "users_email_key" in error_msg["error"]:
+            return {"error": f"User {email} is already registered."}, 401
+
+        if "users_username_key" in error_msg["error"]:
+            return {"error": f"User {username} is already registered."}, 401
 
     return {"success": f"User {username} was successfully added"}, 200

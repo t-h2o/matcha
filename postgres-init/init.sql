@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(50) UNIQUE NOT NULL,
     firstname VARCHAR NOT NULL,
     lastname VARCHAR NOT NULL,
-    email VARCHAR NOT NULL,
+    email VARCHAR UNIQUE NOT NULL,
     password VARCHAR NOT NULL,
     profile_complete BOOLEAN DEFAULT FALSE,
     email_verified BOOLEAN DEFAULT FALSE,

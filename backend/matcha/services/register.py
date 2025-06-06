@@ -28,6 +28,9 @@ def services_register(request):
         json["email"],
     )
 
+    if "error" in response[0]:
+        return jsonify(response[0]), response[1]
+
     user_id = db_get_id_where_username(json["username"])
 
     services_confirm(user_id[0])
