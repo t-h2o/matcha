@@ -2,13 +2,9 @@
 
 ENVIRONMENT_FILE=".env"
 
-alias pwgen="docker run \
-	--rm \
-	--interactive \
-	backplane/pwgen \
-	--ambiguous \
-	--capitalize \
-	--secure 20 1"
+create_random() {
+	echo "$(openssl rand -base64 30)"
+}
 
 is_environement_file_already_exist () {
 	if [ -e "${ENVIRONMENT_FILE}" ]
@@ -21,11 +17,11 @@ is_environement_file_already_exist () {
 
 generate_all_variables () {
 	DEVE_POSTGRES_USER=$(whoami)
-	DEVE_POSTGRES_PASSWORD=$(pwgen)
+	DEVE_POSTGRES_PASSWORD=$(create_random)
 	DEVE_POSTGRES_NAME="matcha-db-dev"
 
 	PROD_POSTGRES_USER=$(whoami)
-	PROD_POSTGRES_PASSWORD=$(pwgen)
+	PROD_POSTGRES_PASSWORD=$(create_random)
 	PROD_POSTGRES_NAME="matcha-db-prod"
 }
 
@@ -52,7 +48,7 @@ create_the_environment_file () {
 	DEVE_POSTGRES_NAME=${DEVE_POSTGRES_NAME}
 
 	DEVE_DATABASE_URL=postgres://${DEVE_POSTGRES_USER}:${DEVE_POSTGRES_PASSWORD}@postgres:5432/${DEVE_POSTGRES_NAME}
-	DEVE_FLASK_JWT_SECRET_KEY=$(pwgen)
+	DEVE_FLASK_JWT_SECRET_KEY=$(create_random)
 	DEVE_FLASK_UPLOAD_FOLDER="uploads"
 	DEVE_FLASK_URL="http://localhost:5001"
 
@@ -64,7 +60,7 @@ create_the_environment_file () {
 	PROD_POSTGRES_NAME=${PROD_POSTGRES_NAME}
 
 	PROD_DATABASE_URL=postgres://${PROD_POSTGRES_USER}:${PROD_POSTGRES_PASSWORD}@postgres:5432/${PROD_POSTGRES_NAME}
-	PROD_FLASK_JWT_SECRET_KEY=$(pwgen)
+	PROD_FLASK_JWT_SECRET_KEY=$(create_random)
 	PROD_FLASK_UPLOAD_FOLDER="uploads"
 
 	# Mail
