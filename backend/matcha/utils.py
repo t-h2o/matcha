@@ -51,6 +51,18 @@ def check_request_json(content_type, json, required_fields):
             "error": f"The following fields are required and cannot be empty: {', '.join(missing_fields)}"
         }, 400
 
+    max_lenght: int = 255
+
+    for field in json:
+        if field in ["bio"]:
+            max_lenght = 1024
+        else:
+            max_lenght = 255
+        if type(json[field]) == str and len(json[field]) > max_lenght:
+            return {
+                "error": f"The  field '{field}' is longer than {max_lenght}"
+            }, 400
+
     return None
 
 
