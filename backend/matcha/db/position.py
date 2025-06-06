@@ -21,13 +21,16 @@ def db_update_address(id_user: int, address: dict):
 
 
 def db_get_position(id_user):
-    return db_fetchone("SELECT latitude,longitude FROM users WHERE id = %s", (id_user,))
+    return db_fetchone(
+        "SELECT frontend_latitude,frontend_longitude FROM users WHERE id = %s",
+        (id_user,),
+    )
 
 
 def db_update_position(id_user: int, latitude: float, longitude: float):
     error_msg = db_query(
-        "UPDATE users SET (latitude, longitude) = (%s, %s) WHERE id = %s",
-        (latitude, longitude, id_user),
+        "UPDATE users SET (latitude, longitude, frontend_latitude, frontend_longitude) = (%s, %s, %s, %s) WHERE id = %s",
+        (latitude, longitude, latitude, longitude, id_user),
     )
 
     if error_msg:
