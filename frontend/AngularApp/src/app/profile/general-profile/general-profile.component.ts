@@ -48,7 +48,7 @@ export class GeneralProfileComponent {
       return 'NA';
     }
     if (this.userProfile().bio.length > 300) {
-      return getBio(this.userProfile().bio.substring(0,300) + ' ...');
+      return getBio(this.userProfile().bio.substring(0, 300) + ' ...');
     }
     return getBio(this.userProfile().bio);
   }
@@ -65,7 +65,10 @@ export class GeneralProfileComponent {
   }
 
   get long(): string {
-    if (this.location().longitude === null || this.location().longitude === 999) {
+    if (
+      this.location().longitude === null ||
+      this.location().longitude === 999
+    ) {
       return 'NA';
     }
     return this.location().longitude.toString();
@@ -73,5 +76,5 @@ export class GeneralProfileComponent {
 
   geoLocation = () => {
     this.localizationService.getCurrentPosition();
-  }
+  };
 }
