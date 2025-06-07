@@ -54,7 +54,7 @@ def check_request_json(content_type, json, required_fields):
     max_lenght: int = 255
 
     for field in json:
-        if field in ["bio"]:
+        if field in ["bio", "message"]:
             max_lenght = 1024
         else:
             max_lenght = 255
